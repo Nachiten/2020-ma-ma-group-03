@@ -64,7 +64,7 @@ class CrearUsuario{
     }
 
     private static boolean checkearContrasenia(String password) {
-        return compararContrasMasComunes(password) && verSiTieneMayusculas(password);
+        return compararContrasMasComunes(password) && verSiTieneMayusculas(password) && mideAlmenos8Caracteres(password);
     }
 
     private static boolean compararContrasMasComunes(String password){
@@ -81,6 +81,10 @@ class CrearUsuario{
     private static boolean verSiTieneMayusculas(String password){
         // En desarrollo
         return true;
+    }
+
+    private static boolean mideAlmenos8Caracteres(String contrasenia){
+        return contrasenia.length() >= 8;
     }
 
 }
