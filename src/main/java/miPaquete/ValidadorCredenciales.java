@@ -4,31 +4,31 @@ import java.util.Scanner;
 
 public class ValidadorCredenciales {
 
-    static String pedirPassword(){
+    public static String pedirPassword(){
 
         String password;
         String password2;
 
-            Scanner lectorPantalla = new Scanner(System.in);
-            System.out.println("Insertar Contraseña: ");
-            password = lectorPantalla.nextLine();
+        Scanner lectorPantalla = new Scanner(System.in);
+        System.out.println("Insertar Contraseña: ");
+        password = lectorPantalla.nextLine();
 
-            if (!checkearContraseniaSegura(password)){
-                System.out.println("Esta contraseña no es segura... Intente con otra más larga o menos común. ");
-                pedirPassword();
-            }
-            if (tieneEspacios(password)){
-                System.out.println("La contraseña no puede contener espacios en blanco");
-                pedirPassword();
-            }
+        if (!checkearContraseniaSegura(password)){
+            System.out.println("Esta contraseña no es segura... Intente con otra más larga o menos común. ");
+            pedirPassword();
+        }
+        if (tieneEspacios(password)){
+            System.out.println("La contraseña no puede contener espacios en blanco");
+            pedirPassword();
+        }
 
-            System.out.println("Insertar Contraseña Nuevamente (para asegurar 0 errores): ");
-            password2 = lectorPantalla.nextLine();
+        System.out.println("Insertar Contraseña Nuevamente (para asegurar 0 errores): ");
+        password2 = lectorPantalla.nextLine();
 
-            if(!password.equals(password2)) {
-                System.out.println("Las contraseñas ingresadas no son iguales, ingrese dos nuevas contraseñas iguales. ");
-                pedirPassword();
-            }
+        if(!password.equals(password2)) {
+            System.out.println("Las contraseñas ingresadas no son iguales, ingrese dos nuevas contraseñas iguales. ");
+            pedirPassword();
+        }
 
         return password;
     }
