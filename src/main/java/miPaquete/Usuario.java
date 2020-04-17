@@ -1,6 +1,6 @@
 package miPaquete;
 
-// IDEA PARA LOS USUARIOS
+// IDEA PARA LOS USUARIOS | NO IMPLEMENTADA EN NINGUN LADO By: Nachiten
 public class Usuario{
 
     static UsuarioEstandar crearUsuarioEstandar(String unUser, String unaContra){
