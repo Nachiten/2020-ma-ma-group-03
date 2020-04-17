@@ -2,17 +2,13 @@ package miPaquete;
 
 import java.util.Scanner;
 
-public class main {
+public class Principal {
 
     public static void main(String[ ] args) {
         menuPrincipal();
     }
 
     public static void menuPrincipal(){
-
-        User.generarUsersDePrueba();
-
-        //UserList.retornarLista();
 
         // Lector de consola
         Scanner lectorPantalla = new Scanner(System.in);
@@ -33,7 +29,7 @@ public class main {
                 System.exit(1);  // | 1 = Cerrado por el usuario
                 break;
             case 1:
-                UserHandler.crearNuevoUsuario();
+                UserHandler.iniciarCrearNuevoUsuario();
                 break;
             case 2:
                 UserHandler.iniciarLogin();

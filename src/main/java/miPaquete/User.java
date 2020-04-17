@@ -13,13 +13,15 @@ public class User {
         tipo = tipoUser;
     }
 
+    /*
     public static void generarUsersDePrueba(){
-        UserHandler.crearNuevoUsuario("Nachiten","zxcpkazxm","Admin");
-        UserHandler.crearNuevoUsuario("Noelia","abcdef","Estandar");
-        UserHandler.crearNuevoUsuario("Nicolas","holache","Estandar");
-        UserHandler.crearNuevoUsuario("Maxi","unaContra","Admin");
-        UserHandler.crearNuevoUsuario("Carlos","otraContra","Admin");
+        UserHandler.crearUsuario("Nachiten","zxcpkazxm","Admin");
+        UserHandler.crearUsuario("Noelia","abcdef","Estandar");
+        UserHandler.crearUsuario("Nicolas","holache","Estandar");
+        UserHandler.crearUsuario("Maxi","unaContra","Admin");
+        UserHandler.crearUsuario("Carlos","otraContra","Admin");
     }
+    */ // Esto va en un test, no aca
 }
 
 

@@ -38,14 +38,49 @@ public class UserHandler {
 
         System.out.println("Credenciales ACEPTADAS :D");
         // Volver al menu principal luego de loguearse | Aca se debe acceder al sistema
-        main.menuPrincipal();
+        Principal.menuPrincipal();
     }
 
-    public static void crearNuevoUsuario(String usuario, String contrasenia, String tipoUser){
+    public static void iniciarCrearNuevoUsuario(){
+
+        // Lector de consola
+        Scanner lectorPantalla = new Scanner(System.in);
+
+        System.out.println("Elija Opción: Volver = 0; Crear usuario Estándar = 1; Crear Usuario Admin = 2 \n Inserte un número: ");
+        int decision = lectorPantalla.nextInt();
+
+        // Checkeo de numero valido
+        if (decision != 0 && decision!= 1 && decision != 2){
+            System.out.println("No ingresó un número válido, por favor ingrese correctamente un número.");
+            iniciarCrearNuevoUsuario();
+        }
+
+        if (decision == 0) Principal.menuPrincipal();
+
+        String nuevoNombre = ValidadorCredenciales.pedirNombre();
+        String nuevaPassword = ValidadorCredenciales.pedirPassword();
+
+        String tipoUsuario = "Estandar";
+
+        if (decision == 2) tipoUsuario = "Admin";
+        crearUsuario(nuevoNombre, nuevaPassword, tipoUsuario);
+
+        if (encontrarUsuario(nuevoNombre)){
+            System.out.println("El usuario de nombre: " + nuevoNombre + " fue creado correctamente. Tipo: " + tipoUsuario);
+        } else {
+            System.out.println("El usuario no fue creado correctamente");
+            // Usar excepcion aca
+        }
+
+        // Volver al menu principal
+        Principal.menuPrincipal();
+    }
+
+    private static void crearUsuario(String usuario, String contrasenia, String tipoUser){
         listaUsuarios.add( new User(usuario, contrasenia, tipoUser) );
     }
 
-    public static boolean encontrarUsuario(String unNombre){
+    private static boolean encontrarUsuario(String unNombre){
 
         for ( User unUser : listaUsuarios ) {
             if ( unUser.user.equals(unNombre) ) {
@@ -55,7 +90,7 @@ public class UserHandler {
         return false;
     }
 
-    public static boolean checkearContrasenia(String laPassword, String usuario){
+    private static boolean checkearContrasenia(String laPassword, String usuario){
 
         User elUsuario = new User("0","0","0");
 
@@ -75,45 +110,5 @@ public class UserHandler {
         // Retornar si la contra es correcta o no
         return elUsuario.password.equals(laPassword);
     }
-
-    public static void crearNuevoUsuario(){
-
-        // Lector de consola
-        Scanner lectorPantalla = new Scanner(System.in);
-
-        System.out.println("Elija Opción: Volver = 0; Crear usuario Estándar = 1; Crear Usuario Admin = 2 \n Inserte un número: ");
-        int decision = lectorPantalla.nextInt();
-
-        // Checkeo de numero valido
-        if (decision != 0 && decision!= 1 && decision != 2){
-            System.out.println("No ingresó un número válido, por favor ingrese correctamente un número.");
-            crearNuevoUsuario();
-        }
-
-        if (decision == 0) main.menuPrincipal();
-
-        String nuevoNombre = ValidadorCredenciales.pedirNombre();
-        String nuevaPassword = ValidadorCredenciales.pedirPassword();
-
-        String tipoUsuario = "Estandar";
-
-        if (decision == 2) tipoUsuario = "Admin";
-        crearNuevoUsuario(nuevoNombre, nuevaPassword, tipoUsuario);
-
-
-        if (encontrarUsuario(nuevoNombre)){
-            System.out.println("El usuario de nombre: " + nuevoNombre + " fue creado correctamente. Tipo: " + tipoUsuario);
-        } else {
-            System.out.println("El usuario no fue creado correctamente");
-            // Usar excepcion aca
-        }
-
-        // Volver al menu principal
-        main.menuPrincipal();
-    }
-
-
-
-
 
 }
