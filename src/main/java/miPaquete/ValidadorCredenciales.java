@@ -33,6 +33,20 @@ public class ValidadorCredenciales {
         return password;
     }
 
+    static String pedirNombre(){
+        Scanner lectorPantalla = new Scanner(System.in);
+        System.out.println("Insertar nombre de usuario: ");
+
+        String usuario = lectorPantalla.nextLine();
+
+        if (tieneEspacios(usuario)){
+            System.out.println("El usuario no puede contener espacios en blanco");
+            pedirNombre();
+        }
+
+        return usuario;
+    }
+
     private static boolean tieneEspacios(String password){
         boolean espacios = false;
         int i = 0;
@@ -72,21 +86,4 @@ public class ValidadorCredenciales {
         //TODO Usar expresiones regulares
         return true;
     }
-
-    static String pedirNombre(){
-        Scanner lectorPantalla = new Scanner(System.in);
-        System.out.println("Insertar nombre de usuario: ");
-
-        String usuario = lectorPantalla.nextLine();
-
-        if (tieneEspacios(usuario)){
-            System.out.println("El usuario no puede contener espacios en blanco");
-            pedirNombre();
-        }
-
-        return usuario;
-    }
-
-
-
 }
