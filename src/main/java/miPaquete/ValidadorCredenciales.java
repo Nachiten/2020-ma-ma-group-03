@@ -15,11 +15,13 @@ public class ValidadorCredenciales {
 
             if (!checkearContraseniaSegura(password)){
                 System.out.println("Esta contraseña no es segura... Intente con otra más larga o menos común. ");
-                pedirPassword();
+                password = pedirPassword();
+                return password;
             }
             if (tieneEspacios(password)){
                 System.out.println("La contraseña no puede contener espacios en blanco");
-                pedirPassword();
+                password = pedirPassword();
+                return password;
             }
 
             System.out.println("Insertar Contraseña Nuevamente (para asegurar 0 errores): ");
@@ -27,7 +29,8 @@ public class ValidadorCredenciales {
 
             if(!password.equals(password2)) {
                 System.out.println("Las contraseñas ingresadas no son iguales, ingrese dos nuevas contraseñas iguales. ");
-                pedirPassword();
+                password = pedirPassword();
+                return password;
             }
 
         return password;
