@@ -17,6 +17,8 @@ class UsuarioEstandar extends Usuario {
     String password;
     static int unNumero = 3;
 
+
+
     UsuarioEstandar(String unUsuario, String unaContra){
         user = unUsuario;
         password = unaContra;
