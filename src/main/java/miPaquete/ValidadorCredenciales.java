@@ -14,7 +14,7 @@ public class ValidadorCredenciales {
         password = lectorPantalla.nextLine();
 
         if (!checkearContraseniaSegura(password)){
-            System.out.println("Esta contraseña no es segura... Intente con otra más larga o menos común. ");
+            System.out.println("Esta contraseña no es segura... Intente con al menos una mayúscula, 8 letras y un número. ");
             password = pedirPassword();
             return password;
         }
@@ -52,11 +52,11 @@ public class ValidadorCredenciales {
     }
 
     private static boolean checkearContraseniaSegura(String password) {
-        return compararContrasMasComunes(password) && verSiTieneMayusculas(password) && verSiTieneNumeros(password);
+        return compararContrasMasComunes(password) && verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoLetras(password);
     }
 
     private static boolean compararContrasMasComunes(String password){
-        String[] contrasMasComunes = { "password" , "123456" , "12345678" , "1234", "qwerty", "12345", "dragon", "baseball", "football", "letmein", "0" };
+        String[] contrasMasComunes = { "password" , "123456" , "12345678" , "1234", "qwerty", "12345", "dragon", "baseball", "football", "letmein", "0", "hola1234" };
 
         for (String unaContra : contrasMasComunes) {
             if ( unaContra.equals(password) ) {
@@ -68,11 +68,43 @@ public class ValidadorCredenciales {
 
     private static boolean verSiTieneMayusculas(String password){
         //TODO Hacer esto
-        return true;
+        char clave;
+        int contador = 0;
+        for (byte i = 0; i < password.length(); i++) {
+            clave = password.charAt(i);
+            String passValue = String.valueOf(clave);
+            if (passValue.matches("[A-Z]")) {
+                contador++;
+            }
+        }
+        if(contador > 0){
+            return true;
+        }
+        return false;
     }
 
     private static boolean verSiTieneNumeros(String password){
         //TODO Usar expresiones regulares
-        return true;
-    }
+            char unaClave;
+            int otroContador = 0;
+            for (byte i = 0; i < password.length(); i++) {
+                unaClave = password.charAt(i);
+                String passValue = String.valueOf(unaClave);
+                if (passValue.matches("[0-9]")) {
+                    otroContador++;
+                }
+            }
+        if(otroContador > 0){
+            return true;
+        }
+        return false;
+     }
+
+     private  static  Boolean tieneAlMenosOchoLetras(String password){
+         if(password.length()>=8){
+             return true;
+         }else{
+             return false;
+         }
+     }
 }

@@ -49,14 +49,14 @@ under the License.
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://C:/Users/ignac/.m2/repository/junit/junit/4.12/junit-4.12.jar!/"/>
+          <root url="jar://C:/Users/carvillav/.m2/repository/junit/junit/4.12/junit-4.12.jar!/"/>
         </CLASSES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://C:/Users/ignac/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/"/>
+          <root url="jar://C:/Users/carvillav/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/"/>
         </CLASSES>
       </library>
     </orderEntry>
