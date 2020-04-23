@@ -36,22 +36,20 @@ public class ValidadorCredenciales {
         return password;
     }
 
-    private static boolean tieneEspacios(String password){
-        boolean espacios = false;
+    public static boolean tieneEspacios(String password){
         int i = 0;
 
         while ((i < password.length())) {
             if (password.charAt(i) != ' ') {
                 i++;
             } else {
-                espacios = true;
-                break;
+                return true;
             }
         }
-        return espacios;
+        return false;
     }
 
-    private static boolean checkearContraseniaSegura(String password) {
+    public static boolean checkearContraseniaSegura(String password) {
         return compararContrasMasComunes(password) && verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoLetras(password);
     }
 
@@ -67,44 +65,29 @@ public class ValidadorCredenciales {
     }
 
     private static boolean verSiTieneMayusculas(String password){
-        //TODO Hacer esto
-        char clave;
-        int contador = 0;
-        for (byte i = 0; i < password.length(); i++) {
-            clave = password.charAt(i);
-            String passValue = String.valueOf(clave);
-            if (passValue.matches("[A-Z]")) {
-                contador++;
-            }
-        }
-        if(contador > 0){
-            return true;
-        }
-        return false;
+        return mathearPattern(password, "[A-Z]");
     }
 
     private static boolean verSiTieneNumeros(String password){
-        //TODO Usar expresiones regulares
-            char unaClave;
-            int otroContador = 0;
-            for (byte i = 0; i < password.length(); i++) {
-                unaClave = password.charAt(i);
-                String passValue = String.valueOf(unaClave);
-                if (passValue.matches("[0-9]")) {
-                    otroContador++;
-                }
-            }
-        if(otroContador > 0){
-            return true;
-        }
-        return false;
+        return mathearPattern(password, "[0-9]");
+     }
+
+     private static boolean mathearPattern(String password, String pattern){
+         char unaClave;
+
+         for (byte i = 0; i < password.length(); i++) {
+             unaClave = password.charAt(i);
+             String passValue = String.valueOf(unaClave);
+             if (passValue.matches(pattern)) {
+                 return true;
+             }
+         }
+
+         return false;
+
      }
 
      private  static  Boolean tieneAlMenosOchoLetras(String password){
-         if(password.length()>=8){
-             return true;
-         }else{
-             return false;
-         }
+        return password.length() >= 8;
      }
 }
