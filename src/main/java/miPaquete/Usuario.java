@@ -15,9 +15,6 @@ public class Usuario{
 class UsuarioEstandar extends Usuario {
     String user;
     String password;
-    static int unNumero = 3;
-
-
 
     UsuarioEstandar(String unUsuario, String unaContra){
         user = unUsuario;
@@ -28,12 +25,9 @@ class UsuarioEstandar extends Usuario {
         return true;
     }
 
-    int metodoPrueba(){
-        return unNumero + 3;
-    }
 }
 
-class UsuarioAdmin extends Usuario{
+class UsuarioAdmin extends Usuario {
     String user;
     String password;
 
