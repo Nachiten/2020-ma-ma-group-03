@@ -1,6 +1,6 @@
 package miTest;
 
-import miPaquete.*;
+import miPaquete.ValidadorCredenciales;
 import org.junit.Assert;
 import org.junit.Test;
 

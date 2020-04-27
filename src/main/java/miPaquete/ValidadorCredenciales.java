@@ -1,5 +1,6 @@
 package miPaquete;
 
+import java.nio.charset.Charset;
 import java.util.Scanner;
 
 public class ValidadorCredenciales {
@@ -75,8 +76,8 @@ public class ValidadorCredenciales {
      private static boolean mathearPattern(String password, String pattern){
          char unaClave;
 
-         for (byte i = 0; i < password.length(); i++) {
-             unaClave = password.charAt(i);
+         for (byte i : password.getBytes(Charset.forName("UTF-8")) ) {
+             unaClave = (char)i;
              String passValue = String.valueOf(unaClave);
              if (passValue.matches(pattern)) {
                  return true;
