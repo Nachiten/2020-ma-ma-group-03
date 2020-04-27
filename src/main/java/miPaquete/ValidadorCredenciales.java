@@ -87,7 +87,7 @@ public class ValidadorCredenciales {
 
      }
 
-     private  static  Boolean tieneAlMenosOchoLetras(String password){
+     private static boolean tieneAlMenosOchoLetras(String password){
         return password.length() >= 8;
      }
 }
