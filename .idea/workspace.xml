@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="994dad22-8417-4551-b9b4-410c464e966c" name="Default Changelist" comment="[Mod] Tester.java Agregados tests sobre contrasenias seguras y no seguras y tambien con y sin espacios; [Mod] ValidadorCredenciales mejorado declaratividad de codigo hecho por Carlos, mejorada declaratividad de 'tieneEspacios'; [Mod] misc.xml (por favor todos usar version de jdk 1.8.0_251);">
+      <change afterPath="$PROJECT_DIR$/2020-ma-ma-group-03.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/miPaquete/ValidadorCredenciales.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/miPaquete/ValidadorCredenciales.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Nachiten &amp; Nicolas" />
+      </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1aPIzfnKUOoRN0aJEzPCTSL3A8u" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.spelling" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="miPaquete" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Principal">
+    <configuration name="Diseño Principal" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="miPaquete.Principal" />
+      <module name="proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="miPaquete.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="miPaquete.Principal" />
+      <module name="proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="miPaquete.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="miPaquete.main" />
+      <module name="proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="miPaquete.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Diseño Test" type="JUnit" factoryName="JUnit" temporary="true">
+      <module name="proyecto" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="miTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="miTest" />
+      <option name="MAIN_CLASS_NAME" value="miTest.Tester" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tester" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="miTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="miTest" />
+      <option name="MAIN_CLASS_NAME" value="miTest.Tester" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Diseño Principal" />
+      <item itemvalue="Application.Principal" />
+      <item itemvalue="Application.main" />
+      <item itemvalue="JUnit.Diseño Test" />
+      <item itemvalue="JUnit.Tester" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.Tester" />
+        <item itemvalue="Application.main" />
+        <item itemvalue="Application.Principal" />
+        <item itemvalue="JUnit.Diseño Test" />
+        <item itemvalue="Application.Diseño Principal" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="32" BundledDictionary0="@types.dic" BundledDictionary1="lodash.dic" BundledDictionary2="eslint-config-airbnb.dic" BundledDictionary3="jetbrains.dic" BundledDictionary4="firebase.dic" BundledDictionary5="english.dic" BundledDictionary6="vuex.dic" BundledDictionary7="eslint.dic" BundledDictionary8="redux.dic" BundledDictionary9="less.dic" BundledDictionary10="core-js.dic" BundledDictionary11="express.dic" BundledDictionary12="prettier.dic" BundledDictionary13="angular.dic" BundledDictionary14="rxjs.dic" BundledDictionary15="vuetify.dic" BundledDictionary16="css.dic" BundledDictionary17="request.dic" BundledDictionary18="zone.js.dic" BundledDictionary19="@angular.dic" BundledDictionary20="async.dic" BundledDictionary21="bluebird.dic" BundledDictionary22="_javascript.dic" BundledDictionary23="cloudfront.dic" BundledDictionary24="android.dic" BundledDictionary25="struts2.dic" BundledDictionary26="/resources/dictionaries/spring.dic" BundledDictionary27="graphql.dic" BundledDictionary28="javascript.dic" BundledDictionary29="heroku.dic" BundledDictionary30="vue.dic" BundledDictionary31="debug.dic" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="994dad22-8417-4551-b9b4-410c464e966c" name="Default Changelist" comment="" />
+      <created>1586631073488</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586631073488</updated>
+      <workItem from="1586631102253" duration="2235000" />
+      <workItem from="1586639489059" duration="719000" />
+      <workItem from="1586642474468" duration="124000" />
+      <workItem from="1586642680858" duration="1109000" />
+      <workItem from="1586871021774" duration="353000" />
+      <workItem from="1586872170950" duration="841000" />
+      <workItem from="1586874966679" duration="1372000" />
+      <workItem from="1586884836746" duration="1793000" />
+      <workItem from="1586887332631" duration="5350000" />
+      <workItem from="1586989100334" duration="95000" />
+      <workItem from="1586989223635" duration="382000" />
+      <workItem from="1587004507176" duration="44000" />
+      <workItem from="1587080720927" duration="518000" />
+      <workItem from="1587145400296" duration="7052000" />
+      <workItem from="1587152621721" duration="4116000" />
+      <workItem from="1587219537636" duration="118000" />
+      <workItem from="1587251056604" duration="257000" />
+      <workItem from="1587320237274" duration="1683000" />
+      <workItem from="1587323777946" duration="180000" />
+      <workItem from="1587386096839" duration="1673000" />
+      <workItem from="1587497580429" duration="3744000" />
+      <workItem from="1587674197281" duration="533000" />
+      <workItem from="1587674779185" duration="2217000" />
+      <workItem from="1587853014636" duration="488000" />
+      <workItem from="1587853892565" duration="13000" />
+      <workItem from="1587853932662" duration="1262000" />
+      <workItem from="1587855415629" duration="72000" />
+      <workItem from="1587948903216" duration="414000" />
+      <workItem from="1587949390286" duration="45000" />
+      <workItem from="1587951288659" duration="640000" />
+      <workItem from="1588077084634" duration="653000" />
+      <workItem from="1588079820437" duration="38000" />
+      <workItem from="1588089166485" duration="833000" />
+      <workItem from="1588094852539" duration="40000" />
+    </task>
+    <task id="LOCAL-00001" summary="Agregado proyecto Maven. Acutalizado pom.xml; Añadida dependencia del junit.">
+      <created>1586643209024</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1586643209024</updated>
+    </task>
+    <task id="LOCAL-00002" summary="[Mod] .gitignore para ignorar carpeta target.">
+      <created>1586643319053</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1586643319053</updated>
+    </task>
+    <task id="LOCAL-00003" summary="[Mod]CrearUsuario.java Agregado checkeo de longitud de mas de 8 caracteres a la contraseña al crearla.">
+      <created>1586643738811</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1586643738811</updated>
+    </task>
+    <task id="LOCAL-00004" summary="[Add] UserHandler.java; [Add] ValidadorCredenciales.java; [Rename] Sistema.java -&gt; main.java; [Rename] Users.java -&gt; User.java.; [Mod] main.java para quitar whiles innecesarios;">
+      <created>1587151783271</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1587151783271</updated>
+    </task>
+    <task id="LOCAL-00005" summary="[main.java] renombrado crearNuevoUsuario a iniciarCrearNuevoUsuario; [User.java] comentarizado generarUsersDePrueba para futura implementacion de Tests; [UserHandler.java] renombrados y movidos varios metodos; [ValidadorCredenciales.java] movido metodo pedirNombre. [main.java -&gt; Principal.java].">
+      <created>1587154601962</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1587154601962</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Eliminado clase anterior (main.java) fue renombrada a Principal.java">
+      <created>1587155004229</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1587155004229</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Agregado comentario">
+      <created>1587155215868</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1587155215868</updated>
+    </task>
+    <task id="LOCAL-00008" summary="[Importante] Vuelto a punto de SOLO SISTEMA DE CHCKEAR CONTRASEÑA. Cambios posteriores encontrados en branch 'desarrollo'">
+      <created>1587156678879</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1587156678879</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[Mod] Usuario.java">
+      <created>1587497682576</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1587497682576</updated>
+    </task>
+    <task id="LOCAL-00010" summary="[Mod] Usuario.java">
+      <created>1587674333985</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1587674333985</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[Mod] Tester.java Agregados tests sobre contrasenias seguras y no seguras y tambien con y sin espacios; [Mod] ValidadorCredenciales mejorado declaratividad de codigo hecho por Carlos, mejorada declaratividad de 'tieneEspacios'; [Mod] misc.xml (por favor todos usar version de jdk 1.8.0_251);">
+      <created>1587679180774</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1587679180774</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Modificado retorno a boolean">
+      <created>1587949173762</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1587949173762</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Agregado proyecto Maven. Acutalizado pom.xml; Añadida dependencia del junit." />
+    <MESSAGE value="[Mod] .gitignore para ignorar carpeta target." />
+    <MESSAGE value="[Mod]CrearUsuario.java Agregado checkeo de longitud de mas de 8 caracteres a la contraseña al crearla." />
+    <MESSAGE value="[Add] UserHandler.java; [Add] ValidadorCredenciales.java; [Rename] Sistema.java -&gt; main.java; [Rename] Users.java -&gt; User.java.; [Mod] main.java para quitar whiles innecesarios;" />
+    <MESSAGE value="[main.java] renombrado crearNuevoUsuario a iniciarCrearNuevoUsuario; [User.java] comentarizado generarUsersDePrueba para futura implementacion de Tests; [UserHandler.java] renombrados y movidos varios metodos; [ValidadorCredenciales.java] movido metodo pedirNombre." />
+    <MESSAGE value="[main.java] renombrado crearNuevoUsuario a iniciarCrearNuevoUsuario; [User.java] comentarizado generarUsersDePrueba para futura implementacion de Tests; [UserHandler.java] renombrados y movidos varios metodos; [ValidadorCredenciales.java] movido metodo pedirNombre. [main.java -&gt; Principal.java]." />
+    <MESSAGE value="[main.java] Eliminadas lineas innecesarias" />
+    <MESSAGE value="Eliminado clase anterior (main.java) fue renombrada a Principal.java" />
+    <MESSAGE value="Agregado comentario" />
+    <MESSAGE value="[Importante] Vuelto a punto de SOLO SISTEMA DE CHCKEAR CONTRASEÑA. Cambios posteriores encontrados en branch 'desarrollo'" />
+    <MESSAGE value="[Mod] ValidadorCredenciales.java" />
+    <MESSAGE value="[Mod] Usuario.java" />
+    <MESSAGE value="[Mod] Tester.java Agregados tests sobre contrasenias seguras y no seguras y tambien con y sin espacios; [Mod] ValidadorCredenciales mejorado declaratividad de codigo hecho por Carlos, mejorada declaratividad de 'tieneEspacios'; [Mod] misc.xml (por favor todos usar version de jdk 1.8.0_251);" />
+    <MESSAGE value="Modificado retorno a boolean" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modificado retorno a boolean" />
+    <option name="GROUP_MULTIFILE_MERGE_BY_DIRECTORY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#Project_Structure" timestamp="1586631187303">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Project_Structure/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586631187303" />
+    <state x="1751" y="-263" width="1092" height="691" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587949244776">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="274" y="37" width="1092" height="691" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587320775640" />
+    <state x="1751" y="-263" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587949244776" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586643076903" />
+    <state x="555" y="215" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1587949316702">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="555" y="215" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587949316702" />
+    <state x="2117" y="51" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587674809996" />
+    <state x="287" y="0" key="#com.intellij.openapi.projectRoots.ui.ProjectJdksEditor" timestamp="1587949315049">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="287" y="0" key="#com.intellij.openapi.projectRoots.ui.ProjectJdksEditor/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587949315049" />
+    <state x="1642" y="68" width="408" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1587323874032">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="1642" y="68" width="408" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587323874032" />
+    <state x="571" y="274" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1587320483917">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="571" y="274" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587320483917" />
+    <state x="2169" y="76" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587080748902" />
+    <state x="1825" y="-315" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587153667620">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="1825" y="-315" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587153667620" />
+    <state x="2008" y="-62" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587155316529">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="2008" y="-62" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587155316529" />
+    <state x="155" y="0" width="1114" height="728" key="CommitChangelistDialog2" timestamp="1587951927764">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="155" y="0" width="1114" height="728" key="CommitChangelistDialog2/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587951927764" />
+    <state x="1725" y="-1" width="1352" height="645" key="CommitChangelistDialog2/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587949000010" />
+    <state x="577" y="113" key="CommitChangelistDialog2/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586643737201" />
+    <state x="2041" y="-134" key="FileChooserDialogImpl" timestamp="1587853903992">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="542" y="134" key="FileChooserDialogImpl/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587388701740" />
+    <state x="2041" y="-134" key="FileChooserDialogImpl/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587853903992" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586639622382" />
+    <state width="914" height="91" key="GridCell.Tab.0.bottom" timestamp="1587855195438">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587321920859" />
+    <state width="914" height="91" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587855195438" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586643791292" />
+    <state width="914" height="91" key="GridCell.Tab.0.center" timestamp="1587855195437">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.0.center/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587321920858" />
+    <state width="914" height="91" key="GridCell.Tab.0.center/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587855195437" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586643791292" />
+    <state width="914" height="91" key="GridCell.Tab.0.left" timestamp="1587855195437">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.0.left/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587321920858" />
+    <state width="914" height="91" key="GridCell.Tab.0.left/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587855195437" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586643791292" />
+    <state width="914" height="91" key="GridCell.Tab.0.right" timestamp="1587855195438">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.0.right/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587321920859" />
+    <state width="914" height="91" key="GridCell.Tab.0.right/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587855195438" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586643791292" />
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1587321920860">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587321920860" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587156741737" />
+    <state width="1323" height="223" key="GridCell.Tab.1.center" timestamp="1587321920859">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.center/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587321920859" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587156741737" />
+    <state width="1323" height="223" key="GridCell.Tab.1.left" timestamp="1587321920859">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.left/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587321920859" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587156741737" />
+    <state width="1323" height="223" key="GridCell.Tab.1.right" timestamp="1587321920859">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587321920859" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587156741737" />
+    <state x="56" y="56" width="1289" height="635" key="MergeDialog" timestamp="1587951730219">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="56" y="56" width="1289" height="635" key="MergeDialog/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587951730219" />
+    <state x="1443" y="-100" width="1811" height="618" key="MergeDialog/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587154658177" />
+    <state x="445" y="117" width="1218" height="567" key="MultipleFileMergeDialog" timestamp="1587951731184">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="445" y="117" key="MultipleFileMergeDialog/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587951731184" />
+    <state x="1677" y="-64" width="1218" height="567" key="MultipleFileMergeDialog/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587498679844" />
+    <state x="184" y="6" key="SettingsEditor" timestamp="1586876329068">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="6" key="SettingsEditor/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1586876329068" />
+    <state x="149" y="162" width="1223" height="557" key="Vcs.Push.Dialog.v2" timestamp="1587949176350">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="149" y="162" key="Vcs.Push.Dialog.v2/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587949176350" />
+    <state x="1576" y="-83" width="1223" height="557" key="Vcs.Push.Dialog.v2/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587679182353" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586643744682" />
+    <state x="2022" y="29" key="com.intellij.ide.util.TipDialog" timestamp="1588096821426">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="420" y="205" key="com.intellij.ide.util.TipDialog/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1588094881038" />
+    <state x="2022" y="29" key="com.intellij.ide.util.TipDialog/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1588096821426" />
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1366.306.1366.728@0.0.1920.1040" timestamp="1586639529228" />
+    <state x="2020" y="81" width="382" height="169" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587498671460">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="531" y="269" width="382" height="169" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587320256912" />
+    <state x="2020" y="81" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587498671460" />
+    <state x="2234" y="-169" width="737" height="804" key="find.popup" timestamp="1586885762013">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="2234" y="-169" width="737" height="804" key="find.popup/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1586885762013" />
+    <state x="527" y="161" width="419" height="398" key="git4idea.branch.GitSmartOperationDialog" timestamp="1587951605509">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="527" y="161" width="419" height="398" key="git4idea.branch.GitSmartOperationDialog/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1587951605509" />
+    <state x="1812" y="-122" width="437" height="568" key="git4idea.branch.GitSmartOperationDialog/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587854419677" />
+    <state x="131" y="0" key="new project wizard" timestamp="1588079860038">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="131" y="0" key="new project wizard/0.0.1366.728/1366.-315.1920.1040@0.0.1366.728" timestamp="1588079860038" />
+    <state x="1708" y="-175" key="new project wizard/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1586989202706" />
+    <state x="1989" y="-90" width="672" height="678" key="search.everywhere.popup" timestamp="1587854190673">
+      <screen x="1366" y="-315" width="1920" height="1040" />
+    </state>
+    <state x="1989" y="-90" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.-315.1920.1040@1366.-315.1920.1040" timestamp="1587854190673" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/proyecto$main.ic" NAME="main Coverage Results" MODIFIED="1587320731767" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>miPaquete.*</FILTER>
+    </SUITE>
+  </component>
+</project>
