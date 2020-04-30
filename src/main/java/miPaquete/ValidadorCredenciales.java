@@ -1,5 +1,7 @@
 package miPaquete;
 
+import java.time.LocalDate;
+import java.util.*;
 import java.nio.charset.Charset;
 import java.util.Scanner;
 
@@ -9,12 +11,13 @@ public class ValidadorCredenciales {
 
         String password;
         String password2;
+        List<String> comunes = new ArrayList<>(Arrays.asList("password","123456","12345678","1234","qwerty"));
 
         Scanner lectorPantalla = new Scanner(System.in);
         System.out.println("Insertar Contraseña: ");
         password = lectorPantalla.nextLine();
 
-        if (!checkearContraseniaSegura(password)){
+        if (!checkearContraseniaSegura(password, comunes)){
             System.out.println("Esta contraseña no es segura... Intente con al menos una mayúscula, 8 letras y un número. ");
             password = pedirPassword();
             return password;
@@ -50,20 +53,11 @@ public class ValidadorCredenciales {
         return false;
     }
 
-    public static boolean checkearContraseniaSegura(String password) {
-        return compararContrasMasComunes(password) && verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoLetras(password);
+    public static boolean checkearContraseniaSegura(String password, List<String> comunes) {
+        return verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoLetras(password) && !esComun(password, comunes);
     }
 
-    private static boolean compararContrasMasComunes(String password){
-        String[] contrasMasComunes = { "password" , "123456" , "12345678" , "1234", "qwerty", "12345", "dragon", "baseball", "football", "letmein", "0", "hola1234" };
-
-        for (String unaContra : contrasMasComunes) {
-            if ( unaContra.equals(password) ) {
-                return false;
-            }
-        }
-        return true;
-    }
+    public static boolean esComun(String password, List<String> comunes){ return comunes.contains(password); }
 
     private static boolean verSiTieneMayusculas(String password){
         return mathearPattern(password, "[A-Z]");
@@ -91,4 +85,8 @@ public class ValidadorCredenciales {
      private static boolean tieneAlMenosOchoLetras(String password){
         return password.length() >= 8;
      }
+
+    public boolean rotar(LocalDate fecha1, LocalDate fecha2) {
+        return fecha1.equals(fecha2);
+    }
 }

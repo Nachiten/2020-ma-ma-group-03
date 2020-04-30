@@ -4,21 +4,27 @@ import miPaquete.ValidadorCredenciales;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Tester {
+    List<String> comunes = new ArrayList<>(Arrays.asList("password","123456","12345678","1234","qwerty","holaaaaa","Hola123","HolaAAAA","HolaAAAA","comoestas123"));
 
     @Test
     public void contraseniasNOSeguras(){
-        Assert.assertFalse(ValidadorCredenciales.checkearContraseniaSegura("holaaaaa")); // No tiene ni mayus ni nuimero
-        Assert.assertFalse(ValidadorCredenciales.checkearContraseniaSegura("Hola123")); // No son 8 caracteres
-        Assert.assertFalse(ValidadorCredenciales.checkearContraseniaSegura("HolaAAAA")); // Falta numero
-        Assert.assertFalse(ValidadorCredenciales.checkearContraseniaSegura("comoestas123")); // Falta mayus
+        Assert.assertFalse(ValidadorCredenciales.checkearContraseniaSegura("holaaaaa", comunes)); // No tiene ni mayus ni nuimero
+        Assert.assertFalse(ValidadorCredenciales.checkearContraseniaSegura("Hola123", comunes)); // No son 8 caracteres
+        Assert.assertFalse(ValidadorCredenciales.checkearContraseniaSegura("HolaAAAA", comunes)); // Falta numero
+        Assert.assertFalse(ValidadorCredenciales.checkearContraseniaSegura("comoestas123", comunes)); // Falta mayus
     }
 
     @Test
     public void contraseniasSeguras(){
-        Assert.assertTrue(ValidadorCredenciales.checkearContraseniaSegura("HolA12345"));
-        Assert.assertTrue(ValidadorCredenciales.checkearContraseniaSegura("chAu2138"));
-        Assert.assertTrue(ValidadorCredenciales.checkearContraseniaSegura("queTePa7a"));
+        Assert.assertTrue(ValidadorCredenciales.checkearContraseniaSegura("HolA12345", comunes));
+        Assert.assertTrue(ValidadorCredenciales.checkearContraseniaSegura("chAu2138", comunes));
+        Assert.assertTrue(ValidadorCredenciales.checkearContraseniaSegura("queTePa7a", comunes));
     }
 
     @Test
