@@ -6,6 +6,9 @@ public class ValidadorCredenciales {
 
     public static String pedirPassword(){
 
+        Usuario unUsuario = new Admin("Nacho", "zxcpkazxm");
+        Usuario unUsuario2 = new Estandar("Noelia", "1234zxc");
+
         String password;
         String password2;
 
