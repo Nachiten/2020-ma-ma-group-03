@@ -1,8 +1,8 @@
 package miPaquete;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
-import java.nio.charset.Charset;
 import java.util.Scanner;
 
 public class ValidadorCredenciales {
@@ -57,7 +57,7 @@ public class ValidadorCredenciales {
         return verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoLetras(password) && !esComun(password, comunes);
     }
 
-    public static boolean esComun(String password, List<String> comunes){ return comunes.contains(password); }
+    private static boolean esComun(String password, List<String> comunes){ return comunes.contains(password); }
 
     private static boolean verSiTieneMayusculas(String password){
         return mathearPattern(password, "[A-Z]");
@@ -67,22 +67,23 @@ public class ValidadorCredenciales {
         return mathearPattern(password, "[0-9]");
      }
 
-     private static boolean mathearPattern(String password, String pattern){
-         char unaClave;
+    private static boolean mathearPattern(String password, String pattern){
+        char unaClave;
 
-         for (byte i : password.getBytes(Charset.forName("UTF-8")) ) {
-             unaClave = (char)i;
-             String passValue = String.valueOf(unaClave);
-             if (passValue.matches(pattern)) {
-                 return true;
-             }
-         }
+        for (byte i : password.getBytes(StandardCharsets.UTF_8) ) {
+            unaClave = (char)i;
+            String passValue = String.valueOf(unaClave);
 
-         return false;
+            if (passValue.matches(pattern)) {
+                return true;
+            }
+        }
 
-     }
+        return false;
 
-     private static boolean tieneAlMenosOchoLetras(String password){
+    }
+
+    private static boolean tieneAlMenosOchoLetras(String password){
         return password.length() >= 8;
      }
 
