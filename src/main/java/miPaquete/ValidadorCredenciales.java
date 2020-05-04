@@ -18,7 +18,7 @@ public class ValidadorCredenciales {
         password = lectorPantalla.nextLine();
 
         if (!checkearContraseniaSegura(password, comunes)){
-            System.out.println("Esta contraseña no es segura... Intente con al menos una mayúscula, 8 letras y un número. ");
+            System.out.println("Esta contraseña no es segura... Intente con al menos una mayúscula, 8 caracteres y un número. ");
             password = pedirPassword();
             return password;
         }
@@ -54,7 +54,7 @@ public class ValidadorCredenciales {
     }
 
     public static boolean checkearContraseniaSegura(String password, List<String> comunes) {
-        return verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoLetras(password) && !esComun(password, comunes);
+        return verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoCaracteres(password) && !esComun(password, comunes);
     }
 
     private static boolean esComun(String password, List<String> comunes){ return comunes.contains(password); }
@@ -83,7 +83,7 @@ public class ValidadorCredenciales {
 
     }
 
-    private static boolean tieneAlMenosOchoLetras(String password){
+    private static boolean tieneAlMenosOchoCaracteres(String password){
         return password.length() >= 8;
      }
 
