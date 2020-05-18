@@ -1,17 +1,15 @@
 package miPaquete;
+import java.time.LocalDateTime;
 
 class Admin extends Usuario {
-
     // Contructor
-    Admin(String unUsuario, String unaContra){
-        user = unUsuario;
-        password = unaContra;
+    public Admin( String unaContra ){
+            password = unaContra;
 
-        // La fecha de la ultima contraseña es la actual
-        contrasAnteriores = new String[5];
-
-
+            // La fecha de la ultima contraseña es la actual
+            contrasAnteriores = new String[5];
+            contrasAnteriores.add(unaContra);
+            tiempoUltimaContrasenia = LocalDateTime.now();
+        }
     }
-
-
 }

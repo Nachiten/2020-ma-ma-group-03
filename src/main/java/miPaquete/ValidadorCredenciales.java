@@ -1,5 +1,8 @@
 package miPaquete;
 
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.Scanner;
 
 public class ValidadorCredenciales {
@@ -11,13 +14,14 @@ public class ValidadorCredenciales {
 
         String password;
         String password2;
+        List<String> comunes = new ArrayList<>(Arrays.asList("password","123456","12345678","1234","qwerty"));
 
         Scanner lectorPantalla = new Scanner(System.in);
         System.out.println("Insertar Contraseña: ");
         password = lectorPantalla.nextLine();
 
-        if (!checkearContraseniaSegura(password)){
-            System.out.println("Esta contraseña no es segura... Intente con al menos una mayúscula, 8 letras y un número. ");
+        if (!checkearContraseniaSegura(password, comunes)){
+            System.out.println("Esta contraseña no es segura... Intente con al menos una mayúscula, 8 caracteres y un número. ");
             password = pedirPassword();
             return password;
         }
@@ -52,20 +56,11 @@ public class ValidadorCredenciales {
         return false;
     }
 
-    public static boolean checkearContraseniaSegura(String password) {
-        return compararContrasMasComunes(password) && verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoLetras(password);
+    public static boolean checkearContraseniaSegura(String password, List<String> comunes) {
+        return verSiTieneMayusculas(password) && verSiTieneNumeros(password) && tieneAlMenosOchoCaracteres(password) && !esComun(password, comunes);
     }
 
-    private static boolean compararContrasMasComunes(String password){
-        String[] contrasMasComunes = { "password" , "123456" , "12345678" , "1234", "qwerty", "12345", "dragon", "baseball", "football", "letmein", "0", "hola1234" };
-
-        for (String unaContra : contrasMasComunes) {
-            if ( unaContra.equals(password) ) {
-                return false;
-            }
-        }
-        return true;
-    }
+    private static boolean esComun(String password, List<String> comunes){ return comunes.contains(password); }
 
     private static boolean verSiTieneMayusculas(String password){
         return mathearPattern(password, "[A-Z]");
@@ -75,22 +70,27 @@ public class ValidadorCredenciales {
         return mathearPattern(password, "[0-9]");
      }
 
-     private static boolean mathearPattern(String password, String pattern){
-         char unaClave;
+    private static boolean mathearPattern(String password, String pattern){
+        char unaClave;
 
-         for (byte i = 0; i < password.length(); i++) {
-             unaClave = password.charAt(i);
-             String passValue = String.valueOf(unaClave);
-             if (passValue.matches(pattern)) {
-                 return true;
-             }
-         }
+        for (byte i : password.getBytes(StandardCharsets.UTF_8) ) {
+            unaClave = (char)i;
+            String passValue = String.valueOf(unaClave);
 
-         return false;
+            if (passValue.matches(pattern)) {
+                return true;
+            }
+        }
 
-     }
+        return false;
 
-     private static boolean tieneAlMenosOchoLetras(String password){
+    }
+
+    private static boolean tieneAlMenosOchoCaracteres(String password){
         return password.length() >= 8;
      }
+
+    public boolean rotar(LocalDate fecha1, LocalDate fecha2) {
+        return fecha1.equals(fecha2);
+    }
 }
