@@ -7,9 +7,6 @@ import java.util.List;
 // IDEA PARA LOS USUARIOS | NO IMPLEMENTADA EN NINGUN LADO By: Nachiten
 public abstract class Usuario {
 
-    String[] contrasAnteriores;
-    LocalDateTime tiempoUltimaContrasenia; //
-
     String user; // Para mas adelante
     String password;
 
