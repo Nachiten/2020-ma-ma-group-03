@@ -8,16 +8,16 @@ public class Servicios extends Rubro{
 
         TipoEmpresa tipoEmpresa = null;
 
-        if(this.promedioVentasAnuales <= 8500000 && this.cantPersonal <= 7){
+        if(cumpleCondicionCon(8500000, 7)){
             tipoEmpresa = TipoEmpresa.MICRO;
         }
-        if(this.promedioVentasAnuales <= 50950000 && this.cantPersonal <= 30){
+        if(cumpleCondicionCon(50950000, 30)){
             tipoEmpresa = TipoEmpresa.PEQUENA;
         }
-        if(this.promedioVentasAnuales <= 425170000 && this.cantPersonal <= 165){
+        if(cumpleCondicionCon(425170000, 165)){
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
         }
-        if(this.promedioVentasAnuales <= 607210000 && this.cantPersonal <= 535){
+        if(cumpleCondicionCon(607210000, 535)){
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
         }
         return tipoEmpresa;

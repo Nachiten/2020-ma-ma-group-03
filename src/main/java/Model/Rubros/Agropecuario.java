@@ -8,18 +8,20 @@ public class Agropecuario extends Rubro{
 
         TipoEmpresa tipoEmpresa = null;
 
-        if(this.promedioVentasAnuales <= 12890000 && this.cantPersonal <= 5){
+        if(cumpleCondicionCon(12890000, 5)){
             tipoEmpresa = TipoEmpresa.MICRO;
         }
-        if(this.promedioVentasAnuales <= 48480000 && this.cantPersonal <= 10){
+        if(cumpleCondicionCon(48480000, 10)){
             tipoEmpresa = TipoEmpresa.PEQUENA;
         }
-        if(this.promedioVentasAnuales <= 345430000 && this.cantPersonal <= 50){
+        if(cumpleCondicionCon(345430000, 50)){
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
         }
-        if(this.promedioVentasAnuales <= 547890000 && this.cantPersonal <= 215){
+        if(cumpleCondicionCon(547890000, 215)){
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
         }
+
+
         return tipoEmpresa;
     }
 }

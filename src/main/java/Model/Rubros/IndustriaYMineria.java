@@ -8,16 +8,16 @@ public class IndustriaYMineria extends Rubro{
 
         TipoEmpresa tipoEmpresa = null;
 
-        if(this.promedioVentasAnuales <= 26540000 && this.cantPersonal <= 15){
+        if(cumpleCondicionCon(26540000, 15)){
             tipoEmpresa = TipoEmpresa.MICRO;
         }
-        if(this.promedioVentasAnuales <= 190410000 && this.cantPersonal <= 60){
+        if(cumpleCondicionCon(190410000, 60)){
             tipoEmpresa = TipoEmpresa.PEQUENA;
         }
-        if(this.promedioVentasAnuales <= 1190330000 && this.cantPersonal <= 235){
+        if(cumpleCondicionCon(1190330000, 235)){
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
         }
-        if(this.promedioVentasAnuales <= 1739590000 && this.cantPersonal <= 655){
+        if(cumpleCondicionCon(1739590000, 655)){
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
         }
         return tipoEmpresa;

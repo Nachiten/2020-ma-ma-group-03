@@ -8,16 +8,16 @@ public class Comercio extends Rubro{
 
         TipoEmpresa tipoEmpresa = null;
 
-        if(this.promedioVentasAnuales <= 29740000 && this.cantPersonal <= 7){
+        if(cumpleCondicionCon(29740000, 7)){
             tipoEmpresa = TipoEmpresa.MICRO;
         }
-        if(this.promedioVentasAnuales <= 178860000 && this.cantPersonal <= 35){
+        if(cumpleCondicionCon(178860000, 35)){
             tipoEmpresa = TipoEmpresa.PEQUENA;
         }
-        if(this.promedioVentasAnuales <= 1502750000 && this.cantPersonal <= 125){
+        if(cumpleCondicionCon(1502750000, 125)){
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
         }
-        if(this.promedioVentasAnuales <= 2146810000 && this.cantPersonal <= 345){
+        if(cumpleCondicionCon(2146810000, 345)){
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
         }
         return tipoEmpresa;
