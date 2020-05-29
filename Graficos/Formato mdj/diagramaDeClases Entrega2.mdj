@@ -806,7 +806,7 @@
 											"top": 599,
 											"width": 294.4677734375,
 											"height": 13,
-											"text": "Proveedor"
+											"text": "Vendedor"
 										},
 										{
 											"_type": "LabelView",
@@ -7686,7 +7686,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Proveedor",
+					"name": "Vendedor",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
