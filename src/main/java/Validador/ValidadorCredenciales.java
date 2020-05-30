@@ -7,21 +7,6 @@ import java.util.List;
 
 public class ValidadorCredenciales {
 
-    /* No va de esta menra
-    public static boolean checkearSeguridad(String password){
-        String password2;
-
-        System.out.println("Insertar Contraseña Nuevamente (para asegurar 0 errores): ");
-        password2 = lectorPantalla.nextLine();
-
-        if(!password.equals(password2)) {
-            System.out.println("Las contraseñas ingresadas no son iguales, ingrese dos nuevas contraseñas iguales. ");
-            return password;
-        }
-
-        return password;
-    }*/
-
     public static boolean tieneEspacios(String password){
         int i = 0;
 

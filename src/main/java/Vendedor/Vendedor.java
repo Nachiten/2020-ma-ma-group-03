@@ -8,7 +8,6 @@ public class Vendedor {
     public String razonSocial;
     public int cuit;
 
-
     public Vendedor(String nombre, String apellido, int dni, String direccionPostal) {
         this.nombre = nombre;
         this.apellido = apellido;

@@ -8,14 +8,12 @@ import java.util.List;
 
 public class OperacionDeEgreso {
 
-    private OrganizacionSectorSocial comprador;
     private Vendedor vendedor;
     private Date fechaOperacion;
     private float valorTotal;
     private MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private List<Item> itemsOP;
-
 
     public OperacionDeEgreso(Vendedor vendedor, Date fechaOperacion, float valorTotal, MedioDePago medioDePago, List<Item> itemsOP, String tipo) {
         this.vendedor = vendedor;

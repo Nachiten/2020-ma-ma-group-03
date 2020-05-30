@@ -12,7 +12,7 @@ public class Empresa extends Categoria {
         this.rubro = rubro;
     }
 
-    private TipoEmpresa obtenerTipo(){
+    private TipoEmpresa calcularTipo(){
         return rubro.clasificacion();
     }
 

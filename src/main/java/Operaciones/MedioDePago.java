@@ -16,7 +16,6 @@ public class MedioDePago {
         this.numero = numero;
     }
 
-
     public void registrarPago() {
         // TODO implement here
     }
