@@ -1,7 +1,8 @@
 package Entidades;
 
-public class EntidadBase extends Entidad {
+public class EntidadBase {
 
+    public String nombreFicticio;
     private String descripcion;
     private EntidadJuridica entidadJuridicaAsociada;
 

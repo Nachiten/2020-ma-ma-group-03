@@ -1,5 +1,6 @@
 package Categoria;
 
+import Operaciones.OperacionDeEgreso;
 import Rubros.Rubro;
 
 public class Empresa extends Categoria {
@@ -11,7 +12,11 @@ public class Empresa extends Categoria {
         this.rubro = rubro;
     }
 
-    private TipoEmpresa clasificacion(){
+    private TipoEmpresa obtenerTipo(){
         return rubro.clasificacion();
+    }
+
+    public void realizarOperacionDeEgreso(OperacionDeEgreso operacionDeEgreso) {
+        //TODO Hace cosas
     }
 }
