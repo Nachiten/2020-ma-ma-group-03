@@ -1,12 +1,12 @@
 package Vendedor;
 
 public class Vendedor {
-    public String nombre;
-    public String apellido;
-    public int dni;
-    public String direccionPostal;
-    public String razonSocial;
-    public int cuit;
+    private String nombre;
+    private String apellido;
+    private int dni;
+    private String direccionPostal;
+    private String razonSocial;
+    private  int cuit;
 
     public Vendedor(String nombre, String apellido, int dni, String direccionPostal) {
         this.nombre = nombre;

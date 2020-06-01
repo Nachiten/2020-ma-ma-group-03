@@ -8,14 +8,14 @@ import java.util.List;
 
 public class Usuario {
 
-    public TipoUsuario tipo;
-    public String user;
+    private TipoUsuario tipo;
+    private String user;
     public String password;
 
     // Lista de contrasenias anteriores
-    List<String> contrasAnteriores = new ArrayList<>();
+    private List<String> contrasAnteriores = new ArrayList<>();
 
-    LocalDateTime tiempoUltimaContrasenia;
+    private LocalDateTime tiempoUltimaContrasenia;
 
     public Usuario(TipoUsuario tipo, String user, String password) {
         this.tipo = tipo;

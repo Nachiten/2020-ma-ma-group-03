@@ -2,8 +2,8 @@ package Operaciones;
 
 public class MedioDePago {
 
-    public TipoMedioPago tipo;
-    public int numero;
+    private TipoMedioPago tipo;
+    private int numero;
 
     //Preguntar que tan bueno esta hacer multiples constructores.
 
