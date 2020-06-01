@@ -11,7 +11,13 @@ public abstract class Rubro {
         return null;
     }
 
-    protected boolean cumpleCondicionCon(int ventasAnuales, int cantPersonal){
-        return this.promedioVentasAnuales <= ventasAnuales && this.cantPersonal <= cantPersonal;
+    public int tipoDeEmpresaPorVentasAnuales(int promedioVentasAnuales){return 0;}
+
+    public int tipoDeEmpresaPorCantidadPersonal(int cantidadPersonal){return 0;}
+
+    public TipoEmpresa tipoDeEmpresa(int promedioVentasAnuales, int cantidadPersonal){
+        int enumNumber = Math.max(tipoDeEmpresaPorVentasAnuales(promedioVentasAnuales), tipoDeEmpresaPorCantidadPersonal(cantidadPersonal));
+        return TipoEmpresa.valueOf(Integer.toString(enumNumber));
     }
+
 }

@@ -5,21 +5,41 @@ import Categoria.TipoEmpresa;
 public class IndustriaYMineria extends Rubro{
 
     public TipoEmpresa clasificacion() {
+        return tipoDeEmpresa(this.promedioVentasAnuales, this.cantPersonal);
+    }
+
+    
+    public int tipoDeEmpresaPorVentasAnuales(int promedioVentasAnuales){
 
         TipoEmpresa tipoEmpresa = null;
 
-        if(cumpleCondicionCon(26540000, 15)){
+        if(promedioVentasAnuales <= 26540000)
             tipoEmpresa = TipoEmpresa.MICRO;
-        }
-        if(cumpleCondicionCon(190410000, 60)){
+        if(promedioVentasAnuales <= 190410000)
             tipoEmpresa = TipoEmpresa.PEQUENA;
-        }
-        if(cumpleCondicionCon(1190330000, 235)){
+        if(promedioVentasAnuales <= 1190330000)
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
-        }
-        if(cumpleCondicionCon(1739590000, 655)){
+        if(promedioVentasAnuales <= 1739590000)
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
-        }
-        return tipoEmpresa;
+
+        return tipoEmpresa.ordinal();
+    }
+
+    public int tipoDeEmpresaPorCantidadPersonal(int cantidadPersonal){
+
+        TipoEmpresa tipoEmpresa = null;
+
+        if(promedioVentasAnuales <= 15)
+            tipoEmpresa = TipoEmpresa.MICRO;
+        if(promedioVentasAnuales <= 60)
+            tipoEmpresa = TipoEmpresa.PEQUENA;
+        if(promedioVentasAnuales <= 235)
+            tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
+        if(promedioVentasAnuales <= 655)
+            tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
+
+        return tipoEmpresa.ordinal();
     }
 }
+
+

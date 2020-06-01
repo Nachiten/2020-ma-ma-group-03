@@ -1,5 +1,6 @@
 package Usuarios;
 
+import Entidades.EntidadJuridica;
 import Operaciones.OperacionDeEgreso;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ public class Usuario {
     private TipoUsuario tipo;
     private String user;
     public String password;
+    private EntidadJuridica Entidad;
 
     // Lista de contrasenias anteriores
     private List<String> contrasAnteriores = new ArrayList<>();
@@ -29,7 +31,6 @@ public class Usuario {
         tiempoUltimaContrasenia = LocalDateTime.now();
     }
 
-    public void realizarOperacion(OperacionDeEgreso operacionDeEgreso) {
-
+    public void realizarOperacion(EntidadJuridica Entidad,OperacionDeEgreso operacionDeEgreso) {
     }
 }
