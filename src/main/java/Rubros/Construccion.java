@@ -2,24 +2,45 @@ package Rubros;
 
 import Categoria.TipoEmpresa;
 
-public class Construccion extends Rubro{
+public class Construccion extends EstrategiaDeRubro {
 
-    public TipoEmpresa clasificacion() {
+        @Override
+        public TipoEmpresa clasificacion() {
+            return tipoDeEmpresa(this.promedioVentasAnuales, this.cantPersonal);
+        }
 
-        TipoEmpresa tipoEmpresa = null;
+        @Override
+        public int tipoDeEmpresaPorVentasAnuales(int promedioVentasAnuales){
 
-        if(cumpleCondicionCon(15230000, 12)){
-            tipoEmpresa = TipoEmpresa.MICRO;
+            TipoEmpresa tipoEmpresa = null;
+
+            if(promedioVentasAnuales <= 15230000)
+                tipoEmpresa = TipoEmpresa.MICRO;
+            if(promedioVentasAnuales <= 90310000)
+                tipoEmpresa = TipoEmpresa.PEQUENA;
+            if(promedioVentasAnuales <= 503880000)
+                tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
+            if(promedioVentasAnuales <= 755740000)
+                tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
+
+            return tipoEmpresa.ordinal();
         }
-        if(cumpleCondicionCon(90310000, 45)){
-            tipoEmpresa = TipoEmpresa.PEQUENA;
+
+
+        @Override
+        public int tipoDeEmpresaPorCantidadPersonal(int cantidadPersonal){
+
+            TipoEmpresa tipoEmpresa = null;
+
+            if(promedioVentasAnuales <= 12)
+                tipoEmpresa = TipoEmpresa.MICRO;
+            if(promedioVentasAnuales <= 45)
+                tipoEmpresa = TipoEmpresa.PEQUENA;
+            if(promedioVentasAnuales <= 200)
+                tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
+            if(promedioVentasAnuales <= 590)
+                tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
+
+            return tipoEmpresa.ordinal();
         }
-        if(cumpleCondicionCon(503880000, 200)){
-            tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
-        }
-        if(cumpleCondicionCon(755740000, 590)){
-            tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
-        }
-        return tipoEmpresa;
-    }
 }

@@ -2,13 +2,14 @@ package Rubros;
 
 import Categoria.TipoEmpresa;
 
-public class IndustriaYMineria extends Rubro{
+public class IndustriaYMineria extends EstrategiaDeRubro {
 
+    @Override
     public TipoEmpresa clasificacion() {
         return tipoDeEmpresa(this.promedioVentasAnuales, this.cantPersonal);
     }
 
-    
+   @Override
     public int tipoDeEmpresaPorVentasAnuales(int promedioVentasAnuales){
 
         TipoEmpresa tipoEmpresa = null;
@@ -25,6 +26,8 @@ public class IndustriaYMineria extends Rubro{
         return tipoEmpresa.ordinal();
     }
 
+
+    @Override
     public int tipoDeEmpresaPorCantidadPersonal(int cantidadPersonal){
 
         TipoEmpresa tipoEmpresa = null;

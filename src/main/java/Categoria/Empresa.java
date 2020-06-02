@@ -1,19 +1,19 @@
 package Categoria;
 
 import Operaciones.OperacionDeEgreso;
-import Rubros.Rubro;
+import Rubros.EstrategiaDeRubro;
 
 public class Empresa extends Categoria {
 
-    private Rubro rubro;
+    private EstrategiaDeRubro estrategiaDeRubro;
     private TipoEmpresa tipoEmpresa;
 
-    public Empresa(Rubro rubro) {
-        this.rubro = rubro;
+    public Empresa(EstrategiaDeRubro estrategiaDeRubro) {
+        this.estrategiaDeRubro = estrategiaDeRubro;
     }
 
     private TipoEmpresa calcularTipo(){
-        return rubro.clasificacion();
+        return estrategiaDeRubro.clasificacion();
     }
 
     public void realizarOperacionDeEgreso(OperacionDeEgreso operacionDeEgreso) {

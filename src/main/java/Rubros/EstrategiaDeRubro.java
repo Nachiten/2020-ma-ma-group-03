@@ -2,7 +2,7 @@ package Rubros;
 
 import Categoria.TipoEmpresa;
 
-public abstract class Rubro {
+public class EstrategiaDeRubro {
 
     public int promedioVentasAnuales;
     public int cantPersonal;

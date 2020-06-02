@@ -2,24 +2,45 @@ package Rubros;
 
 import Categoria.TipoEmpresa;
 
-public class Servicios extends Rubro{
+public class Servicios extends EstrategiaDeRubro {
 
+    @Override
     public TipoEmpresa clasificacion() {
+        return tipoDeEmpresa(this.promedioVentasAnuales, this.cantPersonal);
+    }
+
+    @Override
+    public int tipoDeEmpresaPorVentasAnuales(int promedioVentasAnuales){
 
         TipoEmpresa tipoEmpresa = null;
 
-        if(cumpleCondicionCon(8500000, 7)){
+        if(promedioVentasAnuales <= 8500000)
             tipoEmpresa = TipoEmpresa.MICRO;
-        }
-        if(cumpleCondicionCon(50950000, 30)){
+        if(promedioVentasAnuales <= 50950000)
             tipoEmpresa = TipoEmpresa.PEQUENA;
-        }
-        if(cumpleCondicionCon(425170000, 165)){
+        if(promedioVentasAnuales <= 425170000)
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
-        }
-        if(cumpleCondicionCon(607210000, 535)){
+        if(promedioVentasAnuales <= 607210000)
             tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
-        }
-        return tipoEmpresa;
+
+        return tipoEmpresa.ordinal();
+    }
+
+
+    @Override
+    public int tipoDeEmpresaPorCantidadPersonal(int cantidadPersonal){
+
+        TipoEmpresa tipoEmpresa = null;
+
+        if(promedioVentasAnuales <= 7)
+            tipoEmpresa = TipoEmpresa.MICRO;
+        if(promedioVentasAnuales <= 30)
+            tipoEmpresa = TipoEmpresa.PEQUENA;
+        if(promedioVentasAnuales <= 165)
+            tipoEmpresa = TipoEmpresa.MEDIANATRAMO1;
+        if(promedioVentasAnuales <= 535)
+            tipoEmpresa = TipoEmpresa.MEDIANATRAMO2;
+
+        return tipoEmpresa.ordinal();
     }
 }
