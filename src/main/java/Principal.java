@@ -6,19 +6,20 @@ import java.util.Scanner;
 
 public class Principal {
 
+
     public static void main(String[] args) {
 
+        /*
         Usuario miUsuario = crearUsuario();
-
         System.out.println("El usuario nuevo creado es de tipo: " + miUsuario.tipo + " tiene nombre: " + miUsuario.user + " y la contraseña es: " + miUsuario.password);
+        */
 
         // Exit | 0 = Esta bien
     }
-
+/*
     static Usuario crearUsuario(){
         TipoUsuario tipoUser = pedirTipoUsuario();
         String user = pedirUsuario();
-        String password = pedirContrasenia();
 
         return new Usuario(tipoUser, user, password);
     }
@@ -46,6 +47,7 @@ public class Principal {
         return lectorPantalla.nextLine();
     }
 
+
     private static String pedirContrasenia(){
         Scanner lectorPantalla = new Scanner(System.in);
 
@@ -66,7 +68,7 @@ public class Principal {
         }
 
         return password;
-    }
+    }*/
 }
 
 
