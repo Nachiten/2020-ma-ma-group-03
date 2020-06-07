@@ -50,19 +50,7 @@ public class Tester {
 
     ValidadorCredenciales miValidador = new ValidadorCredenciales(Arrays.asList(longitudMayorA8, tieneUnaMayuscula, tieneUnNumero, noTieneEspacios, estaEnPeoresContra));
 
-    /*
-
-    List<string> optionList = new List<string>
-
-    );
-        validaciones.add(new ValidarMayusculas(cantMayusculas));
-        validaciones.add(new ValidarNumeros(cantidadNumeros));
-        validaciones.add(new ValidarNoEspacios()
-
-            { "AdditionalCardPersonAdressType",  rest of elements  };
-
-     */
-
+    // CHECKEAR CONTRASEÑAS
     @Test
     public void contraseniasNOSeguras(){
         Assert.assertFalse(miValidador.esSegura("holaaaaa")); // No tiene ni mayus ni nuimero
