@@ -13,6 +13,7 @@ public class Usuario {
     private String user;
     public String password;
     private EntidadJuridica Entidad;
+    BandejaDeMensajes bandejaDeMensajes;
 
     // Lista de contrasenias anteriores
     private List<String> contrasAnteriores = new ArrayList<>();
