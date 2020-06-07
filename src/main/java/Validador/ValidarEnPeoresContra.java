@@ -4,13 +4,12 @@ import java.io.*;
 
 public class ValidarEnPeoresContra extends Validacion {
 
-    String ruta;
-    public ValidarEnPeoresContra(String ruta) {this.ruta = ruta;}
 
+    private String ruta = "./archivos/topDiezMilPeoresPassword.txt";
+    private File unaRuta = new File(ruta);
 
-    public  boolean validarContraEnLista(String ruta, String password) {
+    private boolean validarContraEnLista( String password) {
         try {
-            File unaRuta = new File(ruta);
             FileReader fr = new FileReader(unaRuta);
             BufferedReader br = new BufferedReader(fr);
             String linea;
@@ -19,8 +18,6 @@ public class ValidarEnPeoresContra extends Validacion {
                     return true;
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,9 +25,7 @@ public class ValidarEnPeoresContra extends Validacion {
     }
 
     @Override
-    public boolean validarContra(String password) /*throws FileNotFoundException, IOException*/ {
-        return validarContraEnLista(ruta,password);
+    public boolean validarContra(String password){
+        return validarContraEnLista(password);
     }
-
-
 }
