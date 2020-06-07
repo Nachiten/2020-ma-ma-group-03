@@ -8,6 +8,7 @@ public class ValidarLongitud extends Validacion {
         cantCaracteres = unaLongitud;
     }
 
+    @Override
     public boolean validarContra(String unaContra){
         return unaContra.length() >= cantCaracteres;
     }

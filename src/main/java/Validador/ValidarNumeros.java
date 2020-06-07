@@ -8,6 +8,7 @@ public class ValidarNumeros extends Validacion {
         cantNumeros = cantidadNumeros;
     }
 
+    @Override
     public boolean validarContra(String password){
         return MatchearPattern.mathearUnPattern(password, "[0-9]", cantNumeros);
     }
