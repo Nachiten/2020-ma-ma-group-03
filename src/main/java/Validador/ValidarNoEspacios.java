@@ -2,6 +2,7 @@ package Validador;
 
 public class ValidarNoEspacios extends Validacion {
 
+    @Override
     public boolean validarContra(String password){
         return !tieneEspacios(password);
     }

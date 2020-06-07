@@ -1,7 +1,5 @@
 package Validador;
 
-import java.nio.charset.StandardCharsets;
-
 public class ValidarMayusculas extends Validacion {
     int cantMayusculas;
 
@@ -9,6 +7,7 @@ public class ValidarMayusculas extends Validacion {
         cantMayusculas = cantidadMayusculas;
     }
 
+    @Override
     public boolean validarContra(String password){
         return MatchearPattern.mathearUnPattern(password, "[A-Z]", cantMayusculas);
     }

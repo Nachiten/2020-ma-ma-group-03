@@ -6,9 +6,7 @@ import Validador.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Tester {
 
@@ -42,20 +40,23 @@ public class Tester {
         Assert.assertSame(miUsuario4.password,"cosas123ABC");
     }
 
+
     Validacion longitudMayorA8 = new ValidarLongitud(8);
     Validacion tieneUnaMayuscula = new ValidarMayusculas(1);
     Validacion tieneUnNumero = new ValidarNumeros(1);
     Validacion noTieneEspacios = new ValidarNoEspacios();
+    Validacion estaEnPeoresContra = new ValidarEnPeoresContra();
 
-    ValidadorCredenciales miValidador = new ValidadorCredenciales(Arrays.asList(longitudMayorA8, tieneUnaMayuscula, tieneUnNumero, noTieneEspacios));
+    ValidadorCredenciales miValidador = new ValidadorCredenciales(Arrays.asList(longitudMayorA8, tieneUnaMayuscula, tieneUnNumero, noTieneEspacios, estaEnPeoresContra));
 
     // CHECKEAR CONTRASEÑAS
     @Test
     public void contraseniasNOSeguras(){
-        Assert.assertFalse(miValidador.esSegura("holaaaaa")); // No tiene ni mayus ni nuimero
+        Assert.assertFalse(miValidador.esSegura("holaaaaa")); // No tiene ni mayus ni numero
         Assert.assertFalse(miValidador.esSegura("Hola123")); // No son 8 caracteres
         Assert.assertFalse(miValidador.esSegura("HolaAAAA")); // Falta numero
         Assert.assertFalse(miValidador.esSegura("comoestas123")); // Falta mayus
+        Assert.assertFalse(miValidador.esSegura("123456789")); //Peor contraseña
     }
 
     @Test
@@ -129,5 +130,19 @@ public class Tester {
         Assert.assertTrue(noTieneEspacios.validarContra("contraseniaSinEspacios"));
     }
 
+    //CHEQUEA EN LA LISTA DE PEORES CONTRASEÑAS
+    @Test
+    public void estaEnPeoresContra(){
+        Assert.assertTrue(estaEnPeoresContra.validarContra("password"));
+        Assert.assertTrue(estaEnPeoresContra.validarContra("123456789"));
+        Assert.assertTrue(estaEnPeoresContra.validarContra("sunshine!"));
+    }
+
+    @Test
+    public void noEstaEnPeoresContra(){
+        Assert.assertFalse(estaEnPeoresContra.validarContra("SistemasJava"));
+        Assert.assertFalse(estaEnPeoresContra.validarContra("E123dfgd89"));
+        Assert.assertFalse(estaEnPeoresContra.validarContra("disenio123"));
+    }
 
 }
