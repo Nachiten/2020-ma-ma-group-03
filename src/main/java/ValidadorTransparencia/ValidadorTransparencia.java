@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidadorTransparencia {
-    private List<EstrategiaValidacion> validaciones = new ArrayList<>();
+    private List<EstrategiaValidacion> validaciones;
 
     public void validarEgreso(OperacionDeEgreso operacion, Usuario... usuarios){
 

@@ -2,7 +2,7 @@ package miTest;
 
 import Usuarios.TipoUsuario;
 import Usuarios.Usuario;
-import Validador.*;
+import ValidadoresContrasenia.*;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -34,20 +34,20 @@ public class Tester {
 
     @Test
     public void probarContrasenias(){
-        Assert.assertSame(miUsuario1.password,"zxcpkazxm123ABC");
-        Assert.assertSame(miUsuario2.password,"abcde123ABC");
-        Assert.assertSame(miUsuario3.password,"aaaaa123ABC");
-        Assert.assertSame(miUsuario4.password,"cosas123ABC");
+        Assert.assertSame(miUsuario1.contrasenia,"zxcpkazxm123ABC");
+        Assert.assertSame(miUsuario2.contrasenia,"abcde123ABC");
+        Assert.assertSame(miUsuario3.contrasenia,"aaaaa123ABC");
+        Assert.assertSame(miUsuario4.contrasenia,"cosas123ABC");
     }
 
 
-    Validacion longitudMayorA8 = new ValidarLongitud(8);
-    Validacion tieneUnaMayuscula = new ValidarMayusculas(1);
-    Validacion tieneUnNumero = new ValidarNumeros(1);
-    Validacion noTieneEspacios = new ValidarNoEspacios();
-    Validacion estaEnPeoresContra = new ValidarEnPeoresContra();
+    Validador longitudMayorA8 = new ValidadorLongitud(8);
+    Validador tieneUnaMayuscula = new ValidadorMayusculas(1);
+    Validador tieneUnNumero = new ValidadorNumeros(1);
+    Validador noTieneEspacios = new ValidadorEspacios();
+    Validador noEstaEnPeoresContra = new ValidadorPeoresContrasenias();
 
-    ValidadorCredenciales miValidador = new ValidadorCredenciales(Arrays.asList(longitudMayorA8, tieneUnaMayuscula, tieneUnNumero, noTieneEspacios, estaEnPeoresContra));
+    ValidadorCredenciales miValidador = new ValidadorCredenciales(Arrays.asList(longitudMayorA8, tieneUnaMayuscula, tieneUnNumero, noTieneEspacios, noEstaEnPeoresContra));
 
     // CHECKEAR CONTRASEÑAS
     @Test
@@ -58,6 +58,7 @@ public class Tester {
         Assert.assertFalse(miValidador.esSegura("comoestas123")); // Falta mayus
         Assert.assertFalse(miValidador.esSegura("123456789")); //Peor contraseña
     }
+
 
     @Test
     public void contraseniasSeguras(){
@@ -71,78 +72,77 @@ public class Tester {
     // CHECKEAR CARACTERES
     @Test
     public void tieneMasDe8Caracteres(){
-        Assert.assertTrue(longitudMayorA8.validarContra("HolA12345"));
-        Assert.assertTrue(longitudMayorA8.validarContra("chAu2138"));
-        Assert.assertTrue(longitudMayorA8.validarContra("queTePa7a"));
+        Assert.assertTrue(longitudMayorA8.validarContrasenia("HolA12345"));
+        Assert.assertTrue(longitudMayorA8.validarContrasenia("chAu2138"));
+        Assert.assertTrue(longitudMayorA8.validarContrasenia("queTePa7a"));
     }
 
     @Test
     public void noTieneMasDe8Caracteres(){
-        Assert.assertFalse(longitudMayorA8.validarContra("Ho45r6u"));
-        Assert.assertFalse(longitudMayorA8.validarContra("ch8"));
-        Assert.assertFalse(longitudMayorA8.validarContra("qu"));
+        Assert.assertFalse(longitudMayorA8.validarContrasenia("Ho45r6u"));
+        Assert.assertFalse(longitudMayorA8.validarContrasenia("ch8"));
+        Assert.assertFalse(longitudMayorA8.validarContrasenia("qu"));
     }
 
 
     // CHECKEAR MAYUSCULAS
     @Test
     public void tieneMayusculas(){
-        Assert.assertTrue(tieneUnaMayuscula.validarContra("HolA12345"));
-        Assert.assertTrue(tieneUnaMayuscula.validarContra("chAu2138"));
-        Assert.assertTrue(tieneUnaMayuscula.validarContra("queTePa7a"));
+        Assert.assertTrue(tieneUnaMayuscula.validarContrasenia("HolA12345"));
+        Assert.assertTrue(tieneUnaMayuscula.validarContrasenia("chAu2138"));
+        Assert.assertTrue(tieneUnaMayuscula.validarContrasenia("queTePa7a"));
     }
 
     @Test
     public void noTieneMayusculas(){
-        Assert.assertFalse(tieneUnaMayuscula.validarContra("abcd1234"));
-        Assert.assertFalse(tieneUnaMayuscula.validarContra("abdeopsaasd"));
-        Assert.assertFalse(tieneUnaMayuscula.validarContra("2359347fghf"));
+        Assert.assertFalse(tieneUnaMayuscula.validarContrasenia("abcd1234"));
+        Assert.assertFalse(tieneUnaMayuscula.validarContrasenia("abdeopsaasd"));
+        Assert.assertFalse(tieneUnaMayuscula.validarContrasenia("2359347fghf"));
     }
 
 
     // CHECKEAR NUMEROS
     @Test
     public void tieneNumeros(){
-        Assert.assertTrue(tieneUnNumero.validarContra("HolA12345"));
-        Assert.assertTrue(tieneUnNumero.validarContra("chAu2138"));
-        Assert.assertTrue(tieneUnNumero.validarContra("queTePa7a"));
+        Assert.assertTrue(tieneUnNumero.validarContrasenia("HolA12345"));
+        Assert.assertTrue(tieneUnNumero.validarContrasenia("chAu2138"));
+        Assert.assertTrue(tieneUnNumero.validarContrasenia("queTePa7a"));
     }
 
     @Test
     public void noTieneNumeros(){
-        Assert.assertFalse(tieneUnNumero.validarContra("abcdABCDE"));
-        Assert.assertFalse(tieneUnNumero.validarContra("aslbkpewrd"));
-        Assert.assertFalse(tieneUnNumero.validarContra("SDKGJROIROWE"));
+        Assert.assertFalse(tieneUnNumero.validarContrasenia("abcdABCDE"));
+        Assert.assertFalse(tieneUnNumero.validarContrasenia("aslbkpewrd"));
+        Assert.assertFalse(tieneUnNumero.validarContrasenia("SDKGJROIROWE"));
     }
 
     // CHECKEAR ESPACIOS
     @Test
     public void tieneEspacios(){
-        Assert.assertFalse(noTieneEspacios.validarContra("hola "));
-        Assert.assertFalse(noTieneEspacios.validarContra(" 123"));
-        Assert.assertFalse(noTieneEspacios.validarContra("1234 567"));
+        Assert.assertFalse(noTieneEspacios.validarContrasenia("hola "));
+        Assert.assertFalse(noTieneEspacios.validarContrasenia(" 123"));
+        Assert.assertFalse(noTieneEspacios.validarContrasenia("1234 567"));
     }
 
     @Test
     public void noTieneEspacios(){
-        Assert.assertTrue(noTieneEspacios.validarContra("bernardo123"));
-        Assert.assertTrue(noTieneEspacios.validarContra("juan4567"));
-        Assert.assertTrue(noTieneEspacios.validarContra("contraseniaSinEspacios"));
+        Assert.assertTrue(noTieneEspacios.validarContrasenia("bernardo123"));
+        Assert.assertTrue(noTieneEspacios.validarContrasenia("juan4567"));
+        Assert.assertTrue(noTieneEspacios.validarContrasenia("contraseniaSinEspacios"));
     }
 
     //CHEQUEA EN LA LISTA DE PEORES CONTRASEÑAS
     @Test
     public void estaEnPeoresContra(){
-        Assert.assertTrue(estaEnPeoresContra.validarContra("password"));
-        Assert.assertTrue(estaEnPeoresContra.validarContra("123456789"));
-        Assert.assertTrue(estaEnPeoresContra.validarContra("sunshine!"));
+        Assert.assertFalse(noEstaEnPeoresContra.validarContrasenia("password"));
+        Assert.assertFalse(noEstaEnPeoresContra.validarContrasenia("123456789"));
+        Assert.assertFalse(noEstaEnPeoresContra.validarContrasenia("sunshine!"));
     }
 
     @Test
     public void noEstaEnPeoresContra(){
-        Assert.assertFalse(estaEnPeoresContra.validarContra("SistemasJava"));
-        Assert.assertFalse(estaEnPeoresContra.validarContra("E123dfgd89"));
-        Assert.assertFalse(estaEnPeoresContra.validarContra("disenio123"));
+        Assert.assertTrue(noEstaEnPeoresContra.validarContrasenia("SistemasJava"));
+        Assert.assertTrue(noEstaEnPeoresContra.validarContrasenia("E123dfgd89"));
+        Assert.assertTrue(noEstaEnPeoresContra.validarContrasenia("disenio123"));
     }
-
 }

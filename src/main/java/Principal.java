@@ -1,9 +1,3 @@
-import Usuarios.TipoUsuario;
-import Usuarios.Usuario;
-import Validador.ValidadorCredenciales;
-
-import java.util.Scanner;
-
 public class Principal {
 
 

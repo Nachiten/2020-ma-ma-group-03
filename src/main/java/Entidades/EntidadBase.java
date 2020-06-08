@@ -11,5 +11,4 @@ public class EntidadBase {
         this.descripcion = descripcion;
         this.entidadJuridicaAsociada = entidadJuridicaAsociada;
     }
-
 }

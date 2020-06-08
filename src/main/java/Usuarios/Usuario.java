@@ -4,32 +4,22 @@ import Entidades.EntidadJuridica;
 import Operaciones.OperacionDeEgreso;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
 
     private TipoUsuario tipo;
-    private String user;
-    public String password;
-    private EntidadJuridica Entidad;
+    private String nombreUsuario;
+    public String contrasenia;
+    private EntidadJuridica entidad;
     BandejaDeMensajes bandejaDeMensajes;
-
-    // Lista de contrasenias anteriores
-    private List<String> contrasAnteriores = new ArrayList<>();
-
+    private List<String> contraseniasAnteriores;
     private LocalDateTime tiempoUltimaContrasenia;
 
-    public Usuario(TipoUsuario tipo, String user, String password) {
+    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia) {
         this.tipo = tipo;
-        this.user = user;
-        this.password = password;
-
-        // Se agrega la contraseña establecida al crear el usuario. Se agregaran mas contrasenias a medida que se vayan cambiando. (rotacion)
-        contrasAnteriores.add(password);
-
-        // La fecha de la ultima contraseña es la actual en el momento de instanciacion
-        tiempoUltimaContrasenia = LocalDateTime.now();
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
     }
 
     public void realizarOperacion(EntidadJuridica Entidad,OperacionDeEgreso operacionDeEgreso) {

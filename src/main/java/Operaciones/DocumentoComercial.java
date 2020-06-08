@@ -1,14 +1,12 @@
-
 package Operaciones;
-
 
 public class DocumentoComercial {
 
-    private TipoDocCom tipo;
-    private int numeroDoc;
+    private String tipo;
+    private int numero;
 
-    public DocumentoComercial(TipoDocCom tipo, int numeroDoc) {
+    public DocumentoComercial(String tipo, int numero) {
         this.tipo = tipo;
-        this.numeroDoc = numeroDoc;
+        this.numero = numero;
     }
 }
