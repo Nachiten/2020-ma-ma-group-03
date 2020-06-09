@@ -4,7 +4,7 @@ import Operaciones.OperacionDeEgreso;
 
 public abstract class EstrategiaValidacion {
 
-    public void validarEgreso(OperacionDeEgreso egreso){
-
+    public boolean validarEgreso(OperacionDeEgreso egreso){
+return true;
     }
 }

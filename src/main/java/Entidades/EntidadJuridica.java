@@ -1,5 +1,6 @@
 package Entidades;
 
+import Operaciones.Presupuesto;
 import TipoEntidadJuridica.TipoEntidadJuridica;
 import Operaciones.OperacionDeEgreso;
 
@@ -18,5 +19,6 @@ public class EntidadJuridica {
 
 
     public void realizarOperacionDeEgreso(OperacionDeEgreso operacionDeEgreso){
+        operacionDeEgreso.validarEgreso();
     }
 }

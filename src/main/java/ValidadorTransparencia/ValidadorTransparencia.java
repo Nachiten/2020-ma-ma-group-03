@@ -9,8 +9,9 @@ import java.util.List;
 public class ValidadorTransparencia {
     private List<EstrategiaValidacion> validaciones;
 
-    public void validarEgreso(OperacionDeEgreso operacion, Usuario... usuarios){
-
+    public boolean validarEgreso(OperacionDeEgreso operacion){
+    return true;
+        //recorrer la lista de validadores haciendo validacion.
     }
 
     // validarEgreso(Operacion, usuario1, usuario2)

@@ -1,6 +1,6 @@
 package Vendedor;
 
-public class Vendedor {
+public class Proveedor {
     private String nombre;
     private String apellido;
     private int dni;
@@ -8,14 +8,14 @@ public class Vendedor {
     private String razonSocial;
     private  int cuit;
 
-    public Vendedor(String nombre, String apellido, int dni, String direccionPostal) {
+    public Proveedor(String nombre, String apellido, int dni, String direccionPostal) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.direccionPostal = direccionPostal;
     }
 
-    public Vendedor(String razonSocial, int cuit, String direccionPostal) {
+    public Proveedor(String razonSocial, int cuit, String direccionPostal) {
         this.razonSocial = razonSocial;
         this.cuit = cuit;
         this.direccionPostal = direccionPostal;

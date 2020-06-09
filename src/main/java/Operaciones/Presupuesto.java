@@ -1,17 +1,29 @@
 package Operaciones;
 
-//import java.util.List;
+import java.util.List;
 
 public class Presupuesto {
-    /* Entrega 2, no va
-    public int montoTotal;
+
+    public float montoTotal;
     public List<Item> items;
-    public DocumentoComercial docCome;
+    public DocumentoComercial documentoComercial;
 
 
-    public Presupuesto(int montoTotal, List<Item> items, DocumentoComercial docCome) {
+    public Presupuesto(float montoTotal, List<Item> items, DocumentoComercial docCome) {
         this.montoTotal = montoTotal;
         this.items = items;
-        this.docCome = docCome;
-    }*/
+        this.documentoComercial = docCome;
+    }
+
+    public float getMontoTotal() {
+        return montoTotal;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public DocumentoComercial getDocumentoComercial() {
+        return documentoComercial;
+    }
 }

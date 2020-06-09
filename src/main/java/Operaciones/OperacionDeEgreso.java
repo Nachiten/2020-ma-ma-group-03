@@ -1,39 +1,73 @@
 package Operaciones;
 
 import Usuarios.Usuario;
-import Vendedor.Vendedor;
+import ValidadorTransparencia.ValidadorTransparencia;
+import Vendedor.Proveedor;
 
 import java.util.Date;
 import java.util.List;
 
 public class OperacionDeEgreso {
 
-    private Vendedor vendedor;
+    private Proveedor proveedor;
     private Date fecha;
-    private float valorTotal;
+    private float montoTotal;
     private MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private List<Item> items;
+    private int presupuestosNecesarios;
+    private List<Presupuesto> presupuestos;
+    private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
 
-    public OperacionDeEgreso(Vendedor vendedor, Date fecha, float valorTotal, MedioDePago medioDePago, List<Item> items, String tipo) {
-        this.vendedor = vendedor;
+    public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items, String tipo, int presupuestosNecesarios) {
+        this.proveedor = proveedor;
         this.fecha = fecha;
-        this.valorTotal = valorTotal;
+        this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.items = items;
+        this.presupuestosNecesarios = presupuestosNecesarios;
     }
 
-    public OperacionDeEgreso(Vendedor vendedor, Date fecha, float valorTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, List<Item> items) {
-        this.vendedor = vendedor;
+    public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, int presupuestosNecesarios, List<Item> items) {
+        this.proveedor = proveedor;
         this.fecha = fecha;
-        this.valorTotal = valorTotal;
+        this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.documentoComercial = documentoComercial;
+        this.presupuestosNecesarios = presupuestosNecesarios;
         this.items = items;
     }
 
     public void adjuntarDocumentoComercial(DocumentoComercial documentoComercial) {
         this.documentoComercial = documentoComercial;
+    }
+
+    public boolean validarEgreso() {
+        return validadorTransparencia.validarEgreso(this);
+    }
+
+    public int getPresupuestosNecesarios() {
+        return presupuestosNecesarios;
+    }
+
+    public List<Presupuesto> getPresupuestos() {
+        return presupuestos;
+    }
+
+    public float getMontoTotal() {
+        return montoTotal;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public DocumentoComercial getDocumentoComercial() {
+        return documentoComercial;
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 }
