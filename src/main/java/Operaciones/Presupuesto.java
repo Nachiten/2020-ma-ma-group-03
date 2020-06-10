@@ -9,10 +9,10 @@ public class Presupuesto {
     public DocumentoComercial documentoComercial;
 
 
-    public Presupuesto(float montoTotal, List<Item> items, DocumentoComercial docCome) {
+    public Presupuesto(float montoTotal, List<Item> items, DocumentoComercial documentoComercial) {
         this.montoTotal = montoTotal;
         this.items = items;
-        this.documentoComercial = docCome;
+        this.documentoComercial = documentoComercial;
     }
 
     public float getMontoTotal() {

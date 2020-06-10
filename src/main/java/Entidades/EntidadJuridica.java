@@ -3,6 +3,7 @@ package Entidades;
 import Operaciones.Presupuesto;
 import TipoEntidadJuridica.TipoEntidadJuridica;
 import Operaciones.OperacionDeEgreso;
+import Usuarios.Usuario;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class EntidadJuridica {
 
 
     public void realizarOperacionDeEgreso(OperacionDeEgreso operacionDeEgreso){
-        operacionDeEgreso.validarEgreso();
+        if(operacionDeEgreso.validarEgreso())
+            operacionDeEgreso.realizarCompra();
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class OperacionDeEgreso {
 
+    private Usuario usuario;
     private Proveedor proveedor;
     private Date fecha;
     private float montoTotal;
@@ -47,6 +48,18 @@ public class OperacionDeEgreso {
         return validadorTransparencia.validarEgreso(this);
     }
 
+    public void realizarCompra(){
+        revisores.add(usuario);
+    }
+
+    public void agregarPresupuesto(Presupuesto presupuesto){
+        presupuestos.add(presupuesto);
+    }
+
+//-------------------------------------------------------------------------
+                            //GETTERS
+//-------------------------------------------------------------------------
+
     public int getPresupuestosNecesarios() {
         return presupuestosNecesarios;
     }
@@ -69,5 +82,13 @@ public class OperacionDeEgreso {
 
     public Proveedor getProveedor() {
         return proveedor;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public List<Usuario> getRevisores() {
+        return revisores;
     }
 }

@@ -11,7 +11,7 @@ public class Usuario {
     private TipoUsuario tipo;
     private String nombreUsuario;
     public String contrasenia;
-    private EntidadJuridica entidad;
+    private EntidadJuridica entidadJuridica;
     BandejaDeMensajes bandejaDeMensajes;
     private List<String> contraseniasAnteriores;
     private LocalDateTime tiempoUltimaContrasenia;
@@ -22,6 +22,15 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public void realizarOperacion(EntidadJuridica Entidad,OperacionDeEgreso operacionDeEgreso) {
+    public void realizarOperacionDeEgreso(EntidadJuridica entidadJuridica,OperacionDeEgreso operacionDeEgreso) {
+        entidadJuridica.realizarOperacionDeEgreso(operacionDeEgreso);
+    }
+
+    public Boolean soyRevisor(OperacionDeEgreso operacionDeEgreso){
+        return operacionDeEgreso.getRevisores().contains(this);
+    }
+
+    public BandejaDeMensajes getBandejaDeMensajes() {
+        return bandejaDeMensajes;
     }
 }
