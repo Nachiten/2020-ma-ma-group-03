@@ -11,26 +11,29 @@ import java.util.List;
 public class ValidadorTransparencia {
     private List<EstrategiaValidacion> validaciones;
 
-
     public void tratarOperacion(OperacionDeEgreso operacionDeEgreso){ //TODO cambiar nombre
-
         publicarMensaje(operacionDeEgreso, validarEgreso(operacionDeEgreso));
     }
 
     public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
+        for (EstrategiaValidacion unaValidacion : validaciones) {
 
-        //Boolean resultado = recorrer la lista de validadores haciendo validacion.
+            // Si una validacion falla toda la validacion falla
+            if (!unaValidacion.validarEgreso(operacionDeEgreso)){
+                return false;
+            }
+        }
+
+        // Si ninguna falló todas pasaron.
         return true;
     }
 
     private void publicarMensaje(OperacionDeEgreso operacionDeEgreso,Boolean resultado){
-
         Mensaje mensaje = crearMensajeValidacion(resultado);
         operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(mensaje);
     }
 
     public Mensaje crearMensajeValidacion(Boolean resultado){
-
-        return Mensaje.crearResultadoValidacion(resultado);
+        return new Mensaje(resultado);
     }
 }

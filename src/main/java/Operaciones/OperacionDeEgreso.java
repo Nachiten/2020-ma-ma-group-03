@@ -4,6 +4,7 @@ import Usuarios.Usuario;
 import ValidadorTransparencia.ValidadorTransparencia;
 import Vendedor.Proveedor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,9 +18,10 @@ public class OperacionDeEgreso {
     private DocumentoComercial documentoComercial;
     private List<Item> items;
     private int presupuestosNecesarios;
-    private List<Presupuesto> presupuestos;
+    private ArrayList<Presupuesto> presupuestos;
     private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
+    private Presupuesto presupuestoSeleccionado;
 
     public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items, String tipo, int presupuestosNecesarios) {
         this.proveedor = proveedor;
@@ -59,6 +61,9 @@ public class OperacionDeEgreso {
 //-------------------------------------------------------------------------
                             //GETTERS
 //-------------------------------------------------------------------------
+
+
+    public Presupuesto getPresupuestoSeleccionado() { return presupuestoSeleccionado; }
 
     public int getPresupuestosNecesarios() {
         return presupuestosNecesarios;
