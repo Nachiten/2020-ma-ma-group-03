@@ -1,6 +1,7 @@
 package Operaciones;
 
 import Usuarios.Usuario;
+import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
 import Vendedor.Proveedor;
 
@@ -16,27 +17,25 @@ public class OperacionDeEgreso {
     private MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private List<Item> items;
-    private int presupuestosNecesarios;
     private List<Presupuesto> presupuestos;
     private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
+    private CriterioSeleccionProveedor criterioSeleccionProveedor;
 
-    public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items, String tipo, int presupuestosNecesarios) {
+    public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.proveedor = proveedor;
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.items = items;
-        this.presupuestosNecesarios = presupuestosNecesarios;
     }
 
-    public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, int presupuestosNecesarios, List<Item> items) {
+    public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, List<Item> items) {
         this.proveedor = proveedor;
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.documentoComercial = documentoComercial;
-        this.presupuestosNecesarios = presupuestosNecesarios;
         this.items = items;
     }
 
@@ -59,10 +58,6 @@ public class OperacionDeEgreso {
 //-------------------------------------------------------------------------
                             //GETTERS
 //-------------------------------------------------------------------------
-
-    public int getPresupuestosNecesarios() {
-        return presupuestosNecesarios;
-    }
 
     public List<Presupuesto> getPresupuestos() {
         return presupuestos;
@@ -90,5 +85,9 @@ public class OperacionDeEgreso {
 
     public List<Usuario> getRevisores() {
         return revisores;
+    }
+
+    public CriterioSeleccionProveedor getCriterioSeleccionProveedor() {
+        return criterioSeleccionProveedor;
     }
 }

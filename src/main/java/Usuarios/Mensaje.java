@@ -6,10 +6,8 @@ public class Mensaje {
     private Date fecha;
     private String contenido;
 
-    public Mensaje crearResultadoValidacion(Boolean resultado){
+    public Mensaje(Boolean resultado){
         fecha = new Date();
         contenido = resultado.toString();
-
-        return this;
     }
 }

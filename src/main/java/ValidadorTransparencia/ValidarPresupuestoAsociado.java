@@ -2,9 +2,6 @@ package ValidadorTransparencia;
 
 import Operaciones.OperacionDeEgreso;
 import Operaciones.Presupuesto;
-
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public class ValidarPresupuestoAsociado extends EstrategiaValidacion{
@@ -16,17 +13,17 @@ public class ValidarPresupuestoAsociado extends EstrategiaValidacion{
     }
 
     private boolean esPresupuestoAsociado(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
-        return montosIguales(operacionDeEgreso, presupuesto) && documentoComercialIguales(operacionDeEgreso, presupuesto);
+        return montosIguales(operacionDeEgreso, presupuesto) && documentoComercialIguales(operacionDeEgreso, presupuesto) && itemsIguales(operacionDeEgreso, presupuesto);
     }
 
     private boolean montosIguales(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
         return operacionDeEgreso.getMontoTotal() == presupuesto.getMontoTotal();
     }
-/*
+
     private boolean itemsIguales(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
-        return operacionDeEgreso.getItems().retainAll(presupuesto.getItems());
+        return operacionDeEgreso.getItems().containsAll(presupuesto.getItems()) && presupuesto.getItems().containsAll(operacionDeEgreso.getItems());
     }
-*/
+
     private boolean documentoComercialIguales(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
         return operacionDeEgreso.getDocumentoComercial() == presupuesto.getDocumentoComercial();
     }
