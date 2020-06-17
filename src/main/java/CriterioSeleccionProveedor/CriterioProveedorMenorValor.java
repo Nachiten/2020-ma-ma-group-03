@@ -6,13 +6,13 @@ import Operaciones.Presupuesto;
 import java.util.Comparator;
 import java.util.List;
 
-public class CriterioProveedorMenorValor extends CriterioSeleccionProveedor {
+public class CriterioProveedorMenorValor implements CriterioSeleccionProveedor {
 
-    public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
-        return seleccionarProveedorDeMenorValor(operacionDeEgreso);
+    public Boolean validarProveedor(OperacionDeEgreso operacionDeEgreso){
+        return esProveedorDeMenorValor(operacionDeEgreso);
     }
 
-    public Boolean seleccionarProveedorDeMenorValor(OperacionDeEgreso operacionDeEgreso){
+    public Boolean esProveedorDeMenorValor(OperacionDeEgreso operacionDeEgreso){
 
         List<Presupuesto> presupuestos = operacionDeEgreso.getPresupuestos();
         Comparator<Presupuesto> comparator = Comparator.comparing(Presupuesto::getMontoTotal);

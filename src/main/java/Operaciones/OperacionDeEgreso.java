@@ -1,5 +1,6 @@
 package Operaciones;
 
+import CriterioOperacion.CategoriaCriterio;
 import Usuarios.Usuario;
 import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
@@ -21,6 +22,8 @@ public class OperacionDeEgreso {
     private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
+    private List<CategoriaCriterio> listaCategoriaCriterio;
+    private List<OperacionDeIngreso> listaOperacionDeIngreso;//TODO preguntar si va una lista...
 
     public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.proveedor = proveedor;
@@ -54,6 +57,8 @@ public class OperacionDeEgreso {
     public void agregarPresupuesto(Presupuesto presupuesto){
         presupuestos.add(presupuesto);
     }
+
+    public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
 
 //-------------------------------------------------------------------------
                             //GETTERS
@@ -89,5 +94,9 @@ public class OperacionDeEgreso {
 
     public CriterioSeleccionProveedor getCriterioSeleccionProveedor() {
         return criterioSeleccionProveedor;
+    }
+
+    public void setListaCategoriaCriterio(List<CategoriaCriterio> listaCategoriaCriterio) {
+        this.listaCategoriaCriterio = listaCategoriaCriterio;
     }
 }

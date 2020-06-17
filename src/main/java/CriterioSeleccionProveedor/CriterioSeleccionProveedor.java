@@ -2,8 +2,7 @@ package CriterioSeleccionProveedor;
 
 import Operaciones.OperacionDeEgreso;
 
-public abstract class CriterioSeleccionProveedor {
+public interface CriterioSeleccionProveedor {
 
-    public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
-    return true;}
+    Boolean validarProveedor(OperacionDeEgreso operacionDeEgreso);
 }
