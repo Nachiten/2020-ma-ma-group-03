@@ -26,6 +26,19 @@ public class EntidadJuridica {
     private List<OperacionDeIngreso> operacionDeIngreso;
     private List<Criterio> listaCriterio;
 
+    public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, String codigoInscripcionDefinitiva,
+                           List<EntidadBase> entidadesBase, List<OperacionDeEgreso> operacionesDeEgreso, List<OperacionDeIngreso> operacionDeIngreso,
+                           List<Criterio> listaCriterio) {
+        this.razonSocial = razonSocial;
+        this.nombreFicticio = nombreFicticio;
+        this.cuit = cuit;
+        this.direccionPostal = direccionPostal;
+        this.codigoInscripcionDefinitiva = codigoInscripcionDefinitiva;
+        this.entidadesBase = entidadesBase;
+        this.operacionesDeEgreso = operacionesDeEgreso;
+        this.operacionDeIngreso = operacionDeIngreso;
+        this.listaCriterio = listaCriterio;
+    }
 
     public void realizarOperacionDeEgreso(OperacionDeEgreso operacionDeEgreso){
         if(operacionDeEgreso.validarEgreso())
@@ -47,4 +60,7 @@ public class EntidadJuridica {
         presupuesto.asociarCategoriaCriterio(categoriaCriterio);
     }
 
+    public List<OperacionDeEgreso> getOperacionesDeEgreso() {
+        return operacionesDeEgreso;
+    }
 }

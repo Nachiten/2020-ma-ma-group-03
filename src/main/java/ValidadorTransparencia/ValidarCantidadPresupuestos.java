@@ -5,7 +5,7 @@ import Operaciones.OperacionDeEgreso;
 public class ValidarCantidadPresupuestos extends EstrategiaValidacion {
 
     @Override
-    public boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
-        return operacionDeEgreso.getPresupuestos().size() >= 1;
+    public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
+        return operacionDeEgreso.getPresupuesto() != null;
     }
 }

@@ -18,7 +18,7 @@ public class OperacionDeEgreso {
     private MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private List<Item> items;
-    private List<Presupuesto> presupuestos;
+    private Presupuesto presupuesto;
     private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
@@ -54,8 +54,8 @@ public class OperacionDeEgreso {
         revisores.add(usuario);
     }
 
-    public void agregarPresupuesto(Presupuesto presupuesto){
-        presupuestos.add(presupuesto);
+    public void setPresupuesto(Presupuesto presupuesto) {
+        this.presupuesto = presupuesto;
     }
 
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
@@ -64,9 +64,6 @@ public class OperacionDeEgreso {
                             //GETTERS
 //-------------------------------------------------------------------------
 
-    public List<Presupuesto> getPresupuestos() {
-        return presupuestos;
-    }
 
     public float getMontoTotal() {
         return montoTotal;
@@ -98,5 +95,9 @@ public class OperacionDeEgreso {
 
     public void setListaCategoriaCriterio(List<CategoriaCriterio> listaCategoriaCriterio) {
         this.listaCategoriaCriterio = listaCategoriaCriterio;
+    }
+
+    public Presupuesto getPresupuesto() {
+        return presupuesto;
     }
 }

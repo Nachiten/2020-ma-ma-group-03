@@ -3,7 +3,12 @@ public class Principal {
 
     public static void main(String[] args) {
 
+
+
         /*
+
+
+
         Usuario miUsuario = crearUsuario();
         System.out.println("El usuario nuevo creado es de tipo: " + miUsuario.tipo + " tiene nombre: " + miUsuario.user + " y la contraseña es: " + miUsuario.password);
         */

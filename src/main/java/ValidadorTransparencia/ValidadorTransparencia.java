@@ -1,7 +1,6 @@
 package ValidadorTransparencia;
 
 import Operaciones.OperacionDeEgreso;
-import Usuarios.Mensaje;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,16 +10,16 @@ public class ValidadorTransparencia {
     private List<OperacionDeEgreso> operacionesAValidar;
     private List<OperacionDeEgreso> operacionesValidadas;
 
+    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones) {
+        this.validaciones = validaciones;
+    }
+
     public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
-        Boolean validacionCorrecta = validaciones.stream().allMatch(unaValidacion -> unaValidacion.validarEgreso(operacionDeEgreso));
-        if(validacionCorrecta){
-            operacionesAValidar.add(operacionDeEgreso);
-        }
-        return validacionCorrecta;
+        return validaciones.stream().allMatch(unaValidacion -> unaValidacion.validarEgreso(operacionDeEgreso));
     }
 
     private void publicarMensaje(OperacionDeEgreso operacionDeEgreso, Boolean resultado){
-        operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(new Mensaje(resultado));
+        operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(operacionDeEgreso, resultado);
     }
 
     public void validarEgresos(){
@@ -31,6 +30,9 @@ public class ValidadorTransparencia {
          }
     }
 
+    public void setOperacionesAValidar(List<OperacionDeEgreso> operacionesAValidar) {
+        this.operacionesAValidar = operacionesAValidar;
+    }
 
     public void ejecutarValidadorEnDeterminadoTiempo(int tiempo) {
         Timer timer = new Timer();
