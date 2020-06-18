@@ -103,11 +103,13 @@ public class ValidadorTransparenciaTest {
     //Instancia de validador de Transparencia
     private ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones);
 
+
     @Test
     public void verificarEgresoConPresupuesto(){
         opEgresoRopaA.setPresupuesto(presupuestoRopaA);
         List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
         validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
+        opEgresoRopaA.setValidadorTransparencia(validadorTransparencia);
         Assert.assertTrue(opEgresoRopaA.validarEgreso());
     }
 }
