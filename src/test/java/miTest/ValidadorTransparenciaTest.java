@@ -28,21 +28,28 @@ public class ValidadorTransparenciaTest {
     private final Item itemPresupuestoOficina5 = new Item("Lapiceros", 500);
     private final List<Item> itemsPresupuestoOficina = new ArrayList<>(Arrays.asList(itemPresupuestoOficina1, itemPresupuestoOficina2, itemPresupuestoOficina3, itemPresupuestoOficina4, itemPresupuestoOficina5));
 
+    //Tipo documento comercial
+    private final TipoDocumentoComercial recibo = new TipoDocumentoComercial("recibo");
+    private final TipoDocumentoComercial cheque = new TipoDocumentoComercial("cheque");
+    private final TipoDocumentoComercial remito = new TipoDocumentoComercial("remito");
+    private final TipoDocumentoComercial facturaTipoB= new TipoDocumentoComercial("facturaTipoB");
     //Documentos comerciales
-    private final DocumentoComercial recibo = new DocumentoComercial("Recibo", 8678478);
-    private final DocumentoComercial cheque = new DocumentoComercial("Cheque", 4534784);
-    private final DocumentoComercial remito = new DocumentoComercial("Remito", 4547888);
-    private final DocumentoComercial facturaTipoB = new DocumentoComercial("Factura Tipo B", 4547889);
+    private final DocumentoComercial documentoRecibo = new DocumentoComercial(recibo, 8678478);
+    private final DocumentoComercial documentoCheque = new DocumentoComercial(cheque, 4534784);
+    private final DocumentoComercial documentoRemito = new DocumentoComercial(remito, 4547888);
+    private final DocumentoComercial documentoFacturaTipoB = new DocumentoComercial(facturaTipoB, 4547889);
 
 
     //Proveedores
     private final Proveedor indumentariaDeportivaBsAs = new Proveedor("Indumentaria deportiva Bs As",58462146,"4563");
     private final Proveedor proveedor2 = new Proveedor("Constructora Comaf",12762146,"876");
 
+   // TipoMedioDePago
+    private final TipoMedioDePago tarjetaDeCredito = new TipoMedioDePago("tarjetaDeCredito");
 
     //Medios de Pago
 
-    private final MedioDePago tarjetaDeCredito = new MedioDePago("Tarjeta de credito", 9468753);
+    private final MedioDePago medioDePagoTarjetaDeCredito = new MedioDePago(tarjetaDeCredito, 9468753);
 
     //Items Ropa A
 
@@ -55,13 +62,14 @@ public class ValidadorTransparenciaTest {
 
     //Egreso Ropa A
 
-    private final DocumentoComercial documentoComercialRopaA = recibo;
+    private final DocumentoComercial documentoComercialRopaA = documentoRecibo;
     private final Proveedor proveedorRopaA = indumentariaDeportivaBsAs;
-    private final MedioDePago medioDePagoRopaA = tarjetaDeCredito;
+    private final MedioDePago medioDePagoRopaA = medioDePagoTarjetaDeCredito;
     private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(proveedorRopaA,new Date(),5600, medioDePagoRopaA, documentoComercialRopaA,itemsPresupuestoRopaA);
     private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, documentoComercialRopaA);
-
-
+    private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA, documentoComercialRopaA);
+    private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina, documentoComercialRopaA);
+    private final Presupuesto presupuestoRopaAConDistintoDocumento = new Presupuesto(5600, itemsPresupuestoRopaA, documentoCheque);
     //Items de Ropa B
 
     private final Item itemPresupuestoRopaB1 = new Item("Camisa Talle L", 1100);
@@ -73,8 +81,8 @@ public class ValidadorTransparenciaTest {
 
     //Presupuesto Ropa B
 
-    private final DocumentoComercial documentoComercialRopaB = cheque;
-    private final Presupuesto presupuestoRobaB = new Presupuesto(5800, itemsPresupuestoRopaB, documentoComercialRopaB);
+    private final DocumentoComercial documentoComercialRopaB = documentoCheque;
+    private final Presupuesto presupuestoRopaB = new Presupuesto(5800, itemsPresupuestoRopaB, documentoComercialRopaB);
 
 
     //Items de Construccion
@@ -89,8 +97,8 @@ public class ValidadorTransparenciaTest {
     //Egreso construccion
 
     private final Proveedor proveedorconstruccion = proveedor2;
-    private final MedioDePago medioDePagoconstruccion = tarjetaDeCredito;
-    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(proveedorconstruccion,new Date(),42430, medioDePagoconstruccion, cheque,itemsPresupuestoConstruccion);
+    private final MedioDePago medioDePagoconstruccion = medioDePagoTarjetaDeCredito;
+    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(proveedorconstruccion,new Date(),42430, medioDePagoconstruccion, documentoCheque,itemsPresupuestoConstruccion);
 
 
     //Instancia de lista operacionesDeEgreso
@@ -118,14 +126,49 @@ public class ValidadorTransparenciaTest {
     //Instancia de validador de Transparencia
     private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones);
 
+    public void asociarOperacionConPresupuesto(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
+        operacionDeEgreso.setPresupuesto(presupuesto);
+        operacionDeEgreso.setCriterioSeleccionProveedor(proveedorMenorValor);
+        List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
+        validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
+        operacionDeEgreso.setValidadorTransparencia(validadorTransparencia);
+    }
 
     @Test
     public void verificarEgresoConPresupuesto(){
-        operacionDeEgresoRopaA.setPresupuesto(presupuestoRopaA);
-        operacionDeEgresoRopaA.setCriterioSeleccionProveedor(proveedorMenorValor);
-        List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
-        validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
-        operacionDeEgresoRopaA.setValidadorTransparencia(validadorTransparencia);
+        asociarOperacionConPresupuesto(operacionDeEgresoRopaA, presupuestoRopaA);
         Assert.assertTrue(operacionDeEgresoRopaA.validarEgreso());
+    }
+
+    @Test
+    public void verificarEgresoSinPresupuesto() {
+
+        asociarOperacionConPresupuesto(operacionDeEgresoRopaA, null);
+        Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
+    }
+
+    @Test
+    public void verificarQueTengaPresupuestoErroneo(){
+      asociarOperacionConPresupuesto(operacionDeEgresoRopaA, presupuestoRopaB);
+      Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
+
+    }
+
+    @Test
+    public void verificarQueTengaDistintoMonto(){
+        asociarOperacionConPresupuesto(operacionDeEgresoRopaA, presupuestoRopaAOtroMonto);
+        Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
+     }
+
+    @Test
+    public void verificarQueTengaDistintosItems(){
+        asociarOperacionConPresupuesto(operacionDeEgresoRopaA,presupuestoRopaAOtrosItems);
+        Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
+     }
+
+    @Test
+    public void verificarQueTengaDistintoDocumentoComercial(){
+        asociarOperacionConPresupuesto(operacionDeEgresoRopaA,presupuestoRopaAConDistintoDocumento);
+        Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
     }
 }
