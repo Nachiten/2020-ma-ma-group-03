@@ -7,9 +7,11 @@ import java.util.Comparator;
 
 public class CriterioProveedorMenorValor implements CriterioSeleccionProveedor {
 
-    public Boolean validarProveedor(OperacionDeEgreso operacionDeEgreso){
+    public Boolean validarProveedor(OperacionDeEgreso operacionDeEgreso) {
         return esProveedorDeMenorValor(operacionDeEgreso);
     }
+    //TODO Duda: Como yo se cuales son todos los proveedores que hay para compararlos?
+    //Los proveedores estan en cada operacion de egreso.
 
     public Boolean esProveedorDeMenorValor(OperacionDeEgreso operacionDeEgreso){
 

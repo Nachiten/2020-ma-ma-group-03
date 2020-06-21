@@ -12,12 +12,12 @@ import java.util.List;
 public class OperacionDeEgreso {
 
     private Usuario usuario;
-    private Proveedor proveedor;
-    private Date fecha;
-    private float montoTotal;
-    private MedioDePago medioDePago;
+    private final Proveedor proveedor;
+    private final Date fecha;
+    private final float montoTotal;
+    private final MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
-    private List<Item> items;
+    private final List<Item> items;
     private Presupuesto presupuesto;
     private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
@@ -50,20 +50,31 @@ public class OperacionDeEgreso {
         return validadorTransparencia.validarEgreso(this);
     }
 
-    public void realizarCompra(){
-        revisores.add(usuario);
-    }
+    public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
+
+//-------------------------------------------------------------------------
+                            //SETTERS
+//-------------------------------------------------------------------------
 
     public void setPresupuesto(Presupuesto presupuesto) {
         this.presupuesto = presupuesto;
     }
 
-    public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
+    public void setValidadorTransparencia(ValidadorTransparencia validadorTransparencia) {
+        this.validadorTransparencia = validadorTransparencia;
+    }
+
+    public void setCriterioSeleccionProveedor(CriterioSeleccionProveedor criterioSeleccionProveedor) {
+        this.criterioSeleccionProveedor = criterioSeleccionProveedor;
+    }
+
+    public void setListaCategoriaCriterio(List<CategoriaCriterio> listaCategoriaCriterio) {
+        this.listaCategoriaCriterio = listaCategoriaCriterio;
+    }
 
 //-------------------------------------------------------------------------
                             //GETTERS
 //-------------------------------------------------------------------------
-
 
     public float getMontoTotal() {
         return montoTotal;
@@ -91,10 +102,6 @@ public class OperacionDeEgreso {
 
     public CriterioSeleccionProveedor getCriterioSeleccionProveedor() {
         return criterioSeleccionProveedor;
-    }
-
-    public void setListaCategoriaCriterio(List<CategoriaCriterio> listaCategoriaCriterio) {
-        this.listaCategoriaCriterio = listaCategoriaCriterio;
     }
 
     public Presupuesto getPresupuesto() {

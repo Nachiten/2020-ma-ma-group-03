@@ -8,8 +8,13 @@ public class Sector {
     int cantidadPersonal;
     List<Categoria> categorias;
 
-    public String categoria(){
+    public Categoria categoria(){
         Optional<Categoria> categoriaQueCumpleCondicion = categorias.stream().filter(categoria -> categoria.cumploConCategoria(promedioVentasAnuales, cantidadPersonal)).findFirst();
-        return categoriaQueCumpleCondicion.get().getNombre();
+        return categoriaQueCumpleCondicion.get();
+    }
+
+    public Sector(int promedioVentasAnuales, int cantidadPersonal) {
+        this.promedioVentasAnuales = promedioVentasAnuales;
+        this.cantidadPersonal = cantidadPersonal;
     }
 }

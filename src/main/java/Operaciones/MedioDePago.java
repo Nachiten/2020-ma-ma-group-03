@@ -2,16 +2,11 @@ package Operaciones;
 
 public class MedioDePago {
 
-    private String tipo;
+    private TipoMedioDePago tipo;
     private int numero;
 
-    public MedioDePago(String tipo, int numero) {
+    public MedioDePago(TipoMedioDePago tipo, int numero) {
         this.tipo = tipo;
         this.numero = numero;
     }
-
-    public void registrarPago() {
-        // TODO implement here
-    }
-
 }

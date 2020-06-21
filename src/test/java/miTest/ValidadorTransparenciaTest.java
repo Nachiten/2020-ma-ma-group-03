@@ -1,5 +1,6 @@
 package miTest;
 
+import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
 import Entidades.EntidadJuridica;
 import Operaciones.*;
 import ValidadorTransparencia.*;
@@ -7,109 +8,124 @@ import Vendedor.Proveedor;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ValidadorTransparenciaTest {
 
-    //Random  lista de items
-    private Item itemPrepCalzado1 = new Item("Botas mujer", 3500);
-    private Item itemPrepCalzado2 = new Item("Botas hombre", 3000);
-    private Item itemPrepCalzado3 = new Item("Zapatos de tacon", 4500);
-    private Item itemPrepCalzado4 = new Item("Sandalias romanas", 2500);
-    private Item itemPrepCalzado5 = new Item("Zapatillas tenis", 3700);
-    private List<Item> itemsPresupuestoCalzado = new ArrayList<>(Arrays.asList(itemPrepCalzado1, itemPrepCalzado2, itemPrepCalzado3,itemPrepCalzado4, itemPrepCalzado5));
+    //Items Calzado
+    private final Item itemPresupuestoCalzado1 = new Item("Botas mujer", 3500);
+    private final Item itemPresupuestoCalzado2 = new Item("Botas hombre", 3000);
+    private final Item itemPresupuestoCalzado3 = new Item("Zapatos de tacon", 4500);
+    private final Item itemPresupuestoCalzado4 = new Item("Sandalias romanas", 2500);
+    private final Item itemPresupuestoCalzado5 = new Item("Zapatillas tenis", 3700);
+    private final List<Item> itemsPresupuestoCalzado = new ArrayList<>(Arrays.asList(itemPresupuestoCalzado1, itemPresupuestoCalzado2, itemPresupuestoCalzado3, itemPresupuestoCalzado4, itemPresupuestoCalzado5));
 
-    private Item itemPrepOficina1 = new Item("Escritorio", 15000);
-    private Item itemPrepOficina2 = new Item("Silla", 6000);
-    private Item itemPrepOficina3 = new Item("Papelera", 3000);
-    private Item itemPrepOficina4 = new Item("Porta documentos", 15000);
-    private Item itemPrepOficina5 = new Item("Lapiceros", 500);
-    private List<Item> itemsPresupuestoOficina = new ArrayList<>(Arrays.asList(itemPrepOficina1, itemPrepOficina2, itemPrepOficina3,itemPrepOficina4, itemPrepOficina5));
+    //Items Oficina
+    private final Item itemPresupuestoOficina1 = new Item("Escritorio", 15000);
+    private final Item itemPresupuestoOficina2 = new Item("Silla", 6000);
+    private final Item itemPresupuestoOficina3 = new Item("Papelera", 3000);
+    private final Item itemPresupuestoOficina4 = new Item("Porta documentos", 15000);
+    private final Item itemPresupuestoOficina5 = new Item("Lapiceros", 500);
+    private final List<Item> itemsPresupuestoOficina = new ArrayList<>(Arrays.asList(itemPresupuestoOficina1, itemPresupuestoOficina2, itemPresupuestoOficina3, itemPresupuestoOficina4, itemPresupuestoOficina5));
 
-    //Random documentos comerciales
-    private DocumentoComercial documentoComercialRecibo = new DocumentoComercial("Recibo", 8678478);
-    private DocumentoComercial documentoComercialCheque = new DocumentoComercial("Cheque", 4534784);
-    private DocumentoComercial documentoComercialRemito = new DocumentoComercial("Remito", 4547888);
-    private DocumentoComercial documentoComercialFacturaTipoB = new DocumentoComercial("Factura Tipo B", 4547889);
+    //Documentos comerciales
+    private final DocumentoComercial recibo = new DocumentoComercial("Recibo", 8678478);
+    private final DocumentoComercial cheque = new DocumentoComercial("Cheque", 4534784);
+    private final DocumentoComercial remito = new DocumentoComercial("Remito", 4547888);
+    private final DocumentoComercial facturaTipoB = new DocumentoComercial("Factura Tipo B", 4547889);
 
 
-    //Items ropa A
+    //Proveedores
+    private final Proveedor indumentariaDeportivaBsAs = new Proveedor("Indumentaria deportiva Bs As",58462146,"4563");
+    private final Proveedor proveedor2 = new Proveedor("Constructora Comaf",12762146,"876");
 
-    private Item itemPrepRopaA1 = new Item("Remera Talle L", 1000);
-    private Item itemPrepRopaA2 = new Item("Pantalon Talle 42", 1550);
-    private Item itemPrepRopaA3 = new Item("Remera Talle S", 600);
-    private Item itemPrepRopaA4 = new Item("Remera Talle M", 800);
-    private Item itemPrepRopaA5 = new Item("Pantalon Talle 44", 1650);
-    private List<Item> itemsPresupuestoRopaA = new ArrayList<>(Arrays.asList(itemPrepRopaA1, itemPrepRopaA2, itemPrepRopaA3,itemPrepRopaA4, itemPrepRopaA5));
+
+    //Medios de Pago
+
+    private final MedioDePago tarjetaDeCredito = new MedioDePago("Tarjeta de credito", 9468753);
+
+    //Items Ropa A
+
+    private final Item itemPresupuestoRopaA1 = new Item("Remera Talle L", 1000);
+    private final Item itemPresupuestoRopaA2 = new Item("Pantalon Talle 42", 1550);
+    private final Item itemPresupuestoRopaA3 = new Item("Remera Talle S", 600);
+    private final Item itemPresupuestoRopaA4 = new Item("Remera Talle M", 800);
+    private final Item itemPresupuestoRopaA5 = new Item("Pantalon Talle 44", 1650);
+    private final List<Item> itemsPresupuestoRopaA = new ArrayList<>(Arrays.asList(itemPresupuestoRopaA1, itemPresupuestoRopaA2, itemPresupuestoRopaA3, itemPresupuestoRopaA4, itemPresupuestoRopaA5));
 
     //Egreso Ropa A
 
-    private DocumentoComercial documentoComercialPrepRopaFacturaA = new DocumentoComercial("Factura", 8665478);
-    private Proveedor proveedorRopaA = new Proveedor("Indumentaria deportiva Bs As",58462146,"4563");
-    private MedioDePago medioDePagoEgresoRopaA = new MedioDePago("Tarjeta de credito", 9468753);
-    private OperacionDeEgreso opEgresoRopaA = new OperacionDeEgreso(proveedorRopaA,new Date(),5600, medioDePagoEgresoRopaA, documentoComercialPrepRopaFacturaA,itemsPresupuestoRopaA);
+    private final DocumentoComercial documentoComercialRopaA = recibo;
+    private final Proveedor proveedorRopaA = indumentariaDeportivaBsAs;
+    private final MedioDePago medioDePagoRopaA = tarjetaDeCredito;
+    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(proveedorRopaA,new Date(),5600, medioDePagoRopaA, documentoComercialRopaA,itemsPresupuestoRopaA);
+    private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, documentoComercialRopaA);
 
-    //Presupuesto de ropa A
 
-    private Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, documentoComercialPrepRopaFacturaA);
+    //Items de Ropa B
+
+    private final Item itemPresupuestoRopaB1 = new Item("Camisa Talle L", 1100);
+    private final Item itemPresupuestoRopaB2 = new Item("Pantalon Talle 42", 1550);
+    private final Item itemPresupuestoRopaB3 = new Item("Camisa Talle S", 650);
+    private final Item itemPresupuestoRopaB4 = new Item("Camisa Talle M", 850);
+    private final Item itemPresupuestoRopaB5 = new Item("Pantalon Talle 44", 1650);
+    private final List<Item> itemsPresupuestoRopaB = new ArrayList<>(Arrays.asList(itemPresupuestoRopaB1, itemPresupuestoRopaB2, itemPresupuestoRopaB3, itemPresupuestoRopaB4, itemPresupuestoRopaB5));
+
+    //Presupuesto Ropa B
+
+    private final DocumentoComercial documentoComercialRopaB = cheque;
+    private final Presupuesto presupuestoRobaB = new Presupuesto(5800, itemsPresupuestoRopaB, documentoComercialRopaB);
 
 
     //Items de Construccion
 
-    private Item itemPrepConstruccion1 = new Item("Ladrillos 1 millar", 40000);
-    private Item itemPrepConstruccion2 = new Item("Cemento x 25KG", 400);
-    private Item itemPrepConstruccion3 = new Item("Alambre x 5KG", 200);
-    private Item itemPrepConstruccion4 = new Item("Varilla de hierro", 180);
-    private Item itemPrepConstruccion5 = new Item("Arena x 10KG", 1650);
-    private List<Item> itemsPresupuestoConstruccion = new ArrayList<>(Arrays.asList(itemPrepConstruccion1, itemPrepConstruccion2, itemPrepConstruccion3,itemPrepConstruccion4, itemPrepConstruccion5));
+    private final Item itemPresupuestoConstruccion1 = new Item("Ladrillos 1 millar", 40000);
+    private final Item itemPresupuestoConstruccion2 = new Item("Cemento x 25KG", 400);
+    private final Item itemPresupuestoConstruccion3 = new Item("Alambre x 5KG", 200);
+    private final Item itemPresupuestoConstruccion4 = new Item("Varilla de hierro", 180);
+    private final Item itemPresupuestoConstruccion5 = new Item("Arena x 10KG", 1650);
+    private final List<Item> itemsPresupuestoConstruccion = new ArrayList<>(Arrays.asList(itemPresupuestoConstruccion1, itemPresupuestoConstruccion2, itemPresupuestoConstruccion3, itemPresupuestoConstruccion4, itemPresupuestoConstruccion5));
 
     //Egreso construccion
 
-    private Proveedor proveedorconstruccion = new Proveedor("Constructora Comaf",12762146,"876");
-    private MedioDePago medioDePagoconstruccion = new MedioDePago("Cheque", 7941753);
-    private OperacionDeEgreso opEgresoconstruccion = new OperacionDeEgreso(proveedorconstruccion,new Date(),42430, medioDePagoconstruccion, documentoComercialCheque,itemsPresupuestoConstruccion);
-
-    //Presupuesto de ropa B
-
-    private Item itemPrepRopaB1 = new Item("Camisa Talle L", 1100);
-    private Item itemPrepRopaB2 = new Item("Pantalon Talle 42", 1550);
-    private Item itemPrepRopaB3 = new Item("Camisa Talle S", 650);
-    private Item itemPrepRopaB4 = new Item("Camisa Talle M", 850);
-    private Item itemPrepRopaB5 = new Item("Pantalon Talle 44", 1650);
-    private List<Item> itemsPresupuestoRopaB = new ArrayList<>(Arrays.asList(itemPrepRopaB1, itemPrepRopaB2, itemPrepRopaB3,itemPrepRopaB4, itemPrepRopaB5));
-    private DocumentoComercial documentoComercialPrepRopaFacturaB = new DocumentoComercial("Factura", 8665478);
-    private Presupuesto presupuestoRopaB = new Presupuesto(5800, itemsPresupuestoRopaB, documentoComercialPrepRopaFacturaB);
+    private final Proveedor proveedorconstruccion = proveedor2;
+    private final MedioDePago medioDePagoconstruccion = tarjetaDeCredito;
+    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(proveedorconstruccion,new Date(),42430, medioDePagoconstruccion, cheque,itemsPresupuestoConstruccion);
 
 
     //Instancia de lista operacionesDeEgreso
-    private List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Arrays.asList(opEgresoRopaA));
+    private final List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Collections.singletonList(operacionDeEgresoRopaA));
+
 
     //Instancia de Entidad Juridica
-    private EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17",
+    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17",
     null, operacionesDeEgreso, null, null);
+
+
+    //Instancia criterio seleccion de proveedor
+    private final CriterioProveedorMenorValor proveedorMenorValor = new CriterioProveedorMenorValor();
+
 
     //Instancias de validadores
 
-    private ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
-    private ValidarCriterioSeleccionProveedor validarCriterioSeleccionProveedor = new ValidarCriterioSeleccionProveedor();
-    private ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
+    private final ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
+    private final ValidarCriterioSeleccionProveedor validarCriterioSeleccionProveedor = new ValidarCriterioSeleccionProveedor();
+    private final ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
 
-    private List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarCriterioSeleccionProveedor, validarPresupuestoAsociado));
+    private final List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarCriterioSeleccionProveedor, validarPresupuestoAsociado));
 
 
     //Instancia de validador de Transparencia
-    private ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones);
+    private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones);
 
 
     @Test
     public void verificarEgresoConPresupuesto(){
-        opEgresoRopaA.setPresupuesto(presupuestoRopaA);
+        operacionDeEgresoRopaA.setPresupuesto(presupuestoRopaA);
+        operacionDeEgresoRopaA.setCriterioSeleccionProveedor(proveedorMenorValor);
         List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
         validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
-        opEgresoRopaA.setValidadorTransparencia(validadorTransparencia);
-        Assert.assertTrue(opEgresoRopaA.validarEgreso());
+        operacionDeEgresoRopaA.setValidadorTransparencia(validadorTransparencia);
+        Assert.assertTrue(operacionDeEgresoRopaA.validarEgreso());
     }
 }

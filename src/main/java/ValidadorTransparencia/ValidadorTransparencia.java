@@ -23,8 +23,8 @@ public class ValidadorTransparencia {
     }
 
     public void validarEgresos(){
-         Boolean valiadacionesCorrectas =  operacionesAValidar.stream().allMatch(this::validarEgreso);
-         if(valiadacionesCorrectas){
+         Boolean validacionesCorrectas =  operacionesAValidar.stream().allMatch(this::validarEgreso);
+         if(validacionesCorrectas){
              operacionesValidadas.addAll(operacionesAValidar);
              operacionesAValidar.clear();
          }

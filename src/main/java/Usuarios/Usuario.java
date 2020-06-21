@@ -22,10 +22,6 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public void realizarOperacionDeEgreso(EntidadJuridica entidadJuridica,OperacionDeEgreso operacionDeEgreso) {
-        entidadJuridica.realizarOperacionDeEgreso(operacionDeEgreso);
-    }
-
     public Boolean soyRevisor(OperacionDeEgreso operacionDeEgreso){
         return operacionDeEgreso.getRevisores().contains(this);
     }

@@ -12,7 +12,6 @@ public class ValidadorCredenciales {
     }
 
     public boolean esSegura(String contrasenia) {
-
        return validadores.stream().allMatch(validacion -> validacion.validarContrasenia(contrasenia));
 
     }

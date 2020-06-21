@@ -1,10 +1,11 @@
 package Entidades;
 
+import TipoEntidadJuridica.Categoria;
 import TipoEntidadJuridica.Empresa;
 
 public class Afip {
 
-    public static String clasificacion(Empresa empresa){
+    public static Categoria clasificacion(Empresa empresa){
         return empresa.getSector().categoria();
     }
 }

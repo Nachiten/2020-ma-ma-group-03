@@ -11,7 +11,6 @@ public class Presupuesto {
     public DocumentoComercial documentoComercial;
     private List<CategoriaCriterio> listaCategoriaCriterio;
 
-
     public Presupuesto(float montoTotal, List<Item> items, DocumentoComercial documentoComercial) {
         this.montoTotal = montoTotal;
         this.items = items;

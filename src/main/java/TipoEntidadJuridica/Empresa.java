@@ -6,12 +6,11 @@ public class Empresa extends TipoEntidadJuridica {
 
     public Sector sector;
 
-    private String categoria(){
+    private Categoria categoria(){
         return Afip.clasificacion(this);
     }
 
     public Sector getSector() {
         return sector;
     }
-
 }
