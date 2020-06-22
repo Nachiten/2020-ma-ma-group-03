@@ -12,29 +12,27 @@ import java.util.List;
 public class OperacionDeEgreso {
 
     private Usuario usuario;
-    private final Proveedor proveedor;
     private final Date fecha;
     private final float montoTotal;
     private final MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private final List<Item> items;
-    private Presupuesto presupuesto;
+    private List<Presupuesto> listaPresupuestos;
     private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
     private List<CategoriaCriterio> listaCategoriaCriterio;
-    private List<OperacionDeIngreso> listaOperacionDeIngreso;//TODO preguntar si va una lista...
+    private OperacionDeIngreso operacionDeIngreso;
+    private int cantidadPresupuestosRequerida;
 
-    public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
-        this.proveedor = proveedor;
+    public OperacionDeEgreso( Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.items = items;
     }
 
-    public OperacionDeEgreso(Proveedor proveedor, Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, List<Item> items) {
-        this.proveedor = proveedor;
+    public OperacionDeEgreso( Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, List<Item> items) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
@@ -56,10 +54,6 @@ public class OperacionDeEgreso {
                             //SETTERS
 //-------------------------------------------------------------------------
 
-    public void setPresupuesto(Presupuesto presupuesto) {
-        this.presupuesto = presupuesto;
-    }
-
     public void setValidadorTransparencia(ValidadorTransparencia validadorTransparencia) {
         this.validadorTransparencia = validadorTransparencia;
     }
@@ -72,9 +66,17 @@ public class OperacionDeEgreso {
         this.listaCategoriaCriterio = listaCategoriaCriterio;
     }
 
+    public void agregarPresupuesto(Presupuesto unPresupuesto){
+        listaPresupuestos.add(unPresupuesto);
+    }
+
 //-------------------------------------------------------------------------
                             //GETTERS
 //-------------------------------------------------------------------------
+
+    public List<Presupuesto> getListaPresupuestos() { return listaPresupuestos; }
+
+    public int getCantidadPresupuestosRequerida() { return cantidadPresupuestosRequerida; }
 
     public float getMontoTotal() {
         return montoTotal;
@@ -86,10 +88,6 @@ public class OperacionDeEgreso {
 
     public DocumentoComercial getDocumentoComercial() {
         return documentoComercial;
-    }
-
-    public Proveedor getProveedor() {
-        return proveedor;
     }
 
     public Usuario getUsuario() {
@@ -104,7 +102,4 @@ public class OperacionDeEgreso {
         return criterioSeleccionProveedor;
     }
 
-    public Presupuesto getPresupuesto() {
-        return presupuesto;
-    }
 }

@@ -7,8 +7,12 @@ public class ValidarPresupuestoAsociado extends EstrategiaValidacion{
 
     @Override
     public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
-        Presupuesto presupuesto = operacionDeEgreso.getPresupuesto();
-        return esPresupuestoAsociado(operacionDeEgreso, presupuesto);
+
+        for(Presupuesto unPresupuesto : operacionDeEgreso.getListaPresupuestos()){
+            if (esPresupuestoAsociado(operacionDeEgreso,unPresupuesto)) return true;
+        }
+
+        return false;
     }
 
     private Boolean esPresupuestoAsociado(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){

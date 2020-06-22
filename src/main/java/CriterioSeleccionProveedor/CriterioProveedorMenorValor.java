@@ -3,20 +3,18 @@ package CriterioSeleccionProveedor;
 import Operaciones.OperacionDeEgreso;
 import Operaciones.Presupuesto;
 
-import java.util.Comparator;
-
 public class CriterioProveedorMenorValor implements CriterioSeleccionProveedor {
 
     public Boolean validarProveedor(OperacionDeEgreso operacionDeEgreso) {
-        return esProveedorDeMenorValor(operacionDeEgreso);
+        return esPresupuestoDeMenorValor(operacionDeEgreso);
     }
-    //TODO Duda: Como yo se cuales son todos los proveedores que hay para compararlos?
-    //Los proveedores estan en cada operacion de egreso.
 
-    public Boolean esProveedorDeMenorValor(OperacionDeEgreso operacionDeEgreso){
+    public Boolean esPresupuestoDeMenorValor(OperacionDeEgreso operacionDeEgreso){
 
-        Presupuesto presupuesto = operacionDeEgreso.getPresupuesto();
+        //Presupuesto presupuesto = operacionDeEgreso.getPresupuesto();
 
-        return presupuesto.getMontoTotal() == operacionDeEgreso.getMontoTotal();
+        //return presupuesto.getMontoTotal() == operacionDeEgreso.getMontoTotal();
+        return false;
+        //TODO Sacar el minimo de la lista y comprar que el monto sea ese
     }
 }

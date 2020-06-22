@@ -34,7 +34,7 @@ public class ValidadorTransparencia {
         this.operacionesAValidar = operacionesAValidar;
     }
 
-    public void ejecutarValidadorEnDeterminadoTiempo(int tiempo) {
+    public void ejecutarValidadorCadaCiertoTiempo(int tiempo) {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override

@@ -1,73 +1,68 @@
+import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
+import Entidades.EntidadJuridica;
+import Operaciones.*;
+import ValidadorTransparencia.*;
+
+import java.util.*;
+
 public class Principal {
 
-
     public static void main(String[] args) {
+        //ValidarCantidadPresupuestos validacionCantidadPresupuestos = new ValidarCantidadPresupuestos();
 
+        TipoMedioDePago tarjetaDeCredito = new TipoMedioDePago("tarjetaDeCredito");
 
+        MedioDePago medioDePagoconstruccion = new MedioDePago(tarjetaDeCredito, 9468753);
 
-        /*
+        TipoDocumentoComercial cheque = new TipoDocumentoComercial("cheque");
 
+        DocumentoComercial documentoCheque = new DocumentoComercial(cheque, 4534784);
 
+        Item itemPresupuestoConstruccion1 = new Item("Ladrillos 1 millar", 40000);
+        Item itemPresupuestoConstruccion2 = new Item("Cemento x 25KG", 400);
+        Item itemPresupuestoConstruccion3 = new Item("Alambre x 5KG", 200);
+        Item itemPresupuestoConstruccion4 = new Item("Varilla de hierro", 180);
+        Item itemPresupuestoConstruccion5 = new Item("Arena x 10KG", 1650);
+        List<Item> itemsPresupuestoConstruccion = new ArrayList<>(Arrays.asList(itemPresupuestoConstruccion1, itemPresupuestoConstruccion2, itemPresupuestoConstruccion3, itemPresupuestoConstruccion4, itemPresupuestoConstruccion5));
 
-        Usuario miUsuario = crearUsuario();
-        System.out.println("El usuario nuevo creado es de tipo: " + miUsuario.tipo + " tiene nombre: " + miUsuario.user + " y la contraseña es: " + miUsuario.password);
-        */
+        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoconstruccion, documentoCheque,itemsPresupuestoConstruccion);
 
-        // Exit | 0 = Esta bien
+        ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
+        ValidarCriterioSeleccionProveedor validarCriterioSeleccionProveedor = new ValidarCriterioSeleccionProveedor();
+        ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
+
+        List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarCriterioSeleccionProveedor, validarPresupuestoAsociado));
+
+        //Instancia de validador de Transparencia
+        ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones);
+
+        //Instancia de lista operacionesDeEgreso
+        List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Collections.singletonList(operacionEgresoConstruccion));
+
+        EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17",
+                null, operacionesDeEgreso, null, null);
+
+        TipoDocumentoComercial recibo = new TipoDocumentoComercial("recibo");
+
+        DocumentoComercial unDocumento = new DocumentoComercial(recibo, 43);
+
+        Presupuesto presupuestoConstruccion = new Presupuesto(5600, itemsPresupuestoConstruccion, unDocumento);
+
+        //Instancia criterio seleccion de proveedor
+        CriterioProveedorMenorValor proveedorMenorValor = new CriterioProveedorMenorValor();
+
+        operacionEgresoConstruccion.agregarPresupuesto(presupuestoConstruccion);
+        operacionEgresoConstruccion.setCriterioSeleccionProveedor(proveedorMenorValor);
+        List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
+        validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
+        operacionEgresoConstruccion.setValidadorTransparencia(validadorTransparencia);
+
+        int segundoEnMilisegundos = 1000;
+
+        validadorTransparencia.ejecutarValidadorCadaCiertoTiempo(segundoEnMilisegundos * 5);
+
     }
-/*
-    static Usuario crearUsuario(){
-        TipoUsuario tipoUser = pedirTipoUsuario();
-        String user = pedirUsuario();
-
-        return new Usuario(tipoUser, user, password);
-    }
-
-    static TipoUsuario pedirTipoUsuario(){
-        Scanner lectorPantalla = new Scanner(System.in);
-
-        System.out.println("Seleccionar tipo de usuario a crear: [1] Admin [2] Estandar");
-
-        int codigoUsuario = lectorPantalla.nextInt();
-
-        if (codigoUsuario == 1){
-            return TipoUsuario.ADMIN;
-        } else if (codigoUsuario == 2){
-            return TipoUsuario.ESTANDAR;
-            // Codigo no valido
-        } else {
-            return pedirTipoUsuario();
-        }
-    }
-
-    static String pedirUsuario(){
-        Scanner lectorPantalla = new Scanner(System.in);
-        System.out.println("Ingresar nombre de usuario: ");
-        return lectorPantalla.nextLine();
-    }
-
-
-    private static String pedirContrasenia(){
-        Scanner lectorPantalla = new Scanner(System.in);
-
-        System.out.println("Insertar Contraseña: ");
-        String password = lectorPantalla.nextLine();
-
-        if (!ValidadorCredenciales.esSegura(password)){
-            System.out.println("Elija otra contraseña, esta contraseña no es segura. Debe tener: Al menos una mayúscula; 8 caracteres; Al menos un número.");
-
-            password = pedirContrasenia();
-            return password;
-        }
-
-        if (ValidadorCredenciales.tieneEspacios(password)){
-            System.out.println("Elija otra contraseña. La contraseña no puede tener espacios.");
-            password = pedirContrasenia();
-            return password;
-        }
-
-        return password;
-    }*/
 }
+
 
 

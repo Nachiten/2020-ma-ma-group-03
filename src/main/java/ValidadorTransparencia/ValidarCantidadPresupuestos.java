@@ -6,6 +6,6 @@ public class ValidarCantidadPresupuestos extends EstrategiaValidacion {
 
     @Override
     public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
-        return operacionDeEgreso.getPresupuesto() != null;
+        return operacionDeEgreso.getListaPresupuestos().size() == operacionDeEgreso.getCantidadPresupuestosRequerida();
     }
 }
