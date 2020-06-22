@@ -17,4 +17,9 @@ public class Sector {
         this.promedioVentasAnuales = promedioVentasAnuales;
         this.cantidadPersonal = cantidadPersonal;
     }
+
+    //Agregué método
+    public void addCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 }
