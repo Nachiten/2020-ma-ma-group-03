@@ -1,17 +1,19 @@
 package ValidadorTransparencia;
 
 import Operaciones.OperacionDeEgreso;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ValidadorTransparencia {
     private List<EstrategiaValidacion> validaciones;
     private List<OperacionDeEgreso> operacionesAValidar;
     private List<OperacionDeEgreso> operacionesValidadas;
 
-    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones) {
+    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones, List<OperacionDeEgreso> operacionesAValidar, List<OperacionDeEgreso> operacionesValidadas) {
         this.validaciones = validaciones;
+        this.operacionesAValidar = operacionesAValidar;
+        this.operacionesValidadas = operacionesValidadas;
     }
 
     public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
@@ -23,12 +25,23 @@ public class ValidadorTransparencia {
     }
 
     public void validarEgresos(){
-         Boolean validacionesCorrectas =  operacionesAValidar.stream().allMatch(this::validarEgreso);
-         if(validacionesCorrectas){
-             operacionesValidadas.addAll(operacionesAValidar);
-             operacionesAValidar.clear();
-         }
+
+        if(operacionesAValidar.isEmpty()){
+            System.out.print("No hay operaciones de egreso para validar! \n");
+            return;
+        }
+
+        List<OperacionDeEgreso> operacionesValidadasCorrectamente =  operacionesAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
+
+        operacionesValidadas.addAll(operacionesValidadasCorrectamente);
+        operacionesAValidar.removeAll(operacionesValidadasCorrectamente);
+
+        if(operacionesAValidar.isEmpty()){
+        System.out.print("Se validaron todas las operaciones de egreso correctamente! \n");
+        } else {
+        System.out.print("Hay alguna operacion de egreso que no se puede validar! \n");
     }
+}
 
     public void setOperacionesAValidar(List<OperacionDeEgreso> operacionesAValidar) {
         this.operacionesAValidar = operacionesAValidar;

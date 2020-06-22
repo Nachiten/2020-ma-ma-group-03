@@ -2,22 +2,24 @@ import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
 import Entidades.EntidadJuridica;
 import Operaciones.*;
 import ValidadorTransparencia.*;
+import Vendedor.Proveedor;
 
 import java.util.*;
 
 public class Principal {
 
     public static void main(String[] args) {
-        //ValidarCantidadPresupuestos validacionCantidadPresupuestos = new ValidarCantidadPresupuestos();
 
         TipoMedioDePago tarjetaDeCredito = new TipoMedioDePago("tarjetaDeCredito");
-
-        MedioDePago medioDePagoconstruccion = new MedioDePago(tarjetaDeCredito, 9468753);
+        MedioDePago medioDePagoTarjetaDeCredito = new MedioDePago(tarjetaDeCredito, 9468753);
 
         TipoDocumentoComercial cheque = new TipoDocumentoComercial("cheque");
-
         DocumentoComercial documentoCheque = new DocumentoComercial(cheque, 4534784);
 
+        TipoDocumentoComercial recibo = new TipoDocumentoComercial("recibo");
+        DocumentoComercial documentoRecibo = new DocumentoComercial(recibo, 43);
+
+        //InstanciasDeConstruccion
         Item itemPresupuestoConstruccion1 = new Item("Ladrillos 1 millar", 40000);
         Item itemPresupuestoConstruccion2 = new Item("Cemento x 25KG", 400);
         Item itemPresupuestoConstruccion3 = new Item("Alambre x 5KG", 200);
@@ -25,7 +27,26 @@ public class Principal {
         Item itemPresupuestoConstruccion5 = new Item("Arena x 10KG", 1650);
         List<Item> itemsPresupuestoConstruccion = new ArrayList<>(Arrays.asList(itemPresupuestoConstruccion1, itemPresupuestoConstruccion2, itemPresupuestoConstruccion3, itemPresupuestoConstruccion4, itemPresupuestoConstruccion5));
 
-        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoconstruccion, documentoCheque,itemsPresupuestoConstruccion);
+        //Instancias de RopaA
+        Item itemPresupuestoRopaA1 = new Item("Remera Talle L", 1000);
+        Item itemPresupuestoRopaA2 = new Item("Pantalon Talle 42", 1550);
+        Item itemPresupuestoRopaA3 = new Item("Remera Talle S", 600);
+        Item itemPresupuestoRopaA4 = new Item("Remera Talle M", 800);
+        Item itemPresupuestoRopaA5 = new Item("Pantalon Talle 44", 1650);
+        List<Item> itemsPresupuestoRopaA = new ArrayList<>(Arrays.asList(itemPresupuestoRopaA1, itemPresupuestoRopaA2, itemPresupuestoRopaA3, itemPresupuestoRopaA4, itemPresupuestoRopaA5));
+
+        List<Presupuesto> presupuestosRopaA = new ArrayList<>();
+        List<Presupuesto> presupuestosConstruccion = new ArrayList<>();
+
+        //Egreso Ropa A
+        OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoTarjetaDeCredito, documentoRecibo,itemsPresupuestoRopaA, presupuestosRopaA, 1);
+        Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, documentoRecibo);
+
+        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoTarjetaDeCredito, documentoCheque, itemsPresupuestoConstruccion, presupuestosConstruccion, 1);
+        Presupuesto presupuestoConstruccion = new Presupuesto(42430, itemsPresupuestoConstruccion, documentoCheque);
+
+        //Instancia criterio seleccion de proveedor
+        CriterioProveedorMenorValor proveedorMenorValor = new CriterioProveedorMenorValor();
 
         ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
         ValidarCriterioSeleccionProveedor validarCriterioSeleccionProveedor = new ValidarCriterioSeleccionProveedor();
@@ -34,28 +55,24 @@ public class Principal {
         List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarCriterioSeleccionProveedor, validarPresupuestoAsociado));
 
         //Instancia de validador de Transparencia
-        ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones);
+        List<OperacionDeEgreso> operacionDeEgresosAValidar = new ArrayList<>();
+        List<OperacionDeEgreso> operacionDeEgresosValidadas = new ArrayList<>();
+        ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosAValidar, operacionDeEgresosValidadas);
 
         //Instancia de lista operacionesDeEgreso
-        List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Collections.singletonList(operacionEgresoConstruccion));
+        List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Arrays.asList(operacionEgresoConstruccion, operacionDeEgresoRopaA));
 
-        EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17",
-                null, operacionesDeEgreso, null, null);
-
-        TipoDocumentoComercial recibo = new TipoDocumentoComercial("recibo");
-
-        DocumentoComercial unDocumento = new DocumentoComercial(recibo, 43);
-
-        Presupuesto presupuestoConstruccion = new Presupuesto(5600, itemsPresupuestoConstruccion, unDocumento);
-
-        //Instancia criterio seleccion de proveedor
-        CriterioProveedorMenorValor proveedorMenorValor = new CriterioProveedorMenorValor();
 
         operacionEgresoConstruccion.agregarPresupuesto(presupuestoConstruccion);
         operacionEgresoConstruccion.setCriterioSeleccionProveedor(proveedorMenorValor);
-        List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
-        validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
         operacionEgresoConstruccion.setValidadorTransparencia(validadorTransparencia);
+
+        operacionDeEgresoRopaA.agregarPresupuesto(presupuestoRopaA);
+        operacionDeEgresoRopaA.setCriterioSeleccionProveedor(proveedorMenorValor);
+        operacionDeEgresoRopaA.setValidadorTransparencia(validadorTransparencia);
+
+        validadorTransparencia.setOperacionesAValidar(operacionesDeEgreso);
+
 
         int segundoEnMilisegundos = 1000;
 
@@ -63,6 +80,3 @@ public class Principal {
 
     }
 }
-
-
-

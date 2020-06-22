@@ -3,18 +3,22 @@ package CriterioSeleccionProveedor;
 import Operaciones.OperacionDeEgreso;
 import Operaciones.Presupuesto;
 
+import java.util.Comparator;
+import java.util.Optional;
+
 public class CriterioProveedorMenorValor implements CriterioSeleccionProveedor {
 
-    public Boolean validarProveedor(OperacionDeEgreso operacionDeEgreso) {
+    public Boolean seleccionarProveedor(OperacionDeEgreso operacionDeEgreso) {
         return esPresupuestoDeMenorValor(operacionDeEgreso);
     }
 
     public Boolean esPresupuestoDeMenorValor(OperacionDeEgreso operacionDeEgreso){
 
-        //Presupuesto presupuesto = operacionDeEgreso.getPresupuesto();
+        Optional<Presupuesto> presupuestoMenorValor = operacionDeEgreso.getPresupuestos().stream().min(Comparator.comparing(Presupuesto::getMontoTotal));
 
-        //return presupuesto.getMontoTotal() == operacionDeEgreso.getMontoTotal();
+        if(presupuestoMenorValor.isPresent()){
+            return presupuestoMenorValor.get().getMontoTotal() == operacionDeEgreso.getMontoTotal();
+        }
         return false;
-        //TODO Sacar el minimo de la lista y comprar que el monto sea ese
     }
 }

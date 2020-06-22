@@ -3,16 +3,15 @@ package ValidadorTransparencia;
 import Operaciones.OperacionDeEgreso;
 import Operaciones.Presupuesto;
 
+import java.util.Optional;
+
 public class ValidarPresupuestoAsociado extends EstrategiaValidacion{
 
     @Override
     public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
 
-        for(Presupuesto unPresupuesto : operacionDeEgreso.getListaPresupuestos()){
-            if (esPresupuestoAsociado(operacionDeEgreso,unPresupuesto)) return true;
-        }
-
-        return false;
+    Optional<Presupuesto> presupuesto = operacionDeEgreso.getPresupuestos().stream().filter((unPresupuesto -> esPresupuestoAsociado(operacionDeEgreso, unPresupuesto))).findAny();
+    return presupuesto.isPresent();
     }
 
     private Boolean esPresupuestoAsociado(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){

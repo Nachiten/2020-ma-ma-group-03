@@ -4,7 +4,6 @@ import CriterioOperacion.CategoriaCriterio;
 import Usuarios.Usuario;
 import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
-import Vendedor.Proveedor;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +16,7 @@ public class OperacionDeEgreso {
     private final MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private final List<Item> items;
-    private List<Presupuesto> listaPresupuestos;
+    private List<Presupuesto> presupuestos;
     private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
@@ -32,12 +31,14 @@ public class OperacionDeEgreso {
         this.items = items;
     }
 
-    public OperacionDeEgreso( Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, List<Item> items) {
+    public OperacionDeEgreso( Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, List<Item> items, List<Presupuesto> presupuestos, int cantidadPresupuestosRequerida) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.documentoComercial = documentoComercial;
         this.items = items;
+        this.presupuestos = presupuestos;
+        this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida;
     }
 
     public void adjuntarDocumentoComercial(DocumentoComercial documentoComercial) {
@@ -67,14 +68,17 @@ public class OperacionDeEgreso {
     }
 
     public void agregarPresupuesto(Presupuesto unPresupuesto){
-        listaPresupuestos.add(unPresupuesto);
+        presupuestos.add(unPresupuesto);
     }
 
 //-------------------------------------------------------------------------
                             //GETTERS
 //-------------------------------------------------------------------------
 
-    public List<Presupuesto> getListaPresupuestos() { return listaPresupuestos; }
+
+    public List<Presupuesto> getPresupuestos() {
+        return presupuestos;
+    }
 
     public int getCantidadPresupuestosRequerida() { return cantidadPresupuestosRequerida; }
 

@@ -60,12 +60,15 @@ public class ValidadorTransparenciaTest {
     private final Item itemPresupuestoRopaA5 = new Item("Pantalon Talle 44", 1650);
     private final List<Item> itemsPresupuestoRopaA = new ArrayList<>(Arrays.asList(itemPresupuestoRopaA1, itemPresupuestoRopaA2, itemPresupuestoRopaA3, itemPresupuestoRopaA4, itemPresupuestoRopaA5));
 
+
+    List<Presupuesto> presupuestos = new ArrayList<>();
+
     //Egreso Ropa A
 
     private final DocumentoComercial documentoComercialRopaA = documentoRecibo;
     private final Proveedor proveedorRopaA = indumentariaDeportivaBsAs;
     private final MedioDePago medioDePagoRopaA = medioDePagoTarjetaDeCredito;
-    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoRopaA, documentoComercialRopaA,itemsPresupuestoRopaA);
+    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoRopaA, documentoComercialRopaA,itemsPresupuestoRopaA, presupuestos, 1);
     private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, documentoComercialRopaA);
     private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA, documentoComercialRopaA);
     private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina, documentoComercialRopaA);
@@ -97,7 +100,7 @@ public class ValidadorTransparenciaTest {
     //Egreso construccion
     private final Proveedor proveedorconstruccion = proveedor2;
     private final MedioDePago medioDePagoconstruccion = medioDePagoTarjetaDeCredito;
-    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoconstruccion, documentoCheque,itemsPresupuestoConstruccion);
+    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoconstruccion, documentoCheque,itemsPresupuestoConstruccion, presupuestos, 1);
 
 
     //Instancia de lista operacionesDeEgreso
@@ -123,7 +126,9 @@ public class ValidadorTransparenciaTest {
 
 
     //Instancia de validador de Transparencia
-    private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones);
+    List<OperacionDeEgreso> operacionDeEgresosSinValidar = new ArrayList<>();
+    List<OperacionDeEgreso> operacionDeEgresosValidadas = new ArrayList<>();
+    private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosSinValidar, operacionDeEgresosValidadas);
 
     public void asociarOperacionConPresupuesto(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
         operacionDeEgreso.agregarPresupuesto(presupuesto);
@@ -141,7 +146,10 @@ public class ValidadorTransparenciaTest {
 
     @Test
     public void verificarEgresoSinPresupuesto() {
-        asociarOperacionConPresupuesto(operacionDeEgresoRopaA, null);
+        operacionDeEgresoRopaA.setCriterioSeleccionProveedor(proveedorMenorValor);
+        List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
+        validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
+        operacionDeEgresoRopaA.setValidadorTransparencia(validadorTransparencia);
         Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
     }
 
