@@ -5,18 +5,18 @@ import java.util.List;
 public class Criterio {
 
     private List<CategoriaCriterio> listaCategoriaCriterio;
-    private Criterio criterio;
+    private Criterio criterioPadre;
     private String nombre;
 
     public void agregarCategoria(CategoriaCriterio categoriaCriterio){
         listaCategoriaCriterio.add(categoriaCriterio);
     }
 
-    public void tenerMasJerarquiaQue(CategoriaCriterio categoriaCriterio){
-        agregarPadre(criterio);
+    public void tenerMasJerarquiaQue(Criterio unCriterio){
+       unCriterio.agregarPadre(this);
     }
 
     public void agregarPadre(Criterio criterio) {
-        this.criterio = criterio;
+        this.criterioPadre = criterio;
     }
 }
