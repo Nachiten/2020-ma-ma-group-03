@@ -51,6 +51,8 @@ public class OperacionDeEgreso {
 
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
 
+    public void asociarOperacionDeIngreso(OperacionDeIngreso unaOperacionDeIngreso){ this.operacionDeIngreso = unaOperacionDeIngreso; }
+
 //-------------------------------------------------------------------------
                             //SETTERS
 //-------------------------------------------------------------------------
