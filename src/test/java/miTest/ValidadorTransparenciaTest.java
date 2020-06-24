@@ -127,8 +127,7 @@ public class ValidadorTransparenciaTest {
 
     //Instancia de validador de Transparencia
     List<OperacionDeEgreso> operacionDeEgresosSinValidar = new ArrayList<>();
-    List<OperacionDeEgreso> operacionDeEgresosValidadas = new ArrayList<>();
-    private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosSinValidar, operacionDeEgresosValidadas);
+    private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosSinValidar);
 
     public void asociarOperacionConPresupuesto(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
         operacionDeEgreso.agregarPresupuesto(presupuesto);

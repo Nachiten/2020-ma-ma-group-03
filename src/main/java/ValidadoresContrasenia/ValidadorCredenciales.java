@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidadorCredenciales {
-    List<Validador> validadores;
+    private List<Validador> validadores;
 
     public ValidadorCredenciales(List<Validador> validadores){
         this.validadores = new ArrayList<>();

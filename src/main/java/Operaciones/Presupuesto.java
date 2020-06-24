@@ -6,11 +6,10 @@ import java.util.List;
 
 public class Presupuesto {
 
-    public float montoTotal;
-    public List<Item> items;
-    public DocumentoComercial documentoComercial;
+    private float montoTotal;
+    private List<Item> items;
+    private DocumentoComercial documentoComercial;
     private List<CategoriaCriterio> listaCategoriaCriterio;
-
 
     public Presupuesto(float montoTotal, List<Item> items, DocumentoComercial documentoComercial) {
         this.montoTotal = montoTotal;

@@ -57,7 +57,7 @@ public class Principal {
         //Instancia de validador de Transparencia
         List<OperacionDeEgreso> operacionDeEgresosAValidar = new ArrayList<>();
         List<OperacionDeEgreso> operacionDeEgresosValidadas = new ArrayList<>();
-        ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosAValidar, operacionDeEgresosValidadas);
+        ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosAValidar);
 
         //Instancia de lista operacionesDeEgreso
         List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Arrays.asList(operacionEgresoConstruccion, operacionDeEgresoRopaA));
@@ -76,7 +76,7 @@ public class Principal {
 
         int segundoEnMilisegundos = 1000;
 
-        validadorTransparencia.ejecutarValidadorCadaCiertoTiempo(segundoEnMilisegundos * 5);
+        Scheduler.ejecutarValidadorCadaCiertoTiempo(validadorTransparencia, segundoEnMilisegundos * 20);
 
     }
 }

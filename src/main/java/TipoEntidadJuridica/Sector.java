@@ -1,25 +1,29 @@
 package TipoEntidadJuridica;
 
-import java.util.List;
-import java.util.Optional;
+import sun.util.resources.cldr.teo.CalendarData_teo_KE;
+
+import java.util.*;
 
 public class Sector {
-    int promedioVentasAnuales;
-    int cantidadPersonal;
-    List<Categoria> categorias;
+    private List<Categoria> categorias;
 
-    public Categoria categoria(){
+    public Categoria categoria(Empresa unaEmpresa){
+        int promedioVentasAnuales = unaEmpresa.getPromedioVentasAnuales();
+        int cantidadPersonal = unaEmpresa.getCantidadPersonal();
+
         Optional<Categoria> categoriaQueCumpleCondicion = categorias.stream().filter(categoria -> categoria.cumploConCategoria(promedioVentasAnuales, cantidadPersonal)).findFirst();
         return categoriaQueCumpleCondicion.get();
     }
 
-    public Sector(int promedioVentasAnuales, int cantidadPersonal) {
-        this.promedioVentasAnuales = promedioVentasAnuales;
-        this.cantidadPersonal = cantidadPersonal;
+    //Agregué método
+    public void addCategorias(Categoria ... categorias) {
+        this.categorias.addAll(Arrays.asList(categorias));
+    }
+    // USO: addCategorias(cat1, cat2, cat3);
+
+    public Sector(){
+        this.categorias = new ArrayList<>(Collections.emptyList());
     }
 
-    //Agregué método
-    public void addCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
-    }
+
 }

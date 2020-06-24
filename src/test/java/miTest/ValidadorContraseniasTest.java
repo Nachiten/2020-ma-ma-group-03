@@ -34,10 +34,10 @@ public class ValidadorContraseniasTest {
 
     @Test
     public void probarContrasenias(){
-        Assert.assertSame(miUsuario1.contrasenia,"zxcpkazxm123ABC");
-        Assert.assertSame(miUsuario2.contrasenia,"abcde123ABC");
-        Assert.assertSame(miUsuario3.contrasenia,"aaaaa123ABC");
-        Assert.assertSame(miUsuario4.contrasenia,"cosas123ABC");
+        Assert.assertSame(miUsuario1.getContrasenia(),"zxcpkazxm123ABC");
+        Assert.assertSame(miUsuario2.getContrasenia(),"abcde123ABC");
+        Assert.assertSame(miUsuario3.getContrasenia(),"aaaaa123ABC");
+        Assert.assertSame(miUsuario4.getContrasenia(),"cosas123ABC");
     }
 
 

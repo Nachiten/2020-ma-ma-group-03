@@ -6,7 +6,7 @@ public class Proveedor {
     private int dni;
     private String direccionPostal;
     private String razonSocial;
-    private  int cuit;
+    private int cuit;
 
     public Proveedor(String nombre, String apellido, int dni, String direccionPostal) {
         this.nombre = nombre;

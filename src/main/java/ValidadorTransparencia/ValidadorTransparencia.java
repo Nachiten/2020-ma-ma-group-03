@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 public class ValidadorTransparencia {
     private List<EstrategiaValidacion> validaciones;
     private List<OperacionDeEgreso> operacionesAValidar;
-    private List<OperacionDeEgreso> operacionesValidadas;
+    private List<OperacionDeEgreso> operacionesValidadasCorrectas;
+    private List<OperacionDeEgreso> operacionesValidadasIncorrectas;
 
-    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones, List<OperacionDeEgreso> operacionesAValidar, List<OperacionDeEgreso> operacionesValidadas) {
+    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones, List<OperacionDeEgreso> operacionesAValidar) {
         this.validaciones = validaciones;
         this.operacionesAValidar = operacionesAValidar;
-        this.operacionesValidadas = operacionesValidadas;
+        this.operacionesValidadasCorrectas = new ArrayList<>();
+        this.operacionesValidadasIncorrectas = new ArrayList<>();
     }
 
     public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
@@ -21,7 +23,7 @@ public class ValidadorTransparencia {
     }
 
     private void publicarMensaje(OperacionDeEgreso operacionDeEgreso, Boolean resultado){
-        operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(operacionDeEgreso, resultado);
+        operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(resultado);
     }
 
     public void validarEgresos(){
@@ -33,28 +35,22 @@ public class ValidadorTransparencia {
 
         List<OperacionDeEgreso> operacionesValidadasCorrectamente =  operacionesAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
 
-        operacionesValidadas.addAll(operacionesValidadasCorrectamente);
+        operacionesValidadasCorrectas.addAll(operacionesValidadasCorrectamente);
         operacionesAValidar.removeAll(operacionesValidadasCorrectamente);
 
-        if(operacionesAValidar.isEmpty()){
+        operacionesValidadasIncorrectas.addAll(operacionesAValidar);
+        operacionesAValidar.clear();
+
+        if(operacionesValidadasIncorrectas.isEmpty()){
         System.out.print("Se validaron todas las operaciones de egreso correctamente! \n");
         } else {
         System.out.print("Hay alguna operacion de egreso que no se puede validar! \n");
+        }
     }
-}
 
     public void setOperacionesAValidar(List<OperacionDeEgreso> operacionesAValidar) {
         this.operacionesAValidar = operacionesAValidar;
     }
 
-    public void ejecutarValidadorCadaCiertoTiempo(int tiempo) {
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                validarEgresos();
-            }
-        };
-        timer.scheduleAtFixedRate(timerTask, 0, tiempo);
-    }
+
 }

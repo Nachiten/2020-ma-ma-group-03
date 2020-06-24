@@ -2,7 +2,7 @@ package ValidadoresContrasenia;
 
 public class ValidadorLongitud extends Validador {
 
-    int cantidadCaracteres;
+    private int cantidadCaracteres;
 
     public ValidadorLongitud(int longitud){
         cantidadCaracteres = longitud;

@@ -22,23 +22,25 @@ public class CategoriaTest {
     private final Categoria medianaT1 = new Categoria("MedianaT1",425170000,165);
     private final Categoria medianaT2 = new Categoria("MedianaT2",607210000,535);
 
-    //Sector
-    private final Sector servicios1 = new Sector(8000000,5);
-    private final Sector servicios2 = new Sector(40950000,25);
-    private final Sector servicios3 = new Sector(425170000,15);
-    private final Sector servicios4 = new Sector(425161000,534);
-
-    //Empresa
-    private final Empresa empresaA = new Empresa(servicios1);
-    private final Empresa empresaB = new Empresa(servicios2);
-    private final Empresa empresaC = new Empresa(servicios3);
-    private final Empresa empresaD = new Empresa(servicios4);
-
     //Agrego categorías a sector
     private final List<Categoria> categorias = new ArrayList<>(Arrays.asList(micro, pequenia, medianaT1, medianaT2));
 
+    //Sector
+    private final Sector servicios1 = new Sector();
+    private final Sector servicios2 = new Sector();
+    private final Sector servicios3 = new Sector();
+    private final Sector servicios4 = new Sector();
+
+    //Empresa
+    private final Empresa empresaA = new Empresa(servicios1, 8000000,5);
+    private final Empresa empresaB = new Empresa(servicios2, 40950000,25);
+    private final Empresa empresaC = new Empresa(servicios3, 425170000,15);
+    private final Empresa empresaD = new Empresa(servicios4,425161000,534);
+
     public void agregarCategorias(Sector sector, List<Categoria> categorias) {
-        sector.addCategorias(categorias);
+        for(Categoria unaCategoria: categorias){
+            sector.addCategorias(unaCategoria);
+        }
     }
 
     @Test
@@ -64,4 +66,7 @@ public class CategoriaTest {
         agregarCategorias(servicios4, categorias);
         Assert.assertSame(Afip.clasificacion(empresaD), medianaT2);
     }
+
 }
+
+
