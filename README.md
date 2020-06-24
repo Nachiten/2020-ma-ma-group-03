@@ -1,6 +1,6 @@
 # Grupo 3 - Martes mañana
 
 **Orden de archivos:**
-* Branch `master` - Entrega
+* Branch `master` - Cosas en desarrollo
 * Branch `graficos` - Graficos de StarUML
-* Branch `desarrollo` - Cosas en progreso
+* Branch `entrega3Final` - Entrega 3 el dia de la presentacion.
