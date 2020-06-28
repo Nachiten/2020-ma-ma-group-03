@@ -23,22 +23,14 @@ public class OperacionDeEgreso {
     private List<CategoriaCriterio> listaCategoriaCriterio;
     private OperacionDeIngreso operacionDeIngreso;
     private int cantidadPresupuestosRequerida;
+    private Boolean soyValida = false;
+    private int cantidadDeVecesValidada = 0;
 
-    public OperacionDeEgreso( Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
+    public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.items = items;
-    }
-
-    public OperacionDeEgreso( Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, List<Item> items, List<Presupuesto> presupuestos, int cantidadPresupuestosRequerida) {
-        this.fecha = fecha;
-        this.montoTotal = montoTotal;
-        this.medioDePago = medioDePago;
-        this.documentoComercial = documentoComercial;
-        this.items = items;
-        this.presupuestos = presupuestos;
-        this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida;
     }
 
     public void adjuntarDocumentoComercial(DocumentoComercial documentoComercial) {
@@ -52,6 +44,7 @@ public class OperacionDeEgreso {
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
 
     public void asociarOperacionDeIngreso(OperacionDeIngreso unaOperacionDeIngreso){ this.operacionDeIngreso = unaOperacionDeIngreso; }
+
 
 //-------------------------------------------------------------------------
                             //SETTERS
@@ -71,6 +64,14 @@ public class OperacionDeEgreso {
 
     public void agregarPresupuesto(Presupuesto unPresupuesto){
         presupuestos.add(unPresupuesto);
+    }
+
+    public void soyValida(){
+        this.soyValida = true;
+    }
+
+    public void fuiValidada(){
+        this.cantidadDeVecesValidada ++;
     }
 
 //-------------------------------------------------------------------------
@@ -108,4 +109,11 @@ public class OperacionDeEgreso {
         return criterioSeleccionProveedor;
     }
 
+    public Boolean esValida(){
+        return soyValida;
+    }
+
+    public int getCantidadDeVecesValidada() {
+        return cantidadDeVecesValidada;
+    }
 }

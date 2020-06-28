@@ -15,23 +15,6 @@ public class ValidadorContraseniasTest {
     Usuario miUsuario3 = new Usuario(TipoUsuario.ADMIN, "Carlos", "aaaaa123ABC");
     Usuario miUsuario4 = new Usuario(TipoUsuario.ADMIN, "Maxi", "cosas123ABC");
 
-    /*
-    @Test
-    public void probarTiposUsuario(){
-        Assert.assertSame(miUsuario1.tipo, TipoUsuario.ESTANDAR);
-        Assert.assertSame(miUsuario2.tipo, TipoUsuario.ESTANDAR);
-        Assert.assertSame(miUsuario3.tipo, TipoUsuario.ADMIN);
-        Assert.assertSame(miUsuario4.tipo, TipoUsuario.ADMIN);
-    }
-
-    @Test
-    public void probarUsuarios(){
-        Assert.assertSame(miUsuario1.user, "Nachiten");
-        Assert.assertSame(miUsuario2.user, "Noe");
-        Assert.assertSame(miUsuario3.user, "Carlos");
-        Assert.assertSame(miUsuario4.user, "Maxi");
-    }*/
-
     @Test
     public void probarContrasenias(){
         Assert.assertSame(miUsuario1.getContrasenia(),"zxcpkazxm123ABC");
@@ -45,7 +28,7 @@ public class ValidadorContraseniasTest {
     Validador tieneUnaMayuscula = new ValidadorMayusculas(1);
     Validador tieneUnNumero = new ValidadorNumeros(1);
     Validador noTieneEspacios = new ValidadorEspacios();
-    Validador noEstaEnPeoresContra = new ValidadorPeoresContrasenias();
+    Validador noEstaEnPeoresContra = new ValidadorPeoresContrasenias("./archivos/topPeoresContrasenias.txt");
 
     ValidadorCredenciales miValidador = new ValidadorCredenciales(Arrays.asList(longitudMayorA8, tieneUnaMayuscula, tieneUnNumero, noTieneEspacios, noEstaEnPeoresContra));
 

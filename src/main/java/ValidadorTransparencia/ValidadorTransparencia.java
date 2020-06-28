@@ -5,52 +5,55 @@ import Operaciones.OperacionDeEgreso;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ValidadorTransparencia {
+public class ValidadorTransparencia implements SchedulerFunction{
     private List<EstrategiaValidacion> validaciones;
-    private List<OperacionDeEgreso> operacionesAValidar;
-    private List<OperacionDeEgreso> operacionesValidadasCorrectas;
-    private List<OperacionDeEgreso> operacionesValidadasIncorrectas;
+    private List<OperacionDeEgreso> operacionesDeEgresoAValidar;
+    private int cantidadDeChancesParaValidar;
 
-    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones, List<OperacionDeEgreso> operacionesAValidar) {
+    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones, List<OperacionDeEgreso> operacionesDeEgresoAValidar, int cantidadDeChancesParaValidar) {
         this.validaciones = validaciones;
-        this.operacionesAValidar = operacionesAValidar;
-        this.operacionesValidadasCorrectas = new ArrayList<>();
-        this.operacionesValidadasIncorrectas = new ArrayList<>();
+        this.operacionesDeEgresoAValidar = operacionesDeEgresoAValidar;
+        this.cantidadDeChancesParaValidar = cantidadDeChancesParaValidar;
     }
 
-    public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
+    public Boolean hayQueValidar(OperacionDeEgreso operacionDeEgreso){
+        return operacionDeEgreso.getCantidadDeVecesValidada() < cantidadDeChancesParaValidar && !operacionDeEgreso.esValida();
+    }
+
+    public boolean esOperacionValida(OperacionDeEgreso operacionDeEgreso){
         return validaciones.stream().allMatch(unaValidacion -> unaValidacion.validarEgreso(operacionDeEgreso));
     }
 
+    public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
+
+      if(hayQueValidar(operacionDeEgreso))
+      operacionDeEgreso.fuiValidada();
+
+      if(esOperacionValida(operacionDeEgreso))
+          operacionDeEgreso.soyValida();
+
+      publicarMensaje(operacionDeEgreso, operacionDeEgreso.esValida());
+
+      return operacionDeEgreso.esValida();
+
+    }
+
     private void publicarMensaje(OperacionDeEgreso operacionDeEgreso, Boolean resultado){
-        operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(resultado);
+        operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(resultado); //No se como distinguir el true o false de que operacion de egreso???
+                                                                                          //No se como no acoplarlo
+                                                                                          //Como se que revisores son si no se que operacion de egreso es??
+    }
+
+    public void setOperacionesDeEgresoAValidar(List<OperacionDeEgreso> operacionesDeEgresoAValidar) {
+        this.operacionesDeEgresoAValidar = operacionesDeEgresoAValidar;
     }
 
     public void validarEgresos(){
-
-        if(operacionesAValidar.isEmpty()){
-            System.out.print("No hay operaciones de egreso para validar! \n");
-            return;
-        }
-
-        List<OperacionDeEgreso> operacionesValidadasCorrectamente =  operacionesAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
-
-        operacionesValidadasCorrectas.addAll(operacionesValidadasCorrectamente);
-        operacionesAValidar.removeAll(operacionesValidadasCorrectamente);
-
-        operacionesValidadasIncorrectas.addAll(operacionesAValidar);
-        operacionesAValidar.clear();
-
-        if(operacionesValidadasIncorrectas.isEmpty()){
-        System.out.print("Se validaron todas las operaciones de egreso correctamente! \n");
-        } else {
-        System.out.print("Hay alguna operacion de egreso que no se puede validar! \n");
-        }
+        List<OperacionDeEgreso> operacionesValidadasCorrectamente =  operacionesDeEgresoAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
     }
 
-    public void setOperacionesAValidar(List<OperacionDeEgreso> operacionesAValidar) {
-        this.operacionesAValidar = operacionesAValidar;
+    @Override
+    public void ejecutarse() {
+        validarEgresos();
     }
-
-
 }

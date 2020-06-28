@@ -17,6 +17,5 @@ public class CriterioProveedorMenorValor implements CriterioSeleccionProveedor {
         Optional<Presupuesto> presupuestoMenorValor = operacionDeEgreso.getPresupuestos().stream().min(Comparator.comparing(Presupuesto::getMontoTotal));
 
         return presupuestoMenorValor.isPresent() && presupuestoMenorValor.get().getMontoTotal() == operacionDeEgreso.getMontoTotal();
-
     }
 }

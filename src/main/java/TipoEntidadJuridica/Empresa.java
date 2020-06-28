@@ -7,15 +7,13 @@ public class Empresa extends TipoEntidadJuridica {
     private int promedioVentasAnuales;
     private int cantidadPersonal;
     private Categoria categoria;
-
-    private Sector sector;
+    private final Sector sector;
 
     //Agregué el constructor
     public Empresa(Sector sector, int promedioVentasAnuales, int cantidadPersonal) {
         this.sector = sector;
         this.promedioVentasAnuales = promedioVentasAnuales;
         this.cantidadPersonal = cantidadPersonal;
-        calcularCategoria();
     }
 
     private void calcularCategoria(){

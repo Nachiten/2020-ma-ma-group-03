@@ -5,7 +5,6 @@ public class Categoria {
     private int ventasAnualesMaximas;
     private int cantidadPersonalMaximo;
 
-
     //Agregué el constructor
     public Categoria(String nombre, int ventasAnualesMaximas, int cantidadPersonalMaximo) {
         this.nombre = nombre;

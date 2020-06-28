@@ -4,13 +4,16 @@ import java.io.*;
 
 public class ValidadorPeoresContrasenias extends Validador {
 
-    private String ruta = "./archivos/topPeoresContrasenias.txt";
-    private File unaRuta = new File(ruta);
+    public File file;
+
+    public ValidadorPeoresContrasenias(String ruta){
+       file = new File(ruta);
+    }
 
     private boolean noEstaEntrePeoresContrasenias(String contrasenia) {
 
         try {
-            FileReader fr = new FileReader(unaRuta);
+            FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String linea;
             while ((linea = br.readLine()) != null) {

@@ -1,15 +1,16 @@
 package Usuarios;
 
-import Operaciones.OperacionDeEgreso;
-
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Mensaje {
-    private Date fecha;
+    private Date fechaCreado;
+    private LocalDateTime horaLeido;
+    private Date fechaLeido;
     private String contenido;
 
     public Mensaje(Boolean resultado){
-        fecha = new Date();
+        fechaCreado = new Date();
         contenido = resultado.toString();
     }
 }
