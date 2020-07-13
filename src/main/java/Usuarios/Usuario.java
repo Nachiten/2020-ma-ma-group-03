@@ -30,6 +30,10 @@ public class Usuario {
         return bandejaDeMensajes;
     }
 
+    public void setBandejaDeMensajes(BandejaDeMensajes bandejaDeMensajes) {
+        this.bandejaDeMensajes = bandejaDeMensajes;
+    }
+
     public String getContrasenia() {
         return contrasenia;
     }

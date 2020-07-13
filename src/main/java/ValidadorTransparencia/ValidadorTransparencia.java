@@ -39,8 +39,10 @@ public class ValidadorTransparencia implements SchedulerFunction{
     }
 
     private void publicarMensaje(OperacionDeEgreso operacionDeEgreso, Boolean resultado){
-        //operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(resultado);
-        operacionDeEgreso.publicarMensajeEnRevisores(resultado);
+
+        String identificacion = "Fecha de la operacion: " + operacionDeEgreso.getFecha().toString() + ", Monto: " + operacionDeEgreso.getMontoTotal() + ", ID: " + operacionDeEgreso.getIDOperacion();
+
+        operacionDeEgreso.publicarMensajeEnRevisores(resultado, identificacion);
 
         //No se como distinguir el true o false de que operacion de egreso???
         //No se como no acoplarlo

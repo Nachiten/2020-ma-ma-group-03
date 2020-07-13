@@ -11,6 +11,7 @@ import java.util.List;
 
 public class OperacionDeEgreso {
 
+    private int IDOperacion;
     private Usuario usuario;
     private final Date fecha;
     private final float montoTotal;
@@ -50,8 +51,8 @@ public class OperacionDeEgreso {
         revisores.add(unUsuario);
     }
 
-    public void publicarMensajeEnRevisores(Boolean resultado){
-        revisores.forEach(unRevisor -> unRevisor.getBandejaDeMensajes().publicarMensaje(resultado));
+    public void publicarMensajeEnRevisores(Boolean resultado, String identificacion){
+        revisores.forEach(unRevisor -> unRevisor.getBandejaDeMensajes().publicarMensaje(resultado, identificacion));
     }
 
 //-------------------------------------------------------------------------
@@ -92,6 +93,10 @@ public class OperacionDeEgreso {
     public List<Presupuesto> getPresupuestos() {
         return presupuestos;
     }
+
+    public Date getFecha() { return fecha;}
+
+    public int getIDOperacion() { return IDOperacion; }
 
     public int getCantidadPresupuestosRequerida() { return cantidadPresupuestosRequerida; }
 

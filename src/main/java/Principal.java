@@ -1,8 +1,13 @@
 import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
 import Operaciones.*;
+import Usuarios.BandejaDeMensajes;
+import Usuarios.Mensaje;
+import Usuarios.Usuario;
 import ValidadorTransparencia.*;
 
 import java.util.*;
+
+import static Usuarios.TipoUsuario.ADMIN;
 
 public class Principal {
 
@@ -43,6 +48,9 @@ public class Principal {
         OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
         Presupuesto presupuestoConstruccion = new Presupuesto(42430, itemsPresupuestoConstruccion);
 
+        //
+        // agregar revisores
+
         //Instancia criterio seleccion de proveedor
         CriterioProveedorMenorValor proveedorMenorValor = new CriterioProveedorMenorValor();
 
@@ -72,9 +80,26 @@ public class Principal {
         validadorTransparencia.setOperacionesDeEgresoAValidar(operacionesDeEgreso);
 
 
+        Usuario miUsuario = new Usuario(ADMIN, "Nachiten", "abcdeFGH1234");
+
+        miUsuario.setBandejaDeMensajes(new BandejaDeMensajes());
+
+        operacionDeEgresoRopaA.agregarRevisor(miUsuario);
+
         int segundoEnMilisegundos = 1000;
 
         Scheduler.ejecutarCadaCiertoTiempo(validadorTransparencia, segundoEnMilisegundos * 20);
 
+        // printear los mensajes de la bandeja de mensajes del usuario.
+        // TODO La bandeja de mensajes queda vacia entonces no se printea nada
+
+        List<Mensaje> listaMensajes = miUsuario.getBandejaDeMensajes().getMensajes();
+
+        listaMensajes.forEach(Principal::printearMensaje);
+
+    }
+
+    static void printearMensaje(Mensaje unMensaje){
+        System.out.println(unMensaje.getContenido());
     }
 }
