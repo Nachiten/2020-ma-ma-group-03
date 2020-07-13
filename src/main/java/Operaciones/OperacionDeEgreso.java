@@ -5,6 +5,7 @@ import Usuarios.Usuario;
 import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,14 +17,14 @@ public class OperacionDeEgreso {
     private final MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private final List<Item> items;
-    private List<Presupuesto> presupuestos;
+    private List<Presupuesto> presupuestos = new ArrayList<>();
     private ValidadorTransparencia validadorTransparencia;
-    private List<Usuario> revisores;
+    private List<Usuario> revisores = new ArrayList<>();
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
     private List<CategoriaCriterio> listaCategoriaCriterio;
     private OperacionDeIngreso operacionDeIngreso;
     private int cantidadPresupuestosRequerida;
-    private Boolean soyValida = false;
+    private boolean soyValida = false;
     private int cantidadDeVecesValidada = 0;
 
     public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
@@ -45,6 +46,13 @@ public class OperacionDeEgreso {
 
     public void asociarOperacionDeIngreso(OperacionDeIngreso unaOperacionDeIngreso){ this.operacionDeIngreso = unaOperacionDeIngreso; }
 
+    public void agregarRevisor(Usuario unUsuario){
+        revisores.add(unUsuario);
+    }
+
+    public void publicarMensajeEnRevisores(Boolean resultado){
+        revisores.forEach(unRevisor -> unRevisor.getBandejaDeMensajes().publicarMensaje(resultado));
+    }
 
 //-------------------------------------------------------------------------
                             //SETTERS
@@ -74,7 +82,9 @@ public class OperacionDeEgreso {
         this.cantidadDeVecesValidada ++;
     }
 
-//-------------------------------------------------------------------------
+    public void setCantidadPresupuestosRequerida(int cantidadPresupuestosRequerida) { this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida; }
+
+    //-------------------------------------------------------------------------
                             //GETTERS
 //-------------------------------------------------------------------------
 

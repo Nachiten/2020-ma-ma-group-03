@@ -69,6 +69,8 @@ public class ValidadorTransparenciaTest {
     private final Proveedor proveedorRopaA = indumentariaDeportivaBsAs;
     private final MedioDePago medioDePagoRopaA = medioDePagoTarjetaDeCredito;
     private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoRopaA, itemsPresupuestoRopaA);
+
+
     private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA);
     private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA);
     private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina);
@@ -106,6 +108,7 @@ public class ValidadorTransparenciaTest {
     private final List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Collections.singletonList(operacionDeEgresoRopaA));
 
 
+
     //Instancia de Entidad Juridica
     private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17");
 
@@ -130,10 +133,12 @@ public class ValidadorTransparenciaTest {
     public void asociarOperacionConPresupuesto(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
         operacionDeEgreso.agregarPresupuesto(presupuesto);
         operacionDeEgreso.setCriterioSeleccionProveedor(proveedorMenorValor);
+        operacionDeEgreso.setCantidadPresupuestosRequerida(1);
         List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
         validadorTransparencia.setOperacionesDeEgresoAValidar(operacionesDeEgresos);
         operacionDeEgreso.setValidadorTransparencia(validadorTransparencia);
     }
+
 
     @Test
     public void verificarEgresoConPresupuesto(){
@@ -171,6 +176,7 @@ public class ValidadorTransparenciaTest {
 
     @Test
     public void verificarQueTengaDistintoDocumentoComercial(){
+        presupuestoRopaAConDistintoDocumento.setDocumentoComercial(documentoComercialRopaB);
         asociarOperacionConPresupuesto(operacionDeEgresoRopaA,presupuestoRopaAConDistintoDocumento);
         Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
     }
