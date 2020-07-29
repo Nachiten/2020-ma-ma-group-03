@@ -1,9 +1,9 @@
 package TipoEntidadJuridica;
 
 public class Categoria {
-    String nombre;
-    int ventasAnualesMaximas;
-    int cantidadPersonalMaximo;
+    private String nombre;
+    private int ventasAnualesMaximas;
+    private int cantidadPersonalMaximo;
 
     //Agregué el constructor
     public Categoria(String nombre, int ventasAnualesMaximas, int cantidadPersonalMaximo) {

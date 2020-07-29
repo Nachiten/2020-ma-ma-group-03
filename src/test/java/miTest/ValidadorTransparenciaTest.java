@@ -68,11 +68,13 @@ public class ValidadorTransparenciaTest {
     private final DocumentoComercial documentoComercialRopaA = documentoRecibo;
     private final Proveedor proveedorRopaA = indumentariaDeportivaBsAs;
     private final MedioDePago medioDePagoRopaA = medioDePagoTarjetaDeCredito;
-    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoRopaA, documentoComercialRopaA,itemsPresupuestoRopaA, presupuestos, 1);
-    private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, documentoComercialRopaA);
-    private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA, documentoComercialRopaA);
-    private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina, documentoComercialRopaA);
-    private final Presupuesto presupuestoRopaAConDistintoDocumento = new Presupuesto(5600, itemsPresupuestoRopaA, documentoCheque);
+    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoRopaA, itemsPresupuestoRopaA);
+
+
+    private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA);
+    private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA);
+    private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina);
+    private final Presupuesto presupuestoRopaAConDistintoDocumento = new Presupuesto(5600, itemsPresupuestoRopaA);
     //Items de Ropa B
 
     private final Item itemPresupuestoRopaB1 = new Item("Camisa Talle L", 1100);
@@ -85,7 +87,7 @@ public class ValidadorTransparenciaTest {
     //Presupuesto Ropa B
 
     private final DocumentoComercial documentoComercialRopaB = documentoCheque;
-    private final Presupuesto presupuestoRopaB = new Presupuesto(5800, itemsPresupuestoRopaB, documentoComercialRopaB);
+    private final Presupuesto presupuestoRopaB = new Presupuesto(5800, itemsPresupuestoRopaB);
 
 
     //Items de Construccion
@@ -98,18 +100,17 @@ public class ValidadorTransparenciaTest {
     private final List<Item> itemsPresupuestoConstruccion = new ArrayList<>(Arrays.asList(itemPresupuestoConstruccion1, itemPresupuestoConstruccion2, itemPresupuestoConstruccion3, itemPresupuestoConstruccion4, itemPresupuestoConstruccion5));
 
     //Egreso construccion
-    private final Proveedor proveedorconstruccion = proveedor2;
     private final MedioDePago medioDePagoconstruccion = medioDePagoTarjetaDeCredito;
-    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoconstruccion, documentoCheque,itemsPresupuestoConstruccion, presupuestos, 1);
+    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoconstruccion, itemsPresupuestoConstruccion);
 
 
     //Instancia de lista operacionesDeEgreso
     private final List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Collections.singletonList(operacionDeEgresoRopaA));
 
 
+
     //Instancia de Entidad Juridica
-    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17",
-    null, operacionesDeEgreso, null, null);
+    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17");
 
 
     //Instancia criterio seleccion de proveedor
@@ -127,16 +128,17 @@ public class ValidadorTransparenciaTest {
 
     //Instancia de validador de Transparencia
     List<OperacionDeEgreso> operacionDeEgresosSinValidar = new ArrayList<>();
-    List<OperacionDeEgreso> operacionDeEgresosValidadas = new ArrayList<>();
-    private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosSinValidar, operacionDeEgresosValidadas);
+    private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosSinValidar, 3);
 
     public void asociarOperacionConPresupuesto(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
         operacionDeEgreso.agregarPresupuesto(presupuesto);
         operacionDeEgreso.setCriterioSeleccionProveedor(proveedorMenorValor);
+        operacionDeEgreso.setCantidadPresupuestosRequerida(1);
         List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
-        validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
+        validadorTransparencia.setOperacionesDeEgresoAValidar(operacionesDeEgresos);
         operacionDeEgreso.setValidadorTransparencia(validadorTransparencia);
     }
+
 
     @Test
     public void verificarEgresoConPresupuesto(){
@@ -148,7 +150,7 @@ public class ValidadorTransparenciaTest {
     public void verificarEgresoSinPresupuesto() {
         operacionDeEgresoRopaA.setCriterioSeleccionProveedor(proveedorMenorValor);
         List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
-        validadorTransparencia.setOperacionesAValidar(operacionesDeEgresos);
+        validadorTransparencia.setOperacionesDeEgresoAValidar(operacionesDeEgresos);
         operacionDeEgresoRopaA.setValidadorTransparencia(validadorTransparencia);
         Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
     }
@@ -174,6 +176,7 @@ public class ValidadorTransparenciaTest {
 
     @Test
     public void verificarQueTengaDistintoDocumentoComercial(){
+        presupuestoRopaAConDistintoDocumento.setDocumentoComercial(documentoComercialRopaB);
         asociarOperacionConPresupuesto(operacionDeEgresoRopaA,presupuestoRopaAConDistintoDocumento);
         Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
     }

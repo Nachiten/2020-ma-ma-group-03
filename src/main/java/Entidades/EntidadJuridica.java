@@ -3,7 +3,6 @@ package Entidades;
 import CriterioOperacion.CategoriaCriterio;
 import CriterioOperacion.Criterio;
 import Operaciones.OperacionDeIngreso;
-import Operaciones.Presupuesto;
 import TipoEntidadJuridica.TipoEntidadJuridica;
 import Operaciones.OperacionDeEgreso;
 
@@ -22,18 +21,12 @@ public class EntidadJuridica {
     private List<EntidadBase> entidadesBase; //entidades que puede tener o no!
     private List<Criterio> listaCriterio;
 
-    public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, String codigoInscripcionDefinitiva,
-                           List<EntidadBase> entidadesBase, List<OperacionDeEgreso> operacionesDeEgreso, List<OperacionDeIngreso> operacionDeIngreso,
-                           List<Criterio> listaCriterio) {
+    public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, String codigoInscripcionDefinitiva) {
         this.razonSocial = razonSocial;
         this.nombreFicticio = nombreFicticio;
         this.cuit = cuit;
         this.direccionPostal = direccionPostal;
         this.codigoInscripcionDefinitiva = codigoInscripcionDefinitiva;
-        this.entidadesBase = entidadesBase;
-        this.operacionesDeEgreso = operacionesDeEgreso;
-        this.operacionDeIngreso = operacionDeIngreso;
-        this.listaCriterio = listaCriterio;
     }
 
     public void agregarCriterio(Criterio criterio){ listaCriterio.add(criterio);}

@@ -6,16 +6,14 @@ import java.util.List;
 
 public class Presupuesto {
 
-    public float montoTotal;
-    public List<Item> items;
-    public DocumentoComercial documentoComercial;
+    private float montoTotal;
+    private List<Item> items;
+    private DocumentoComercial documentoComercial;
     private List<CategoriaCriterio> listaCategoriaCriterio;
 
-
-    public Presupuesto(float montoTotal, List<Item> items, DocumentoComercial documentoComercial) {
+    public Presupuesto(float montoTotal, List<Item> items) {
         this.montoTotal = montoTotal;
         this.items = items;
-        this.documentoComercial = documentoComercial;
     }
 
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
@@ -32,4 +30,7 @@ public class Presupuesto {
         return documentoComercial;
     }
 
+    public void setDocumentoComercial(DocumentoComercial documentoComercial) {
+        this.documentoComercial = documentoComercial;
+    }
 }

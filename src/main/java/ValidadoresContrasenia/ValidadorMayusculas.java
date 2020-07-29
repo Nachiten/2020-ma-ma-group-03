@@ -1,7 +1,7 @@
 package ValidadoresContrasenia;
 
 public class ValidadorMayusculas extends Validador {
-    int cantidadMayusculas;
+    private int cantidadMayusculas;
 
     public ValidadorMayusculas(int cantidadMayusculas){
         this.cantidadMayusculas = cantidadMayusculas;

@@ -1,10 +1,13 @@
 import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
-import Entidades.EntidadJuridica;
 import Operaciones.*;
+import Usuarios.BandejaDeMensajes;
+import Usuarios.Mensaje;
+import Usuarios.Usuario;
 import ValidadorTransparencia.*;
-import Vendedor.Proveedor;
 
 import java.util.*;
+
+import static Usuarios.TipoUsuario.ADMIN;
 
 public class Principal {
 
@@ -39,11 +42,14 @@ public class Principal {
         List<Presupuesto> presupuestosConstruccion = new ArrayList<>();
 
         //Egreso Ropa A
-        OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoTarjetaDeCredito, documentoRecibo,itemsPresupuestoRopaA, presupuestosRopaA, 1);
-        Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, documentoRecibo);
+        OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoTarjetaDeCredito, itemsPresupuestoRopaA);
+        Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA);
 
-        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoTarjetaDeCredito, documentoCheque, itemsPresupuestoConstruccion, presupuestosConstruccion, 1);
-        Presupuesto presupuestoConstruccion = new Presupuesto(42430, itemsPresupuestoConstruccion, documentoCheque);
+        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
+        Presupuesto presupuestoConstruccion = new Presupuesto(42430, itemsPresupuestoConstruccion);
+
+        //
+        // agregar revisores
 
         //Instancia criterio seleccion de proveedor
         CriterioProveedorMenorValor proveedorMenorValor = new CriterioProveedorMenorValor();
@@ -57,7 +63,7 @@ public class Principal {
         //Instancia de validador de Transparencia
         List<OperacionDeEgreso> operacionDeEgresosAValidar = new ArrayList<>();
         List<OperacionDeEgreso> operacionDeEgresosValidadas = new ArrayList<>();
-        ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosAValidar, operacionDeEgresosValidadas);
+        ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosAValidar, 3);
 
         //Instancia de lista operacionesDeEgreso
         List<OperacionDeEgreso> operacionesDeEgreso = new ArrayList<>(Arrays.asList(operacionEgresoConstruccion, operacionDeEgresoRopaA));
@@ -71,12 +77,29 @@ public class Principal {
         operacionDeEgresoRopaA.setCriterioSeleccionProveedor(proveedorMenorValor);
         operacionDeEgresoRopaA.setValidadorTransparencia(validadorTransparencia);
 
-        validadorTransparencia.setOperacionesAValidar(operacionesDeEgreso);
+        validadorTransparencia.setOperacionesDeEgresoAValidar(operacionesDeEgreso);
 
+
+        Usuario miUsuario = new Usuario(ADMIN, "Nachiten", "abcdeFGH1234");
+
+        miUsuario.setBandejaDeMensajes(new BandejaDeMensajes());
+
+        operacionDeEgresoRopaA.agregarRevisor(miUsuario);
 
         int segundoEnMilisegundos = 1000;
 
-        validadorTransparencia.ejecutarValidadorCadaCiertoTiempo(segundoEnMilisegundos * 5);
+        Scheduler.ejecutarCadaCiertoTiempo(validadorTransparencia, segundoEnMilisegundos * 20);
 
+        // printear los mensajes de la bandeja de mensajes del usuario.
+        // TODO La bandeja de mensajes queda vacia entonces no se printea nada
+
+        List<Mensaje> listaMensajes = miUsuario.getBandejaDeMensajes().getMensajes();
+
+        listaMensajes.forEach(Principal::printearMensaje);
+
+    }
+
+    static void printearMensaje(Mensaje unMensaje){
+        System.out.println(unMensaje.getContenido());
     }
 }

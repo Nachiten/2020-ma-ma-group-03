@@ -10,9 +10,9 @@ public class Usuario {
 
     private TipoUsuario tipo;
     private String nombreUsuario;
-    public String contrasenia;
+    private String contrasenia;
     private EntidadJuridica entidadJuridica;
-    BandejaDeMensajes bandejaDeMensajes;
+    private BandejaDeMensajes bandejaDeMensajes;
     private List<String> contraseniasAnteriores;
     private LocalDateTime tiempoUltimaContrasenia;
 
@@ -28,5 +28,13 @@ public class Usuario {
 
     public BandejaDeMensajes getBandejaDeMensajes() {
         return bandejaDeMensajes;
+    }
+
+    public void setBandejaDeMensajes(BandejaDeMensajes bandejaDeMensajes) {
+        this.bandejaDeMensajes = bandejaDeMensajes;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
     }
 }

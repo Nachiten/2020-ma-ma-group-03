@@ -5,56 +5,60 @@ import Operaciones.OperacionDeEgreso;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ValidadorTransparencia {
+public class ValidadorTransparencia implements SchedulerFunction{
     private List<EstrategiaValidacion> validaciones;
-    private List<OperacionDeEgreso> operacionesAValidar;
-    private List<OperacionDeEgreso> operacionesValidadas;
+    private List<OperacionDeEgreso> operacionesDeEgresoAValidar;
+    private int cantidadDeChancesParaValidar;
 
-    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones, List<OperacionDeEgreso> operacionesAValidar, List<OperacionDeEgreso> operacionesValidadas) {
+    public ValidadorTransparencia(List<EstrategiaValidacion> validaciones, List<OperacionDeEgreso> operacionesDeEgresoAValidar, int cantidadDeChancesParaValidar) {
         this.validaciones = validaciones;
-        this.operacionesAValidar = operacionesAValidar;
-        this.operacionesValidadas = operacionesValidadas;
+        this.operacionesDeEgresoAValidar = operacionesDeEgresoAValidar;
+        this.cantidadDeChancesParaValidar = cantidadDeChancesParaValidar;
     }
 
-    public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
+    public Boolean hayQueValidar(OperacionDeEgreso operacionDeEgreso){
+        return operacionDeEgreso.getCantidadDeVecesValidada() < cantidadDeChancesParaValidar && !operacionDeEgreso.esValida();
+    }
+
+    public boolean esOperacionValida(OperacionDeEgreso operacionDeEgreso){
         return validaciones.stream().allMatch(unaValidacion -> unaValidacion.validarEgreso(operacionDeEgreso));
     }
 
+    public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
+
+      if(this.hayQueValidar(operacionDeEgreso))
+      operacionDeEgreso.fuiValidada();
+
+      if(this.esOperacionValida(operacionDeEgreso))
+          operacionDeEgreso.soyValida();
+
+      publicarMensaje(operacionDeEgreso, operacionDeEgreso.esValida());
+
+      return operacionDeEgreso.esValida();
+
+    }
+
     private void publicarMensaje(OperacionDeEgreso operacionDeEgreso, Boolean resultado){
-        operacionDeEgreso.getUsuario().getBandejaDeMensajes().publicarMensaje(operacionDeEgreso, resultado);
+
+        String identificacion = "Fecha de la operacion: " + operacionDeEgreso.getFecha().toString() + ", Monto: " + operacionDeEgreso.getMontoTotal() + ", ID: " + operacionDeEgreso.getIDOperacion();
+
+        operacionDeEgreso.publicarMensajeEnRevisores(resultado, identificacion);
+
+        //No se como distinguir el true o false de que operacion de egreso???
+        //No se como no acoplarlo
+        //Como se que revisores son si no se que operacion de egreso es??
+    }
+
+    public void setOperacionesDeEgresoAValidar(List<OperacionDeEgreso> operacionesDeEgresoAValidar) {
+        this.operacionesDeEgresoAValidar = operacionesDeEgresoAValidar;
     }
 
     public void validarEgresos(){
-
-        if(operacionesAValidar.isEmpty()){
-            System.out.print("No hay operaciones de egreso para validar! \n");
-            return;
-        }
-
-        List<OperacionDeEgreso> operacionesValidadasCorrectamente =  operacionesAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
-
-        operacionesValidadas.addAll(operacionesValidadasCorrectamente);
-        operacionesAValidar.removeAll(operacionesValidadasCorrectamente);
-
-        if(operacionesAValidar.isEmpty()){
-        System.out.print("Se validaron todas las operaciones de egreso correctamente! \n");
-        } else {
-        System.out.print("Hay alguna operacion de egreso que no se puede validar! \n");
-    }
-}
-
-    public void setOperacionesAValidar(List<OperacionDeEgreso> operacionesAValidar) {
-        this.operacionesAValidar = operacionesAValidar;
+        List<OperacionDeEgreso> operacionesValidadasCorrectamente =  operacionesDeEgresoAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
     }
 
-    public void ejecutarValidadorCadaCiertoTiempo(int tiempo) {
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                validarEgresos();
-            }
-        };
-        timer.scheduleAtFixedRate(timerTask, 0, tiempo);
+    @Override
+    public void ejecutarse() {
+        validarEgresos();
     }
 }

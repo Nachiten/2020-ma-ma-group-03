@@ -1,25 +1,27 @@
 package TipoEntidadJuridica;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Sector {
-    int promedioVentasAnuales;
-    int cantidadPersonal;
-    List<Categoria> categorias;
+    private Collection<Categoria> categorias;
 
-    public Categoria categoria(){
+    public Categoria categoria(Empresa unaEmpresa){
+        int promedioVentasAnuales = unaEmpresa.getPromedioVentasAnuales();
+        int cantidadPersonal = unaEmpresa.getCantidadPersonal();
+
         Optional<Categoria> categoriaQueCumpleCondicion = categorias.stream().filter(categoria -> categoria.cumploConCategoria(promedioVentasAnuales, cantidadPersonal)).findFirst();
         return categoriaQueCumpleCondicion.get();
-    }
-
-    public Sector(int promedioVentasAnuales, int cantidadPersonal) {
-        this.promedioVentasAnuales = promedioVentasAnuales;
-        this.cantidadPersonal = cantidadPersonal;
+        //ojo con esto, rompe si no hay categorias para hacer el get!
     }
 
     //Agregué método
-    public void addCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
+    public void addCategorias(Categoria ... categorias) {
+        Collections.addAll(this.categorias, categorias);
     }
+
+    public Sector(){
+        this.categorias = new ArrayList<>(Collections.emptyList());
+    }
+
+
 }

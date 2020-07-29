@@ -5,40 +5,34 @@ import Usuarios.Usuario;
 import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class OperacionDeEgreso {
 
+    private int IDOperacion;
     private Usuario usuario;
     private final Date fecha;
     private final float montoTotal;
     private final MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private final List<Item> items;
-    private List<Presupuesto> presupuestos;
+    private List<Presupuesto> presupuestos = new ArrayList<>();
     private ValidadorTransparencia validadorTransparencia;
-    private List<Usuario> revisores;
+    private List<Usuario> revisores = new ArrayList<>();
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
     private List<CategoriaCriterio> listaCategoriaCriterio;
     private OperacionDeIngreso operacionDeIngreso;
     private int cantidadPresupuestosRequerida;
+    private boolean soyValida = false;
+    private int cantidadDeVecesValidada = 0;
 
-    public OperacionDeEgreso( Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
+    public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.items = items;
-    }
-
-    public OperacionDeEgreso( Date fecha, float montoTotal, MedioDePago medioDePago, DocumentoComercial documentoComercial, List<Item> items, List<Presupuesto> presupuestos, int cantidadPresupuestosRequerida) {
-        this.fecha = fecha;
-        this.montoTotal = montoTotal;
-        this.medioDePago = medioDePago;
-        this.documentoComercial = documentoComercial;
-        this.items = items;
-        this.presupuestos = presupuestos;
-        this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida;
     }
 
     public void adjuntarDocumentoComercial(DocumentoComercial documentoComercial) {
@@ -52,6 +46,14 @@ public class OperacionDeEgreso {
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
 
     public void asociarOperacionDeIngreso(OperacionDeIngreso unaOperacionDeIngreso){ this.operacionDeIngreso = unaOperacionDeIngreso; }
+
+    public void agregarRevisor(Usuario unUsuario){
+        revisores.add(unUsuario);
+    }
+
+    public void publicarMensajeEnRevisores(Boolean resultado, String identificacion){
+        revisores.forEach(unRevisor -> unRevisor.getBandejaDeMensajes().publicarMensaje(resultado, identificacion));
+    }
 
 //-------------------------------------------------------------------------
                             //SETTERS
@@ -73,7 +75,17 @@ public class OperacionDeEgreso {
         presupuestos.add(unPresupuesto);
     }
 
-//-------------------------------------------------------------------------
+    public void soyValida(){
+        this.soyValida = true;
+    }
+
+    public void fuiValidada(){
+        this.cantidadDeVecesValidada ++;
+    }
+
+    public void setCantidadPresupuestosRequerida(int cantidadPresupuestosRequerida) { this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida; }
+
+    //-------------------------------------------------------------------------
                             //GETTERS
 //-------------------------------------------------------------------------
 
@@ -81,6 +93,10 @@ public class OperacionDeEgreso {
     public List<Presupuesto> getPresupuestos() {
         return presupuestos;
     }
+
+    public Date getFecha() { return fecha;}
+
+    public int getIDOperacion() { return IDOperacion; }
 
     public int getCantidadPresupuestosRequerida() { return cantidadPresupuestosRequerida; }
 
@@ -108,4 +124,11 @@ public class OperacionDeEgreso {
         return criterioSeleccionProveedor;
     }
 
+    public Boolean esValida(){
+        return soyValida;
+    }
+
+    public int getCantidadDeVecesValidada() {
+        return cantidadDeVecesValidada;
+    }
 }

@@ -2,7 +2,7 @@ package ValidadoresContrasenia;
 
 public class ValidadorNumeros extends Validador {
 
-    int cantidadNumeros;
+    private int cantidadNumeros;
 
     public ValidadorNumeros(int cantidadNumeros){
         this.cantidadNumeros = cantidadNumeros;
