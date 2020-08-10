@@ -1,8 +1,16 @@
 package ApiMercadoLibre;
 
 public class Pais {
-    IdPais id;
-    String name;
-    String locale;
-    CurrencyIdPais currency_id;
+    public String id;
+    public String name;
+    public String locale;
+    public String currency_id;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
 }

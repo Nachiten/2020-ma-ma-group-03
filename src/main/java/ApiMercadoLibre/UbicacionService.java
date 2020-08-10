@@ -5,6 +5,6 @@ import retrofit2.http.GET;
 
 public interface UbicacionService {
 
-        @GET("paises")
+        @GET("countries")
         Call<ListadoPaises> paises();
     }
