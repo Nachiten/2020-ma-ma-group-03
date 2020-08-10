@@ -1,26 +1,30 @@
 package miTest;
 import ApiMercadoLibre.ListadoPaises;
 import ApiMercadoLibre.Pais;
-import ApiMercadoLibre.ServicioPaisMercadoLibre;
-import Entidades.Afip;
-import org.junit.Assert;
+import ApiMercadoLibre.ServicioUbicacionMercadoLibre;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ApiMercadoLibreTest {
 
     @Test
     public void obtenerListaPaises() throws IOException {
-        ServicioPaisMercadoLibre servicioPais = ServicioPaisMercadoLibre.instancia();
-        ListadoPaises listaDePaises = servicioPais.listadoDePaises();
+        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
+        List<Pais> listaDePaises = servicioPais.listadoDePaises();
 
-        for(Pais unPais: listaDePaises.paises){
-            System.out.println("Nombre: " + unPais.getName() + "Locale: " + unPais.getLocale());
+        if (listaDePaises != null){
+            for(Pais unPais: listaDePaises){
+                System.out.println("Nombre: " + unPais.getName() + " | Locale: " + unPais.getLocale() + " | ID: " + unPais.getId());
 
-            //String name;
-            //String locale;
+                //String name;
+                //String locale;
+            }
+        } else {
+            System.out.println("No se pudo leer la lista de paises");
         }
+
     }
 
 }

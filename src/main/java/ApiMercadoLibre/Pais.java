@@ -13,4 +13,8 @@ public class Pais {
     public String getLocale() {
         return locale;
     }
+
+    public String getId() {
+        return id;
+    }
 }
