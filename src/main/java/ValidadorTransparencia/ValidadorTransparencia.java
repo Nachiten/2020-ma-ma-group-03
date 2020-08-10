@@ -38,15 +38,10 @@ public class ValidadorTransparencia implements SchedulerFunction{
 
     }
 
-    private void publicarMensaje(OperacionDeEgreso operacionDeEgreso, Boolean resultado){
+    private void publicarMensaje(OperacionDeEgreso operacionDeEgreso, Boolean resultadoValidacion){
 
         String identificacion = "Fecha de la operacion: " + operacionDeEgreso.getFecha().toString() + ", Monto: " + operacionDeEgreso.getMontoTotal() + ", ID: " + operacionDeEgreso.getIDOperacion();
-
-        operacionDeEgreso.publicarMensajeEnRevisores(resultado, identificacion);
-
-        //No se como distinguir el true o false de que operacion de egreso???
-        //No se como no acoplarlo
-        //Como se que revisores son si no se que operacion de egreso es??
+        operacionDeEgreso.getUsuario().publicarMensajeEnBandejaDeMensajes(identificacion, resultadoValidacion);
     }
 
     public void setOperacionesDeEgresoAValidar(List<OperacionDeEgreso> operacionesDeEgresoAValidar) {
@@ -54,7 +49,7 @@ public class ValidadorTransparencia implements SchedulerFunction{
     }
 
     public void validarEgresos(){
-        List<OperacionDeEgreso> operacionesValidadasCorrectamente =  operacionesDeEgresoAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
+       operacionesDeEgresoAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
     }
 
     @Override

@@ -2,11 +2,12 @@ package Usuarios;
 
 import Entidades.EntidadJuridica;
 import Operaciones.OperacionDeEgreso;
+import Operaciones.Revisor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Usuario {
+public class Usuario implements Revisor {
 
     private TipoUsuario tipo;
     private String nombreUsuario;
@@ -15,15 +16,12 @@ public class Usuario {
     private BandejaDeMensajes bandejaDeMensajes;
     private List<String> contraseniasAnteriores;
     private LocalDateTime tiempoUltimaContrasenia;
+    private List<OperacionDeEgreso> operacionesRevisadas;
 
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
-    }
-
-    public Boolean soyRevisor(OperacionDeEgreso operacionDeEgreso){
-        return operacionDeEgreso.getRevisores().contains(this);
     }
 
     public BandejaDeMensajes getBandejaDeMensajes() {
@@ -36,5 +34,13 @@ public class Usuario {
 
     public String getContrasenia() {
         return contrasenia;
+    }
+
+    public void actualizarRevisor(OperacionDeEgreso operacionDeEgreso){
+        operacionesRevisadas.add(operacionDeEgreso);
+    }
+
+    public void publicarMensajeEnBandejaDeMensajes(String identificacion, Boolean resultadoValidacion){
+        bandejaDeMensajes.publicarMensaje(resultadoValidacion, identificacion);
     }
 }

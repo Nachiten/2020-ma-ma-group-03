@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OperacionDeEgreso {
+public class OperacionDeEgreso implements GestorDeRevisores {
 
     private int IDOperacion;
     private Usuario usuario;
@@ -20,7 +20,7 @@ public class OperacionDeEgreso {
     private final List<Item> items;
     private List<Presupuesto> presupuestos = new ArrayList<>();
     private ValidadorTransparencia validadorTransparencia;
-    private List<Usuario> revisores = new ArrayList<>();
+    private ArrayList revisores;
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
     private List<CategoriaCriterio> listaCategoriaCriterio;
     private OperacionDeIngreso operacionDeIngreso;
@@ -47,12 +47,22 @@ public class OperacionDeEgreso {
 
     public void asociarOperacionDeIngreso(OperacionDeIngreso unaOperacionDeIngreso){ this.operacionDeIngreso = unaOperacionDeIngreso; }
 
-    public void agregarRevisor(Usuario unUsuario){
-        revisores.add(unUsuario);
+    public void agregarRevisor(Revisor revisor){
+        revisores.add(revisor);
     }
 
-    public void publicarMensajeEnRevisores(Boolean resultado, String identificacion){
-        revisores.forEach(unRevisor -> unRevisor.getBandejaDeMensajes().publicarMensaje(resultado, identificacion));
+    public void removerRevisor(Revisor revisor) {
+        int i = revisores.indexOf(revisor);
+        if (i >= 0) {
+            revisores.remove(i);
+        }
+    }
+
+    public void notificarRevisor() {
+        for (Object revisores : revisores) {
+            Revisor revisor = (Revisor) revisores;
+            revisor.actualizarRevisor(this);
+        }
     }
 
 //-------------------------------------------------------------------------

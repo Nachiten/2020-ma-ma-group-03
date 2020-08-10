@@ -7,4 +7,4 @@ public interface UbicacionService {
 
         @GET("paises")
         Call<ListadoPaises> paises();
-    }
+}
