@@ -1,5 +1,6 @@
 package miTest;
 import ApiMercadoLibre.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.sound.sampled.Line;
@@ -35,9 +36,6 @@ public class ApiMercadoLibreTest {
         if (provinciasDeArg.getStates() != null){
             for(Estado unEstado: provinciasDeArg.getStates()){
                 System.out.println("Nombre: " + unEstado.getName() + " | ID: " + unEstado.getId());
-
-                //String name;
-                //String locale;
             }
         } else {
             System.out.println("No se pudo leer la lista de paises");
@@ -45,4 +43,36 @@ public class ApiMercadoLibreTest {
 
     }
 
+    @Test
+    public void obtenerMonedas() throws IOException{
+        ServicioUbicacionMercadoLibre servicioMonedas = ServicioUbicacionMercadoLibre.instancia();
+        List<InfoMoneda> monedas = servicioMonedas.listadoMonedas();
+
+        if ( monedas != null){
+            for(InfoMoneda infoMoneda: monedas){
+                System.out.println("ID: " + infoMoneda.getId() + "| Simbolo: " + infoMoneda.getSymbol() + " | Descripcion: " + infoMoneda.getDescripcion());
+            }
+        } else {
+            System.out.println("No se pudo leer la lista de monedas");
+        }
+
+        Assert.assertNotNull(monedas);
+
+    }
+
+    @Test
+    public void obtenerCiudadesDeEstadoRocha() throws IOException{
+        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
+        InfoEstado estados = servicioPais.listadoCiudadesDeEstado("UY-RO");
+
+        if (estados.getCities() != null){
+            for(Ciudad unaCiudad : estados.getCities()){
+                System.out.println("Nombre: " + unaCiudad.getName() + " | ID: " + unaCiudad.getId());
+            }
+        } else {
+            System.out.println("No se pudo leer la lista de paises");
+        }
+
+        Assert.assertNotNull(estados.getCities());
+    }
 }
