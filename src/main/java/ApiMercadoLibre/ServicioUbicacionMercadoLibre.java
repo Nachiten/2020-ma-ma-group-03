@@ -31,8 +31,13 @@ public class ServicioUbicacionMercadoLibre {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
         Call<List<Pais>> pedidoPaises = ubicacionService.paises();
         Response<List<Pais>> responseProvinciasArgentinas = pedidoPaises.execute();
-        List<Pais> listaPaises = responseProvinciasArgentinas.body();
-        return listaPaises;
-        //return (ListadoPaises) ubicacionService.paises();
+        return responseProvinciasArgentinas.body();
+    }
+
+    public InfoPais listadoEstadosDePais(String nombrePais) throws IOException{
+        UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
+        Call<InfoPais> pedidoUnPais = ubicacionService.provincias( nombrePais, "id, name, locale, states");
+        Response<InfoPais> respuestaPedidoPais = pedidoUnPais.execute();
+        return respuestaPedidoPais.body();
     }
 }
