@@ -3,7 +3,6 @@ import ApiMercadoLibre.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.sound.sampled.Line;
 import java.io.IOException;
 import java.util.List;
 
@@ -74,5 +73,12 @@ public class ApiMercadoLibreTest {
         }
 
         Assert.assertNotNull(estados.getCities());
+    }
+
+    @Test
+    public void crearDirrecionPostal() throws IOException{
+        DireccionPostal miDireccion = new DireccionPostal();
+
+        miDireccion.configurarDireccionPostal("Argentina", "Córdoba", "La Carlota");
     }
 }

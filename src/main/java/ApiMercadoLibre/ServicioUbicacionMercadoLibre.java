@@ -36,17 +36,17 @@ public class ServicioUbicacionMercadoLibre {
     }
 
     // Listar los estados a partir de un pais
-    public InfoPais listadoEstadosDePais(String nombrePais) throws IOException {
+    public InfoPais listadoEstadosDePais(String idPais) throws IOException {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
-        Call<InfoPais> pedidoUnPais = ubicacionService.provincias( nombrePais, "id, name, locale, states");
+        Call<InfoPais> pedidoUnPais = ubicacionService.provincias( idPais, "id, name, locale, states");
         Response<InfoPais> respuestaPedidoPais = pedidoUnPais.execute();
         return respuestaPedidoPais.body();
     }
 
     // Listar todas las ciudades a partir de un estado
-    public InfoEstado listadoCiudadesDeEstado(String nombreEstado) throws IOException {
+    public InfoEstado listadoCiudadesDeEstado(String idEstado) throws IOException {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
-        Call<InfoEstado> pedidoMonedas = ubicacionService.estados(nombreEstado, "id, name, cities");
+        Call<InfoEstado> pedidoMonedas = ubicacionService.estados(idEstado, "id, name, cities");
         Response<InfoEstado> respuestaMonedas = pedidoMonedas.execute();
         return respuestaMonedas.body();
     }
