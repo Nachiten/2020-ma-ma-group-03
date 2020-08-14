@@ -17,9 +17,6 @@ public class ApiMercadoLibreTest {
         if (listaDePaises != null){
             for(Pais unPais: listaDePaises){
                 System.out.println("Nombre: " + unPais.getName() + " | Locale: " + unPais.getLocale() + " | ID: " + unPais.getId());
-
-                //String name;
-                //String locale;
             }
         } else {
             System.out.println("No se pudo leer la lista de paises");
@@ -43,6 +40,22 @@ public class ApiMercadoLibreTest {
     }
 
     @Test
+    public void obtenerCiudadesDeEstadoRocha() throws IOException{
+        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
+        InfoEstado estados = servicioPais.listadoCiudadesDeEstado("UY-RO");
+
+        if (estados.getCities() != null){
+            for(Ciudad unaCiudad : estados.getCities()){
+                System.out.println("Nombre: " + unaCiudad.getName() + " | ID: " + unaCiudad.getId());
+            }
+        } else {
+            System.out.println("No se pudo leer la lista de paises");
+        }
+
+        Assert.assertNotNull(estados.getCities());
+    }
+
+    @Test
     public void obtenerMonedas() throws IOException{
         ServicioUbicacionMercadoLibre servicioMonedas = ServicioUbicacionMercadoLibre.instancia();
         List<InfoMoneda> monedas = servicioMonedas.listadoMonedas();
@@ -57,22 +70,6 @@ public class ApiMercadoLibreTest {
 
         Assert.assertNotNull(monedas);
 
-    }
-
-    @Test
-    public void obtenerCiudadesDeEstadoRocha() throws IOException{
-        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-        InfoEstado estados = servicioPais.listadoCiudadesDeEstado("UY-RO");
-
-        if (estados.getCities() != null){
-            for(Ciudad unaCiudad : estados.getCities()){
-                System.out.println("Nombre: " + unaCiudad.getName() + " | ID: " + unaCiudad.getId());
-            }
-        } else {
-            System.out.println("No se pudo leer la lista de paises");
-        }
-
-        Assert.assertNotNull(estados.getCities());
     }
 
     @Test

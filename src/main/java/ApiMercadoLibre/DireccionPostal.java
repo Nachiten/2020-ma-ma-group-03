@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class DireccionPostal {
-    Direccion direccion;
-    Ciudad ciudad;
-    InfoEstado provincia;
-    Pais pais;
+    private Direccion direccion;
+    private Ciudad ciudad;
+    private InfoEstado provincia;
+    private Pais pais;
 
     public void configurarDireccionPostal(String nombrePais, String nombreProvincia, String nombreCiudad) throws IOException {
 
@@ -38,9 +38,7 @@ public class DireccionPostal {
     private void configurarProvincia(String nombreProvincia, ServicioUbicacionMercadoLibre servicioMercadoLibre) throws IOException {
 
         InfoPais infoPaisSeleccionado = servicioMercadoLibre.listadoEstadosDePais(pais.getId());
-
         Optional<Estado> estadoEncontrado = infoPaisSeleccionado.getStates().stream().filter(unEstado -> unEstado.getName().equals(nombreProvincia)).findFirst();
-
 
         if (estadoEncontrado.isPresent()) {
 
