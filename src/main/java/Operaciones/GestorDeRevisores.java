@@ -1,8 +1,10 @@
 package Operaciones;
 
+import Usuarios.Usuario;
+
 public interface GestorDeRevisores {
 
-    void agregarRevisor(Revisor revisor);
-    void removerRevisor(Revisor revisor);
+    void agregarRevisor(Usuario revisor);
+    void removerRevisor(Usuario revisor);
     void notificarRevisor();
 }

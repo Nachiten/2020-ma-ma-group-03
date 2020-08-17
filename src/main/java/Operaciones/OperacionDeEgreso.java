@@ -20,7 +20,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     private final List<Item> items;
     private List<Presupuesto> presupuestos = new ArrayList<>();
     private ValidadorTransparencia validadorTransparencia;
-    private ArrayList revisores;
+    private List<Usuario> revisores;
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
     private List<CategoriaCriterio> listaCategoriaCriterio;
     private OperacionDeIngreso operacionDeIngreso;
@@ -47,11 +47,11 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public void asociarOperacionDeIngreso(OperacionDeIngreso unaOperacionDeIngreso){ this.operacionDeIngreso = unaOperacionDeIngreso; }
 
-    public void agregarRevisor(Revisor revisor){
+    public void agregarRevisor(Usuario revisor){
         revisores.add(revisor);
     }
 
-    public void removerRevisor(Revisor revisor) {
+    public void removerRevisor(Usuario revisor) {
         int i = revisores.indexOf(revisor);
         if (i >= 0) {
             revisores.remove(i);
