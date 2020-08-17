@@ -83,4 +83,16 @@ public class DireccionPostal {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
+
+    public InfoEstado getProvincia() {
+        return provincia;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
 }

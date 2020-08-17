@@ -77,5 +77,9 @@ public class ApiMercadoLibreTest {
         DireccionPostal miDireccion = new DireccionPostal();
 
         miDireccion.configurarDireccionPostal("Argentina", "Córdoba", "La Carlota");
+
+        Assert.assertEquals("La Carlota", miDireccion.getCiudad().getName());
+        Assert.assertEquals("Argentina", miDireccion.getPais().getName());
+        Assert.assertEquals("Córdoba", miDireccion.getProvincia().getName());
     }
 }

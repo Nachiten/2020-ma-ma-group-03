@@ -10,4 +10,8 @@ public class InfoEstado {
     public List<Ciudad> getCities() {
         return cities;
     }
+
+    public String getName() {
+        return name;
+    }
 }

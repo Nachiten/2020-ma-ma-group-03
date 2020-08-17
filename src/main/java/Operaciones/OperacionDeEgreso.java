@@ -18,7 +18,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     private final MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;
     private final List<Item> items;
-    private List<Presupuesto> presupuestos = new ArrayList<>();
+    private List<Presupuesto> presupuestos;
     private ValidadorTransparencia validadorTransparencia;
     private List<Usuario> revisores;
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
@@ -33,6 +33,9 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.items = items;
+
+        this.revisores = new ArrayList<>();
+        this.presupuestos = new ArrayList<>();
     }
 
     public void adjuntarDocumentoComercial(DocumentoComercial documentoComercial) {

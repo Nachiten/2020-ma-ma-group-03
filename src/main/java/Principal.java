@@ -96,7 +96,6 @@ public class Principal {
         List<Mensaje> listaMensajes = miUsuario.getBandejaDeMensajes().getMensajes();
 
         listaMensajes.forEach(Principal::printearMensaje);
-
     }
 
     static void printearMensaje(Mensaje unMensaje){
