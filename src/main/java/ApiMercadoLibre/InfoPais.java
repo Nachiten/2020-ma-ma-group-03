@@ -11,4 +11,8 @@ public class InfoPais {
     public List<Estado> getStates() {
         return states;
     }
+
+    public String getId() {
+        return id;
+    }
 }

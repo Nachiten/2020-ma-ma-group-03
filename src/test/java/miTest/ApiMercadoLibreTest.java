@@ -1,5 +1,6 @@
 package miTest;
 import ApiMercadoLibre.*;
+import Excepciones.ExcepcionApiMercadoLibre;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,11 +9,21 @@ import java.util.List;
 
 public class ApiMercadoLibreTest {
 
+    ApiMercadoLibreInfo datosApi = null;
+
+    void setupInicialApi() throws IOException{
+        if (datosApi == null){
+            datosApi = new ApiMercadoLibreInfo();
+            datosApi.obtenerDatosApiMercadoLibre();
+        }
+    }
+
     @Test
     public void obtenerListaPaises() throws IOException {
-        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-        // Aca se guarda la lista de todos los paises traidos de la API
-        List<Pais> listaDePaises = servicioPais.listadoDePaises();
+
+        setupInicialApi();
+
+        List<Pais> listaDePaises = datosApi.getPaises();
 
         if (listaDePaises != null){
             for(Pais unPais: listaDePaises){
@@ -25,18 +36,14 @@ public class ApiMercadoLibreTest {
     }
 
     @Test
-    public void obtenerProvinciasDeArg() throws IOException{
-        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-        InfoPais provinciasDeArg = servicioPais.listadoEstadosDePais("AR");
+    public void obtenerProvinciasDeArg() throws IOException, ExcepcionApiMercadoLibre {
+        setupInicialApi();
 
-        if (provinciasDeArg.getStates() != null){
-            for(Estado unEstado: provinciasDeArg.getStates()){
-                System.out.println("Nombre: " + unEstado.getName() + " | ID: " + unEstado.getId());
-            }
-        } else {
-            System.out.println("No se pudo leer la lista de paises");
+        InfoPais provinciasDeArg = datosApi.obtenerProvinciasDePais("AR");
+
+        for(Estado unEstado : provinciasDeArg.getStates()){
+            System.out.println("Nombre: " + unEstado.getName() + " | ID: " + unEstado.getId());
         }
-
     }
 
     @Test
