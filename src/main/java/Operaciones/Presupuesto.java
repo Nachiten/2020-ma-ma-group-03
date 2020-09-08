@@ -1,6 +1,7 @@
 package Operaciones;
 
 import CriterioOperacion.CategoriaCriterio;
+import Vendedor.Proveedor;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class Presupuesto {
     private List<Item> items;
     private DocumentoComercial documentoComercial;
     private List<CategoriaCriterio> listaCategoriaCriterio;
+    private Proveedor proveedorAsociado;
 
     public Presupuesto(float montoTotal, List<Item> items) {
         this.montoTotal = montoTotal;

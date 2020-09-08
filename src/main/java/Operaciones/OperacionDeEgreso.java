@@ -4,6 +4,7 @@ import CriterioOperacion.CategoriaCriterio;
 import Usuarios.Usuario;
 import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
+import Vendedor.Proveedor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     private int cantidadPresupuestosRequerida;
     private boolean soyValida = false;
     private int cantidadDeVecesValidada = 0;
+    private Proveedor proveedorAsociado;
 
     public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
