@@ -46,10 +46,20 @@ public class ApiMercadoLibreTest {
         }
     }
 
+
     @Test
-    public void obtenerCiudadesDeEstadoRocha() throws IOException{
-        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-        InfoEstado estados = servicioPais.listadoCiudadesDeEstado("UY-RO");
+    // No funciona :P
+    public void obtenerCiudadesDeEstadoRocha() throws IOException, ExcepcionApiMercadoLibre{
+
+        // Deberia funcionar de esta manera pero no funciona
+        // Este metodo lee los datos de la clase ApiMecardoLibreInfo que tiene todos los datos cargados
+        // ( se cargan en el metodo setupInicialApi() )
+        //setupInicialApi();
+        //InfoEstado estados = datosApi.obtenerCiudadesDeEstado("UY-RO");
+
+        // Obtener los datos en el momento (si funciona)
+        ServicioUbicacionMercadoLibre servicioCiudades = ServicioUbicacionMercadoLibre.instancia();
+        InfoEstado estados = servicioCiudades.listadoCiudadesDeEstado("UY-RO");
 
         if (estados.getCities() != null){
             for(Ciudad unaCiudad : estados.getCities()){
@@ -61,6 +71,7 @@ public class ApiMercadoLibreTest {
 
         Assert.assertNotNull(estados.getCities());
     }
+
 
     @Test
     public void obtenerMonedas() throws IOException{

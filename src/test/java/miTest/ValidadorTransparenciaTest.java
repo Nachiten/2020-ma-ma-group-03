@@ -1,5 +1,6 @@
 package miTest;
 
+import ApiMercadoLibre.DireccionPostal;
 import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
 import Entidades.EntidadJuridica;
 import Operaciones.*;
@@ -8,6 +9,7 @@ import Vendedor.Proveedor;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.*;
 
 public class ValidadorTransparenciaTest {
@@ -41,8 +43,8 @@ public class ValidadorTransparenciaTest {
 
 
     //Proveedores
-    private final Proveedor indumentariaDeportivaBsAs = new Proveedor("Indumentaria deportiva Bs As",58462146,"4563");
-    private final Proveedor proveedor2 = new Proveedor("Constructora Comaf",12762146,"876");
+    private final Proveedor indumentariaDeportivaBsAs = new Proveedor("Indumentaria deportiva Bs As",58462146, new DireccionPostal());
+    private final Proveedor proveedor2 = new Proveedor("Constructora Comaf",12762146, new DireccionPostal());
 
    // TipoMedioDePago
     private final TipoMedioDePago tarjetaDeCredito = new TipoMedioDePago("tarjetaDeCredito");
@@ -129,6 +131,9 @@ public class ValidadorTransparenciaTest {
     //Instancia de validador de Transparencia
     List<OperacionDeEgreso> operacionDeEgresosSinValidar = new ArrayList<>();
     private final ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionDeEgresosSinValidar, 3);
+
+    public ValidadorTransparenciaTest() throws IOException {
+    }
 
     public void asociarOperacionConPresupuesto(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
         operacionDeEgreso.agregarPresupuesto(presupuesto);

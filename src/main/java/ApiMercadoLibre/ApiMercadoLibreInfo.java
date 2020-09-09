@@ -44,7 +44,7 @@ public class ApiMercadoLibreInfo {
     }
 
     private void llenarListaEstados(ServicioUbicacionMercadoLibre servicioPais) throws IOException{
-        // Guardar lista de todas las provincias por cada pais
+        // Guardar lista de todos los estados por cada pais
         for (InfoPais infoPais : this.provincias){
             List<Estado> estados = infoPais.getStates();
 
@@ -111,6 +111,16 @@ public class ApiMercadoLibreInfo {
             return paisEncontrado.get();
         } else {
             throw new ExcepcionApiMercadoLibre("No existe el pais solicitado");
+        }
+    }
+
+    public InfoEstado obtenerCiudadesDeEstado(String idEstado) throws ExcepcionApiMercadoLibre{
+        Optional<InfoEstado> estadoEncontrado = ciudades.stream().filter( unaCiudad -> unaCiudad.getId().equals(idEstado)).findFirst();
+
+        if (estadoEncontrado.isPresent()){
+            return estadoEncontrado.get();
+        } else {
+            throw new ExcepcionApiMercadoLibre("No existe el estado solicitado");
         }
     }
 

@@ -46,9 +46,9 @@ public class ServicioUbicacionMercadoLibre {
     // Listar todas las ciudades a partir de un estado
     public InfoEstado listadoCiudadesDeEstado(String idEstado) throws IOException {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
-        Call<InfoEstado> pedidoMonedas = ubicacionService.estados(idEstado, "id, name, cities");
-        Response<InfoEstado> respuestaMonedas = pedidoMonedas.execute();
-        return respuestaMonedas.body();
+        Call<InfoEstado> pedidoCiudades = ubicacionService.estados(idEstado, "id, name, cities");
+        Response<InfoEstado> respuestaCiudades = pedidoCiudades.execute();
+        return respuestaCiudades.body();
     }
 
     // Listar todas las monedas

@@ -9,6 +9,12 @@ public class DireccionPostal {
     private Ciudad ciudad;
     private InfoEstado provincia;
     private Pais pais;
+    private ApiMercadoLibreInfo datosApi;
+
+    public DireccionPostal() throws IOException{
+        datosApi = new ApiMercadoLibreInfo();
+        datosApi.obtenerDatosApiMercadoLibre();
+    }
 
     public void configurarDireccionPostal(String nombrePais, String nombreProvincia, String nombreCiudad) throws IOException {
 
