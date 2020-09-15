@@ -27,6 +27,8 @@ public class Usuario extends EntidadPersistente {
     @Transient
     private EntidadJuridica entidadJuridica;
 
+    //@OneToOne(cascade = {CascadeType.ALL})
+    //@JoinColumn(name = "bandejaMensajes_id")
     @Transient
     private BandejaDeMensajes bandejaDeMensajes;
 
@@ -39,11 +41,16 @@ public class Usuario extends EntidadPersistente {
     @Transient
     private List<OperacionDeEgreso> operacionesRevisadas;
 
+    public Usuario(){
+
+    }
+
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.contraseniasAnteriores = new ArrayList<>();
+        this.bandejaDeMensajes = new BandejaDeMensajes(this);
     }
 
     public BandejaDeMensajes getBandejaDeMensajes() {
