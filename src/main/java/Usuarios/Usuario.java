@@ -27,9 +27,8 @@ public class Usuario extends EntidadPersistente {
     @Transient
     private EntidadJuridica entidadJuridica;
 
-    //@OneToOne(cascade = {CascadeType.ALL})
-    //@JoinColumn(name = "bandejaMensajes_id")
-    @Transient
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "bandejaMensajes_id")
     private BandejaDeMensajes bandejaDeMensajes;
 
     @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
@@ -38,7 +37,7 @@ public class Usuario extends EntidadPersistente {
     @Column (name = "TiempoUltimaContrasenia")
     private LocalDate tiempoUltimaContrasenia;
 
-    @Transient
+    @OneToMany(mappedBy = "usuario", cascade = {CascadeType.ALL})
     private List<OperacionDeEgreso> operacionesRevisadas;
 
     public Usuario(){
@@ -50,7 +49,7 @@ public class Usuario extends EntidadPersistente {
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.contraseniasAnteriores = new ArrayList<>();
-        this.bandejaDeMensajes = new BandejaDeMensajes(this);
+        this.bandejaDeMensajes = new BandejaDeMensajes();
     }
 
     public BandejaDeMensajes getBandejaDeMensajes() {

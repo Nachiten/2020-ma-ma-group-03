@@ -6,15 +6,21 @@ import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
 import Vendedor.Proveedor;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class OperacionDeEgreso implements GestorDeRevisores {
 
+    @Id
+    @GeneratedValue
     private int IDOperacion;
+    @ManyToOne (cascade = {CascadeType.ALL})
     private Usuario usuario;
+    @Column (name = "fecha")
     private final Date fecha;
+    @Column (name = "montoTotal")
     private final float montoTotal;
     private final MedioDePago medioDePago;
     private DocumentoComercial documentoComercial;

@@ -82,7 +82,7 @@ public class Principal {
 
         Usuario miUsuario = new Usuario(ADMIN, "Nachiten", "abcdeFGH1234");
 
-        miUsuario.setBandejaDeMensajes(new BandejaDeMensajes(miUsuario));
+        miUsuario.setBandejaDeMensajes(new BandejaDeMensajes());
 
         operacionDeEgresoRopaA.agregarRevisor(miUsuario);
 

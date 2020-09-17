@@ -6,22 +6,23 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Entity
-//@Table (name = "bandejaMensajes")
-public class BandejaDeMensajes {
+@Entity
+@Table (name = "bandejaMensajes")
+public class BandejaDeMensajes extends EntidadPersistente{
 
-    //@OneToMany (cascade = {CascadeType.ALL}) | OLD
-    //@JoinColumn(name = "bandejaMensajes_id", referencedColumnName = "id")
+    @OneToMany (cascade = {CascadeType.ALL})
+    @JoinColumn(name = "bandejaMensajes_id", referencedColumnName = "id")
     private List<Mensaje> mensajes;
 
-    private Usuario usuarioAsociado;
+    //private Usuario usuarioAsociado;
 
-    public BandejaDeMensajes(Usuario usuarioAsociado){
+    public BandejaDeMensajes(){
         mensajes = new ArrayList<>();
+        //this.usuarioAsociado = usuarioAsociado;
     }
 
     public void publicarMensaje(Boolean resultado, String identificacion){
-        Mensaje mensaje = new Mensaje(resultado, identificacion, this.usuarioAsociado);
+        Mensaje mensaje = new Mensaje(resultado, identificacion);
         mensajes.add(mensaje);
     }
 

@@ -58,9 +58,9 @@ public class persistenciaTest {
         *  (entiendo que no lo hace solo ya que no hay una referencia directa dede usuario hacia mensaje
         *  entonces no entiende que tiene que persistirlo)
         */
-        Mensaje unMensaje = new Mensaje(true, "jorge", miUsuario);
+        //Mensaje unMensaje = new Mensaje(true, "jorge", miUsuario);
 
         persistirUnObjeto(miUsuario);
-        persistirUnObjeto(unMensaje);
+       //persistirUnObjeto(unMensaje);
     }
 }
