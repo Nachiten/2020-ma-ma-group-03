@@ -11,29 +11,63 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table (name = "operacionDeEgreso")
 public class OperacionDeEgreso implements GestorDeRevisores {
 
     @Id
     @GeneratedValue
     private int IDOperacion;
+
     @ManyToOne (cascade = {CascadeType.ALL})
     private Usuario usuario;
+
     @Column (name = "fecha")
     private final Date fecha;
+
     @Column (name = "montoTotal")
     private final float montoTotal;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "medioDePago_id")
     private final MedioDePago medioDePago;
+
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "documentoComercial_id")
     private DocumentoComercial documentoComercial;
+
+    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private final List<Item> items;
+
+    // Error | Genera una tabla intermedia como si fuera many to many
+    @OneToMany (mappedBy = "operacionAsociada", cascade = CascadeType.ALL)
     private List<Presupuesto> presupuestos;
+
+    @Transient // No se persiste
     private ValidadorTransparencia validadorTransparencia;
+
+    @ManyToMany (cascade = CascadeType.ALL)
     private List<Usuario> revisores;
+
+    @Transient // No se persiste
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
+
+    @ManyToMany (cascade = CascadeType.ALL)
     private List<CategoriaCriterio> listaCategoriaCriterio;
+
+    @ManyToOne (cascade = CascadeType.ALL)
     private OperacionDeIngreso operacionDeIngreso;
+
+    @Column (name = "cantidadPresupuestosRequerida")
     private int cantidadPresupuestosRequerida;
+
+    @Transient // No se persiste
     private boolean soyValida = false;
+
+    @Transient // No se persiste
     private int cantidadDeVecesValidada = 0;
+
+    @ManyToOne
     private Proveedor proveedorAsociado;
 
     public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {

@@ -1,14 +1,28 @@
 package ApiMercadoLibre;
 
+import Persistencia.EntidadPersistente;
+
+import javax.persistence.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-public class DireccionPostal {
+@Entity
+@Table (name = "direccionPostal")
+public class DireccionPostal extends EntidadPersistente {
+    @ManyToOne (cascade = {CascadeType.ALL})
     private Direccion direccion;
+
+    @ManyToOne (cascade = {CascadeType.ALL})
     private Ciudad ciudad;
+
+    @ManyToOne (cascade = {CascadeType.ALL})
     private InfoEstado provincia;
+
+    @ManyToOne (cascade = {CascadeType.ALL})
     private Pais pais;
+
+    @Transient // No se persiste
     private ApiMercadoLibreInfo datosApi;
 
     public DireccionPostal() throws IOException{

@@ -73,10 +73,10 @@ public class ValidadorTransparenciaTest {
     private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoRopaA, itemsPresupuestoRopaA);
 
 
-    private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA);
-    private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA);
-    private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina);
-    private final Presupuesto presupuestoRopaAConDistintoDocumento = new Presupuesto(5600, itemsPresupuestoRopaA);
+    private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
+    private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
+    private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina, operacionDeEgresoRopaA);
+    private final Presupuesto presupuestoRopaAConDistintoDocumento = new Presupuesto(5600, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
     //Items de Ropa B
 
     private final Item itemPresupuestoRopaB1 = new Item("Camisa Talle L", 1100);
@@ -89,7 +89,7 @@ public class ValidadorTransparenciaTest {
     //Presupuesto Ropa B
 
     private final DocumentoComercial documentoComercialRopaB = documentoCheque;
-    private final Presupuesto presupuestoRopaB = new Presupuesto(5800, itemsPresupuestoRopaB);
+    private final Presupuesto presupuestoRopaB = new Presupuesto(5800, itemsPresupuestoRopaB, operacionDeEgresoRopaA);
 
 
     //Items de Construccion

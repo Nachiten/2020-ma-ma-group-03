@@ -28,7 +28,7 @@ public class Usuario extends EntidadPersistente {
     private EntidadJuridica entidadJuridica;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "bandejaMensajes_id")
+    @JoinColumn(name = "bandejaMensajes_id", referencedColumnName = "id")
     private BandejaDeMensajes bandejaDeMensajes;
 
     @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
