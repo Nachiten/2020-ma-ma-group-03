@@ -18,10 +18,9 @@ public class Empresa extends TipoEntidadJuridica {
     private Categoria categoria;
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    private final Sector sector;
+    private Sector sector;
 
     //Agregué el constructor
-
     public Empresa() {
     }
 
