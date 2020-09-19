@@ -37,11 +37,15 @@ public class EntidadJuridica extends EntidadPersistente {
     @Transient
     private List<OperacionDeIngreso> operacionDeIngreso;
 
-    @Transient
+    @OneToMany(mappedBy = "entidadJuridicaAsociada", cascade = {CascadeType.ALL})
     private List<EntidadBase> entidadesBase; //entidades que puede tener o no!
 
     @Transient
     private List<Criterio> listaCriterio;
+
+
+    public EntidadJuridica() {
+    }
 
     public EntidadJuridica(String razonSocial, String cuit, DireccionPostal direccionPostal, String codigoInscripcionDefinitiva) {
         this.razonSocial = razonSocial;

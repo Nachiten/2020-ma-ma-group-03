@@ -2,16 +2,17 @@ package TipoEntidadJuridica;
 
 import Persistencia.EntidadPersistente;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "sector")
 public class Sector extends EntidadPersistente {
-    @Transient
-    private Collection<Categoria> categorias;
+    @OneToMany(mappedBy = "sectorAsociado", cascade = {CascadeType.ALL})
+    private List<Categoria> categorias;
+
+    @Column (name = "nombre")
+    private String nombre;
 
     public Categoria categoria(Empresa unaEmpresa){
         int promedioVentasAnuales = unaEmpresa.getPromedioVentasAnuales();

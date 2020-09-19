@@ -2,9 +2,7 @@ package TipoEntidadJuridica;
 
 import Persistencia.EntidadPersistente;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "categoria")
@@ -18,6 +16,10 @@ public class Categoria extends EntidadPersistente {
 
     @Column(name= "cantidadPersonalMaximo")
     private int cantidadPersonalMaximo;
+
+    @ManyToOne (optional = false)
+    @JoinColumn(name = "sectorAsociado_id")
+    private Sector sectorAsociado;
 
     //Agregué el constructor
 
