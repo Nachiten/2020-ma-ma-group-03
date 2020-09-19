@@ -2,10 +2,7 @@ package testsPersistencia;
 
 import Operaciones.*;
 import Persistencia.db.EntityManagerHelper;
-import Usuarios.ContraAnterior;
-import Usuarios.Mensaje;
-import Usuarios.TipoUsuario;
-import Usuarios.Usuario;
+import Usuarios.*;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -96,10 +93,14 @@ public class persistenciaTest {
     public void persistirUsuarioConBandejaDeMensajes(){
         Usuario miUsuario = generarUsuarioConContraAnterior("Carlos", "jorge123BCA");
 
-        miUsuario.publicarMensajeEnBandejaDeMensajes("Un resultado",true );
+        miUsuario.publicarMensajeEnBandejaDeMensajes("Un resultado 1",true );
         miUsuario.publicarMensajeEnBandejaDeMensajes("Un resultado 2",false );
         miUsuario.publicarMensajeEnBandejaDeMensajes("Un resultado 3",true );
 
+        for (Mensaje unMensaje: miUsuario.getBandejaDeMensajes()
+             ) {
+                System.out.println(unMensaje.getContenido() + " -- " + unMensaje.getUsuarioAsociado());
+        }
         /*
         *  Si le digo directamente que persista un mensaje si lo hace bien
         *  (entiendo que no lo hace solo ya que no hay una referencia directa dede usuario hacia mensaje

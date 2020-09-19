@@ -1,11 +1,30 @@
 package TipoEntidadJuridica;
 
-public class Categoria {
+import Persistencia.EntidadPersistente;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "categoria")
+public class Categoria extends EntidadPersistente {
+
+    @Column(name= "nombre")
     private String nombre;
+
+    @Column(name= "ventasAnualesMaximas")
     private int ventasAnualesMaximas;
+
+    @Column(name= "cantidadPersonalMaximo")
     private int cantidadPersonalMaximo;
 
     //Agregué el constructor
+
+
+    public Categoria() {
+    }
+
     public Categoria(String nombre, int ventasAnualesMaximas, int cantidadPersonalMaximo) {
         this.nombre = nombre;
         this.ventasAnualesMaximas = ventasAnualesMaximas;

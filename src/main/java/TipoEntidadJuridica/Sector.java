@@ -1,8 +1,16 @@
 package TipoEntidadJuridica;
 
+import Persistencia.EntidadPersistente;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.*;
 
-public class Sector {
+@Entity
+@Table(name = "sector")
+public class Sector extends EntidadPersistente {
+    @Transient
     private Collection<Categoria> categorias;
 
     public Categoria categoria(Empresa unaEmpresa){

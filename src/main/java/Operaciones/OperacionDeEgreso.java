@@ -70,7 +70,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToOne
     private Proveedor proveedorAsociado;
 
-    public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
+public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;

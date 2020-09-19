@@ -112,7 +112,7 @@ public class ValidadorTransparenciaTest {
 
 
     //Instancia de Entidad Juridica
-    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17");
+    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3",  "12-123871328", null, "17");
 
 
     //Instancia criterio seleccion de proveedor

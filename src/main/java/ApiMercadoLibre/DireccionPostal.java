@@ -26,8 +26,9 @@ public class DireccionPostal extends EntidadPersistente {
     private ApiMercadoLibreInfo datosApi;
 
     public DireccionPostal() throws IOException{
-        datosApi = new ApiMercadoLibreInfo();
-        datosApi.obtenerDatosApiMercadoLibre();
+        //TODO -hay que descomentar luego, se comenta para que la persistencia sea mas rapida...
+        //datosApi = new ApiMercadoLibreInfo();
+       // datosApi.obtenerDatosApiMercadoLibre();
     }
 
     public void configurarDireccionPostal(String nombrePais, String nombreProvincia, String nombreCiudad) throws IOException {

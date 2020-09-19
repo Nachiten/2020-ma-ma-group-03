@@ -2,14 +2,29 @@ package TipoEntidadJuridica;
 
 import Entidades.Afip;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "empresa")
 public class Empresa extends TipoEntidadJuridica {
 
+    @Column(name = "promedioVentasAnuales")
     private int promedioVentasAnuales;
+
+    @Column(name = "cantidadPersonal")
     private int cantidadPersonal;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Categoria categoria;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
     private final Sector sector;
 
     //Agregué el constructor
+
+    public Empresa() {
+    }
+
     public Empresa(Sector sector, int promedioVentasAnuales, int cantidadPersonal) {
         this.sector = sector;
         this.promedioVentasAnuales = promedioVentasAnuales;
@@ -43,4 +58,6 @@ public class Empresa extends TipoEntidadJuridica {
     public int getPromedioVentasAnuales() {
         return promedioVentasAnuales;
     }
+
+
 }

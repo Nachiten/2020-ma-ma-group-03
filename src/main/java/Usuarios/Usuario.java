@@ -6,7 +6,6 @@ import Persistencia.EntidadPersistente;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +19,7 @@ public class Usuario extends EntidadPersistente {
 
     @Column (name = "nombreUsuario")
     private String nombreUsuario;
+
     @Column (name = "Contrasenia")
     private String contrasenia;
 
@@ -27,9 +27,8 @@ public class Usuario extends EntidadPersistente {
     @Transient
     private EntidadJuridica entidadJuridica;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "bandejaMensajes_id", referencedColumnName = "id")
-    private BandejaDeMensajes bandejaDeMensajes;
+    @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
+    private List<Mensaje> bandejaDeMensajes;
 
     @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
     private List<ContraAnterior> contraseniasAnteriores;
@@ -37,9 +36,11 @@ public class Usuario extends EntidadPersistente {
     @Column (name = "TiempoUltimaContrasenia")
     private LocalDate tiempoUltimaContrasenia;
 
-    @OneToMany(mappedBy = "usuario", cascade = {CascadeType.ALL})
+    //@OneToMany(mappedBy = "usuario", cascade = {CascadeType.ALL})
+    @Transient
     private List<OperacionDeEgreso> operacionesRevisadas;
 
+    //CONSTRUCTOR
     public Usuario(){
 
     }
@@ -49,34 +50,35 @@ public class Usuario extends EntidadPersistente {
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.contraseniasAnteriores = new ArrayList<>();
-        this.bandejaDeMensajes = new BandejaDeMensajes();
+        this.bandejaDeMensajes = new ArrayList<>();
     }
 
-    public BandejaDeMensajes getBandejaDeMensajes() {
-        return bandejaDeMensajes;
-    }
-
-    public void setBandejaDeMensajes(BandejaDeMensajes bandejaDeMensajes) {
-        this.bandejaDeMensajes = bandejaDeMensajes;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
+    //METHOD'S
     public void actualizarRevisor(OperacionDeEgreso operacionDeEgreso){
         operacionesRevisadas.add(operacionDeEgreso);
     }
 
     public void publicarMensajeEnBandejaDeMensajes(String identificacion, Boolean resultadoValidacion){
-        bandejaDeMensajes.publicarMensaje(resultadoValidacion, identificacion);
+        new Publicador().publicarMensaje(resultadoValidacion, identificacion, this);
     }
 
     public void agregarContraAnterior(ContraAnterior unaContraAnterior){
         this.contraseniasAnteriores.add(unaContraAnterior);
     }
 
+    public void asociarMensaje(Mensaje mensaje) {
+        bandejaDeMensajes.add(mensaje);
+    }
+
+    //SETTERS
     public void setTiempoUltimaContrasenia(LocalDate tiempoUltimaContrasenia) {
         this.tiempoUltimaContrasenia = tiempoUltimaContrasenia;
+    }
+
+    //GETTERS
+    public String getContrasenia() { return contrasenia; }
+
+    public List<Mensaje> getBandejaDeMensajes() {
+        return bandejaDeMensajes;
     }
 }

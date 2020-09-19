@@ -1,6 +1,6 @@
 import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
 import Operaciones.*;
-import Usuarios.BandejaDeMensajes;
+import Usuarios.Publicador;
 import Usuarios.Mensaje;
 import Usuarios.Usuario;
 import ValidadorTransparencia.*;
@@ -82,7 +82,7 @@ public class Principal {
 
         Usuario miUsuario = new Usuario(ADMIN, "Nachiten", "abcdeFGH1234");
 
-        miUsuario.setBandejaDeMensajes(new BandejaDeMensajes());
+        /*miUsuario.setBandejaDeMensajes(new Publicador());
 
         operacionDeEgresoRopaA.agregarRevisor(miUsuario);
 
@@ -99,6 +99,6 @@ public class Principal {
     }
 
     static void printearMensaje(Mensaje unMensaje){
-        System.out.println(unMensaje.getContenido());
+        System.out.println(unMensaje.getContenido());*/
     }
 }

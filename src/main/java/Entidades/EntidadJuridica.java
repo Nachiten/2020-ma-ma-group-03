@@ -1,29 +1,50 @@
 package Entidades;
 
+import ApiMercadoLibre.DireccionPostal;
 import CriterioOperacion.CategoriaCriterio;
 import CriterioOperacion.Criterio;
 import Operaciones.OperacionDeIngreso;
+import Persistencia.EntidadPersistente;
 import TipoEntidadJuridica.TipoEntidadJuridica;
 import Operaciones.OperacionDeEgreso;
 
+import javax.persistence.*;
 import java.util.List;
 
-public class EntidadJuridica {
+@Entity
+@Table(name = "entidadJuridica")
+public class EntidadJuridica extends EntidadPersistente {
 
+    @Column(name = "razonSocial")
     private String razonSocial;
-    private String nombreFicticio;
+
+    @Column(name = "cuit")
     private String cuit;
-    private String direccionPostal;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "direccionPostal_id")
+    private DireccionPostal direccionPostal;
+
+    @Column(name = "codigoInscripcionDefinitiva")
     private String codigoInscripcionDefinitiva;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
     private TipoEntidadJuridica tipoEntidadJuridica;
+
+    @Transient
     private List<OperacionDeEgreso> operacionesDeEgreso;
+
+    @Transient
     private List<OperacionDeIngreso> operacionDeIngreso;
+
+    @Transient
     private List<EntidadBase> entidadesBase; //entidades que puede tener o no!
+
+    @Transient
     private List<Criterio> listaCriterio;
 
-    public EntidadJuridica(String razonSocial, String nombreFicticio, String cuit, String direccionPostal, String codigoInscripcionDefinitiva) {
+    public EntidadJuridica(String razonSocial, String cuit, DireccionPostal direccionPostal, String codigoInscripcionDefinitiva) {
         this.razonSocial = razonSocial;
-        this.nombreFicticio = nombreFicticio;
         this.cuit = cuit;
         this.direccionPostal = direccionPostal;
         this.codigoInscripcionDefinitiva = codigoInscripcionDefinitiva;
