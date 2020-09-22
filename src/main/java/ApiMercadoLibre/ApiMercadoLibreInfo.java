@@ -1,7 +1,5 @@
 package ApiMercadoLibre;
 
-import retrofit2.Call;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
