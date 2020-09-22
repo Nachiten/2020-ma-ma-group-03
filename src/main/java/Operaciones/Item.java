@@ -15,8 +15,15 @@ public class Item extends EntidadPersistente {
     @Column (name = "valor")
     private float valor;
 
+    //-------------------------------------------------------------------------
+                                    //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    public Item() { }
+
     public Item(String descripcion, float valor) {
         this.descripcion = descripcion;
         this.valor = valor;
     }
+
 }

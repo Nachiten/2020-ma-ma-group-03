@@ -14,6 +14,10 @@ public class MedioDePago extends EntidadPersistente {
     @Column (name = "numero")
     private int numero;
 
+    //-------------------------------------------------------------------------
+                        //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
     public MedioDePago(){
 
     }
@@ -23,11 +27,4 @@ public class MedioDePago extends EntidadPersistente {
         this.numero = numero;
     }
 
-    public int getNumero() {
-        return numero;
-    }
-
-    public TipoMedioDePago getTipo() {
-        return tipo;
-    }
 }

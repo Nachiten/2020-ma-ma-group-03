@@ -12,7 +12,15 @@ public class TipoDocumentoComercial extends EntidadPersistente {
     @Column(name = "nombre")
     private String nombre;
 
+
+    //-------------------------------------------------------------------------
+                    //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    public TipoDocumentoComercial() { }
+
     public TipoDocumentoComercial(String nombre) {
         this.nombre = nombre;
     }
+
 }

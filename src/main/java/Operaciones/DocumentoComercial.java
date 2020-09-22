@@ -14,6 +14,10 @@ public class DocumentoComercial extends EntidadPersistente {
     @Column(name = "numero")
     private int numero;
 
+    //-------------------------------------------------------------------------
+                                //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
     public DocumentoComercial(){
 
     }

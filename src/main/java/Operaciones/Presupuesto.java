@@ -16,15 +16,26 @@ public class Presupuesto extends EntidadPersistente {
 
     @Column (name = "montoTotal")
     private float montoTotal;
+
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items;
+
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn (name = "documentoComercial_id", referencedColumnName = "id")
     private DocumentoComercial documentoComercial;
+
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CategoriaCriterio> listaCategoriaCriterio;
+
     @ManyToOne (cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
+
+    //-------------------------------------------------------------------------
+                                    //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    public Presupuesto() {
+    }
 
     public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada) {
         this.montoTotal = montoTotal;
@@ -32,7 +43,15 @@ public class Presupuesto extends EntidadPersistente {
         this.operacionAsociada = operacionAsociada;
     }
 
+    //-------------------------------------------------------------------------
+                                    //METODOS
+    //-------------------------------------------------------------------------
+
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
+
+    //-------------------------------------------------------------------------
+                                    //GETTERS
+    //-------------------------------------------------------------------------
 
     public float getMontoTotal() {
         return montoTotal;
@@ -45,6 +64,10 @@ public class Presupuesto extends EntidadPersistente {
     public DocumentoComercial getDocumentoComercial() {
         return documentoComercial;
     }
+
+    //-------------------------------------------------------------------------
+                                    //SETTERS
+    //-------------------------------------------------------------------------
 
     public void setDocumentoComercial(DocumentoComercial documentoComercial) {
         this.documentoComercial = documentoComercial;

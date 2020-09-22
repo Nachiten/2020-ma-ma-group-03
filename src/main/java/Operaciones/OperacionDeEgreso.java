@@ -19,25 +19,26 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @GeneratedValue
     private int IDOperacion;
 
-    @ManyToOne (cascade = {CascadeType.ALL})
+    @ManyToOne (optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
     @Column (name = "fecha")
-    private final Date fecha;
+    private Date fecha;
 
     @Column (name = "montoTotal")
-    private final float montoTotal;
+    private float montoTotal;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "medioDePago_id")
-    private final MedioDePago medioDePago;
+    private MedioDePago medioDePago;
 
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "documentoComercial_id")
     private DocumentoComercial documentoComercial;
 
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private final List<Item> items;
+    private List<Item> items;
 
     // Error | Genera una tabla intermedia como si fuera many to many
     @OneToMany (mappedBy = "operacionAsociada", cascade = CascadeType.ALL)
@@ -62,7 +63,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     private int cantidadPresupuestosRequerida;
 
     @Transient // No se persiste
-    private boolean soyValida = false;
+    private boolean soyValida;
 
     @Transient // No se persiste
     private int cantidadDeVecesValidada = 0;
@@ -70,12 +71,27 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToOne
     private Proveedor proveedorAsociado;
 
-public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
+    //-------------------------------------------------------------------------
+                            //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    public OperacionDeEgreso() { }
+
+    public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.items = items;
 
+        inicializar();
+    }
+
+    //-------------------------------------------------------------------------
+                                //METODOS
+    //-------------------------------------------------------------------------
+
+    private void inicializar(){
+        this.soyValida = false;
         this.revisores = new ArrayList<>();
         this.presupuestos = new ArrayList<>();
     }
@@ -110,9 +126,18 @@ public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, 
         }
     }
 
-//-------------------------------------------------------------------------
+    public void agregarPresupuesto(Presupuesto unPresupuesto){ presupuestos.add(unPresupuesto); }
+
+    public void soyValida(){ this.soyValida = true; }
+
+    public void fuiValidada(){ this.cantidadDeVecesValidada ++; }
+
+
+    //-------------------------------------------------------------------------
                             //SETTERS
-//-------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
+
+    public void setCantidadPresupuestosRequerida(int cantidadPresupuestosRequerida) { this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida; }
 
     public void setValidadorTransparencia(ValidadorTransparencia validadorTransparencia) {
         this.validadorTransparencia = validadorTransparencia;
@@ -126,28 +151,37 @@ public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, 
         this.listaCategoriaCriterio = listaCategoriaCriterio;
     }
 
-    public void agregarPresupuesto(Presupuesto unPresupuesto){
-        presupuestos.add(unPresupuesto);
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public void soyValida(){
-        this.soyValida = true;
+    public void setMontoTotal(float montoTotal) {
+        this.montoTotal = montoTotal;
     }
 
-    public void fuiValidada(){
-        this.cantidadDeVecesValidada ++;
+    public void setMedioDePago(MedioDePago medioDePago) {
+        this.medioDePago = medioDePago;
     }
 
-    public void setCantidadPresupuestosRequerida(int cantidadPresupuestosRequerida) { this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida; }
+    public void setDocumentoComercial(DocumentoComercial documentoComercial) {
+        this.documentoComercial = documentoComercial;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setPresupuestos(List<Presupuesto> presupuestos) {
+        this.presupuestos = presupuestos;
+    }
 
     //-------------------------------------------------------------------------
                             //GETTERS
-//-------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
-
-    public List<Presupuesto> getPresupuestos() {
-        return presupuestos;
-    }
+    public List<Presupuesto> getPresupuestos() { return presupuestos; }
 
     public Date getFecha() { return fecha;}
 
@@ -155,35 +189,19 @@ public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, 
 
     public int getCantidadPresupuestosRequerida() { return cantidadPresupuestosRequerida; }
 
-    public float getMontoTotal() {
-        return montoTotal;
-    }
+    public float getMontoTotal() { return montoTotal; }
 
-    public List<Item> getItems() {
-        return items;
-    }
+    public List<Item> getItems() { return items; }
 
-    public DocumentoComercial getDocumentoComercial() {
-        return documentoComercial;
-    }
+    public DocumentoComercial getDocumentoComercial() { return documentoComercial; }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+    public Usuario getUsuario() { return usuario; }
 
-    public List<Usuario> getRevisores() {
-        return revisores;
-    }
+    public List<Usuario> getRevisores() { return revisores; }
 
-    public CriterioSeleccionProveedor getCriterioSeleccionProveedor() {
-        return criterioSeleccionProveedor;
-    }
+    public CriterioSeleccionProveedor getCriterioSeleccionProveedor() { return criterioSeleccionProveedor; }
 
-    public Boolean esValida(){
-        return soyValida;
-    }
+    public Boolean esValida(){ return soyValida; }
 
-    public int getCantidadDeVecesValidada() {
-        return cantidadDeVecesValidada;
-    }
+    public int getCantidadDeVecesValidada() { return cantidadDeVecesValidada; }
 }

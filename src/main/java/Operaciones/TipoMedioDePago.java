@@ -12,11 +12,14 @@ public class TipoMedioDePago extends EntidadPersistente {
     @Column(name = "tipoPago")
     private String tipoPago;
 
-    public TipoMedioDePago(){
+    //-------------------------------------------------------------------------
+                    //CONTRUCTOR
+    //-------------------------------------------------------------------------
 
-    }
+    public TipoMedioDePago(){  }
 
     public TipoMedioDePago(String tipoPago) {
         this.tipoPago = tipoPago;
     }
+
 }

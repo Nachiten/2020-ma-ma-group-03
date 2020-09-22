@@ -40,20 +40,28 @@ public class Usuario extends EntidadPersistente {
     @Transient
     private List<OperacionDeEgreso> operacionesRevisadas;
 
-    //CONSTRUCTOR
-    public Usuario(){
+    //-------------------------------------------------------------------------
+                    //CONTRUCTOR
+    //-------------------------------------------------------------------------
 
-    }
+    public Usuario(){ }
 
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
+        inicializar();
+    }
+
+    //-------------------------------------------------------------------------
+                        //METODOS
+    //-------------------------------------------------------------------------
+
+    private void inicializar(){
         this.contraseniasAnteriores = new ArrayList<>();
         this.bandejaDeMensajes = new ArrayList<>();
     }
 
-    //METHOD'S
     public void actualizarRevisor(OperacionDeEgreso operacionDeEgreso){
         operacionesRevisadas.add(operacionDeEgreso);
     }
@@ -70,15 +78,23 @@ public class Usuario extends EntidadPersistente {
         bandejaDeMensajes.add(mensaje);
     }
 
-    //SETTERS
+    //-------------------------------------------------------------------------
+                            //SETTERS
+    //-------------------------------------------------------------------------
+
     public void setTiempoUltimaContrasenia(LocalDate tiempoUltimaContrasenia) {
         this.tiempoUltimaContrasenia = tiempoUltimaContrasenia;
     }
 
-    //GETTERS
+    //-------------------------------------------------------------------------
+                            //GETTERS
+    //-------------------------------------------------------------------------
+
     public String getContrasenia() { return contrasenia; }
 
     public List<Mensaje> getBandejaDeMensajes() {
         return bandejaDeMensajes;
     }
+
+
 }
