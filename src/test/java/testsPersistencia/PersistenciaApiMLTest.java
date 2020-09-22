@@ -1,8 +1,7 @@
 package testsPersistencia;
 
-import ApiMercadoLibre.ApiMercadoLibreInfo;
-import ApiMercadoLibre.DireccionPostal;
-import ApiMercadoLibre.Pais;
+import ApiMercadoLibre.*;
+import Excepciones.ExcepcionApiMercadoLibre;
 import Persistencia.db.EntityManagerHelper;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,19 +11,10 @@ import java.util.*;
 
 public class PersistenciaApiMLTest {
 
-    static private ApiMercadoLibreInfo datosApi = null;
-    static private DireccionPostal direccionPostal;
-    static private List<Pais> listaDePaises;
-
-    @BeforeClass
-    public static void setupInicialApi() throws IOException {
-        if (datosApi == null){
-            datosApi = new ApiMercadoLibreInfo();
-            datosApi.obtenerDatosApiMercadoLibre();
+    private void persistirUnaLista(List<Object> miLista){
+        for(Object unObjeto : miLista){
+            persistirUnObjeto(unObjeto);
         }
-        direccionPostal = new DireccionPostal();
-        listaDePaises = new ArrayList<>();
-
     }
 
     private void persistirUnObjeto(Object unObjeto){
@@ -36,9 +26,24 @@ public class PersistenciaApiMLTest {
     }
 
     @Test
-    public void persistirPaises(){
+    public void persistirDireccionPostal() throws IOException, ExcepcionApiMercadoLibre {
 
-        listaDePaises = datosApi.getPaises();
-        persistirUnObjeto(listaDePaises);
+        DireccionPostal unaDireccionPostal = new DireccionPostal();
+
+        Direccion direccionCasa = new Direccion("Malabia", 3,20, "F");
+
+        unaDireccionPostal.configurarDireccionPostal("Argentina", "Córdoba", "La Carlota", direccionCasa);
+
+        persistirUnObjeto(unaDireccionPostal);
+    }
+
+    @Test
+    public void persistirDatosApiMercaboLibre(){
+        List<Pais> paises = ApiMercadoLibreInfo.getPaises();
+        List<InfoEstado> provincias = ApiMercadoLibreInfo.getCiudades();
+
+        persistirUnaLista(Collections.singletonList(paises));
+        // Persistir el estado persiste tambien la lista de ciudades
+        persistirUnaLista(Collections.singletonList(provincias));
     }
 }

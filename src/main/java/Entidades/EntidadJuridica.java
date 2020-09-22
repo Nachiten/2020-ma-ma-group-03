@@ -63,4 +63,8 @@ public class EntidadJuridica extends EntidadPersistente {
     public List<OperacionDeEgreso> getOperacionesDeEgreso() {
         return operacionesDeEgreso;
     }
+
+    public void setTipoEntidadJuridica(TipoEntidadJuridica tipoEntidadJuridica) {
+        this.tipoEntidadJuridica = tipoEntidadJuridica;
+    }
 }

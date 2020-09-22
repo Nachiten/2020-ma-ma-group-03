@@ -9,7 +9,6 @@ import javax.persistence.*;
 public class Pais {
 
     @Id
-    @GeneratedValue
     public String id;
     @Column(name = "name")
     public String name;

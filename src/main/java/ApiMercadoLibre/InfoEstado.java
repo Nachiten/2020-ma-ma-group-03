@@ -10,7 +10,6 @@ import java.util.List;
 public class InfoEstado {
 
     @Id
-    @GeneratedValue
     String id;
     @Column(name = "name")
     String name;

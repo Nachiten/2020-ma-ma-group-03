@@ -91,10 +91,12 @@ public class ApiMercadoLibreTest {
     }
 
     @Test
-    public void crearDirrecionPostal() throws IOException{
+    public void crearDirrecionPostal() throws IOException, ExcepcionApiMercadoLibre {
         DireccionPostal miDireccion = new DireccionPostal();
 
-        miDireccion.configurarDireccionPostal("Argentina", "Córdoba", "La Carlota");
+        Direccion direccionCasa = new Direccion("Malabia", 3,20, "F");
+
+        miDireccion.configurarDireccionPostal("Argentina", "Córdoba", "La Carlota", direccionCasa);
 
         Assert.assertEquals("La Carlota", miDireccion.getCiudad().getName());
         Assert.assertEquals("Argentina", miDireccion.getPais().getName());

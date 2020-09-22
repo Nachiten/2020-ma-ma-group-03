@@ -9,7 +9,6 @@ import javax.persistence.*;
 public class Ciudad {
 
     @Id
-    @GeneratedValue
     String id;
     @Column (name = "name")
     String name;

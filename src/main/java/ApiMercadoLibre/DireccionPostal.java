@@ -1,5 +1,6 @@
 package ApiMercadoLibre;
 
+import Excepciones.ExcepcionApiMercadoLibre;
 import Persistencia.EntidadPersistente;
 
 import javax.persistence.*;
@@ -22,31 +23,22 @@ public class DireccionPostal extends EntidadPersistente {
     @ManyToOne (cascade = {CascadeType.ALL})
     private Pais pais;
 
-    @Transient // No se persiste
-    private ApiMercadoLibreInfo datosApi;
-
-    public DireccionPostal() throws IOException{
-        //TODO -hay que descomentar luego, se comenta para que la persistencia sea mas rapida...
-        datosApi = new ApiMercadoLibreInfo();
-        datosApi.obtenerDatosApiMercadoLibre();
+    public DireccionPostal(){
     }
 
-    public void configurarDireccionPostal(String nombrePais, String nombreProvincia, String nombreCiudad) throws IOException {
-
-        ServicioUbicacionMercadoLibre servicioMercadoLibre = ServicioUbicacionMercadoLibre.instancia();
-
-        configurarPais(nombrePais, servicioMercadoLibre);
-
-        configurarProvincia(nombreProvincia, servicioMercadoLibre);
-
+    public void configurarDireccionPostal(String nombrePais, String nombreProvincia, String nombreCiudad, Direccion unaDireccion) throws IOException, ExcepcionApiMercadoLibre {
+        configurarPais(nombrePais);
+        configurarProvincia(nombreProvincia);
         configurarCiudad(nombreCiudad);
+
+        this.direccion = unaDireccion;
     }
 
-    private void configurarPais(String nombrePais, ServicioUbicacionMercadoLibre servicioMercadoLibre) throws IOException {
+    private void configurarPais(String nombrePais) throws IOException {
 
-        List<Pais> paises = servicioMercadoLibre.listadoDePaises();
+        List<Pais> listaDePaises = ApiMercadoLibreInfo.getPaises();
 
-        Optional<Pais> paisPosible = paises.stream().filter( unPais -> unPais.getName().equals(nombrePais)).findFirst();
+        Optional<Pais> paisPosible = listaDePaises.stream().filter( unPais -> unPais.getName().equals(nombrePais)).findFirst();
 
         if (paisPosible.isPresent()) {
             setPais(paisPosible.get());
@@ -56,9 +48,10 @@ public class DireccionPostal extends EntidadPersistente {
 
     }
 
-    private void configurarProvincia(String nombreProvincia, ServicioUbicacionMercadoLibre servicioMercadoLibre) throws IOException {
+    private void configurarProvincia(String nombreProvincia) throws IOException, ExcepcionApiMercadoLibre {
 
-        InfoPais infoPaisSeleccionado = servicioMercadoLibre.listadoEstadosDePais(pais.getId());
+        InfoPais infoPaisSeleccionado = ApiMercadoLibreInfo.obtenerProvinciasDePais(pais.getId());
+
         Optional<Estado> estadoEncontrado = infoPaisSeleccionado.getStates().stream().filter(unEstado -> unEstado.getName().equals(nombreProvincia)).findFirst();
 
         if (estadoEncontrado.isPresent()) {
@@ -66,7 +59,7 @@ public class DireccionPostal extends EntidadPersistente {
             Estado estadoFinal = estadoEncontrado.get();
 
             // Encontrar la info del estado a partir del idEstado
-            InfoEstado estadoAAsignar = servicioMercadoLibre.listadoCiudadesDeEstado(estadoFinal.getId());
+            InfoEstado estadoAAsignar = ApiMercadoLibreInfo.obtenerCiudadesDeEstado(estadoFinal.getId());
 
             setProvincia(estadoAAsignar);
 
