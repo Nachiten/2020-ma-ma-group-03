@@ -9,21 +9,10 @@ import java.util.List;
 
 public class ApiMercadoLibreTest {
 
-    ApiMercadoLibreInfo datosApi = null;
-
-    void setupInicialApi() throws IOException{
-        if (datosApi == null){
-            datosApi = new ApiMercadoLibreInfo();
-            datosApi.obtenerDatosApiMercadoLibre();
-        }
-    }
-
     @Test
     public void obtenerListaPaises() throws IOException {
 
-        setupInicialApi();
-
-        List<Pais> listaDePaises = datosApi.getPaises();
+        List<Pais> listaDePaises = ApiMercadoLibreInfo.getPaises();
 
         if (listaDePaises != null){
             for(Pais unPais: listaDePaises){
@@ -37,9 +26,8 @@ public class ApiMercadoLibreTest {
 
     @Test
     public void obtenerProvinciasDeArg() throws IOException, ExcepcionApiMercadoLibre {
-        setupInicialApi();
 
-        InfoPais provinciasDeArg = datosApi.obtenerProvinciasDePais("AR");
+        InfoPais provinciasDeArg = ApiMercadoLibreInfo.obtenerProvinciasDePais("AR");
 
         for(Estado unEstado : provinciasDeArg.getStates()){
             System.out.println("Nombre: " + unEstado.getName() + " | ID: " + unEstado.getId());
