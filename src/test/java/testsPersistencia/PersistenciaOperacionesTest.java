@@ -63,13 +63,12 @@ public class PersistenciaOperacionesTest {
 
 
     @BeforeClass
-    public static void init() throws IOException{
+    public static void init() {
 
         //Instancia de usuario
         usuarioA = new Usuario(TipoUsuario.ESTANDAR,"Nachiten","hola1234ABC");
         usuarioB = new Usuario(TipoUsuario.ESTANDAR,"Carlos","asdfg");
 
-        //
         generarUsuarioAConContraAnterior();
 
         //Mensaje en usuarioB
