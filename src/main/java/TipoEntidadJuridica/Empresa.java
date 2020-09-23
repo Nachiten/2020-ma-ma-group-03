@@ -5,7 +5,7 @@ import Entidades.Afip;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "empresa")
+@Table(name = "tipoEntidadJuridicaEmpresa")
 public class Empresa extends TipoEntidadJuridica {
 
     @Column(name = "promedioVentasAnuales")

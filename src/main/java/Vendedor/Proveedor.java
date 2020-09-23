@@ -23,6 +23,10 @@ public class Proveedor extends EntidadPersistente {
     @Column(name = "cuit")
     private int cuit;
 
+    public Proveedor(){
+
+    }
+
     public Proveedor(String nombre, String apellido, int dni, DireccionPostal direccionPostal) {
         this.nombre = nombre;
         this.apellido = apellido;

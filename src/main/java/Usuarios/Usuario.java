@@ -36,15 +36,16 @@ public class Usuario extends EntidadPersistente {
     @Column (name = "TiempoUltimaContrasenia")
     private LocalDate tiempoUltimaContrasenia;
 
-    //@OneToMany(mappedBy = "usuario", cascade = {CascadeType.ALL})
-    @Transient
+    @ManyToMany(cascade = {CascadeType.ALL})
     private List<OperacionDeEgreso> operacionesRevisadas;
 
     //-------------------------------------------------------------------------
                     //CONTRUCTOR
     //-------------------------------------------------------------------------
 
-    public Usuario(){ }
+    public Usuario(){
+        inicializar();
+    }
 
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia) {
         this.tipo = tipo;
@@ -58,13 +59,11 @@ public class Usuario extends EntidadPersistente {
     //-------------------------------------------------------------------------
 
     private void inicializar(){
+        this.operacionesRevisadas = new ArrayList<>();
         this.contraseniasAnteriores = new ArrayList<>();
         this.bandejaDeMensajes = new ArrayList<>();
     }
 
-    public void actualizarRevisor(OperacionDeEgreso operacionDeEgreso){
-        operacionesRevisadas.add(operacionDeEgreso);
-    }
 
     public void publicarMensajeEnBandejaDeMensajes(String identificacion, Boolean resultadoValidacion){
         new Publicador().publicarMensaje(resultadoValidacion, identificacion, this);
@@ -85,6 +84,11 @@ public class Usuario extends EntidadPersistente {
     public void setTiempoUltimaContrasenia(LocalDate tiempoUltimaContrasenia) {
         this.tiempoUltimaContrasenia = tiempoUltimaContrasenia;
     }
+
+    public void agregarOperacionDeEgreso(OperacionDeEgreso operacionDeEgreso){
+        operacionesRevisadas.add(operacionDeEgreso);
+    }
+
 
     //-------------------------------------------------------------------------
                             //GETTERS

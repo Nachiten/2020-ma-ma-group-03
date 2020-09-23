@@ -69,7 +69,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @Transient // No se persiste
     private int cantidadDeVecesValidada = 0;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
     @ManyToOne(optional = false)
@@ -115,6 +115,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public void agregarRevisor(Usuario revisor){
         revisores.add(revisor);
+        revisor.agregarOperacionDeEgreso(this);
     }
 
     public void removerRevisor(Usuario revisor) {
@@ -181,6 +182,10 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     }
 
     public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) { this.entidadJuridicaAsociada = entidadJuridicaAsociada; }
+
+    public void setProveedorAsociado(Proveedor proveedorAsociado) {
+        this.proveedorAsociado = proveedorAsociado;
+    }
 
     //-------------------------------------------------------------------------
                             //GETTERS

@@ -25,20 +25,9 @@ public class ApiMercadoLibreInfo {
         }
     }
 
-    public void obtenerDatosApiMercadoLibre() throws IOException{
-        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-
-        //llenarListaPaises(servicioPais);
-
-        //llenarListaProvincias(servicioPais);
-
-        //llenarListaEstados(servicioPais);
-    }
-
     private static List<Pais> generarListaPaises() throws IOException {
         // Aca se guarda la lista de todos los paises traidos de la API
         ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-
         return servicioPais.listadoDePaises();
     }
 
@@ -64,7 +53,7 @@ public class ApiMercadoLibreInfo {
 
         List<InfoEstado> estadosTotales = new ArrayList<>();
 
-        // Guardar lista de todos los estados por cada pais
+        // Guardar lista de todos los estados por cada provincia
         for (InfoPais infoPais : provincias){
             List<Estado> estados = infoPais.getStates();
 

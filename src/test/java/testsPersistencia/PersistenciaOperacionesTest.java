@@ -4,6 +4,7 @@ import Entidades.EntidadJuridica;
 import Operaciones.*;
 import Persistencia.db.EntityManagerHelper;
 import Usuarios.*;
+import Vendedor.Proveedor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -130,14 +131,24 @@ public class PersistenciaOperacionesTest {
         entidadJuridica = EntityManagerHelper.getEntityManager().find(EntidadJuridica.class, 1);
         operacionDeEgresoRopaA.setEntidadJuridicaAsociada(entidadJuridica);
 
+        // Agrego revisores
+        operacionDeEgresoRopaA.agregarRevisor(usuarioA);
+        operacionDeEgresoRopaA.agregarRevisor(usuarioB);
+
+        // Seteo proveedor
+        Proveedor miProveedor = new Proveedor("Roberto", "Fernandez", 42374333, null);
+        operacionDeEgresoRopaA.setProveedorAsociado(miProveedor);
+
+        // Creo y asocio operacion de ingreso
+        OperacionDeIngreso operacionIngreso = new OperacionDeIngreso("Venta de algo", 5000);
+        operacionDeEgresoRopaA.asociarOperacionDeIngreso(operacionIngreso);
+
         System.out.println("Instancie todo");
 
     }
 
 
     private static void generarUsuarioAConContraAnterior(){
-
-
         LocalDate unaFecha1 = LocalDate.of(2015, Month.JULY, 29);
         LocalDate unaFecha2 = LocalDate.of(2017, Month.FEBRUARY, 5);
 
@@ -148,28 +159,22 @@ public class PersistenciaOperacionesTest {
 
         usuarioA.agregarContraAnterior(contraAnterior1);
         usuarioA.agregarContraAnterior(contraAnterior2);
-
-
     }
 
     private void persistirUnObjeto(Object unObjeto){
         EntityManagerHelper.beginTransaction();
-
         EntityManagerHelper.getEntityManager().persist(unObjeto);
-
         EntityManagerHelper.commit();
     }
 
 
     @Test
     public void persistirUsuarioB(){
-
         persistirUnObjeto(usuarioB);
     }
 
     @Test
     public void persistirOperacionDeEgresoConUsuarioA(){
-
         persistirUnObjeto(operacionDeEgresoRopaA);
     }
 

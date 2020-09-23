@@ -14,6 +14,10 @@ public class OperacionDeIngreso extends EntidadPersistente {
     @Column (name = "montoTotal")
     private float montoTotal;
 
+    public OperacionDeIngreso(){
+
+    }
+
     public OperacionDeIngreso(String descripcion, float montoTotal) {
         this.descripcion = descripcion;
         this.montoTotal = montoTotal;

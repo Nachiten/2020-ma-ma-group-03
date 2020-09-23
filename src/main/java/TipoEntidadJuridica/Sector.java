@@ -26,10 +26,19 @@ public class Sector extends EntidadPersistente {
     //Agregué método
     public void addCategorias(Categoria ... categorias) {
         Collections.addAll(this.categorias, categorias);
+
+        for (Categoria unaCategoria: categorias){
+            unaCategoria.setSectorAsociado(this);
+        }
+    }
+
+    public Sector(String nombreSector){
+        this.categorias = new ArrayList<>();
+        this.nombre = nombreSector;
     }
 
     public Sector(){
-        this.categorias = new ArrayList<>(Collections.emptyList());
+        this.categorias = new ArrayList<>();
     }
 
 

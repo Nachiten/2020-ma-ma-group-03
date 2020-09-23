@@ -5,7 +5,7 @@ import Persistencia.EntidadPersistente;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "categoria")
+@Table(name = "categoriaEmpresa")
 public class Categoria extends EntidadPersistente {
 
     @Column(name= "nombre")
@@ -22,8 +22,6 @@ public class Categoria extends EntidadPersistente {
     private Sector sectorAsociado;
 
     //Agregué el constructor
-
-
     public Categoria() {
     }
 
@@ -39,5 +37,9 @@ public class Categoria extends EntidadPersistente {
 
     public String getNombre(){
         return nombre;
+    }
+
+    public void setSectorAsociado(Sector sectorAsociado) {
+        this.sectorAsociado = sectorAsociado;
     }
 }
