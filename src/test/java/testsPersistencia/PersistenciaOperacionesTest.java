@@ -1,5 +1,6 @@
 package testsPersistencia;
 
+import Entidades.EntidadJuridica;
 import Operaciones.*;
 import Persistencia.db.EntityManagerHelper;
 import Usuarios.*;
@@ -20,7 +21,7 @@ import java.util.List;
 public class PersistenciaOperacionesTest {
 
     /////////////////////////////////////////////////////////////
-    // ASEGURECE DE CORRER PRIMERO EL TEST PersistenciaTipoTest //
+    // ASEGURECE DE CORRER PRIMERO EL TEST PersistenciaTipoTest y PersistenciaEntidadJuridica //
     /////////////////////////////////////////////////////////////
 
     static private OperacionDeEgreso operacionEgresoConstruccion;
@@ -56,6 +57,8 @@ public class PersistenciaOperacionesTest {
 
     static private Presupuesto presupuestoConstruccion;
     static private Presupuesto presupuestoRopaA;
+
+    static private EntidadJuridica entidadJuridica;
 
 
     @BeforeClass
@@ -122,6 +125,10 @@ public class PersistenciaOperacionesTest {
         operacionDeEgresoRopaA.agregarPresupuesto(presupuestoRopaA);
 
         operacionEgresoConstruccion.agregarPresupuesto(presupuestoConstruccion);
+
+        //Asociar entidad juridica
+        entidadJuridica = EntityManagerHelper.getEntityManager().find(EntidadJuridica.class, 1);
+        operacionDeEgresoRopaA.setEntidadJuridicaAsociada(entidadJuridica);
 
         System.out.println("Instancie todo");
 

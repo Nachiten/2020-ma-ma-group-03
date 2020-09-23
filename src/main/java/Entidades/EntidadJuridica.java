@@ -9,6 +9,7 @@ import TipoEntidadJuridica.TipoEntidadJuridica;
 import Operaciones.OperacionDeEgreso;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -31,7 +32,7 @@ public class EntidadJuridica extends EntidadPersistente {
     @ManyToOne(cascade = {CascadeType.ALL})
     private TipoEntidadJuridica tipoEntidadJuridica;
 
-    @Transient
+    @OneToMany(mappedBy = "entidadJuridicaAsociada", cascade = {CascadeType.ALL})
     private List<OperacionDeEgreso> operacionesDeEgreso;
 
     @Transient
@@ -43,6 +44,9 @@ public class EntidadJuridica extends EntidadPersistente {
     @Transient
     private List<Criterio> listaCriterio;
 
+    //-------------------------------------------------------------------------
+                            //CONTRUCTOR
+    //-------------------------------------------------------------------------
 
     public EntidadJuridica() {
     }
@@ -52,17 +56,39 @@ public class EntidadJuridica extends EntidadPersistente {
         this.cuit = cuit;
         this.direccionPostal = direccionPostal;
         this.codigoInscripcionDefinitiva = codigoInscripcionDefinitiva;
+
+        inicializar();
     }
 
+    //-------------------------------------------------------------------------
+                            //METODOS
+    //-------------------------------------------------------------------------
+
+    private void inicializar(){
+        this.operacionesDeEgreso = new ArrayList<>();
+    }
     public void agregarCriterio(Criterio criterio){ listaCriterio.add(criterio);}
 
     public void agregarCategoriaDeCriterio(CategoriaCriterio categoriaCriterio, Criterio criterio){
         //TODO preguntar si hace falta verificar si ya existe categoria. Lo mismo para criterio
         criterio.agregarCategoria(categoriaCriterio);
     }
+
+    public void agregarOperacionDeEgresoAsociada(OperacionDeEgreso operacionDeEgreso){
+        operacionesDeEgreso.add(operacionDeEgreso);
+    }
+
+    //-------------------------------------------------------------------------
+                            //GETTERS
+    //-------------------------------------------------------------------------
+
     public List<OperacionDeEgreso> getOperacionesDeEgreso() {
         return operacionesDeEgreso;
     }
+
+    //-------------------------------------------------------------------------
+                            //SETTERS
+    //-------------------------------------------------------------------------
 
     public void setTipoEntidadJuridica(TipoEntidadJuridica tipoEntidadJuridica) {
         this.tipoEntidadJuridica = tipoEntidadJuridica;

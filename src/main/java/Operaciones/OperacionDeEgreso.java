@@ -1,6 +1,7 @@
 package Operaciones;
 
 import CriterioOperacion.CategoriaCriterio;
+import Entidades.EntidadJuridica;
 import Usuarios.Usuario;
 import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
@@ -70,6 +71,10 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     @ManyToOne
     private Proveedor proveedorAsociado;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "entidadJuridicaAsociada_id")
+    private EntidadJuridica entidadJuridicaAsociada;
 
     //-------------------------------------------------------------------------
                             //CONTRUCTOR
@@ -165,9 +170,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.medioDePago = medioDePago;
     }
 
-    public void setDocumentoComercial(DocumentoComercial documentoComercial) {
-        this.documentoComercial = documentoComercial;
-    }
+    public void setDocumentoComercial(DocumentoComercial documentoComercial) { this.documentoComercial = documentoComercial; }
 
     public void setItems(List<Item> items) {
         this.items = items;
@@ -176,6 +179,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     public void setPresupuestos(List<Presupuesto> presupuestos) {
         this.presupuestos = presupuestos;
     }
+
+    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) { this.entidadJuridicaAsociada = entidadJuridicaAsociada; }
 
     //-------------------------------------------------------------------------
                             //GETTERS

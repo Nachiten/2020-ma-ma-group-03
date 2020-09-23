@@ -2,6 +2,7 @@ package testsPersistencia;
 
 import ApiMercadoLibre.DireccionPostal;
 import Entidades.EntidadJuridica;
+import Operaciones.OperacionDeEgreso;
 import Persistencia.db.EntityManagerHelper;
 import TipoEntidadJuridica.Empresa;
 import TipoEntidadJuridica.Sector;
