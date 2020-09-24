@@ -20,35 +20,41 @@ public class Empresa extends TipoEntidadJuridica {
     @ManyToOne(cascade = {CascadeType.ALL})
     private Sector sector;
 
-    //Agregué el constructor
-    public Empresa() {
-    }
+    //-------------------------------------------------------------------------
+                            //CONTRUCTOR
+    //-------------------------------------------------------------------------
 
-    public Empresa(Sector sector, int promedioVentasAnuales, int cantidadPersonal) {
+    public Empresa() { }
+
+    public Empresa(Sector sector,String nombreFicticio, int promedioVentasAnuales, int cantidadPersonal) {
         this.sector = sector;
         this.promedioVentasAnuales = promedioVentasAnuales;
         this.cantidadPersonal = cantidadPersonal;
+        super.nombreFicticio = nombreFicticio;
+        calcularCategoria();
     }
 
     private void calcularCategoria(){
         this.categoria = Afip.clasificacion(this);
     }
 
-    public Sector getSector() {
-        return sector;
-    }
-
-    public Categoria getCategoria() { return categoria; }
+    //-------------------------------------------------------------------------
+                            //SETTERS
+    //-------------------------------------------------------------------------
 
     public void setCantidadPersonal(int cantidadPersonal) {
         this.cantidadPersonal = cantidadPersonal;
-        calcularCategoria();
+
     }
 
     public void setPromedioVentasAnuales(int promedioVentasAnuales) {
         this.promedioVentasAnuales = promedioVentasAnuales;
-        calcularCategoria();
+
     }
+
+    //-------------------------------------------------------------------------
+                            //GETTERS
+    //-------------------------------------------------------------------------
 
     public int getCantidadPersonal() {
         return cantidadPersonal;
@@ -58,5 +64,7 @@ public class Empresa extends TipoEntidadJuridica {
         return promedioVentasAnuales;
     }
 
+    public Sector getSector() { return sector; }
 
+    public Categoria getCategoria() { return categoria; }
 }

@@ -18,3 +18,8 @@ SELECT * FROM documentocomercial;
 SELECT * FROM tipodocumentocomercial;
 SELECT * FROM item;
 SELECT * FROM presupuesto_item;
+SELECT * FROM direccionpostal;
+SELECT * FROM entidadjuridica;
+SELECT * FROM tipoentidadjuridicaempresa;
+SELECT * FROM sector;
+SELECT * FROM categoriaEmpresa;

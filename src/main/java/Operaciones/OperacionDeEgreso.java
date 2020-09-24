@@ -80,7 +80,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
                             //CONTRUCTOR
     //-------------------------------------------------------------------------
 
-    public OperacionDeEgreso() { }
+    public OperacionDeEgreso() { inicializar();}
 
     public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;

@@ -1,7 +1,5 @@
 package TipoEntidadJuridica;
 
-import Persistencia.EntidadPersistente;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,5 +11,5 @@ public abstract class TipoEntidadJuridica {
     private int id;
 
     @Column(name = "nombreFicticio")
-    private String nombreFicticio;
+    public String nombreFicticio;
 }

@@ -14,8 +14,29 @@ public class Sector extends EntidadPersistente {
     @Column (name = "nombre")
     private String nombre;
 
+    //-------------------------------------------------------------------------
+                        //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    public Sector(String nombreSector){
+        this.nombre = nombreSector;
+        inicializar();
+    }
+
+    public Sector(){
+        inicializar();
+    }
+
+    //-------------------------------------------------------------------------
+                        //METODOS
+    //-------------------------------------------------------------------------
+
+    private void inicializar(){
+        this.categorias = new ArrayList<>();
+    }
+
     public Categoria categoria(Empresa unaEmpresa){
-        int promedioVentasAnuales = unaEmpresa.getPromedioVentasAnuales();
+        long promedioVentasAnuales = unaEmpresa.getPromedioVentasAnuales();
         int cantidadPersonal = unaEmpresa.getCantidadPersonal();
 
         Optional<Categoria> categoriaQueCumpleCondicion = categorias.stream().filter(categoria -> categoria.cumploConCategoria(promedioVentasAnuales, cantidadPersonal)).findFirst();
@@ -32,14 +53,7 @@ public class Sector extends EntidadPersistente {
         }
     }
 
-    public Sector(String nombreSector){
-        this.categorias = new ArrayList<>();
-        this.nombre = nombreSector;
-    }
 
-    public Sector(){
-        this.categorias = new ArrayList<>();
-    }
 
 
 }

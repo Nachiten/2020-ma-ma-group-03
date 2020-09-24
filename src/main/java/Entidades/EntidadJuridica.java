@@ -48,8 +48,7 @@ public class EntidadJuridica extends EntidadPersistente {
                             //CONTRUCTOR
     //-------------------------------------------------------------------------
 
-    public EntidadJuridica() {
-    }
+    public EntidadJuridica() { inicializar(); }
 
     public EntidadJuridica(String razonSocial, String cuit, DireccionPostal direccionPostal, String codigoInscripcionDefinitiva) {
         this.razonSocial = razonSocial;
@@ -67,6 +66,7 @@ public class EntidadJuridica extends EntidadPersistente {
     private void inicializar(){
         this.operacionesDeEgreso = new ArrayList<>();
     }
+
     public void agregarCriterio(Criterio criterio){ listaCriterio.add(criterio);}
 
     public void agregarCategoriaDeCriterio(CategoriaCriterio categoriaCriterio, Criterio criterio){

@@ -12,7 +12,7 @@ public class Categoria extends EntidadPersistente {
     private String nombre;
 
     @Column(name= "ventasAnualesMaximas")
-    private int ventasAnualesMaximas;
+    private long ventasAnualesMaximas;
 
     @Column(name= "cantidadPersonalMaximo")
     private int cantidadPersonalMaximo;
@@ -25,13 +25,13 @@ public class Categoria extends EntidadPersistente {
     public Categoria() {
     }
 
-    public Categoria(String nombre, int ventasAnualesMaximas, int cantidadPersonalMaximo) {
+    public Categoria(String nombre, long ventasAnualesMaximas, int cantidadPersonalMaximo) {
         this.nombre = nombre;
         this.ventasAnualesMaximas = ventasAnualesMaximas;
         this.cantidadPersonalMaximo = cantidadPersonalMaximo;
     }
 
-    public boolean cumploConCategoria(int ventasAnuales, int cantidadPersonal){
+    public boolean cumploConCategoria(long ventasAnuales, int cantidadPersonal){
         return ventasAnuales <= ventasAnualesMaximas && cantidadPersonal <= cantidadPersonalMaximo;
     }
 
