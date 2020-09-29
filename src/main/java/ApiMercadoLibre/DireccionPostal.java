@@ -4,6 +4,7 @@ import Excepciones.ExcepcionApiMercadoLibre;
 import Persistencia.EntidadPersistente;
 
 import javax.persistence.*;
+import javax.swing.text.html.parser.Parser;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -15,19 +16,27 @@ public class DireccionPostal extends EntidadPersistente {
     private Direccion direccion;
 
     @ManyToOne (cascade = {CascadeType.ALL})
-    private Ciudad ciudad;
+    private InfoCiudad ciudad;
 
     @ManyToOne (cascade = {CascadeType.ALL})
     private InfoEstado provincia;
 
     @ManyToOne (cascade = {CascadeType.ALL})
-    private Pais pais;
+    private InfoPais pais;
+
+    //-------------------------------------------------------------------------
+                        //CONTRUCTOR
+    //-------------------------------------------------------------------------
 
     public DireccionPostal(){
     }
 
+    //-------------------------------------------------------------------------
+                        //METODOS
+    //-------------------------------------------------------------------------
+
     public void configurarDireccionPostal(String nombrePais, String nombreProvincia, String nombreCiudad, Direccion unaDireccion) throws IOException, ExcepcionApiMercadoLibre {
-        configurarPais(nombrePais);
+        //configurarPais(nombrePais);
         configurarProvincia(nombreProvincia);
         configurarCiudad(nombreCiudad);
 
@@ -38,10 +47,10 @@ public class DireccionPostal extends EntidadPersistente {
 
         List<Pais> listaDePaises = ApiMercadoLibreInfo.getPaises();
 
-        Optional<Pais> paisPosible = listaDePaises.stream().filter( unPais -> unPais.getName().equals(nombrePais)).findFirst();
+        Optional<Pais> paisPosible = listaDePaises.stream().filter(unPais -> unPais.getName().equals(nombrePais)).findFirst();
 
         if (paisPosible.isPresent()) {
-            setPais(paisPosible.get());
+            //setPais(paisPosible.get());
         } else {
             System.out.println("El pais solicitado no existe");
         }
@@ -52,11 +61,11 @@ public class DireccionPostal extends EntidadPersistente {
 
         InfoPais infoPaisSeleccionado = ApiMercadoLibreInfo.obtenerProvinciasDePais(pais.getId());
 
-        Optional<Estado> estadoEncontrado = infoPaisSeleccionado.getStates().stream().filter(unEstado -> unEstado.getName().equals(nombreProvincia)).findFirst();
+        Optional<InfoEstado> estadoEncontrado = infoPaisSeleccionado.getStates().stream().filter(unEstado -> unEstado.getName().equals(nombreProvincia)).findFirst();
 
         if (estadoEncontrado.isPresent()) {
 
-            Estado estadoFinal = estadoEncontrado.get();
+            InfoEstado estadoFinal = estadoEncontrado.get();
 
             // Encontrar la info del estado a partir del idEstado
             InfoEstado estadoAAsignar = ApiMercadoLibreInfo.obtenerCiudadesDeEstado(estadoFinal.getId());
@@ -70,11 +79,11 @@ public class DireccionPostal extends EntidadPersistente {
 
     private void configurarCiudad(String nombreCiudad){
 
-        Optional<Ciudad> ciudadPosible = provincia.getCities().stream().filter(unaCiudad -> unaCiudad.getName().equals(nombreCiudad)).findFirst();
+        Optional<InfoCiudad> ciudadPosible = provincia.getCities().stream().filter(unaCiudad -> unaCiudad.getName().equals(nombreCiudad)).findFirst();
 
         if (ciudadPosible.isPresent()) {
 
-            Ciudad ciudadFinal = ciudadPosible.get();
+            InfoCiudad ciudadFinal = ciudadPosible.get();
             setCiudad(ciudadFinal);
 
         } else {
@@ -82,7 +91,11 @@ public class DireccionPostal extends EntidadPersistente {
         }
     }
 
-    private void setPais(Pais pais) {
+    //-------------------------------------------------------------------------
+                        //SETTERS
+    //-------------------------------------------------------------------------
+
+    public void setPais(InfoPais pais) {
         this.pais = pais;
     }
 
@@ -90,7 +103,7 @@ public class DireccionPostal extends EntidadPersistente {
         this.provincia = provincia;
     }
 
-    public void setCiudad(Ciudad ciudad) {
+    public void setCiudad(InfoCiudad ciudad) {
         this.ciudad = ciudad;
     }
 
@@ -98,7 +111,11 @@ public class DireccionPostal extends EntidadPersistente {
         this.direccion = direccion;
     }
 
-    public Ciudad getCiudad() {
+    //-------------------------------------------------------------------------
+                        //GETTERS
+    //-------------------------------------------------------------------------
+
+    public InfoCiudad getCiudad() {
         return ciudad;
     }
 
@@ -106,7 +123,7 @@ public class DireccionPostal extends EntidadPersistente {
         return provincia;
     }
 
-    public Pais getPais() {
+    public InfoPais getPais() {
         return pais;
     }
 }

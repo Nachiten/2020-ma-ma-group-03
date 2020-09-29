@@ -10,13 +10,33 @@ import java.util.List;
 public class ApiMercadoLibreTest {
 
     @Test
-    public void obtenerListaPaises() throws IOException {
+    public void obtenerListaPaises() throws IOException, ExcepcionApiMercadoLibre {
 
         List<Pais> listaDePaises = ApiMercadoLibreInfo.getPaises();
 
-        if (listaDePaises != null){
+       if (listaDePaises != null){
             for(Pais unPais: listaDePaises){
-                System.out.println("Nombre: " + unPais.getName() + " | Locale: " + unPais.getLocale() + " | ID: " + unPais.getId());
+                System.out.println("***********************************************************");
+                System.out.println("Nombre pais: " + unPais.getName() + " | Locale: " + unPais.getLocale() + " | ID: " + unPais.getId()
+                                    + " |  Currency_id: " + unPais.getCurrency_id());
+
+               /*  ApiMercadoLibreInfo apiMercadoLibreInfo = new ApiMercadoLibreInfo();
+                apiMercadoLibreInfo.cargarMonedaPorPais(unPais.getId());
+               System.out.println("-------- Moneda descripcion: "+ unPais.getCurrency_id().getDescripcion()
+                        + " ID: " + unPais.getCurrency_id().getId()
+                        + " Simbolo: "+ unPais.getCurrency_id().getSymbol()+ "---------");*/
+
+                InfoPais provinciasDePais = ApiMercadoLibreInfo.obtenerProvinciasDePais(unPais.getId());
+                System.out.println("NOMBRE DE PAIS:"+ provinciasDePais.getName());
+                for(InfoEstado unEstado : provinciasDePais.getStates()){
+                    System.out.println("**Nombre provincia: " + unEstado.getName() + " | ID: " + unEstado.getId());
+
+                    InfoEstado ciudadesDeProvincias = ApiMercadoLibreInfo.obtenerCiudadesDeEstado(unEstado.getId());
+                    for (InfoCiudad ciudad :ciudadesDeProvincias.getCities()) {
+                        System.out.println("****Nombre ciudad: " +ciudad.getName()+ " | ID: " +ciudad.getId());
+
+                    }
+                }
             }
         } else {
             System.out.println("No se pudo leer la lista de paises");
@@ -27,11 +47,11 @@ public class ApiMercadoLibreTest {
     @Test
     public void obtenerProvinciasDeArg() throws IOException, ExcepcionApiMercadoLibre {
 
-        InfoPais provinciasDeArg = ApiMercadoLibreInfo.obtenerProvinciasDePais("AR");
+        /*InfoPais provinciasDeArg = ApiMercadoLibreInfo.obtenerProvinciasDePais("AR");
 
         for(Estado unEstado : provinciasDeArg.getStates()){
             System.out.println("Nombre: " + unEstado.getName() + " | ID: " + unEstado.getId());
-        }
+        }*/
     }
 
 
@@ -50,7 +70,7 @@ public class ApiMercadoLibreTest {
         InfoEstado estados = servicioCiudades.listadoCiudadesDeEstado("UY-RO");
 
         if (estados.getCities() != null){
-            for(Ciudad unaCiudad : estados.getCities()){
+            for(InfoCiudad unaCiudad : estados.getCities()){
                 System.out.println("Nombre: " + unaCiudad.getName() + " | ID: " + unaCiudad.getId());
             }
         } else {

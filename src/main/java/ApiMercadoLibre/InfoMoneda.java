@@ -1,9 +1,19 @@
 package ApiMercadoLibre;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "monedas")
 public class InfoMoneda {
+    @Id
     String id;
-    String description;
+
     String symbol;
+
+    String description;
+
     String decimal_places;
 
     public String getId() {

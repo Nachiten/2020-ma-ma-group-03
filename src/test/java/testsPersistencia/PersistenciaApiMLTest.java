@@ -7,9 +7,20 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.security.PrivateKey;
 import java.util.*;
 
 public class PersistenciaApiMLTest {
+
+    /*static private List<Pais> paises;
+    static private List<InfoPais> listaPaises;
+
+    @BeforeClass
+    public static void init(){
+        paises = ApiMercadoLibreInfo.getPaises();
+        listaPaises = ApiMercadoLibreInfo.getPaisConListadoProvincias();
+
+    }*/
 
     private void persistirUnaLista(List<Object> miLista){
         for(Object unObjeto : miLista){
@@ -25,10 +36,18 @@ public class PersistenciaApiMLTest {
         EntityManagerHelper.commit();
     }
 
+   /* @Test
+    public void persistirApi(){
+        for (InfoPais infoPais : listaPaises) {
+            persistirUnObjeto(infoPais);
+        }
+    }*/
+
     @Test
     public void persistirDireccionPostal() throws IOException, ExcepcionApiMercadoLibre {
 
         DireccionPostal unaDireccionPostal = new DireccionPostal();
+
 
         Direccion direccionCasa = new Direccion("Malabia", 3,20, "F");
 
@@ -38,12 +57,28 @@ public class PersistenciaApiMLTest {
     }
 
     @Test
-    public void persistirDatosApiMercaboLibre(){
-        List<Pais> paises = ApiMercadoLibreInfo.getPaises();
-        List<InfoEstado> provincias = ApiMercadoLibreInfo.getCiudades();
+    public void persistirDatosApiMercaboLibre() throws ExcepcionApiMercadoLibre {
 
-        persistirUnaLista(Collections.singletonList(paises));
-        // Persistir el estado persiste tambien la lista de ciudades
-        persistirUnaLista(Collections.singletonList(provincias));
+        List<Pais> listaDePaises = ApiMercadoLibreInfo.getPaises();
+
+        if (listaDePaises != null){
+            for(Pais unPais: listaDePaises){
+                //InfoPais provinciasDePais = (InfoPais) ApiMercadoLibreInfo.getPaises();
+                InfoPais provinciasDePais = ApiMercadoLibreInfo.obtenerProvinciasDePais(unPais.getId());
+
+                for(InfoEstado unEstado : provinciasDePais.getStates()){
+                    InfoEstado ciudadesDeProvincias = ApiMercadoLibreInfo.obtenerCiudadesDeEstado(unEstado.getId());
+
+                    for (InfoCiudad ciudad :ciudadesDeProvincias.getCities()) {
+
+                        persistirUnObjeto(provinciasDePais);
+                        persistirUnObjeto(ciudadesDeProvincias);
+                        persistirUnObjeto(ciudad);
+
+                    }
+                }
+            }
+        }
+
     }
 }

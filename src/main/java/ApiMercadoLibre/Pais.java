@@ -1,21 +1,26 @@
 package ApiMercadoLibre;
 
-import Persistencia.EntidadPersistente;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "pais")
 public class Pais {
 
-    @Id
+
     public String id;
-    @Column(name = "name")
     public String name;
-    @Column (name = "locale")
     public String locale;
-    @Column (name = "currency_id")
     public String currency_id;
+
+
+    //-------------------------------------------------------------------------
+                        //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    public Pais() {
+    }
+
+
+    //-------------------------------------------------------------------------
+                        //GETTERS
+    //-------------------------------------------------------------------------
 
     public String getName() {
         return name;
@@ -28,4 +33,6 @@ public class Pais {
     public String getId() {
         return id;
     }
+
+    public String getCurrency_id() { return currency_id; }
 }

@@ -44,7 +44,6 @@ public class Sector extends EntidadPersistente {
         //ojo con esto, rompe si no hay categorias para hacer el get!
     }
 
-    //Agregué método
     public void addCategorias(Categoria ... categorias) {
         Collections.addAll(this.categorias, categorias);
 
@@ -53,7 +52,10 @@ public class Sector extends EntidadPersistente {
         }
     }
 
+    //-------------------------------------------------------------------------
+                            //GETTERS
+    //-------------------------------------------------------------------------
 
 
-
+    public String getNombre() { return nombre; }
 }

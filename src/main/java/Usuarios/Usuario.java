@@ -100,5 +100,7 @@ public class Usuario extends EntidadPersistente {
         return bandejaDeMensajes;
     }
 
+    public TipoUsuario getTipo() { return tipo; }
 
+    public String getNombreUsuario() { return nombreUsuario; }
 }

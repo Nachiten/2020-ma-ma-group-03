@@ -13,7 +13,7 @@ public class TipoMedioDePago extends EntidadPersistente {
     private String tipoPago;
 
     //-------------------------------------------------------------------------
-                    //CONTRUCTOR
+                        //CONTRUCTOR
     //-------------------------------------------------------------------------
 
     public TipoMedioDePago(){  }
@@ -22,4 +22,10 @@ public class TipoMedioDePago extends EntidadPersistente {
         this.tipoPago = tipoPago;
     }
 
+    //-------------------------------------------------------------------------
+                        //GETTERS
+    //-------------------------------------------------------------------------
+
+
+    public String getTipoPago() { return tipoPago; }
 }

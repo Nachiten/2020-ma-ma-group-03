@@ -23,4 +23,10 @@ public class TipoDocumentoComercial extends EntidadPersistente {
         this.nombre = nombre;
     }
 
+    //-------------------------------------------------------------------------
+                    //GETTERS
+    //-------------------------------------------------------------------------
+
+
+    public String getNombre() { return nombre; }
 }

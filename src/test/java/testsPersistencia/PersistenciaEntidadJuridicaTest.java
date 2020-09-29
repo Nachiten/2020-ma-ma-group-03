@@ -5,6 +5,7 @@ import Persistencia.db.EntityManagerHelper;
 import TipoEntidadJuridica.Categoria;
 import TipoEntidadJuridica.Empresa;
 import TipoEntidadJuridica.Sector;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -166,6 +167,21 @@ public class PersistenciaEntidadJuridicaTest {
         Empresa tipoEntidadJuridicaEmpresa = new Empresa(sectorEmpresa, "Corralon", 115360000,44);
         constructoraEntidadJuridica.setTipoEntidadJuridica(tipoEntidadJuridicaEmpresa);
         persistirUnObjeto(constructoraEntidadJuridica);
+    }
+
+    @Test
+    public void verificarSectoresPersistidos(){
+        Sector sectorConstruccion = EntityManagerHelper.getEntityManager().find(Sector.class, 1);
+        Sector sectorServicios = EntityManagerHelper.getEntityManager().find(Sector.class, 2);
+        Sector sectorComercio = EntityManagerHelper.getEntityManager().find(Sector.class, 3);
+        Sector sectorIndustriaYMineria = EntityManagerHelper.getEntityManager().find(Sector.class, 4);
+        Sector sectorAgropecuario = EntityManagerHelper.getEntityManager().find(Sector.class, 5);
+
+        Assert.assertEquals("Construccion", sectorConstruccion.getNombre());
+        Assert.assertEquals("Servicios", sectorServicios.getNombre());
+        Assert.assertEquals("Comercio", sectorComercio.getNombre());
+        Assert.assertEquals("Industria Y Mineria", sectorIndustriaYMineria.getNombre());
+        Assert.assertEquals("Agropecuario", sectorAgropecuario.getNombre());
     }
 
 }

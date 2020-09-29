@@ -19,6 +19,10 @@ public class Direccion extends EntidadPersistente {
     @Column (name = "dpto")
     String dpto;
 
+    //-------------------------------------------------------------------------
+                            //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
     public Direccion(){
 
     }

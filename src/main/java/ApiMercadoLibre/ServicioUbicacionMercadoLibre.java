@@ -13,13 +13,7 @@ public class ServicioUbicacionMercadoLibre {
     private static ServicioUbicacionMercadoLibre instancia = null;
     private Retrofit retrofit;
 
-    private ServicioUbicacionMercadoLibre() {
-        this.retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.mercadolibre.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-    }
-
+    //Es un singleton, lo convierte en una unica instancia
     public static ServicioUbicacionMercadoLibre instancia(){
         if(instancia== null){
             instancia = new ServicioUbicacionMercadoLibre();
@@ -27,6 +21,17 @@ public class ServicioUbicacionMercadoLibre {
         return instancia;
     }
 
+    //-------------------------------------------------------------------------
+                        //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    private ServicioUbicacionMercadoLibre() {
+        //instanciando la biblioteca de retrofit
+        this.retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.mercadolibre.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
     // Listar todos los paises
     public List<Pais> listadoDePaises() throws IOException {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
@@ -35,7 +40,7 @@ public class ServicioUbicacionMercadoLibre {
         return responseProvinciasArgentinas.body();
     }
 
-    // Listar los estados a partir de un pais
+    // Listar un pais en especifico que contiene la lista de sus estados(Provincias)
     public InfoPais listadoEstadosDePais(String idPais) throws IOException {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
         Call<InfoPais> pedidoUnPais = ubicacionService.provincias( idPais, "id, name, locale, states");
@@ -49,6 +54,22 @@ public class ServicioUbicacionMercadoLibre {
         Call<InfoEstado> pedidoCiudades = ubicacionService.estados(idEstado, "id, name, cities");
         Response<InfoEstado> respuestaCiudades = pedidoCiudades.execute();
         return respuestaCiudades.body();
+    }
+
+    //Listar tipo de moneda por pais
+    public InfoMoneda listarMonedaPorPais(String idPais) throws IOException {
+        UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
+        Call<InfoMoneda> pedidoMoneda = ubicacionService.monedas(idPais, "id, symbol, description, decimal_places");
+        Response<InfoMoneda> respuestaMoneda = pedidoMoneda.execute();
+        return respuestaMoneda.body();
+    }
+
+    //listar ciudad
+    public InfoCiudad listarCiudad(String idCiudad) throws IOException{
+        UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
+        Call<InfoCiudad> pedidoCiudad = ubicacionService.ciudad(idCiudad, "id, name");
+        Response<InfoCiudad> respuestaCiudad = pedidoCiudad.execute();
+        return respuestaCiudad.body();
     }
 
     // Listar todas las monedas

@@ -5,10 +5,8 @@ import Operaciones.*;
 import Persistencia.db.EntityManagerHelper;
 import Usuarios.*;
 import Vendedor.Proveedor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -19,6 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PersistenciaOperacionesTest {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,6 +29,7 @@ public class PersistenciaOperacionesTest {
 
     static private Usuario usuarioA;
     static private Usuario usuarioB;
+    static private Usuario usuarioAdmin;
 
     static private TipoMedioDePago tarjetaDeCredito;
     static private MedioDePago medioDePagoTarjetaDeCredito;
@@ -68,6 +68,7 @@ public class PersistenciaOperacionesTest {
         //Instancia de usuario
         usuarioA = new Usuario(TipoUsuario.ESTANDAR,"Nachiten","hola1234ABC");
         usuarioB = new Usuario(TipoUsuario.ESTANDAR,"Carlos","asdfg");
+        usuarioAdmin = new Usuario(TipoUsuario.ADMIN,"Admin", "admin");
 
         generarUsuarioAConContraAnterior();
 
@@ -168,13 +169,58 @@ public class PersistenciaOperacionesTest {
 
 
     @Test
-    public void persistirUsuarioB(){
+    public void t1_persistirUsuarioB(){
         persistirUnObjeto(usuarioB);
     }
 
     @Test
-    public void persistirOperacionDeEgresoConUsuarioA(){
+    public void t2_persistirOperacionDeEgresoConUsuarioA(){
         persistirUnObjeto(operacionDeEgresoRopaA);
+    }
+
+    @Test
+    public void t3_persistirUsuarioAdmin(){ persistirUnObjeto(usuarioAdmin);}
+
+    @Test
+    public void verificarUsuarioAPersistido(){
+
+        Usuario unUsuario = EntityManagerHelper.getEntityManager().find(Usuario.class, 2);
+        TipoUsuario tipo = TipoUsuario.ESTANDAR;
+
+        Assert.assertEquals("Nachiten", unUsuario.getNombreUsuario());
+        Assert.assertEquals(tipo,unUsuario.getTipo());
+
+    }
+
+    @Test
+    public void verificarUsuarioBPersistido(){
+
+        Usuario unUsuario = EntityManagerHelper.getEntityManager().find(Usuario.class, 1);
+        TipoUsuario tipo = TipoUsuario.ESTANDAR;
+
+        Assert.assertEquals("Carlos", unUsuario.getNombreUsuario());
+        Assert.assertEquals(tipo,unUsuario.getTipo());
+
+    }
+
+    @Test
+    public void verificarUsuarioAdminPersistido(){
+
+        Usuario unUsuario = EntityManagerHelper.getEntityManager().find(Usuario.class, 3);
+        TipoUsuario tipo = TipoUsuario.ADMIN;
+
+        Assert.assertEquals("Admin", unUsuario.getNombreUsuario());
+        Assert.assertEquals(tipo,unUsuario.getTipo());
+
+    }
+
+    @Test
+    public void verificarOperacionDeEgresoRopaAPersistido(){
+
+        OperacionDeEgreso unaoperacionDeEgreso = EntityManagerHelper.getEntityManager().find(OperacionDeEgreso.class, 1);
+
+        Assert.assertEquals(1, unaoperacionDeEgreso.getCantidadPresupuestosRequerida());
+        Assert.assertTrue(5600 == unaoperacionDeEgreso.getMontoTotal());
     }
 
 }

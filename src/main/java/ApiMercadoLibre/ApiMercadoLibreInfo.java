@@ -6,20 +6,17 @@ import java.util.List;
 import java.util.Optional;
 import Excepciones.ExcepcionApiMercadoLibre;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 public class ApiMercadoLibreInfo {
 
     static List<Pais> paises;
-    static List<InfoPais> provincias;
-    static List<InfoEstado> ciudades;
+    static List<InfoPais> paisConListadoProvincias;
+    static List<InfoEstado> provinciasConListadoCiudades;
 
     static {
         try {
             paises = generarListaPaises();
-            provincias = generarListaProvincias();
-            ciudades = generarListaEstados();
+            paisConListadoProvincias = generarListaProvincias();
+            provinciasConListadoCiudades = generarListaEstados();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,21 +48,29 @@ public class ApiMercadoLibreInfo {
 
         ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
 
-        List<InfoEstado> estadosTotales = new ArrayList<>();
+        List<InfoEstado> listaEstados = new ArrayList<>();
 
         // Guardar lista de todos los estados por cada provincia
-        for (InfoPais infoPais : provincias){
-            List<Estado> estados = infoPais.getStates();
+        for (InfoPais infoPais : paisConListadoProvincias) {
+            for (InfoEstado estado : infoPais.getStates()) {
+                InfoEstado ciudadesPorProvincia = servicioPais.listadoCiudadesDeEstado(estado.getId());
+                listaEstados.add(ciudadesPorProvincia);
+            }
+        }
+        return listaEstados;
+        /*for (InfoEstado infoEstado : provinciasConListadoCiudades){
+            List<Estado> estados = infoEstado.getCities();
 
             for (Estado unEstado : estados){
                 InfoEstado ciudadesDeProvincia = servicioPais.listadoCiudadesDeEstado(unEstado.getId());
                 estadosTotales.add(ciudadesDeProvincia);
             }
-        }
+        }*/
 
-        return estadosTotales;
+        //return estadosTotales;
     }
 
+    /*
     public Pais obtenerPaisDeId(String IDPais) throws ExcepcionApiMercadoLibre{
         Optional<Pais> paisEncontrado = paises.stream().filter( unPais -> unPais.getId().equals(IDPais)).findFirst();
 
@@ -112,10 +117,22 @@ public class ApiMercadoLibreInfo {
         } else {
             throw new ExcepcionApiMercadoLibre("No existe la ciudad buscada");
         }
-    }
+    }*/
+
+   /* public void cargarMonedaPorPais(String idPais) throws IOException, ExcepcionApiMercadoLibre {
+        Optional<InfoPais> paisEncontrado = paisConListadoProvincias.stream().filter( unaProvincia -> unaProvincia.getId().equals(idPais)).findFirst();
+
+        if (paisEncontrado.isPresent()){
+            ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
+            InfoMoneda monedaPorPais = servicioPais.listarMonedaPorPais(paisEncontrado.get().getId());
+             paisEncontrado.get().setCurrency_id(monedaPorPais);
+        } else {
+            throw new ExcepcionApiMercadoLibre("No existe el pais solicitado");
+        }
+    }*/
 
     public static InfoPais obtenerProvinciasDePais(String idPais) throws ExcepcionApiMercadoLibre{
-        Optional<InfoPais> paisEncontrado = provincias.stream().filter( unaProvincia -> unaProvincia.getId().equals(idPais)).findFirst();
+        Optional<InfoPais> paisEncontrado = paisConListadoProvincias.stream().filter( unaProvincia -> unaProvincia.getId().equals(idPais)).findFirst();
 
         if (paisEncontrado.isPresent()){
             return paisEncontrado.get();
@@ -125,7 +142,7 @@ public class ApiMercadoLibreInfo {
     }
 
     public static InfoEstado obtenerCiudadesDeEstado(String idEstado) throws ExcepcionApiMercadoLibre{
-        Optional<InfoEstado> estadoEncontrado = ciudades.stream().filter( unaCiudad -> unaCiudad.getId().equals(idEstado)).findFirst();
+        Optional<InfoEstado> estadoEncontrado = provinciasConListadoCiudades.stream().filter( unaCiudad -> unaCiudad.getId().equals(idEstado)).findFirst();
 
         if (estadoEncontrado.isPresent()){
             return estadoEncontrado.get();
@@ -134,11 +151,14 @@ public class ApiMercadoLibreInfo {
         }
     }
 
+
     public static List<Pais> getPaises() { return paises; }
 
-    public static List<InfoPais> getProvincias() { return provincias; }
+    public static List<InfoPais> getPaisConListadoProvincias() {
+        return paisConListadoProvincias;
+    }
 
-    public static List<InfoEstado> getCiudades() { return ciudades; }
-
-
+    public static List<InfoEstado> getProvinciasConListadoCiudades() {
+        return provinciasConListadoCiudades;
+    }
 }
