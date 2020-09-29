@@ -107,12 +107,12 @@ public class PersistenciaOperacionesTest {
                 itemPresupuestoRopaA4, itemPresupuestoRopaA5));
 
         //Instancia de operaciones de egreso
-        operacionEgresoConstruccion = new OperacionDeEgreso(new Date(), 42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
+        operacionEgresoConstruccion = new OperacionDeEgreso(LocalDate.now(), 42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
         operacionEgresoConstruccion.setUsuario(usuarioB);
         operacionEgresoConstruccion.setCantidadPresupuestosRequerida(1);
         operacionEgresoConstruccion.setDocumentoComercial(documentoCheque);
 
-        operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(), 5600, medioDePagoTarjetaDeCredito, itemsPresupuestoRopaA);
+        operacionDeEgresoRopaA = new OperacionDeEgreso(LocalDate.now(), 5600, medioDePagoTarjetaDeCredito, itemsPresupuestoRopaA);
         operacionDeEgresoRopaA.setUsuario(usuarioA);
         operacionDeEgresoRopaA.setCantidadPresupuestosRequerida(1);
         operacionDeEgresoRopaA.setDocumentoComercial(documentoRecibo);

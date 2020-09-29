@@ -5,6 +5,7 @@ import Usuarios.Mensaje;
 import Usuarios.Usuario;
 import ValidadorTransparencia.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static Usuarios.TipoUsuario.ADMIN;
@@ -42,10 +43,10 @@ public class Principal {
         List<Presupuesto> presupuestosConstruccion = new ArrayList<>();
 
         //Egreso Ropa A
-        OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoTarjetaDeCredito, itemsPresupuestoRopaA);
+        OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(LocalDate.now(),5600, medioDePagoTarjetaDeCredito, itemsPresupuestoRopaA);
         Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
 
-        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
+        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(LocalDate.now(),42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
         Presupuesto presupuestoConstruccion = new Presupuesto(42430, itemsPresupuestoConstruccion, operacionEgresoConstruccion);
 
         //

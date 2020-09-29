@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class ValidadorTransparenciaTest {
@@ -70,7 +71,7 @@ public class ValidadorTransparenciaTest {
     private final DocumentoComercial documentoComercialRopaA = documentoRecibo;
     private final Proveedor proveedorRopaA = indumentariaDeportivaBsAs;
     private final MedioDePago medioDePagoRopaA = medioDePagoTarjetaDeCredito;
-    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoRopaA, itemsPresupuestoRopaA);
+    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(LocalDate.now(),5600, medioDePagoRopaA, itemsPresupuestoRopaA);
 
 
     private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
@@ -103,7 +104,7 @@ public class ValidadorTransparenciaTest {
 
     //Egreso construccion
     private final MedioDePago medioDePagoconstruccion = medioDePagoTarjetaDeCredito;
-    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoconstruccion, itemsPresupuestoConstruccion);
+    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(LocalDate.now(),42430, medioDePagoconstruccion, itemsPresupuestoConstruccion);
 
 
     //Instancia de lista operacionesDeEgreso

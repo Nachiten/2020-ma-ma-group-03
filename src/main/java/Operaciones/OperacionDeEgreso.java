@@ -8,6 +8,7 @@ import ValidadorTransparencia.ValidadorTransparencia;
 import Vendedor.Proveedor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     private Usuario usuario;
 
     @Column (name = "fecha")
-    private Date fecha;
+    private LocalDate fecha;
 
     @Column (name = "montoTotal")
     private float montoTotal;
@@ -76,13 +77,21 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @JoinColumn(name = "entidadJuridicaAsociada_id")
     private EntidadJuridica entidadJuridicaAsociada;
 
+    @Transient
+    private int operacioDeIngresoId;
+
+    @Transient
+    private boolean fueVinculada;
+
+
+
     //-------------------------------------------------------------------------
                             //CONTRUCTOR
     //-------------------------------------------------------------------------
 
     public OperacionDeEgreso() { inicializar();}
 
-    public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
+    public OperacionDeEgreso(LocalDate fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
@@ -90,6 +99,14 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
         inicializar();
     }
+
+    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal) {
+        this.IDOperacion = idOperacion;
+        this.fecha = fecha;
+        this.montoTotal = montoTotal;
+        inicializar();
+    }
+
 
     //-------------------------------------------------------------------------
                                 //METODOS
@@ -159,7 +176,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -193,7 +210,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public List<Presupuesto> getPresupuestos() { return presupuestos; }
 
-    public Date getFecha() { return fecha;}
+    public LocalDate getFecha() { return fecha;}
 
     public int getIDOperacion() { return IDOperacion; }
 
