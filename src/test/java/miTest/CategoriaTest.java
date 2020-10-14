@@ -22,10 +22,10 @@ public class CategoriaTest {
     private final Sector servicios4 = new Sector();
 
     //Empresa
-    private final Empresa empresaA = new Empresa(servicios1, 8000000,5);
-    private final Empresa empresaB = new Empresa(servicios2, 40950000,25);
-    private final Empresa empresaC = new Empresa(servicios3, 425170000,15);
-    private final Empresa empresaD = new Empresa(servicios4,425161000,534);
+    private final Empresa empresaA = new Empresa(servicios1,"",  8000000,5);
+    private final Empresa empresaB = new Empresa(servicios2,"", 40950000,25);
+    private final Empresa empresaC = new Empresa(servicios3,"", 425170000,15);
+    private final Empresa empresaD = new Empresa(servicios4,"", 425161000,534);
 
     @Test
     public void clasificacionConMicro() {

@@ -1,12 +1,10 @@
 package ApiMercadoLibre;
 
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "provincias")
-public class InfoEstado {
+@Table(name = "ciudades")
+public class InfoCiudad {
 
     @Id
     String id;
@@ -16,33 +14,25 @@ public class InfoEstado {
 
     @ManyToOne (optional = false)
     @JoinColumn(name = "paisAsociado_id")
-    InfoPais paisAsociado;
-
-    @OneToMany (mappedBy = "provinciaAsociada", cascade = {CascadeType.ALL})
-    List<InfoCiudad> cities;
-
+    InfoEstado provinciaAsociada;
 
     //-------------------------------------------------------------------------
-                    //CONTRUCTOR
+                            //CONTRUCTOR
     //-------------------------------------------------------------------------
 
-    public InfoEstado() {
+    public InfoCiudad() {
     }
 
-
     //-------------------------------------------------------------------------
-                    //GETTERS
+                            //GETTERS
     //-------------------------------------------------------------------------
 
-    public List<InfoCiudad> getCities() {
-        return cities;
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getId() {
-        return id;
     }
 }

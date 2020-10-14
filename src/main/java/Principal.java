@@ -1,10 +1,11 @@
 import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
 import Operaciones.*;
-import Usuarios.BandejaDeMensajes;
+import Usuarios.Publicador;
 import Usuarios.Mensaje;
 import Usuarios.Usuario;
 import ValidadorTransparencia.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static Usuarios.TipoUsuario.ADMIN;
@@ -42,11 +43,11 @@ public class Principal {
         List<Presupuesto> presupuestosConstruccion = new ArrayList<>();
 
         //Egreso Ropa A
-        OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoTarjetaDeCredito, itemsPresupuestoRopaA);
-        Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA);
+        OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(LocalDate.now(),5600, medioDePagoTarjetaDeCredito, itemsPresupuestoRopaA);
+        Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
 
-        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
-        Presupuesto presupuestoConstruccion = new Presupuesto(42430, itemsPresupuestoConstruccion);
+        OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(LocalDate.now(),42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
+        Presupuesto presupuestoConstruccion = new Presupuesto(42430, itemsPresupuestoConstruccion, operacionEgresoConstruccion);
 
         //
         // agregar revisores
@@ -82,7 +83,7 @@ public class Principal {
 
         Usuario miUsuario = new Usuario(ADMIN, "Nachiten", "abcdeFGH1234");
 
-        miUsuario.setBandejaDeMensajes(new BandejaDeMensajes());
+        /*miUsuario.setBandejaDeMensajes(new Publicador());
 
         operacionDeEgresoRopaA.agregarRevisor(miUsuario);
 
@@ -99,6 +100,6 @@ public class Principal {
     }
 
     static void printearMensaje(Mensaje unMensaje){
-        System.out.println(unMensaje.getContenido());
+        System.out.println(unMensaje.getContenido());*/
     }
 }

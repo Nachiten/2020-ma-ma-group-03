@@ -1,41 +1,119 @@
 package Operaciones;
 
 import CriterioOperacion.CategoriaCriterio;
+import Entidades.EntidadJuridica;
 import Usuarios.Usuario;
 import CriterioSeleccionProveedor.CriterioSeleccionProveedor;
 import ValidadorTransparencia.ValidadorTransparencia;
 import Vendedor.Proveedor;
 
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table (name = "operacionDeEgreso")
 public class OperacionDeEgreso implements GestorDeRevisores {
 
+    @Id
+    @GeneratedValue
     private int IDOperacion;
+
+    @ManyToOne (optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
-    private final Date fecha;
-    private final float montoTotal;
-    private final MedioDePago medioDePago;
+
+    @Column (name = "fecha")
+    private LocalDate fecha;
+
+    @Column (name = "montoTotal")
+    private float montoTotal;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "medioDePago_id")
+    private MedioDePago medioDePago;
+
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "documentoComercial_id")
     private DocumentoComercial documentoComercial;
-    private final List<Item> items;
+
+    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Item> items;
+
+    // Error | Genera una tabla intermedia como si fuera many to many
+    @OneToMany (mappedBy = "operacionAsociada", cascade = CascadeType.ALL)
     private List<Presupuesto> presupuestos;
+
+    @Transient // No se persiste
     private ValidadorTransparencia validadorTransparencia;
+
+    @ManyToMany (cascade = CascadeType.ALL)
     private List<Usuario> revisores;
+
+    @Transient // No se persiste
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
+
+    @ManyToMany (cascade = CascadeType.ALL)
     private List<CategoriaCriterio> listaCategoriaCriterio;
+
+    @ManyToOne (cascade = CascadeType.ALL)
     private OperacionDeIngreso operacionDeIngreso;
+
+    @Column (name = "cantidadPresupuestosRequerida")
     private int cantidadPresupuestosRequerida;
-    private boolean soyValida = false;
+
+    @Transient // No se persiste
+    private boolean soyValida;
+
+    @Transient // No se persiste
     private int cantidadDeVecesValidada = 0;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
-    public OperacionDeEgreso(Date fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "entidadJuridicaAsociada_id")
+    private EntidadJuridica entidadJuridicaAsociada;
+
+    @Transient
+    private int operacioDeIngresoId;
+
+    @Transient
+    private boolean fueVinculada;
+
+
+
+    //-------------------------------------------------------------------------
+                            //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    public OperacionDeEgreso() { inicializar();}
+
+    public OperacionDeEgreso(LocalDate fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         this.medioDePago = medioDePago;
         this.items = items;
 
+        inicializar();
+    }
+
+    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal) {
+        this.IDOperacion = idOperacion;
+        this.fecha = fecha;
+        this.montoTotal = montoTotal;
+        inicializar();
+    }
+
+
+    //-------------------------------------------------------------------------
+                                //METODOS
+    //-------------------------------------------------------------------------
+
+    private void inicializar(){
+        this.soyValida = false;
         this.revisores = new ArrayList<>();
         this.presupuestos = new ArrayList<>();
     }
@@ -54,6 +132,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public void agregarRevisor(Usuario revisor){
         revisores.add(revisor);
+        revisor.agregarOperacionDeEgreso(this);
     }
 
     public void removerRevisor(Usuario revisor) {
@@ -70,9 +149,18 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         }
     }
 
-//-------------------------------------------------------------------------
+    public void agregarPresupuesto(Presupuesto unPresupuesto){ presupuestos.add(unPresupuesto); }
+
+    public void soyValida(){ this.soyValida = true; }
+
+    public void fuiValidada(){ this.cantidadDeVecesValidada ++; }
+
+
+    //-------------------------------------------------------------------------
                             //SETTERS
-//-------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
+
+    public void setCantidadPresupuestosRequerida(int cantidadPresupuestosRequerida) { this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida; }
 
     public void setValidadorTransparencia(ValidadorTransparencia validadorTransparencia) {
         this.validadorTransparencia = validadorTransparencia;
@@ -86,64 +174,61 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.listaCategoriaCriterio = listaCategoriaCriterio;
     }
 
-    public void agregarPresupuesto(Presupuesto unPresupuesto){
-        presupuestos.add(unPresupuesto);
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
-    public void soyValida(){
-        this.soyValida = true;
+    public void setMontoTotal(float montoTotal) {
+        this.montoTotal = montoTotal;
     }
 
-    public void fuiValidada(){
-        this.cantidadDeVecesValidada ++;
+    public void setMedioDePago(MedioDePago medioDePago) {
+        this.medioDePago = medioDePago;
     }
 
-    public void setCantidadPresupuestosRequerida(int cantidadPresupuestosRequerida) { this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida; }
+    public void setDocumentoComercial(DocumentoComercial documentoComercial) { this.documentoComercial = documentoComercial; }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setPresupuestos(List<Presupuesto> presupuestos) {
+        this.presupuestos = presupuestos;
+    }
+
+    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) { this.entidadJuridicaAsociada = entidadJuridicaAsociada; }
+
+    public void setProveedorAsociado(Proveedor proveedorAsociado) {
+        this.proveedorAsociado = proveedorAsociado;
+    }
 
     //-------------------------------------------------------------------------
                             //GETTERS
-//-------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
+    public List<Presupuesto> getPresupuestos() { return presupuestos; }
 
-    public List<Presupuesto> getPresupuestos() {
-        return presupuestos;
-    }
-
-    public Date getFecha() { return fecha;}
+    public LocalDate getFecha() { return fecha;}
 
     public int getIDOperacion() { return IDOperacion; }
 
     public int getCantidadPresupuestosRequerida() { return cantidadPresupuestosRequerida; }
 
-    public float getMontoTotal() {
-        return montoTotal;
-    }
+    public float getMontoTotal() { return montoTotal; }
 
-    public List<Item> getItems() {
-        return items;
-    }
+    public List<Item> getItems() { return items; }
 
-    public DocumentoComercial getDocumentoComercial() {
-        return documentoComercial;
-    }
+    public DocumentoComercial getDocumentoComercial() { return documentoComercial; }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+    public Usuario getUsuario() { return usuario; }
 
-    public List<Usuario> getRevisores() {
-        return revisores;
-    }
+    public List<Usuario> getRevisores() { return revisores; }
 
-    public CriterioSeleccionProveedor getCriterioSeleccionProveedor() {
-        return criterioSeleccionProveedor;
-    }
+    public CriterioSeleccionProveedor getCriterioSeleccionProveedor() { return criterioSeleccionProveedor; }
 
-    public Boolean esValida(){
-        return soyValida;
-    }
+    public Boolean esValida(){ return soyValida; }
 
-    public int getCantidadDeVecesValidada() {
-        return cantidadDeVecesValidada;
-    }
+    public int getCantidadDeVecesValidada() { return cantidadDeVecesValidada; }
 }

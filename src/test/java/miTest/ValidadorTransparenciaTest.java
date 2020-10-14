@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class ValidadorTransparenciaTest {
@@ -70,13 +71,13 @@ public class ValidadorTransparenciaTest {
     private final DocumentoComercial documentoComercialRopaA = documentoRecibo;
     private final Proveedor proveedorRopaA = indumentariaDeportivaBsAs;
     private final MedioDePago medioDePagoRopaA = medioDePagoTarjetaDeCredito;
-    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(new Date(),5600, medioDePagoRopaA, itemsPresupuestoRopaA);
+    private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(LocalDate.now(),5600, medioDePagoRopaA, itemsPresupuestoRopaA);
 
 
-    private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA);
-    private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA);
-    private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina);
-    private final Presupuesto presupuestoRopaAConDistintoDocumento = new Presupuesto(5600, itemsPresupuestoRopaA);
+    private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
+    private final Presupuesto presupuestoRopaAOtroMonto = new Presupuesto(1700, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
+    private final Presupuesto presupuestoRopaAOtrosItems = new Presupuesto(5600, itemsPresupuestoOficina, operacionDeEgresoRopaA);
+    private final Presupuesto presupuestoRopaAConDistintoDocumento = new Presupuesto(5600, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
     //Items de Ropa B
 
     private final Item itemPresupuestoRopaB1 = new Item("Camisa Talle L", 1100);
@@ -89,7 +90,7 @@ public class ValidadorTransparenciaTest {
     //Presupuesto Ropa B
 
     private final DocumentoComercial documentoComercialRopaB = documentoCheque;
-    private final Presupuesto presupuestoRopaB = new Presupuesto(5800, itemsPresupuestoRopaB);
+    private final Presupuesto presupuestoRopaB = new Presupuesto(5800, itemsPresupuestoRopaB, operacionDeEgresoRopaA);
 
 
     //Items de Construccion
@@ -103,7 +104,7 @@ public class ValidadorTransparenciaTest {
 
     //Egreso construccion
     private final MedioDePago medioDePagoconstruccion = medioDePagoTarjetaDeCredito;
-    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(new Date(),42430, medioDePagoconstruccion, itemsPresupuestoConstruccion);
+    private final OperacionDeEgreso operacionEgresoConstruccion = new OperacionDeEgreso(LocalDate.now(),42430, medioDePagoconstruccion, itemsPresupuestoConstruccion);
 
 
     //Instancia de lista operacionesDeEgreso
@@ -112,7 +113,7 @@ public class ValidadorTransparenciaTest {
 
 
     //Instancia de Entidad Juridica
-    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3", "Grupo de disenio", "12-123871328", "Corrientes 1234", "17");
+    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3",  "12-123871328", null, "17");
 
 
     //Instancia criterio seleccion de proveedor

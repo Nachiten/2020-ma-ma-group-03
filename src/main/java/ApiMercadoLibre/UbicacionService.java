@@ -20,6 +20,14 @@ public interface UbicacionService {
         @GET("classified_locations/states/{idEstado}")
         Call<InfoEstado> estados(@Path("idEstado") String nombreEstado, @Query("campos") String campos );
 
+        //Obtener informacion de una ciudad
+        @GET("classified_locations/cities/{idCiudad}")
+        Call<InfoCiudad> ciudad(@Path("idCiudad") String nombreCiudad, @Query("campos") String campos);
+
+        //obtener monedas de cada pais
+        @GET("https://api.mercadolibre.com/currencies/{idPais}")
+        Call<InfoMoneda> monedas(@Path("idPais") String nombrePais, @Query("campos") String campos);
+
         // Obtener todas las monedas existentes
         @GET("currencies")
         Call<List<InfoMoneda>> monedas();
