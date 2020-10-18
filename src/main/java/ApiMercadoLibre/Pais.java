@@ -1,26 +1,54 @@
 package ApiMercadoLibre;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "paises")
 public class Pais {
+    @Id
+    String id;
 
+    @Column(name = "name")
+    String name;
 
-    public String id;
-    public String name;
-    public String locale;
-    public String currency_id;
+    @Column (name = "locale")
+    String locale;
 
+    @Column (name = "currency_id")
+    String currency_id;
+
+    @Transient
+    List<Lista> states;
 
     //-------------------------------------------------------------------------
-                        //CONTRUCTOR
+                            //CONTRUCTOR
     //-------------------------------------------------------------------------
 
     public Pais() {
     }
 
+    //-------------------------------------------------------------------------
+                            //METODOS
+    //-------------------------------------------------------------------------
+
+    public List<String> listadoIdProvincias(){
+        List<String> listadoId = new ArrayList<>();
+        for (Lista unEstado : states) {
+            listadoId.add(unEstado.getId());
+        }
+        return listadoId;
+    }
 
     //-------------------------------------------------------------------------
-                        //GETTERS
+                                //GETTERS
     //-------------------------------------------------------------------------
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -30,9 +58,8 @@ public class Pais {
         return locale;
     }
 
-    public String getId() {
-        return id;
+    public String getCurrency_id() {
+        return currency_id;
     }
 
-    public String getCurrency_id() { return currency_id; }
 }

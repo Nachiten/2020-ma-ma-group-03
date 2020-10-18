@@ -1,31 +1,30 @@
 package ApiMercadoLibre;
 
-import Persistencia.EntidadPersistente;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ciudad")
+@Table(name = "ciudades")
 public class Ciudad {
 
     @Id
     String id;
-    @Column (name = "name")
+
+    @Column(name = "name")
     String name;
 
-    @ManyToOne (cascade = {CascadeType.ALL})
-    private InfoEstado infoEstadoAsociado;
+    @ManyToOne (optional = false)
+    @JoinColumn(name = "provinciaAsociada_id")
+    Estado provinciaAsociada;
 
     //-------------------------------------------------------------------------
-                        //CONTRUCTOR
+                            //CONTRUCTOR
     //-------------------------------------------------------------------------
-
 
     public Ciudad() {
     }
 
     //-------------------------------------------------------------------------
-                        //GETTERS
+                            //GETTERS
     //-------------------------------------------------------------------------
 
     public String getId() {
@@ -36,7 +35,16 @@ public class Ciudad {
         return name;
     }
 
-    public InfoEstado getEstadoAsociado() {
-        return infoEstadoAsociado;
+    //-------------------------------------------------------------------------
+                            //SETTERS
+    //-------------------------------------------------------------------------
+
+
+    public void setProvinciaAsociada(Estado provinciaAsociada) {
+        this.provinciaAsociada = provinciaAsociada;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

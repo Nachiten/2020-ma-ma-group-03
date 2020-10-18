@@ -3,162 +3,96 @@ package ApiMercadoLibre;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import Excepciones.ExcepcionApiMercadoLibre;
 
 public class ApiMercadoLibreInfo {
 
-    static List<Pais> paises;
-    static List<InfoPais> paisConListadoProvincias;
-    static List<InfoEstado> provinciasConListadoCiudades;
+    static List<String> paisesId;
+    static List<Pais> listadoPaises;
+    static List<Estado> listadoProvincias;
+    static List<Ciudad> listadoCiudades;
+    static List<Monedas> monedas;
+    static  ServicioUbicacionMercadoLibre servicioPais;
+
+    //-------------------------------------------------------------------------
+                            //METODOS
+    //-------------------------------------------------------------------------
 
     static {
         try {
-            paises = generarListaPaises();
-            paisConListadoProvincias = generarListaProvincias();
-            provinciasConListadoCiudades = generarListaEstados();
+            servicioPais = ServicioUbicacionMercadoLibre.instancia();
+            paisesId = generarListaIdDePaises();
+            listadoPaises = generarListaDePaises();
+            listadoProvincias = generarListaEstados();
+            listadoCiudades = generarListaCiudades();
+            monedas = generarListadoMonedas();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static List<Pais> generarListaPaises() throws IOException {
-        // Aca se guarda la lista de todos los paises traidos de la API
-        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-        return servicioPais.listadoDePaises();
+    //se genera la lista de id de los paises ok
+    private static List<String> generarListaIdDePaises() throws IOException {
+        return servicioPais.listadoIdDePaises();
     }
 
-    private static List<InfoPais> generarListaProvincias() throws IOException {
-
-        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-
-        List<InfoPais> listaPaises = new ArrayList<>();
-
-        // Guardar lista de todas las provincias por cada pais
-        for (Pais unPais : paises){
-            InfoPais provinciasDePais = servicioPais.listadoEstadosDePais(unPais.getId());
-
-            listaPaises.add(provinciasDePais);
+    //se genera la lista de paises ok
+    private static List<Pais> generarListaDePaises() throws IOException {
+        List<Pais> listaPaises = new ArrayList<>();
+        for (String unIdPais : paisesId){
+            Pais unPais = servicioPais.obtenerPais(unIdPais);
+            listaPaises.add(unPais);
         }
 
         return listaPaises;
     }
 
-    private static List<InfoEstado> generarListaEstados() throws IOException{
-
-        ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-
-        List<InfoEstado> listaEstados = new ArrayList<>();
-
-        // Guardar lista de todos los estados por cada provincia
-        for (InfoPais infoPais : paisConListadoProvincias) {
-            for (InfoEstado estado : infoPais.getStates()) {
-                InfoEstado ciudadesPorProvincia = servicioPais.listadoCiudadesDeEstado(estado.getId());
-                listaEstados.add(ciudadesPorProvincia);
+    //se genera la lista de estados ok
+    private static List<Estado> generarListaEstados() throws IOException{
+        List<Estado> listaEstados = new ArrayList<>();
+        for (Pais unPais : listadoPaises) {
+            //genero la lista de provincias por cada pais
+            for (String unEstadoId : unPais.listadoIdProvincias()) {
+                Estado unaProvincia = servicioPais.obtenerUnEstado(unEstadoId);
+                //asocio el pais a la provincia
+                unaProvincia.setPaisAsociado(unPais);
+                listaEstados.add(unaProvincia);
             }
         }
         return listaEstados;
-        /*for (InfoEstado infoEstado : provinciasConListadoCiudades){
-            List<Estado> estados = infoEstado.getCities();
-
-            for (Estado unEstado : estados){
-                InfoEstado ciudadesDeProvincia = servicioPais.listadoCiudadesDeEstado(unEstado.getId());
-                estadosTotales.add(ciudadesDeProvincia);
-            }
-        }*/
-
-        //return estadosTotales;
     }
 
-    /*
-    public Pais obtenerPaisDeId(String IDPais) throws ExcepcionApiMercadoLibre{
-        Optional<Pais> paisEncontrado = paises.stream().filter( unPais -> unPais.getId().equals(IDPais)).findFirst();
-
-        if (paisEncontrado.isPresent()) {
-            return paisEncontrado.get();
-        } else {
-            throw new ExcepcionApiMercadoLibre("No existe el pais buscado");
-        }
-    }
-
-    public Estado obtenerEstadoDeId(String IDEstado) throws ExcepcionApiMercadoLibre{
-
-        Estado estadoFinalEncontrado = null;
-
-        for (InfoPais infoPais : provincias){
-            Optional<Estado> estadoEncontrado = infoPais.getStates().stream().filter( unPais -> unPais.getId().equals(IDEstado)).findFirst();
-            if (estadoEncontrado.isPresent()){
-                estadoFinalEncontrado = estadoEncontrado.get();
-                break;
+    //se genera la lista de ciudades ok
+    private static List<Ciudad> generarListaCiudades() throws IOException{
+        List<Ciudad> listaCiudades = new ArrayList<>();
+        for (Estado unaProvincia : listadoProvincias) {
+            //genero la lista de ciudades por provincia
+            for (String unaCiudadId : unaProvincia.listadoIdCiudades()) {
+                Ciudad unaCiudad = servicioPais.obtenerUnaCiudad(unaCiudadId);
+                //asocio la provincia a la ciudad
+                unaCiudad.setProvinciaAsociada(unaProvincia);
+                listaCiudades.add(unaCiudad);
             }
         }
-
-        if (estadoFinalEncontrado != null) {
-            return estadoFinalEncontrado;
-        } else {
-            throw new ExcepcionApiMercadoLibre("No existe el estado buscado");
-        }
+        return listaCiudades;
     }
 
-    public Ciudad obtenerCiudadDeId(String IDCiudad) throws ExcepcionApiMercadoLibre{
+    //se genera la lista de todas la monedas ok
+    private static List<Monedas> generarListadoMonedas() throws IOException {
+        return servicioPais.listadoMonedas();
 
-        Ciudad ciudadFinal = null;
-
-        for (InfoEstado infoEstado : ciudades){
-            Optional<Ciudad> ciudadEncontrada = infoEstado.getCities().stream().filter( unPais -> unPais.getId().equals(IDCiudad)).findFirst();
-            if (ciudadEncontrada.isPresent()){
-                ciudadFinal = ciudadEncontrada.get();
-                break;
-            }
-        }
-
-        if (ciudadFinal != null) {
-            return ciudadFinal;
-        } else {
-            throw new ExcepcionApiMercadoLibre("No existe la ciudad buscada");
-        }
-    }*/
-
-   /* public void cargarMonedaPorPais(String idPais) throws IOException, ExcepcionApiMercadoLibre {
-        Optional<InfoPais> paisEncontrado = paisConListadoProvincias.stream().filter( unaProvincia -> unaProvincia.getId().equals(idPais)).findFirst();
-
-        if (paisEncontrado.isPresent()){
-            ServicioUbicacionMercadoLibre servicioPais = ServicioUbicacionMercadoLibre.instancia();
-            InfoMoneda monedaPorPais = servicioPais.listarMonedaPorPais(paisEncontrado.get().getId());
-             paisEncontrado.get().setCurrency_id(monedaPorPais);
-        } else {
-            throw new ExcepcionApiMercadoLibre("No existe el pais solicitado");
-        }
-    }*/
-
-    public static InfoPais obtenerProvinciasDePais(String idPais) throws ExcepcionApiMercadoLibre{
-        Optional<InfoPais> paisEncontrado = paisConListadoProvincias.stream().filter( unaProvincia -> unaProvincia.getId().equals(idPais)).findFirst();
-
-        if (paisEncontrado.isPresent()){
-            return paisEncontrado.get();
-        } else {
-            throw new ExcepcionApiMercadoLibre("No existe el pais solicitado");
-        }
     }
 
-    public static InfoEstado obtenerCiudadesDeEstado(String idEstado) throws ExcepcionApiMercadoLibre{
-        Optional<InfoEstado> estadoEncontrado = provinciasConListadoCiudades.stream().filter( unaCiudad -> unaCiudad.getId().equals(idEstado)).findFirst();
+    //-------------------------------------------------------------------------
+                        //GETTERS
+    //-------------------------------------------------------------------------
 
-        if (estadoEncontrado.isPresent()){
-            return estadoEncontrado.get();
-        } else {
-            throw new ExcepcionApiMercadoLibre("No existe el estado solicitado");
-        }
+    public static List<Pais> getListadoPaises() { return listadoPaises; }
+
+    public static List<Estado> getListadoProvincias() { return listadoProvincias; }
+
+    public static List<Ciudad> getListadoCiudades() {
+        return listadoCiudades;
     }
 
-
-    public static List<Pais> getPaises() { return paises; }
-
-    public static List<InfoPais> getPaisConListadoProvincias() {
-        return paisConListadoProvincias;
-    }
-
-    public static List<InfoEstado> getProvinciasConListadoCiudades() {
-        return provinciasConListadoCiudades;
-    }
+    public static List<Monedas> getMonedas() { return monedas; }
 }
