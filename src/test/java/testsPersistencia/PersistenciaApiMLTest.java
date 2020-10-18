@@ -1,31 +1,29 @@
 package testsPersistencia;
 
 import ApiMercadoLibre.*;
-import Excepciones.ExcepcionApiMercadoLibre;
 import Persistencia.db.EntityManagerHelper;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
-import java.io.IOException;
-import java.security.PrivateKey;
 import java.util.*;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PersistenciaApiMLTest {
 
-    /*static private List<Pais> paises;
-    static private List<InfoPais> listaPaises;
+    static private List<Pais> listaDePaises;
+    static private List<Estado> listaProvincias;
+    static private List<Ciudad> listaCiudades;
+    static private List<Monedas> listaMonedas;
 
     @BeforeClass
     public static void init(){
-        paises = ApiMercadoLibreInfo.getPaises();
-        listaPaises = ApiMercadoLibreInfo.getPaisConListadoProvincias();
+        listaDePaises = ApiMercadoLibreInfo.getListadoPaises();
+        listaProvincias = ApiMercadoLibreInfo.getListadoProvincias();
+        listaCiudades = ApiMercadoLibreInfo.getListadoCiudades();
+        listaMonedas = ApiMercadoLibreInfo.getMonedas();
 
-    }*/
-
-    private void persistirUnaLista(List<Object> miLista){
-        for(Object unObjeto : miLista){
-            persistirUnObjeto(unObjeto);
-        }
     }
 
     private void persistirUnObjeto(Object unObjeto){
@@ -36,49 +34,34 @@ public class PersistenciaApiMLTest {
         EntityManagerHelper.commit();
     }
 
-   /* @Test
-    public void persistirApi(){
-        for (InfoPais infoPais : listaPaises) {
-            persistirUnObjeto(infoPais);
-        }
-    }*/
-
     @Test
-    public void persistirDireccionPostal() throws IOException, ExcepcionApiMercadoLibre {
-
-        DireccionPostal unaDireccionPostal = new DireccionPostal();
-
-
-        Direccion direccionCasa = new Direccion("Malabia", 3,20, "F");
-
-        unaDireccionPostal.configurarDireccionPostal("Argentina", "Córdoba", "La Carlota", direccionCasa);
-
-        persistirUnObjeto(unaDireccionPostal);
+    public void t1_persitirMonedas(){
+        for (Monedas unaMoneda : listaMonedas ) {
+            persistirUnObjeto(unaMoneda);
+        }
     }
 
     @Test
-    public void persistirDatosApiMercaboLibre() throws ExcepcionApiMercadoLibre {
-
-        List<Pais> listaDePaises = ApiMercadoLibreInfo.getPaises();
-
-        if (listaDePaises != null){
-            for(Pais unPais: listaDePaises){
-                //InfoPais provinciasDePais = (InfoPais) ApiMercadoLibreInfo.getPaises();
-                InfoPais provinciasDePais = ApiMercadoLibreInfo.obtenerProvinciasDePais(unPais.getId());
-
-                for(InfoEstado unEstado : provinciasDePais.getStates()){
-                    InfoEstado ciudadesDeProvincias = ApiMercadoLibreInfo.obtenerCiudadesDeEstado(unEstado.getId());
-
-                    for (InfoCiudad ciudad :ciudadesDeProvincias.getCities()) {
-
-                        persistirUnObjeto(provinciasDePais);
-                        persistirUnObjeto(ciudadesDeProvincias);
-                        persistirUnObjeto(ciudad);
-
-                    }
-                }
-            }
+    public void t2_persistirApiPaises(){
+        for (Pais unPais : listaDePaises) {
+            persistirUnObjeto(unPais);
         }
+    }
 
+    @Test
+    public void t3_persistirApiProvincias(){
+        for (Estado unaProvincia : listaProvincias) {
+            persistirUnObjeto(unaProvincia);
+        }
+    }
+
+    @Test
+    public void t4_persistirApiCiudades(){
+        int n = 1;
+        for (Ciudad unaCiudad : listaCiudades) {
+            unaCiudad.setId(unaCiudad.getId() + n);
+            n++;
+            persistirUnObjeto(unaCiudad);
+        }
     }
 }
