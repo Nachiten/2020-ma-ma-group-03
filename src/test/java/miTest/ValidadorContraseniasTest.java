@@ -1,8 +1,8 @@
 package miTest;
 
-import Usuarios.TipoUsuario;
-import Usuarios.Usuario;
-import ValidadoresContrasenia.*;
+import domain.entities.usuarios.TipoUsuario;
+import domain.entities.usuarios.Usuario;
+import validadoresContrasenia.*;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,11 +1,11 @@
 package miTest;
 
-import ApiMercadoLibre.DireccionPostal;
-import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
-import Entidades.EntidadJuridica;
-import Operaciones.*;
-import ValidadorTransparencia.*;
-import Vendedor.Proveedor;
+import domain.entities.apiMercadoLibre.DireccionPostal;
+import criterioSeleccionProveedor.CriterioProveedorMenorValor;
+import domain.entities.entidades.EntidadJuridica;
+import domain.entities.operaciones.*;
+import validadorTransparencia.*;
+import domain.entities.vendedor.Proveedor;
 import org.junit.Assert;
 import org.junit.Test;
 

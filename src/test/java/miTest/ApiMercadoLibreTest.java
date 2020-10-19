@@ -1,6 +1,6 @@
 package miTest;
-import ApiMercadoLibre.*;
-import Excepciones.ExcepcionApiMercadoLibre;
+import domain.entities.apiMercadoLibre.*;
+import excepciones.ExcepcionApiMercadoLibre;
 import org.junit.Assert;
 import org.junit.Test;
 

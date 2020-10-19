@@ -1,20 +1,17 @@
 package testsPersistencia;
 
-import Entidades.EntidadJuridica;
-import Operaciones.*;
-import Persistencia.db.EntityManagerHelper;
-import Usuarios.*;
-import Vendedor.Proveedor;
+import domain.entities.entidades.EntidadJuridica;
+import domain.entities.operaciones.*;
+import persistencia.db.EntityManagerHelper;
+import domain.entities.usuarios.*;
+import domain.entities.vendedor.Proveedor;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -106,7 +103,7 @@ public class PersistenciaOperacionesTest {
         itemsPresupuestoRopaA = new ArrayList<>(Arrays.asList(itemPresupuestoRopaA1, itemPresupuestoRopaA2, itemPresupuestoRopaA3,
                 itemPresupuestoRopaA4, itemPresupuestoRopaA5));
 
-        //Instancia de operaciones de egreso
+        //Instancia de domain.entities.operaciones de egreso
         operacionEgresoConstruccion = new OperacionDeEgreso(LocalDate.now(), 42430, medioDePagoTarjetaDeCredito, itemsPresupuestoConstruccion);
         operacionEgresoConstruccion.setUsuario(usuarioB);
         operacionEgresoConstruccion.setCantidadPresupuestosRequerida(1);
@@ -122,7 +119,7 @@ public class PersistenciaOperacionesTest {
 
         presupuestoConstruccion = new Presupuesto(42430, itemsPresupuestoConstruccion, operacionEgresoConstruccion);
 
-        //Cargar presupuesto a las operaciones de egreso
+        //Cargar presupuesto a las domain.entities.operaciones de egreso
         operacionDeEgresoRopaA.agregarPresupuesto(presupuestoRopaA);
 
         operacionEgresoConstruccion.agregarPresupuesto(presupuestoConstruccion);

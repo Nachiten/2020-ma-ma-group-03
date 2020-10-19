@@ -1,8 +1,8 @@
 package testsPersistencia;
 
-import Operaciones.TipoDocumentoComercial;
-import Operaciones.TipoMedioDePago;
-import Persistencia.db.EntityManagerHelper;
+import domain.entities.operaciones.TipoDocumentoComercial;
+import domain.entities.operaciones.TipoMedioDePago;
+import persistencia.db.EntityManagerHelper;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;

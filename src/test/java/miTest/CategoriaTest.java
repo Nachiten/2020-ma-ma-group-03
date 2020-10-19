@@ -1,9 +1,9 @@
 package miTest;
 
-import Entidades.Afip;
-import TipoEntidadJuridica.Categoria;
-import TipoEntidadJuridica.Empresa;
-import TipoEntidadJuridica.Sector;
+import domain.entities.entidades.Afip;
+import domain.entities.tipoEntidadJuridica.Categoria;
+import domain.entities.tipoEntidadJuridica.Empresa;
+import domain.entities.tipoEntidadJuridica.Sector;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,14 +1,12 @@
-import CriterioSeleccionProveedor.CriterioProveedorMenorValor;
-import Operaciones.*;
-import Usuarios.Publicador;
-import Usuarios.Mensaje;
-import Usuarios.Usuario;
-import ValidadorTransparencia.*;
+import criterioSeleccionProveedor.CriterioProveedorMenorValor;
+import domain.entities.operaciones.*;
+import domain.entities.usuarios.Usuario;
+import validadorTransparencia.*;
 
 import java.time.LocalDate;
 import java.util.*;
 
-import static Usuarios.TipoUsuario.ADMIN;
+import static domain.entities.usuarios.TipoUsuario.ADMIN;
 
 public class Principal {
 

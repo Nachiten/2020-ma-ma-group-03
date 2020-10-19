@@ -1,7 +1,7 @@
 package testsPersistencia;
 
-import ApiMercadoLibre.*;
-import Persistencia.db.EntityManagerHelper;
+import domain.entities.apiMercadoLibre.*;
+import persistencia.db.EntityManagerHelper;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

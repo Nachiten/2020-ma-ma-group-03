@@ -1,8 +1,8 @@
 package testApiVinculacion;
 
-import ApiEgresoIngreso.ServicioVinculacionEgresosIngresos;
-import Operaciones.OperacionDeEgreso;
-import Operaciones.OperacionDeIngreso;
+import apiEgresoIngreso.ServicioVinculacionEgresosIngresos;
+import domain.entities.operaciones.OperacionDeEgreso;
+import domain.entities.operaciones.OperacionDeIngreso;
 import org.junit.Test;
 
 import java.io.IOException;

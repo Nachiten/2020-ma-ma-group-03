@@ -1,10 +1,10 @@
 package testsPersistencia;
 
-import Entidades.EntidadJuridica;
-import Persistencia.db.EntityManagerHelper;
-import TipoEntidadJuridica.Categoria;
-import TipoEntidadJuridica.Empresa;
-import TipoEntidadJuridica.Sector;
+import domain.entities.entidades.EntidadJuridica;
+import persistencia.db.EntityManagerHelper;
+import domain.entities.tipoEntidadJuridica.Categoria;
+import domain.entities.tipoEntidadJuridica.Empresa;
+import domain.entities.tipoEntidadJuridica.Sector;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
