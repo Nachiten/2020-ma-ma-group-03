@@ -1,5 +1,7 @@
 package server;
 
+import domain.controllers.InicioController;
+import domain.controllers.UsuarioController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -24,8 +26,15 @@ public class Router {
     }
 
     private static void configure(){
+        UsuarioController usuarioController = new UsuarioController();
+
+        InicioController inicioController 	= new InicioController();
+
+        Spark.get("/", inicioController::inicio, Router.engine);
         //prueba
         //Spark.get("/saludo", (request, response) ->"Hola");
-        Spark.get("/saludo",((request, response) -> "Hola "  + request.queryParams("nombre")));
+        //Spark.get("/saludo",((request, response) -> "Hola "  + request.queryParams("nombre")));
+
+
     }
 }

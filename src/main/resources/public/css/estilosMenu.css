@@ -1,0 +1,89 @@
+*{
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* o body con este color grey */
+body{
+	background: #D4D4D4 ;
+	font-family: Arial,  sans-serif;
+	
+}
+
+.menu{
+	width: 1300px;
+	max-width: 90%;
+	margin: 30px auto;
+	
+}
+
+.button{
+	background: grey;
+	
+}
+
+ul.tabs{
+	width: 100%;
+	background: #363636;
+	list-style: none;
+	display: flex;
+}
+
+ul.tabs li{
+	width: 18%;
+}
+
+ul.tabs li a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+	text-align: center;
+
+	display: block;
+	padding: 20px 0px;
+}
+
+.active{
+	background: #0984CC;
+}
+
+ul.tabs li a .tab-text{
+	margin-left: 8px;
+}
+
+.sections{
+	width: 100%;
+	height: 650px;
+	background: #fff;
+}
+
+.sections article{
+	padding: 30px;
+}
+
+
+
+@media screen and (max-width: 700px){
+	ul.tabs li{
+		width: none;
+		flex-basis: 0;
+		flex-grow: 1;
+	}
+}
+
+@media screen and (max-width: 450px){
+	ul.tabs li a{
+		padding: 15px 0px;
+	}
+
+	ul.tabs li a .tab-text{
+		display: none;
+	}
+
+	.sections article{
+		padding: 20px;
+	}
+}
