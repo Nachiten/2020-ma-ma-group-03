@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="112 100  12 12" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient gradientUnits="userSpaceOnUse" x1="118" y1="100" x2="118" y2="112" id="LinearGradient34871">
-      <stop id="Stop34872" stop-color="#f59a23" offset="0" />
-      <stop id="Stop34873" stop-color="#ac620b" offset="1" />
+    <linearGradient gradientUnits="userSpaceOnUse" x1="118" y1="100" x2="118" y2="112" id="LinearGradient175">
+      <stop id="Stop176" stop-color="#f59a23" offset="0" />
+      <stop id="Stop177" stop-color="#ac620b" offset="1" />
     </linearGradient>
   </defs>
-  <path d="M 118 101  C 120.8 101  123 103.2  123 106  C 123 108.8  120.8 111  118 111  C 115.2 111  113 108.8  113 106  C 113 103.2  115.2 101  118 101  Z " fill-rule="nonzero" fill="url(#LinearGradient34871)" stroke="none" />
+  <path d="M 118 101  C 120.8 101  123 103.2  123 106  C 123 108.8  120.8 111  118 111  C 115.2 111  113 108.8  113 106  C 113 103.2  115.2 101  118 101  Z " fill-rule="nonzero" fill="url(#LinearGradient175)" stroke="none" />
   <path d="M 118 101  C 120.8 101  123 103.2  123 106  C 123 108.8  120.8 111  118 111  C 115.2 111  113 108.8  113 106  C 113 103.2  115.2 101  118 101  Z " stroke-width="2" stroke="#5a5a5a" fill="none" />
   <path d="M 118 109  C 116.32 109  115 107.68  115 106  C 115 104.32  116.32 103  118 103  C 119.68 103  121 104.32  121 106  C 121 107.68  119.68 109  118 109  " fill-rule="nonzero" fill="#5a5a5a" stroke="none" />
 </svg>

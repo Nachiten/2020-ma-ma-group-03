@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="284 184.5  12 12" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient gradientUnits="userSpaceOnUse" x1="290" y1="184.5" x2="290" y2="196.5" id="LinearGradient35033">
-      <stop id="Stop35034" stop-color="#6cbcec" offset="0" />
-      <stop id="Stop35035" stop-color="#2176a6" offset="1" />
+    <linearGradient gradientUnits="userSpaceOnUse" x1="290" y1="184.5" x2="290" y2="196.5" id="LinearGradient337">
+      <stop id="Stop338" stop-color="#6cbcec" offset="0" />
+      <stop id="Stop339" stop-color="#2176a6" offset="1" />
     </linearGradient>
   </defs>
-  <path d="M 290 185.5  C 292.8 185.5  295 187.7  295 190.5  C 295 193.3  292.8 195.5  290 195.5  C 287.2 195.5  285 193.3  285 190.5  C 285 187.7  287.2 185.5  290 185.5  Z " fill-rule="nonzero" fill="url(#LinearGradient35033)" stroke="none" />
+  <path d="M 290 185.5  C 292.8 185.5  295 187.7  295 190.5  C 295 193.3  292.8 195.5  290 195.5  C 287.2 195.5  285 193.3  285 190.5  C 285 187.7  287.2 185.5  290 185.5  Z " fill-rule="nonzero" fill="url(#LinearGradient337)" stroke="none" />
   <path d="M 290 185.5  C 292.8 185.5  295 187.7  295 190.5  C 295 193.3  292.8 195.5  290 195.5  C 287.2 195.5  285 193.3  285 190.5  C 285 187.7  287.2 185.5  290 185.5  Z " stroke-width="2" stroke="#5a5a5a" fill="none" />
   <path d="M 290 193.5  C 288.32 193.5  287 192.18  287 190.5  C 287 188.82  288.32 187.5  290 187.5  C 291.68 187.5  293 188.82  293 190.5  C 293 192.18  291.68 193.5  290 193.5  " fill-rule="nonzero" fill="#5a5a5a" stroke="none" />
 </svg>
