@@ -1,0 +1,130 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas&family=Mouse+Memoirs&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.wrapper .multi_color_border{
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #37a000 0%, #37a000 25%,
+     #494949 25%, #494949 50%, #37a000 50%, #37a000 75%, 
+     #494949 75%, #494949 100%);
+}
+
+.wrapper .top_nav{
+    width: 100%;
+    height: 65px;
+    background: #fff;
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper .top_nav .lef{
+    display: flex;
+    align-items: center;
+}
+
+.wrapper .top_nav .lef .logo p span{
+    font-size: 24px;
+    font-weight: bold;
+    color: #494949;
+    margin-right: 25px;
+    font-family: 'Mouse Memoirs', sans-serif; 
+}
+
+.wrapper .top_nav .right ul{
+    display: flex;
+}
+
+.wrapper .top_nav .right ul li{
+    margin: 0 12px;
+}
+
+.wrapper .top_nav .right ul li a{
+    display: block;
+    padding: 8px 10px;
+    color: #666666;
+}
+
+.wrapper .top_nav .right ul li a:hover{
+    color: black;
+    background: rgb(0, 0, 0, 0.2);
+    animation: 1s ms 1;
+}
+
+@keyframes ms{
+    0%{
+        opacity: 0;
+        transform: scale(1.6);
+    }
+}
+
+.wrapper .bottom_nav{
+    width: 100%;
+    background: #c7c5c5;
+    height: 45px;
+    padding: 0 50px;
+}
+
+.wrapper .bottom_nav .link{
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper .bottom_nav .link li a{
+    color: #2c2a2a;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.wrapper .bottom_nav .link .a:hover{
+    color: black;
+    background: rgb(0, 0, 0, 0.2);
+    height: 30px;
+}
+
+.wrapper .bottom_nav .link .b:hover{
+    color: black;
+    background: rgba(10, 138, 74, 0.418);
+    height: 30px;
+}
+
+.wrapper .bottom_nav .link .c:hover{
+    color: black;
+    background: rgba(184, 79, 9, 0.445);
+    height: 30px;
+}
+
+.wrapper .bottom_nav .link .d:hover{
+    color: black;
+    background: rgba(24, 15, 155, 0.418);
+    height: 30px;
+}
+
+.wrapper .bottom_nav .link .e:hover{
+    color: black;
+    background: rgba(150, 15, 89, 0.452);
+    height: 30px;
+}
+
+.wrapper .bottom_nav .link .f:hover{
+    color: black;
+    background: rgba(216, 14, 14, 0.418);
+    height: 30px;
+}

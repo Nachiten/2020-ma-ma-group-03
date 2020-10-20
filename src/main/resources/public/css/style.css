@@ -3,9 +3,11 @@ body{
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: url(https://www.nosequeestudiar.net/site/assets/files/105388/por-que-estudiar-gestion-empresarial.jpg) no-repeat;
-  background-size: cover;
+  background: url(https://miro.medium.com/max/10368/1*6rb2PRwJKCHQaFc28eyzzw.jpeg) no-repeat;
+  
+  background-size: cover;;
 }
+
 body:before {
   content:'';
   position: absolute;
