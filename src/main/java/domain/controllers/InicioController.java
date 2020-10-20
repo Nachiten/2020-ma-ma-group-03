@@ -14,23 +14,24 @@ import java.util.Map;
 
 public class InicioController {
 
-    /*private List<Usuario> usuarios;
     private AdministradorDeSesion administradorDeSesion;
+    /*private List<Usuario> usuarios;
+
 
     public InicioController() {
         usuarios = new ArrayList<>();
         administradorDeSesion = new AdministradorDeSesion();
-    }
+    }*/
 
     public ModelAndView inicio(Request request, Response response) {
         administradorDeSesion.cerrarSesion(request);
-        return new ModelAndView(null, "login2.hbs");
-    }*/
-
+        return new ModelAndView(null, "login.hbs");
+    }
+/*
     public ModelAndView inicio(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros,"login.hbs");
-    }
+    }*/
     public Response login(Request request, Response response){
         try{
             RepositorioDeUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
