@@ -31,10 +31,14 @@ public class Router {
         InicioController inicioController 	= new InicioController();
 
         Spark.get("/", inicioController::inicio, Router.engine);
-        //prueba
-        //Spark.get("/saludo", (request, response) ->"Hola");
-        //Spark.get("/saludo",((request, response) -> "Hola "  + request.queryParams("nombre")));
 
+        Spark.get("/principal", inicioController::principal, Router.engine);
+
+        Spark.post("/login", inicioController::login);
+
+        Spark.get("/loginCorrecto", (request, response) -> "Login Correcto");
+
+        Spark.get("/loginIncorrecto", (request, response) -> "Login incorrecto");
 
     }
 }

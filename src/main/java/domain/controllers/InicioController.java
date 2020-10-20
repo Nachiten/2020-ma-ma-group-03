@@ -15,17 +15,21 @@ import java.util.Map;
 public class InicioController {
 
     private AdministradorDeSesion administradorDeSesion;
-    /*private List<Usuario> usuarios;
 
+    private List<Usuario> usuarios;
 
     public InicioController() {
         usuarios = new ArrayList<>();
         administradorDeSesion = new AdministradorDeSesion();
-    }*/
+    }
 
     public ModelAndView inicio(Request request, Response response) {
         administradorDeSesion.cerrarSesion(request);
         return new ModelAndView(null, "login.hbs");
+    }
+
+    public ModelAndView principal(Request request, Response response) {
+        return new ModelAndView(null, "principal.hbs");
     }
 /*
     public ModelAndView inicio(Request request, Response response){
@@ -45,15 +49,18 @@ public class InicioController {
                 request.session(true);
                 request.session().attribute("id", usuario.getId());
 
-                response.redirect("/usuarios");
+                System.out.println("Si encontre el usuario");
+                response.redirect("/principal");
             }
             else{
-                response.redirect("/");
+                System.out.println("No encontre el usuario");
+                response.redirect("/loginIncorrecto");
             }
         }
         catch (Exception e){
             //Funcionalidad disponible solo con persistencia en Base de Datos
-            response.redirect("/usuarios");
+            System.out.println("Mensaje de Excepcion: " + e.getMessage());
+            response.redirect("/loginIncorrecto");
         }
         finally {
             return response;

@@ -13,14 +13,14 @@ import java.util.List;
 @Table(name = "usuario")
 public class Usuario extends EntidadPersistente {
 
-    @Column (name = "TipoUsuario")
+    @Column (name = "tipoUsuario")
     @Enumerated(value = EnumType.STRING)
     private TipoUsuario tipo;
 
     @Column (name = "nombreUsuario")
     private String nombreUsuario;
 
-    @Column (name = "Contrasenia")
+    @Column (name = "contrasenia")
     private String contrasenia;
 
     // @Transient sirve para que no se persista este atributo
@@ -33,7 +33,7 @@ public class Usuario extends EntidadPersistente {
     @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
     private List<ContraAnterior> contraseniasAnteriores;
 
-    @Column (name = "TiempoUltimaContrasenia")
+    @Column (name = "tiempoUltimaContrasenia")
     private LocalDate tiempoUltimaContrasenia;
 
     @ManyToMany(cascade = {CascadeType.ALL})
