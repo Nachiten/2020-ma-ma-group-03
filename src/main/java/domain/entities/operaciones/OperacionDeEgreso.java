@@ -72,7 +72,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToOne(cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
-    @ManyToOne(optional = false)
+    @ManyToOne (optional = false)
     @JoinColumn(name = "entidadJuridicaAsociada_id")
     private EntidadJuridica entidadJuridicaAsociada;
 
@@ -101,6 +101,12 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal) {
         this.IDOperacion = idOperacion;
+        this.fecha = fecha;
+        this.montoTotal = montoTotal;
+        inicializar();
+    }
+
+    public OperacionDeEgreso(LocalDate fecha, float montoTotal) {
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         inicializar();

@@ -1,6 +1,7 @@
 package server;
 
 import domain.controllers.InicioController;
+import domain.controllers.OperacionEgresoController;
 import domain.controllers.UsuarioController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -30,13 +31,19 @@ public class Router {
 
         InicioController inicioController 	= new InicioController();
 
+        OperacionEgresoController operacionEgresoController = new OperacionEgresoController();
+
         Spark.get("/", inicioController::inicio, Router.engine);
 
         Spark.get("/principal", inicioController::principal, Router.engine);
 
         Spark.post("/login", inicioController::login);
 
+        Spark.post("/operacionEgreso", operacionEgresoController::guardarOperacionDeEgreso);
+
         Spark.get("/loginCorrecto", (request, response) -> "Login Correcto");
+
+        Spark.get("/error:codError", (request, response) -> "El error fue: " + request.queryParams("codError"));
 
         Spark.get("/loginIncorrecto", (request, response) -> "Login incorrecto");
 
