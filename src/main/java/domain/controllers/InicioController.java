@@ -60,6 +60,10 @@ public class InicioController {
         }
     }
 
+    public ModelAndView principal(Request request, Response response) {
+        return new ModelAndView(null, "principal.hbs");
+    }
+
     public Response logout(Request request, Response response){
         request.session().invalidate();
         response.redirect("/");
