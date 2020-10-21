@@ -1,10 +1,10 @@
 $(document).ready(function(){
-	$('ul.tabs li a:first').addClass('active');
+	$('ul.link li a:first').addClass('active');
 	$('.sections article').hide();
 	$('.sections article:first').show();
 
-	$('ul.tabs li a').click(function(){
-		$('ul.tabs li a').removeClass('active');
+	$('ul.link li a').click(function(){
+		$('ul.link li a').removeClass('active');
 		$(this).addClass('active');
 		$('.sections article').hide();
 
