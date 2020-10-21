@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="/css/stylePantalla.css">
     <link  rel="icon"   href="/img/e-commerce.png" type="image/png" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/js/menu.js"></script>
      <title>Principal</title>
 </head>
 <body>
@@ -26,17 +28,22 @@
                         Cerrar sesión
                     </a></li>
                 </ul>
+                
             </div>
         </div>
         <div class="bottom_nav">
             <ul class="link">                        
-                <li class="a"><a href="#">Ingresos</a></li>
-                <li class="b"><a href="#">Egresos</a></li>
-                <li class="c"><a href="#">Presupuestos</a></li>
-                <li class="d"><a href="#">Criterios</a></li>
-                <li class="e"><a href="#">Listado de operaciones</a></li>
-                <li class="f"><a href="#">Asociar operación</a></li>                    
+                <li class="a"><a href="#tab1">Ingresos</a></li>
+                <li class="b"><a href="#tab2">Egresos</a></li>
+                <li class="c"><a href="#tab3">Presupuestos</a></li>
+                <li class="d"><a href="#tab4">Criterios</a></li>
+                <li class="e"><a href="#tab5">Listado de operaciones</a></li>
+                <li class="f"><a href="#tab6">Asociar operación</a></li>                    
             </ul>
+        </div>
+        <div class="container">
+            {{#block "contenido"}}
+   		    {{/block}}
         </div>
     </div>
 </body>
