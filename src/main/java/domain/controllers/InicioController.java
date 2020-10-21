@@ -21,6 +21,7 @@ public class InicioController {
     public InicioController() {
         usuarios = new ArrayList<>();
         administradorDeSesion = new AdministradorDeSesion();
+        unUsuarioController = new UsuarioController();
     }
 
     public ModelAndView inicio(Request request, Response response) {
@@ -36,9 +37,29 @@ public class InicioController {
         Map<String, Object> parametros = new HashMap<>();
         return new ModelAndView(parametros,"login.hbs");
     }*/
+
+    UsuarioController unUsuarioController;
+
     public Response login(Request request, Response response){
+            usuarios = this.unUsuarioController.getRepoUsuarios().buscarTodos();
+
+            String nombreDeUsuario = request.queryParams("nombreDeUsuario");
+            String contrasenia     = request.queryParams("contrasenia");
+
+            for ( Usuario unUsuario : usuarios ) {
+                if (unUsuario.getNombreUsuario().equals(nombreDeUsuario) &&  unUsuario.getContrasenia().equals(contrasenia)){
+                    System.out.println("Si encontre el usuario");
+                    response.redirect("/principal");
+                    return response;
+                }
+            }
+
+            System.out.println("No encontre el usuario");
+            response.redirect("/loginIncorrecto");
+            return response;
+        /*
         try{
-            RepositorioDeUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
+        RepositorioDeUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
 
             String nombreDeUsuario = request.queryParams("nombreDeUsuario");
             String contrasenia     = request.queryParams("contrasenia");
@@ -64,7 +85,7 @@ public class InicioController {
         }
         finally {
             return response;
-        }
+        }*/
     }
 
     public Response logout(Request request, Response response){
