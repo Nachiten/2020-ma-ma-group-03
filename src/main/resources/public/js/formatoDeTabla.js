@@ -69,7 +69,6 @@ function newRowTable()
 	
 	var item = document.getElementById("item").value;
 	var precio = document.getElementById("precio").value;
-	
 
 	var name_table = document.getElementById("tabla_items");
 

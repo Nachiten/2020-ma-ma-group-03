@@ -1,113 +1,121 @@
 {{#partial "contenido"}}
-<div class="egresos">
-    <br>
-    <br>
-    <div style="text-align: center;">
-        <table class="formulario" border="0">
-            <tr>
-                <td>Fecha:</td>
-                <td><input type="date" placeholder="Ingrese la fecha" required></td>
-            </tr>
-            <tr>
-                <td>Monto Total:</td>
-                <td><input type="number" placeholder="Ingrese el monto" required></td>
-            </tr>
-            <tr>					
-                <td>Medio De Pago:</td>
-                    <td>
-                    <select name = "medioDePago" required >
-                        <option>Seleccionar medio de pago</option>
-                        {{#each tiposMediosDePago}}
-                            <option class = "{{id}}">{{tipoPago}}</option>
-                        {{/each}}
-                    </select>
-                    </td>
-            </tr>
-            <tr>
-                <td>Documento Comercial:</td>
-                    <td>
-                        <select name = " documentoComercial" >
-                            <option> Seleccionar documento comercial</option>
-                            {{#each tiposDocumentoComercial}}
-                                <option>{{nombre}}</option>
-                            {{/each}}
-                        </select>
-                    </td>
-            </tr>
-            <tr>
-                <td>Proveedor:</td>
-                <td>
-                    <select name = "proveedor" >
-                        <option> Seleccionar proveedor</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-   </div>
-    <div style="text-align: center;">
+    <div class="egresos">
+        <br>
+        <br>
+
+        <form action="/operacionEgreso" method="post" >
+        <center>
+
+                <table class="formulario" border="0">
+                    <tr>
+                        <td>Fecha:</td>
+                        <td><input type="date" name="fecha" placeholder="Ingrese la fecha" required></td>
+                    </tr>
+                    <tr>
+                        <td>Monto Total:</td>
+                        <td><input type="number" name="montoTotal" placeholder="Ingrese el monto" required></td>
+                    </tr>
+                    <tr>
+                        <td>Medio De Pago:</td>
+                        <td>
+                            <select name = "medioDePago" required >
+                                <option>Seleccionar medio de pago</option>
+                                {{#each tiposMediosDePago}}
+                                    <option>{{tipoPago}}</option>
+                                {{/each}}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Documento Comercial:</td>
+                        <td>
+                            <select name = "documentoComercial" >
+                                <option> Seleccionar documento comercial</option>
+                                {{#each tiposDocumentoComercial}}
+                                    <option>{{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Proveedor:</td>
+                        <td>
+                            <select name = "proveedor" >
+                                <option> Seleccionar proveedor</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+
+        </center>
+        <center>
+
             <table class="formulario2" border="0">
                 <tr style="background-color: white">
                     <td>Item:</td>
                     <td><input type="text" placeholder="Ej: papel" id="item" required></td>
                     <td rowspan="2">
-                        <div class="buttons"> 
-                            <button class="offset" onclick="newRowTable()" >Agregar</button> 
+                        <div class="buttons">
+                            <button class="offset" onclick="newRowTable()" >Agregar</button>
                         </div>
                     </td><!-- <input type="button" value="Agregar" class="principal" id="add_row" onclick="newRowTable()">-->
-                    <td rowspan="2"></td>                
+                    <td rowspan="2"></td>
                 </tr>
                 <tr>
                     <td>Precio:</td>
                     <td><input type="number" placeholder="Ej: 200" id="precio" required></td>
-                    <td></td> 
+                    <td></td>
                 </tr>
             </table>
-    </div>
-    <div style="text-align: center;">
-        <div class="table-wrapper">
-                            <table id="tabla_items">
-                                <thead>
-                                    <tr>
-                                        <th>ITEMS</th>
-                                        <th>PRECIO</th>
-                                        <td>ACCIONES</td>
-                                    </tr>
-                                </thead>
-                                <tbody id = "content_table">
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>                                        
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-    </div>
-    <div style="text-align: center;">
-        <table class="formulario3" border="0">
-            <tr>
-                <td>Presupuestos requeridos:</td>
-                <td><input type="number" placeholder="Ej: 1" required><br/></td>
-            </tr>
-       </table>
-       <table>
-            <div class="containerBoton"> 
-                <a href="#" class="btn"> 
-                    <svg width="277" height="62"> 
-                        <defs>
-                            <linearGradient id="grad1"> 
-                                <stop offset="0%" stop-color="#FF8282"/> 
-                                <stop offset="100%" stop-color="#E178ED" /> 
-                            </linearGradient> 
-                        </defs> 
-                                <rect x="5" y="5" rx="25" fill="none" stroke="url(#grad1)" width="266" height="50"></rect> 
-                    </svg> <span>Guardar</span>
-                </a> 
+
+        </center>
+
+        <center>
+            <div class="table-wrapper">
+                <table id="tabla_items">
+                    <thead>
+                    <tr>
+                        <th>ITEMS</th>
+                        <th>PRECIO</th>
+                        <td>ACCIONES</td>
+                    </tr>
+                    </thead>
+                    <tbody id = "content_table">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-        </table>
+        </center>
+        <center>
+            <table class="formulario3" border="0">
+                <tr>
+                    <td>Presupuestos requeridos:</td>
+                    <td><input type="number" placeholder="Ej: 1" required><br/></td>
+                </tr>
+            </table>
+                <div>
+                    <!--
+                    <a href="#" class="btn">
+                        <svg width="277" height="62">
+                            <defs>
+                                <linearGradient id="grad1">
+                                    <stop offset="0%" stop-color="#FF8282"/>
+                                    <stop offset="100%" stop-color="#E178ED" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="5" y="5" rx="25" fill="none" stroke="url(#grad1)" width="266" height="50"></rect>
+                        </svg> <span>Guardar</span>
+                    </a>-->
+                    <input type="submit" class="btn" value="Guardar">
+                </div>
+        </center>
+        </form>
+        <script src="/js/formatoDeTabla.js"></script>
     </div>
- <script src="/js/formatoDeTabla.js"></script>   
-</div>
 
 {{/partial}}
 {{>principal.hbs}}
