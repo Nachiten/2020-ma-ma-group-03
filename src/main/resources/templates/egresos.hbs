@@ -2,7 +2,7 @@
 <div class="egresos">
     <br>
     <br>
-    <center>
+    <div style="text-align: center;">
         <table class="formulario" border="0">
             <tr>
                 <td>Fecha:</td>
@@ -16,7 +16,9 @@
                 <td>Medio De Pago:</td>
                 <td>
                     <select name = "medioDePago" required >
-                        <option> Seleccionar medio de pago</option>
+                        <option>Seleccionar medio de pago</option>
+                        <!-- TODO Agregar medios de pago (nacho) -->
+                        <option>Medio Pago 1</option>
                     </select>
                 </td>
             </tr>
@@ -37,8 +39,8 @@
                 </td>
             </tr>
         </table>
-   </center>
-    <center>
+   </div>
+    <div style="text-align: center;">
         <form method="post" action="#">
             <table class="formulario2" border="0">
                 <tr style="background-color: white;">
@@ -54,9 +56,9 @@
                 </tr>
             </table>
         </form>
-    </center>
+    </div>
     <p>---------------------------------------------------------------------------------------------------------------</p>
-    <center>
+    <div style="text-align: center;">
         <div class="table-wrapper">
                             <table id="tabla_items">
                                 <thead>
@@ -75,16 +77,16 @@
                                 </tbody>
                             </table>
                         </div>
-    </center>
-    <center>  
+    </div>
+    <div style="text-align: center;">
         <table class="formulario3" border="0">
             <tr>
                 <td>Presupuestos requeridos:</td>
-                <td><input type="number" placeholder="Ej: 1" required><br></br></td>
+                <td><input type="number" placeholder="Ej: 1" required><br/></td>
             </tr>
        </table>
         <input type="submit" value="Guardar" class="button" >
-    </center>
+    </div>
  <script src="/js/formatoDeTabla.js"></script>   
 </div>
 

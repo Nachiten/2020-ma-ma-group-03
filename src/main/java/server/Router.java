@@ -33,19 +33,29 @@ public class Router {
 
         OperacionEgresoController operacionEgresoController = new OperacionEgresoController();
 
+        // Pagina root, inicio
         Spark.get("/", inicioController::inicio, Router.engine);
 
-        //Spark.get("/principal", inicioController::principal, Router.engine);
-
+        // Login luego de pasar por inicio
         Spark.post("/login", inicioController::login);
 
+        Spark.get("/principal", inicioController::principal, Router.engine);
+        // Paginas una vez logueado
+        Spark.get("/ingresos", inicioController::ingresos, Router.engine);
+        Spark.get("/egresos", inicioController::egresos, Router.engine);
+        Spark.get("/presupuestos", inicioController::presupuestos, Router.engine);
+        Spark.get("/criterios", inicioController::criterios, Router.engine);
+        Spark.get("/listadoOperaciones", inicioController::listadoOperaciones, Router.engine);
+        Spark.get("/asociarOperacion", inicioController::asociarOperacion, Router.engine);
+        // Falta implementar hbs
+        //Spark.get("/mensajes", inicioController::presupuestos, Router.engine);
+
+        // Post para guardar operacion de egreso
         Spark.post("/operacionEgreso", operacionEgresoController::guardarOperacionDeEgreso);
 
         Spark.get("/loginCorrecto", (request, response) -> "Login Correcto");
-
-        Spark.get("/error:codError", (request, response) -> "El error fue: " + request.queryParams("codError"));
-
         Spark.get("/loginIncorrecto", (request, response) -> "Login incorrecto");
+        Spark.get("/error:codError", (request, response) -> "El error fue: " + request.queryParams("codError"));
 
     }
 }

@@ -25,7 +25,7 @@ public class InicioController {
 
     public ModelAndView inicio(Request request, Response response) {
         //administradorDeSesion.cerrarSesion(request);
-        return new ModelAndView(null, "asociarOperacion.hbs");
+        return new ModelAndView(null, "login.hbs");
     }
 /*
     public ModelAndView inicio(Request request, Response response){
@@ -62,6 +62,34 @@ public class InicioController {
 
     public ModelAndView principal(Request request, Response response) {
         return new ModelAndView(null, "principal.hbs");
+    }
+
+    public ModelAndView ingresos(Request request, Response response) {
+        return new ModelAndView(null, "ingresos.hbs");
+    }
+
+    public ModelAndView egresos(Request request, Response response) {
+        return new ModelAndView(null, "egresos.hbs");
+    }
+
+    public ModelAndView presupuestos(Request request, Response response) {
+        return new ModelAndView(null, "presupuestos.hbs");
+    }
+
+    public ModelAndView criterios(Request request, Response response) {
+        return new ModelAndView(null, "criterios.hbs");
+    }
+
+    public ModelAndView listadoOperaciones(Request request, Response response) {
+        return new ModelAndView(null, "listadoOperaciones.hbs");
+    }
+
+    public ModelAndView asociarOperacion(Request request, Response response) {
+        return new ModelAndView(null, "asociarOperacion.hbs");
+    }
+
+    public ModelAndView mensajes(Request request, Response response) {
+        return new ModelAndView(null, "mensajes.hbs");
     }
 
     public Response logout(Request request, Response response){
