@@ -12,23 +12,27 @@
                 <td>Monto Total:</td>
                 <td><input type="number" placeholder="Ingrese el monto" required></td>
             </tr>
-            <tr>
+            <tr>					
                 <td>Medio De Pago:</td>
-                <td>
+                    <td>
                     <select name = "medioDePago" required >
                         <option>Seleccionar medio de pago</option>
-                        <!-- TODO Agregar medios de pago (nacho) -->
-                        <option>Medio Pago 1</option>
+                        {{#each tiposMediosDePago}}
+                            <option class = "{{id}}">{{tipoPago}}</option>
+                        {{/each}}
                     </select>
-                </td>
+                    </td>
             </tr>
             <tr>
                 <td>Documento Comercial:</td>
-                <td>
-                    <select name = " documentoComercial" >
-                        <option> Seleccionar documento comercial</option>
-                    </select>
-                </td>
+                    <td>
+                        <select name = " documentoComercial" >
+                            <option> Seleccionar documento comercial</option>
+                            {{#each tiposDocumentoComercial}}
+                                <option>{{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </td>
             </tr>
             <tr>
                 <td>Proveedor:</td>

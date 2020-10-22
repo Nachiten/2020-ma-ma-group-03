@@ -1,7 +1,12 @@
 package domain.controllers;
 
+import domain.entities.operaciones.MedioDePago;
+import domain.entities.operaciones.TipoDocumentoComercial;
+import domain.entities.operaciones.TipoMedioDePago;
 import domain.entities.usuarios.Usuario;
+import domain.repositories.Repositorio;
 import domain.repositories.RepositorioDeUsuarios;
+import domain.repositories.factories.FactoryRepositorio;
 import domain.repositories.factories.FactoryRepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
@@ -14,7 +19,16 @@ import java.util.Map;
 
 public class InicioController {
 
+    public InicioController(){
+        this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
+        this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
+    }
+
     private AdministradorDeSesion administradorDeSesion;
+
+    private Repositorio<TipoMedioDePago> repoTipoMedioPago;
+    private Repositorio<TipoDocumentoComercial> repoTipoDocComercial;
+
     /*private List<Usuario> usuarios;
 
 
@@ -69,7 +83,16 @@ public class InicioController {
     }
 
     public ModelAndView egresos(Request request, Response response) {
-        return new ModelAndView(null, "egresos.hbs");
+
+        Map<String, Object> parametros = new HashMap<>();
+
+        List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
+        List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
+
+        parametros.put("tiposMediosDePago", tiposMediosPago);
+        parametros.put("tiposDocumentoComercial", tiposDocumentoComercial);
+
+        return new ModelAndView(parametros, "egresos.hbs");
     }
 
     public ModelAndView presupuestos(Request request, Response response) {
