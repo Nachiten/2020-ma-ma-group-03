@@ -1,3 +1,38 @@
 {{#partial "contenido"}}
+ <!--  Tabla de ingresos  -->
+<div>
+ <div class="table-wrapper">
+        <table id="tabla_operaciones_ingreso">
+            <thead>
+                <tr>
+                    <th>NUMERO OPERACION</th>
+                    <th>DESCRIPCION</th>
+                    <td>MONTO</td>
+                    <td>FECHA</td>
+                </tr>
+            </thead>
+        <tbody id="content_table">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <!--Código para mostrar en celdas -->
+                    <td id= "descripcion">0.00</td>
+                    <td id= "precio">0.00</td>
+
+                </tr>
+            </tfoot>
+        </table>
+	</div>
+
+</div>
+
+
 {{/partial}}
 {{>principal.hbs}}
