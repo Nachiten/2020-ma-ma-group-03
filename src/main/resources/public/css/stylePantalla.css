@@ -16,14 +16,17 @@
 .wrapper .multi_color_border{
     width: 100%;
     height: 5px;
-    background: linear-gradient(to right, #37a000 0%, #37a000 25%,
-     #494949 25%, #494949 50%, #37a000 50%, #37a000 75%, 
-     #494949 75%, #494949 100%);
+    background: linear-gradient(to right, #0029ff 0%, #ffffff 25%,
+     #d4fdff 25%, #00afff 50%, #28b1fb 50%, #a4f5ff 75%, 
+     #9bfbe5 75%, #71fff1 100%);
 }
 
 .wrapper .top_nav{
-    width: 100%;
-    height: 65px;
+    width: 103%;
+    color:#0374ce;
+    font-weight : 550;
+    height: 50px;
+    font-size :17px;
     background: #fff;
     padding: 0 50px;
     display: flex;
@@ -31,36 +34,24 @@
     align-items: center;
 }
 
-.wrapper .top_nav .lef{
-    display: flex;
-    align-items: center;
-}
-
-.wrapper .top_nav .lef .logo p span{
-    font-size: 24px;
-    font-weight: bold;
-    color: #494949;
-    margin-right: 25px;
-    font-family: 'Mouse Memoirs', sans-serif; 
-}
-
 .wrapper .top_nav .right ul{
     display: flex;
+    font-weight : 100;
 }
 
 .wrapper .top_nav .right ul li{
-    margin: 0 12px;
+    margin: 0 15px;
 }
 
 .wrapper .top_nav .right ul li a{
     display: block;
-    padding: 8px 10px;
-    color: #666666;
+    color: #0374ce;
+
 }
 
 .wrapper .top_nav .right ul li a:hover{
-    color: black;
-    background: rgb(0, 0, 0, 0.2);
+    color: #0374ce;
+    background: rgb(24 174 255 / 20%);
     animation: 1s ms 1;
 }
 
@@ -73,58 +64,64 @@
 
 .wrapper .bottom_nav{
     width: 100%;
-    background: #c7c5c5;
-    height: 45px;
-    padding: 0 50px;
+    background: #7cb9ff;
+    height: 38px;
+    padding: 0 20px;
 }
 
 .wrapper .bottom_nav .link{
     width: 100%;
-    height: 45px;
+    height: 38px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .wrapper .bottom_nav .link li a{
-    color: #2c2a2a;
+    color: #ffffff;
     letter-spacing: 2px;
     text-transform: uppercase;
     font-size: 12px;
 }
 
 .wrapper .bottom_nav .link .a:hover{
-    color: black;
-    background: rgb(0, 0, 0, 0.2);
-    height: 30px;
+    color: white;
+    background: rgb(88 156 234);
+    background: rgb(24 174 255 / 20%);
+    animation: 1s ms 1;
 }
 
 .wrapper .bottom_nav .link .b:hover{
-    color: black;
-    background: rgba(10, 138, 74, 0.418);
-    height: 30px;
+    color: white;
+    background: rgb(88 156 234);
+        background: rgb(24 174 255 / 20%);
+    animation: 1s ms 1;
 }
 
 .wrapper .bottom_nav .link .c:hover{
-    color: black;
-    background: rgba(184, 79, 9, 0.445);
-    height: 30px;
+    color: white;
+    background: rgb(88 156 234);
+    background: rgb(24 174 255 / 20%);
+    animation: 1s ms 1;
 }
 
 .wrapper .bottom_nav .link .d:hover{
-    color: black;
-    background: rgba(24, 15, 155, 0.418);
-    height: 30px;
+    color: white;
+    background: rgb(88 156 234);
+    background: rgb(24 174 255 / 20%);
+    animation: 1s ms 1;
 }
 
 .wrapper .bottom_nav .link .e:hover{
-    color: black;
-    background: rgba(150, 15, 89, 0.452);
-    height: 30px;
+    color: white;
+    background: rgb(88 156 234);
+    background: rgb(24 174 255 / 20%);
+    animation: 1s ms 1;
 }
 
 .wrapper .bottom_nav .link .f:hover{
-    color: black;
-    background: rgba(216, 14, 14, 0.418);
-    height: 30px;
+    color: white;
+    background: rgb(88 156 234);
+    background: rgb(24 174 255 / 20%);
+    animation: 1s ms 1;
 }
