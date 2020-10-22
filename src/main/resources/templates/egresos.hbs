@@ -30,7 +30,7 @@
                         <td>Documento Comercial:</td>
                         <td>
                             <select name = "documentoComercial" >
-                                <option> Seleccionar documento comercial</option>
+                                <option>Seleccionar documento comercial</option>
                                 {{#each tiposDocumentoComercial}}
                                     <option>{{nombre}}</option>
                                 {{/each}}
@@ -49,6 +49,7 @@
 
         </center>
         <center>
+
 
             <table class="formulario2" border="0">
                 <tr style="background-color: white">
@@ -82,9 +83,8 @@
                     </thead>
                     <tbody id = "content_table">
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td name="item1" >item1</td>
+                        <td name="precio1" >1234</td>
                     </tr>
                     </tbody>
                 </table>
@@ -94,7 +94,7 @@
             <table class="formulario3" border="0">
                 <tr>
                     <td>Presupuestos requeridos:</td>
-                    <td><input type="number" placeholder="Ej: 1" required><br/></td>
+                    <td><input name="presupuestosRequeridos" type="number" placeholder="Ej: 1" required><br/></td>
                 </tr>
             </table>
                 <div>

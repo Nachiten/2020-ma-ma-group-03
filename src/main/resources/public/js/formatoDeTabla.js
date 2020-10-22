@@ -53,8 +53,6 @@ function getRowSelected(objectPressed){
 	
 	var item=a.getElementsByTagName("td")[0].getElementsByTagName("p")[0].innerHTML;
     var precio=a.getElementsByTagName("td")[1].getElementsByTagName("p")[0].innerHTML;
-    
-
 
 	var array_fila = [item,  precio];
 
@@ -62,7 +60,7 @@ function getRowSelected(objectPressed){
 	//console.log(item + ' ' + precio);
 }
 
-
+var numeroTabla = 0;
 
 function newRowTable()
 {
@@ -77,10 +75,16 @@ function newRowTable()
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
 
-	cell1.innerHTML = '<p name="numero_P[]" class="non-margin" style="color = black">'+item+'</p>';
-    cell2.innerHTML = '<p name="codigo_p[]" class="non-margin" style="color = black">'+precio+'</p>';
+	//int numOfRows = selenium.getXpathCount("//table[@id='tableid']//tr");
+
+	//int numOfCols = selenium.getXpathCount("//table[@id='tableid']//tr//td");
+
+	cell1.innerHTML = '<p name="numero_P[' + numeroTabla + ']" class="non-margin" style="color = black">'+item+'</p>';
+    cell2.innerHTML = '<p name="codigo_P[' + numeroTabla + ']" class="non-margin" style="color = black">'+precio+'</p>';
     
 	cell3.innerHTML = '<span class="icon fa-edit"></span><span class="icon fa-eraser"></span>';
+
+	numeroTabla++;
 	
 }
   

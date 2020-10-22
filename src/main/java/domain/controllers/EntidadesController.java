@@ -66,27 +66,35 @@ public class EntidadesController {
     // --- POSTs ---
 
     public Response guardarOperacionDeEgreso(Request request, Response response){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String fechaString = request.queryParams("fecha");
         String montoTotalString = request.queryParams("montoTotal");
 
         String tipoMedioDePagoString = request.queryParams("medioDePago");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
+        String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
 
         // TODO - Falta obtener los items y sus valores
-        String item1 = request.queryParams("numero_P[]");
+        String itemNombre = request.queryParams("numero_P[0]");
+        String itemCant = request.queryParams("codigo_P[0]");
 
+
+        String itemNombre2 = request.queryParams("item1");
+        String itemCant2 = request.queryParams("precio1");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // Convierto de string a localDate
         LocalDate fecha = LocalDate.parse(fechaString, formatter);
         // Convierto de string a float
         float montoTotal = Float.parseFloat(montoTotalString);
+        int presupuestosRequeridos = Integer.parseInt(presupuestosRequeridosString);
 
         TipoMedioDePago tipoMedioPago = buscarTipoMedioPago(tipoMedioDePagoString);
         TipoDocumentoComercial tipoDocComercial = buscarTipoDocComercial(tipoDocumentoComercialString);
 
+        // TODO - Necesito numero de documento comercial y numero de medio de pago
         int numeroMedioPago = 32124200;
         int numeroDocComercial = 553243212;
-        // TODO - Necesito numero de documento comercial y numero de medio de pago
+
 
         MedioDePago medioDePago = new MedioDePago(tipoMedioPago, numeroMedioPago);
         DocumentoComercial documentoComercial = new DocumentoComercial(tipoDocComercial, numeroDocComercial);
@@ -100,6 +108,7 @@ public class EntidadesController {
         operacionAGuardar.setUsuario(miUsuario);
         operacionAGuardar.setMedioDePago(medioDePago);
         operacionAGuardar.setDocumentoComercial(documentoComercial);
+        operacionAGuardar.setCantidadPresupuestosRequerida(presupuestosRequeridos);
 
         try{
             repoOperacionEgreso.agregar(operacionAGuardar);
