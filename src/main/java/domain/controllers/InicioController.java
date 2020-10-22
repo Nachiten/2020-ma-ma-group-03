@@ -24,8 +24,8 @@ public class InicioController {
     }*/
 
     public ModelAndView inicio(Request request, Response response) {
-        administradorDeSesion.cerrarSesion(request);
-        return new ModelAndView(null, "login.hbs");
+        //administradorDeSesion.cerrarSesion(request);
+        return new ModelAndView(null, "asociarOperacion.hbs");
     }
 /*
     public ModelAndView inicio(Request request, Response response){

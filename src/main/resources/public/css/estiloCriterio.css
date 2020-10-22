@@ -1,0 +1,24 @@
+
+.containerTab{
+  overflow: hidden;
+}
+
+.containerTab .tab{
+  float: left;
+  margin-inline-start: 10%;
+}
+
+.containerTab .tab .tabla1{
+  width: 100%;
+
+}
+
+.containerTab .tab .tabla2{
+  width: 100%;
+  
+}
+
+.containerTab .tab .tabla3{
+  width: 100%;
+  
+}

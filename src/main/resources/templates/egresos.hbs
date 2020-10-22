@@ -1,3 +1,95 @@
 {{#partial "contenido"}}
+<div class="egresos">
+    <br>
+    <br>
+    <center>
+        <table class="formulario" border="0">
+            <tr>
+                <td>Fecha:</td>
+                <td><input type="date" placeholder="Ingrese la fecha" required></td>
+            </tr>
+            <tr>
+                <td>Monto Total:</td>
+                <td><input type="number" placeholder="Ingrese el monto" required></td>
+            </tr>
+            <tr>
+                <td>Medio De Pago:</td>
+                <td>
+                    <select name = "medioDePago" required >
+                        <option> Seleccionar medio de pago</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Documento Comercial:</td>
+                <td>
+                    <select name = " documentoComercial" >
+                        <option> Seleccionar documento comercial</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Proveedor:</td>
+                <td>
+                    <select name = "proveedor" >
+                        <option> Seleccionar proveedor</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+   </center>
+    <center>
+        <form method="post" action="#">
+            <table class="formulario2" border="0">
+                <tr style="background-color: white;">
+                    <td>Item:</td>
+                    <td><input type="text" placeholder="Ej: papel" id="item" required></td>
+                    <td rowspan="2"><input type="button" value="Agregar" class="principal" id="add_row" onclick="newRowTable()"/></td>
+                    <td rowspan="2"></td>                
+                </tr>
+                <tr>
+                    <td>Precio:</td>
+                    <td><input type="number" placeholder="Ej: 200" id="precio" required></td>
+                    <td></td> 
+                </tr>
+            </table>
+        </form>
+    </center>
+    <p>---------------------------------------------------------------------------------------------------------------</p>
+    <center>
+        <div class="table-wrapper">
+                            <table id="tabla_items">
+                                <thead>
+                                    <tr>
+                                        <th>ITEMS</th>
+                                        <th>PRECIO</th>
+                                        <td>ACCIONES</td>
+                                    </tr>
+                                </thead>
+                                <tbody id = "content_table">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+    </center>
+    <center>  
+        <table class="formulario3" border="0">
+            <tr>
+                <td>Presupuestos requeridos:</td>
+                <td><input type="number" placeholder="Ej: 1" required><br></br></td>
+            </tr>
+       </table>
+        <input type="submit" value="Guardar" class="button" >
+    </center>
+ <script src="/js/formatoDeTabla.js"></script>   
+</div>
+
 {{/partial}}
 {{>principal.hbs}}
+
+
+	
