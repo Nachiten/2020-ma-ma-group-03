@@ -1,13 +1,37 @@
 {{#partial "contenido"}}
-<div>
-    <label>Fecha</label> <br></br>
-	<input type="date" placeholder="Ingrese la fecha" required><br></br>
-	<label>Monto </label><br></br>
-	<input type="number" placeholder="Ingrese el monto" required><br></br>
+<div class = "ingresos">
+	<br>
+	<br>
 
-	<label>Descripcion </label><br></br>
-	<input type="text" placeholder="Ingrese la descripcion" required><br></br>
-	<input type="submit" value="Cargar Ingreso" class="button" >
+	<center>
+	<table class= "formulario" border = 0 >
+    <tr>
+    <td><label>Fecha:</label></td></td>
+
+	<td><input type="date" placeholder="Ingrese la fecha" required></td>
+
+	</tr>
+
+	<tr>
+	<td><label>Monto: </label></td>
+	<td><input type="number" placeholder="Ingrese el monto" required></td>
+    </tr>
+
+	<tr>
+	<td><label>Descripcion: </label></td>
+	<td><input type="text" placeholder="Ingrese la descripcion" required></td>
+
+	</tr>
+
+
+	<table>
+    <button type= "submit">
+	Cargar
+	</button>
+	</table>
+	</div>
+	
+</center>
 
 </div>
 {{/partial}}
