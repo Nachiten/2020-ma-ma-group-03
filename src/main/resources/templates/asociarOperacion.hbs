@@ -3,30 +3,30 @@
     <br>
     <br>
     <center>
-    <table>
-        <tr>
-            <td>Operaciones de egreso:</td>
-            <td>
-                <select name = "egreso" required >
-                        <option> Seleccionar operacion de egreso</option>
-                    </select>
-            </td>
-            <td>Operaciones de ingreso:</td>
-            <td>
-                <select name = "ingreso" required >
-                        <option> Seleccionar operacion de ingreso</option>
-                    </select>
-            </td>
-        </tr>
-        
-        <tr>
-            <center>
-            <td colspan="4"><input type="submit" value="Asociar operaciones" class="button" ></td>
-            </center>
-        </tr>
-       
-    </table>
+        <div class="tabAO">
+            <table id="tabla1" class="tabla1" border="0">
+                <tr style="background-color:rgba(216, 14, 14, 0.418)">
+                    <td>Operaciones de egreso:</td>
+                    <td>
+                        <select name = "egreso" required >
+                                <option> Seleccionar operacion de egreso</option>
+                            </select>
+                    </td>
+                    <td></td>
+                    <td>Operaciones de ingreso:</td>
+                    <td>
+                        <select name = "ingreso" required >
+                                <option> Seleccionar operacion de ingreso</option>
+                            </select>
+                    </td>
+                </tr>
+            </table>
+        </div> 
     </center>
+    <center>
+    <input type="submit" value="Asociar operaciones" class="button" >
+    </center>
+    
 </div>
 {{/partial}}
 {{>principal.hbs}}

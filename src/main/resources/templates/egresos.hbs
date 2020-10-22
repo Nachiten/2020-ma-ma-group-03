@@ -2,7 +2,7 @@
 <div class="egresos">
     <br>
     <br>
-    <div style="text-align: center;">
+    <center>
         <table class="formulario" border="0">
             <tr>
                 <td>Fecha:</td>
@@ -39,14 +39,18 @@
                 </td>
             </tr>
         </table>
-   </div>
-    <div style="text-align: center;">
+   </center>
+    <center>
         <form method="post" action="#">
             <table class="formulario2" border="0">
-                <tr style="background-color: white;">
+                <tr style="background-color: white">
                     <td>Item:</td>
                     <td><input type="text" placeholder="Ej: papel" id="item" required></td>
-                    <td rowspan="2"><input type="button" value="Agregar" class="principal" id="add_row" onclick="newRowTable()"/></td>
+                    <td rowspan="2">
+                        <div class="buttons"> 
+                            <button class="offset" onclick="newRowTable()" >Agregar</button> 
+                        </div>
+                    </td><!-- <input type="button" value="Agregar" class="principal" id="add_row" onclick="newRowTable()">-->
                     <td rowspan="2"></td>                
                 </tr>
                 <tr>
@@ -56,9 +60,9 @@
                 </tr>
             </table>
         </form>
-    </div>
-    <p>---------------------------------------------------------------------------------------------------------------</p>
-    <div style="text-align: center;">
+    </center>
+   
+    <center>
         <div class="table-wrapper">
                             <table id="tabla_items">
                                 <thead>
@@ -77,21 +81,32 @@
                                 </tbody>
                             </table>
                         </div>
-    </div>
-    <div style="text-align: center;">
+    </center>
+    <center>
         <table class="formulario3" border="0">
             <tr>
                 <td>Presupuestos requeridos:</td>
                 <td><input type="number" placeholder="Ej: 1" required><br/></td>
             </tr>
        </table>
-        <input type="submit" value="Guardar" class="button" >
-    </div>
+       <table>
+            <div class="containerBoton"> 
+                <a href="#" class="btn"> 
+                    <svg width="277" height="62"> 
+                        <defs>
+                            <linearGradient id="grad1"> 
+                                <stop offset="0%" stop-color="#FF8282"/> 
+                                <stop offset="100%" stop-color="#E178ED" /> 
+                            </linearGradient> 
+                        </defs> 
+                                <rect x="5" y="5" rx="25" fill="none" stroke="url(#grad1)" width="266" height="50"></rect> 
+                    </svg> <span>Guardar</span>
+                </a> 
+            </div>
+        </table>
+    </center>
  <script src="/js/formatoDeTabla.js"></script>   
 </div>
 
 {{/partial}}
 {{>principal.hbs}}
-
-
-	
