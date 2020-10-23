@@ -27,12 +27,5 @@ public class AdministradorDeSesion {
 	private <T> int obtenerId(T usuario) {
 		Usuario unUsuario = (Usuario) usuario;
 		return unUsuario.getId();
-		/*if(usuario.getClass().equals(Usuario.class)) {
-
-		}
-		/*else {
-			Cliente cliente = (Cliente) usuario;
-			return cliente.getId();
-		}*/
 	}
 }

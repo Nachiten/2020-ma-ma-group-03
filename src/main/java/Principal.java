@@ -79,7 +79,7 @@ public class Principal {
         validadorTransparencia.setOperacionesDeEgresoAValidar(operacionesDeEgreso);
 
 
-        Usuario miUsuario = new Usuario(ADMIN, "Nachiten", "abcdeFGH1234");
+        Usuario miUsuario = new Usuario(ADMIN, "Nachiten", "abcdeFGH1234","","");
 
         /*miUsuario.setBandejaDeMensajes(new Publicador());
 

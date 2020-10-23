@@ -23,6 +23,12 @@ public class Usuario extends EntidadPersistente {
     @Column (name = "contrasenia")
     private String contrasenia;
 
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "apellido")
+    private String apellido;
+
     // @Transient sirve para que no se persista este atributo
     @Transient
     private EntidadJuridica entidadJuridica;
@@ -47,10 +53,12 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
-    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia) {
+    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
+        this.nombre = nombre;
+        this.apellido = apellido;
         inicializar();
     }
 
@@ -103,4 +111,12 @@ public class Usuario extends EntidadPersistente {
     public TipoUsuario getTipo() { return tipo; }
 
     public String getNombreUsuario() { return nombreUsuario; }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
 }

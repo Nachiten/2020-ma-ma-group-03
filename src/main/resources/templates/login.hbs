@@ -5,17 +5,18 @@
 
     <title>Login</title>
     <link  rel="icon"   href="/img/entrar.png" type="image/png" />
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/modal.css" type="text/css">
   </head>
   <body>
     <div class="titulo">
         <h1>GESOC</h1>
-        <h2>Gestión de Proyectos Sociales</h2>
+        <h2 style="margin-block-start: 0">Gestión de Proyectos Sociales</h2>
     </div>
 
     <div class="login-box">
         <h1>Login</h1>
-        <form action="/login" method="post" class="form-">
+        <form action="/usuario" method="post" class="form-">
             <div class="textbox">
                 <i class="fas fa-user"></i>
                 <input type="text" placeholder="Username" name="nombreDeUsuario" required>
@@ -29,6 +30,8 @@
         <input type="submit" class="btn" value="Sign in">
 
         </form>
+    </div>
+    <div id="modal" class="modal fade" role="dialog">
     </div>
   </body>
 </html>

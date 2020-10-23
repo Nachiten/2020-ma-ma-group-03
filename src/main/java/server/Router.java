@@ -35,10 +35,12 @@ public class Router {
         // Pagina root, inicio
         Spark.get("/", inicioController::inicio, Router.engine);
 
-        // Login luego de pasar por inicio
-        Spark.post("/login", inicioController::login);
+        //Se verifica que el usuario exista
+        Spark.post("/usuario", inicioController::loginUsuario, Router.engine);
 
-        //Spark.get("/principal", inicioController::principal, Router.engine);
+        //página que muestra error 404 cuando tratan de acceder a esta url sin loguearse
+        Spark.get("/usuario", inicioController::error404, Router.engine);
+
 
         // Paginas una vez logueado GET
         Spark.get("/ingresos", entidadesController::ingresos, Router.engine);
