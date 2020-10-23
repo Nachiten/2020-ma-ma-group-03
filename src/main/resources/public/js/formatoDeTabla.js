@@ -60,9 +60,40 @@ var numeroFila = 0;
 
 function nuevaFilaEnTabla()
 {
-	
+
 	var item = document.getElementById("item").value;
 	var precio = document.getElementById("precio").value;
+
+	//var textoItems = document.getElementById("textoItems");
+
+	//textoItems.innerHTML = '';
+
+	console.log("Item: [" + item + "]");
+	console.log("Precio: [" + precio + "]");
+
+	if (item === ""){
+		console.log("No hay item");
+	} else {
+		console.log("Si hay item");
+	}
+
+	if (precio === ""){
+		console.log("No hay precio");
+	} else {
+		console.log("Si hay precio");
+	}
+
+	if (item === "") {
+		//textoItems.innerHTML = 'El nombre de item no puede estar vacio';
+		alert("El nombre de un item no puede estar vacio");
+		return
+	}
+
+	if (precio === "") {
+		//textoItems.innerHTML = 'El precio del item no puede estar vacio';
+		alert("El precio de un item no puede estar vacio");
+		return
+	}
 
 	var name_table = document.getElementById("tabla_items");
 
@@ -72,10 +103,17 @@ function nuevaFilaEnTabla()
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
 
-	cell1.innerHTML = '<p name="nombre_I[' + numeroFila + ']" class="non-margin" style="color = black">'+item+'</p>';
-    cell2.innerHTML = '<p name="precio_I[' + numeroFila + ']" class="non-margin" style="color = black">'+precio+'</p>';
-    
+	var itemInputOculto   = '<input type="hidden" name="nombre_I[' + numeroFila + ']" value="' + item;
+	var precioInputOculto = '<input type="hidden" name="precio_I[' + numeroFila + ']" value="' + precio;
+
+	var itemTextoMostrado   = '"> <p name="" class="non-margin" style="color = black">' + item + '</p>';
+	var precioTextoMostrado = '"> <p name="" class="non-margin" style="color = black">' + precio + '</p>';
+
+	cell1.innerHTML =  itemInputOculto + itemTextoMostrado;
+	cell2.innerHTML =  precioInputOculto + precioTextoMostrado;
+
 	cell3.innerHTML = '<span class="icon fa-edit"></span><span class="icon fa-eraser"></span>';
+
 
 	numeroFila++;
 }

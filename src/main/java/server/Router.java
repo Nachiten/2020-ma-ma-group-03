@@ -57,7 +57,7 @@ public class Router {
         // OLD
         Spark.get("/loginCorrecto", (request, response) -> "Login Correcto");
         Spark.get("/loginIncorrecto", (request, response) -> "Login incorrecto");
-        Spark.get("/error:codError", (request, response) -> "El error fue: " + request.queryParams("codError"));
+        Spark.get("/error", (request, response) -> "Ha habido un error inesperado");
 
     }
 }

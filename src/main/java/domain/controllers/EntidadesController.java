@@ -13,6 +13,7 @@ import spark.Response;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,9 +85,17 @@ public class EntidadesController {
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
 
-        // TODO - Intento de leer los items pero no funciona
-        String itemNombre = request.queryParams("nombre_I[0]");
-        String itemCant = request.queryParams("precio_I[0]");
+        String numeroMedioDePagoString = request.queryParams("numeroMedioDePago");
+        String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
+
+        if (noEligioMedioPago(tipoMedioDePagoString) || noEligioDocumentoComercial(tipoDocumentoComercialString)){
+            // TODO | Se deberia mostrar mensaje de error "se debe completar el dato"
+            response.redirect("/egresos");
+            return response;
+        }
+
+        // Leo todos los items
+        List<Item> listaItems = obtenerListaItems(request);
 
         // Convierto de string a LocalDate
         LocalDate fecha = convertirAFecha(fechaString);
@@ -94,18 +103,16 @@ public class EntidadesController {
         float montoTotal = Float.parseFloat(montoTotalString);
         // Convierto de string a int
         int presupuestosRequeridos = Integer.parseInt(presupuestosRequeridosString);
+        int numeroMedioDePago = Integer.parseInt(numeroMedioDePagoString);
+        int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
 
         // Genero tipo medio pago y tipoDocComercial
         TipoMedioDePago tipoMedioPago = buscarTipoMedioPago(tipoMedioDePagoString);
         TipoDocumentoComercial tipoDocComercial = buscarTipoDocComercial(tipoDocumentoComercialString);
 
-        // TODO - Necesito numero de documento comercial y numero de medio de pago
-        int numeroMedioPago = 32124200;
-        int numeroDocComercial = 553243212;
-
         // Genero medio pago y documento comercial
-        MedioDePago medioDePago = new MedioDePago(tipoMedioPago, numeroMedioPago);
-        DocumentoComercial documentoComercial = new DocumentoComercial(tipoDocComercial, numeroDocComercial);
+        MedioDePago medioDePago = new MedioDePago(tipoMedioPago, numeroMedioDePago);
+        DocumentoComercial documentoComercial = new DocumentoComercial(tipoDocComercial, numeroDocumentoComercial);
 
         // Genero operacion de egreso
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
@@ -119,6 +126,7 @@ public class EntidadesController {
         operacionAGuardar.setMedioDePago(medioDePago);
         operacionAGuardar.setDocumentoComercial(documentoComercial);
         operacionAGuardar.setCantidadPresupuestosRequerida(presupuestosRequeridos);
+        operacionAGuardar.setItems(listaItems);
 
         try{
             // Persistir operacion
@@ -126,7 +134,7 @@ public class EntidadesController {
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
-            response.redirect("/error?codError=" + mensajeError);
+            response.redirect("/error");
             return response;
         }
 
@@ -140,6 +148,11 @@ public class EntidadesController {
         String montoString = request.queryParams("monto");
         String monedaString = request.queryParams("moneda");
         String descripcion = request.queryParams("descripcion");
+
+        if (noEligioMoneda(monedaString)){
+            response.redirect("/egresos");
+            return response;
+        }
 
         LocalDate fecha = convertirAFecha(fechaString);
         float monto = Float.parseFloat(montoString);
@@ -160,6 +173,41 @@ public class EntidadesController {
 
         response.redirect("/ingresos");
         return response;
+    }
+
+    // --- FUNCIONES AUXILIARES ---
+
+    private boolean noEligioMedioPago(String medioPagoString){
+        return medioPagoString.equals("Seleccionar medio de pago");
+    }
+    private boolean noEligioDocumentoComercial(String documentoComercialString){
+        return documentoComercialString.equals("Seleccionar documento comercial");
+    }
+
+    private boolean noEligioMoneda(String monedaString){
+        return monedaString.equals("Seleccionar moneda");
+    }
+
+    private List<Item> obtenerListaItems(Request request){
+        List<Item> items = new ArrayList<>();
+
+        int cantItems = 0;
+
+        String itemNombre;
+        String itemPrecioString;
+
+        while ( (itemNombre = request.queryParams("nombre_I[" + cantItems + "]") ) != null){
+            itemPrecioString = request.queryParams("precio_I[" + cantItems + "]");
+            float itemPrecio = Float.parseFloat(itemPrecioString);
+
+            Item miItem = new Item(itemNombre, itemPrecio);
+
+            items.add(miItem);
+
+            cantItems++;
+        }
+
+        return items;
     }
 
     private LocalDate convertirAFecha(String fechaString){

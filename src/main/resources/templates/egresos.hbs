@@ -16,7 +16,7 @@
                         <td><input type="number" name="montoTotal" placeholder="Ingrese el monto" required></td>
                     </tr>
                     <tr>
-                        <td>Medio De Pago:</td>
+                        <td>Tipo de Medio De Pago:</td>
                         <td>
                             <select name = "medioDePago" required >
                                 <option>Seleccionar medio de pago</option>
@@ -27,7 +27,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Documento Comercial:</td>
+                        <td>Numero Medio De Pago:</td>
+                        <td><input type="number" name="numeroMedioDePago" placeholder="Ingrese el numero" required></td>
+                    </tr>
+                    <tr>
+                        <td>Tipo de Documento Comercial:</td>
                         <td>
                             <select name = "documentoComercial" >
                                 <option>Seleccionar documento comercial</option>
@@ -36,6 +40,10 @@
                                 {{/each}}
                             </select>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Numero Documento Comercial:</td>
+                        <td><input type="number" name="numeroDocumentoComercial" placeholder="Ingrese el numero" required></td>
                     </tr>
                     <tr>
                         <td>Proveedor:</td>
@@ -54,17 +62,19 @@
             <table class="formulario2" border="0">
                 <tr style="background-color: white">
                     <td>Item:</td>
-                    <td><input type="text" placeholder="Ej: papel" id="item" required></td>
+                    <td><input type="text" placeholder="Ej: papel" id="item"></td>
                     <td rowspan="2">
                         <div class="buttons">
-                            <button class="offset" onclick="nuevaFilaEnTabla()" >Agregar</button>
+                            <!--<button type="button" class="offset" onclick="nuevaFilaEnTabla()" >Agregar</button>-->
+                            <button type="button" onclick="nuevaFilaEnTabla()">Agregar</button>
                         </div>
                     </td><!-- <input type="button" value="Agregar" class="principal" id="add_row" onclick="newRowTable()">-->
-                    <td rowspan="2"></td>
+
+                    <td rowspan="2"><!--<p id="textoItems" class="textoItems"></p>--></td>
                 </tr>
                 <tr>
                     <td>Precio:</td>
-                    <td><input type="number" placeholder="Ej: 200" id="precio" required></td>
+                    <td><input type="number" placeholder="Ej: 200" id="precio"></td>
                     <td></td>
                 </tr>
             </table>
@@ -110,7 +120,7 @@
                             <rect x="5" y="5" rx="25" fill="none" stroke="url(#grad1)" width="266" height="50"></rect>
                         </svg> <span>Guardar</span>
                     </a>-->
-                    <button type= "submit">Cargar</button>
+                    <button type="submit">Cargar</button>
                 </div>
         </center>
         </form>
