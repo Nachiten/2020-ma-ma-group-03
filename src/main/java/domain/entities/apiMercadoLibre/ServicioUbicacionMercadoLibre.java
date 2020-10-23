@@ -71,18 +71,18 @@ public class ServicioUbicacionMercadoLibre {
         return respuestaCiudad.body();
     }
     // Listar todas las monedas ok
-    public List<Monedas> listadoMonedas() throws IOException {
+    public List<Moneda> listadoMonedas() throws IOException {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
-        Call<List<Monedas>> pedidoMonedas = ubicacionService.monedas();
-        Response<List<Monedas>> respuestaMonedas = pedidoMonedas.execute();
+        Call<List<Moneda>> pedidoMonedas = ubicacionService.monedas();
+        Response<List<Moneda>> respuestaMonedas = pedidoMonedas.execute();
         return respuestaMonedas.body();
     }
 
     //Listar tipo de moneda por pais
-    public Monedas listarMonedaPorPais(String idPais) throws IOException {
+    public Moneda listarMonedaPorPais(String idPais) throws IOException {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
-        Call<Monedas> pedidoMoneda = ubicacionService.monedas(idPais, "id, symbol, description, decimal_places");
-        Response<Monedas> respuestaMoneda = pedidoMoneda.execute();
+        Call<Moneda> pedidoMoneda = ubicacionService.monedas(idPais, "id, symbol, description, decimal_places");
+        Response<Moneda> respuestaMoneda = pedidoMoneda.execute();
         return respuestaMoneda.body();
     }
 

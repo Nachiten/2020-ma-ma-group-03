@@ -10,7 +10,7 @@ public class ApiMercadoLibreInfo {
     static List<Pais> listadoPaises;
     static List<Estado> listadoProvincias;
     static List<Ciudad> listadoCiudades;
-    static List<Monedas> monedas;
+    static List<Moneda> monedas;
     static  ServicioUbicacionMercadoLibre servicioPais;
 
     //-------------------------------------------------------------------------
@@ -20,10 +20,10 @@ public class ApiMercadoLibreInfo {
     static {
         try {
             servicioPais = ServicioUbicacionMercadoLibre.instancia();
-            paisesId = generarListaIdDePaises();
-            listadoPaises = generarListaDePaises();
-            listadoProvincias = generarListaEstados();
-            listadoCiudades = generarListaCiudades();
+            //paisesId = generarListaIdDePaises();
+            //listadoPaises = generarListaDePaises();
+            //listadoProvincias = generarListaEstados();
+            //listadoCiudades = generarListaCiudades();
             monedas = generarListadoMonedas();
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,9 +77,8 @@ public class ApiMercadoLibreInfo {
     }
 
     //se genera la lista de todas la monedas ok
-    private static List<Monedas> generarListadoMonedas() throws IOException {
+    private static List<Moneda> generarListadoMonedas() throws IOException {
         return servicioPais.listadoMonedas();
-
     }
 
     //-------------------------------------------------------------------------
@@ -94,5 +93,5 @@ public class ApiMercadoLibreInfo {
         return listadoCiudades;
     }
 
-    public static List<Monedas> getMonedas() { return monedas; }
+    public static List<Moneda> getMonedas() { return monedas; }
 }

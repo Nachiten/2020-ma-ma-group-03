@@ -24,10 +24,10 @@ public class ApiTest {
     OperacionDeEgreso operacionDeEgreso4 = new OperacionDeEgreso(4,date4, 109.35f);
     OperacionDeEgreso operacionDeEgreso5 = new OperacionDeEgreso(5, date5, 20.05f);
 
-    OperacionDeIngreso operacionDeIngreso1 = new OperacionDeIngreso(1,"1", date1, 200.50f);
-    OperacionDeIngreso operacionDeIngreso2 = new OperacionDeIngreso(2,"2", date2, 20.40f);
-    OperacionDeIngreso operacionDeIngreso3 = new OperacionDeIngreso(3,"3", date3, 220.00f);
-    OperacionDeIngreso operacionDeIngreso4 = new OperacionDeIngreso(4,"4", date4, 600.35f);
+    OperacionDeIngreso operacionDeIngreso1 = new OperacionDeIngreso("1", 200.50f, date1);
+    OperacionDeIngreso operacionDeIngreso2 = new OperacionDeIngreso("2",20.40f, date2);
+    OperacionDeIngreso operacionDeIngreso3 = new OperacionDeIngreso("3",220.00f, date3);
+    OperacionDeIngreso operacionDeIngreso4 = new OperacionDeIngreso("4",600.35f, date4);
 
     List<OperacionDeEgreso> operacionDeEgresoList = new ArrayList<>();
     List<OperacionDeIngreso> operacionDeIngresoList = new ArrayList<>();

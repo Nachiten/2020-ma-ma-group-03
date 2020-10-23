@@ -28,10 +28,10 @@ public interface UbicacionService {
 
         //obtener monedas de cada pais
         @GET("currencies/{idPais}")
-        Call<Monedas> monedas(@Path("idPais") String nombrePais, @Query("campos") String campos);
+        Call<Moneda> monedas(@Path("idPais") String nombrePais, @Query("campos") String campos);
 
         // Obtener todas las monedas existentes
         @GET("currencies")
-        Call<List<Monedas>> monedas();
+        Call<List<Moneda>> monedas();
 
 }

@@ -15,15 +15,14 @@ public class PersistenciaApiMLTest {
     static private List<Pais> listaDePaises;
     static private List<Estado> listaProvincias;
     static private List<Ciudad> listaCiudades;
-    static private List<Monedas> listaMonedas;
+    static private List<Moneda> listaMonedas;
 
     @BeforeClass
     public static void init(){
-        listaDePaises = ApiMercadoLibreInfo.getListadoPaises();
-        listaProvincias = ApiMercadoLibreInfo.getListadoProvincias();
-        listaCiudades = ApiMercadoLibreInfo.getListadoCiudades();
+        //listaDePaises = ApiMercadoLibreInfo.getListadoPaises();
+        //listaProvincias = ApiMercadoLibreInfo.getListadoProvincias();
+        //listaCiudades = ApiMercadoLibreInfo.getListadoCiudades();
         listaMonedas = ApiMercadoLibreInfo.getMonedas();
-
     }
 
     private void persistirUnObjeto(Object unObjeto){
@@ -36,7 +35,7 @@ public class PersistenciaApiMLTest {
 
     @Test
     public void t1_persitirMonedas(){
-        for (Monedas unaMoneda : listaMonedas ) {
+        for (Moneda unaMoneda : listaMonedas ) {
             persistirUnObjeto(unaMoneda);
         }
     }

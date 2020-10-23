@@ -1,4 +1,4 @@
-package miTest;
+package testsVarios;
 import domain.entities.apiMercadoLibre.*;
 import excepciones.ExcepcionApiMercadoLibre;
 import org.junit.Assert;
@@ -15,7 +15,7 @@ public class ApiMercadoLibreTest {
 
         List<Pais> listaDeIdPaises = ApiMercadoLibreInfo.getListadoPaises();
 
-        List<Monedas> listadoMonedas =  ApiMercadoLibreInfo.getMonedas();
+        List<Moneda> listadoMonedas =  ApiMercadoLibreInfo.getMonedas();
 
        if (listaDeIdPaises != null || !listaDeIdPaises.isEmpty()){
             for(Pais unPais: listaDeIdPaises){
@@ -28,8 +28,8 @@ public class ApiMercadoLibreTest {
                 if(!resultado.isPresent()){
                     System.out.println("Para el pais: " + unPais.getName()+" no tiene informacion sobre su moneda ");
                 }else {
-                    Monedas moneda = (Monedas) resultado.get();
-                    System.out.println("nombre moneda: " + moneda.getDescripcion());}
+                    Moneda moneda = (Moneda) resultado.get();
+                    System.out.println("nombre moneda: " + moneda.getDescription());}
 
 /*
                 Pais provinciasDePais = ApiMercadoLibreInfo.obtenerProvinciasDePais(unPais.getId());
@@ -91,11 +91,11 @@ public class ApiMercadoLibreTest {
     @Test
     public void obtenerMonedas() throws IOException{
         ServicioUbicacionMercadoLibre servicioMonedas = ServicioUbicacionMercadoLibre.instancia();
-        List<Monedas> monedas = servicioMonedas.listadoMonedas();
+        List<Moneda> monedas = servicioMonedas.listadoMonedas();
 
         if ( monedas != null){
-            for(Monedas infoMoneda: monedas){
-                System.out.println("ID: " + infoMoneda.getId() + "| Simbolo: " + infoMoneda.getSymbol() + " | Descripcion: " + infoMoneda.getDescripcion());
+            for(Moneda infoMoneda: monedas){
+                System.out.println("ID: " + infoMoneda.getId() + "| Simbolo: " + infoMoneda.getSymbol() + " | Descripcion: " + infoMoneda.getDescription());
             }
         } else {
             System.out.println("No se pudo leer la lista de monedas");

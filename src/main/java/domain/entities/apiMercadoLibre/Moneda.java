@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "monedas")
-public class Monedas {
+public class Moneda {
     @Id
     String id;
 
@@ -26,7 +26,9 @@ public class Monedas {
         return symbol;
     }
 
-    public String getDescripcion(){
+    public String getDescription(){
         return description;
     }
+
+    public String getDecimal_places() { return decimal_places; }
 }

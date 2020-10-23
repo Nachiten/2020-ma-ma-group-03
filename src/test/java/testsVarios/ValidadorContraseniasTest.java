@@ -1,4 +1,4 @@
-package miTest;
+package testsVarios;
 
 import domain.entities.usuarios.TipoUsuario;
 import domain.entities.usuarios.Usuario;

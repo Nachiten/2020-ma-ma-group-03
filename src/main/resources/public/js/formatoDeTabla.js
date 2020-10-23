@@ -2,8 +2,7 @@ $(document).on('ready', funcMain);
 
 function funcMain()
 {
-	$("add_row").on('click',newRowTable);
-	
+	$("add_row").on('click',nuevaFilaEnTabla);
 
 	$("loans_table").on('click','.fa-eraser',deleteProduct);
 	$("loans_table").on('click','.fa-edit',editProduct);
@@ -31,8 +30,6 @@ function deleteProduct(){
 	//Obtener las filas los datos de la fila que se va a eliminar
 	var array_fila=getRowSelected(_this);
 
-	
-
 	$(this).parent().parent().fadeOut("slow",function(){$(this).remove();});
 }
 
@@ -54,15 +51,14 @@ function getRowSelected(objectPressed){
 	var item=a.getElementsByTagName("td")[0].getElementsByTagName("p")[0].innerHTML;
     var precio=a.getElementsByTagName("td")[1].getElementsByTagName("p")[0].innerHTML;
 
-	var array_fila = [item,  precio];
-
-	return array_fila;
+	return [item, precio];
 	//console.log(item + ' ' + precio);
 }
 
-var numeroTabla = 0;
+// Se incrementa por cada fila nueva agregada
+var numeroFila = 0;
 
-function newRowTable()
+function nuevaFilaEnTabla()
 {
 	
 	var item = document.getElementById("item").value;
@@ -71,21 +67,17 @@ function newRowTable()
 	var name_table = document.getElementById("tabla_items");
 
 	var row = name_table.insertRow(1);
+
     var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
 
-	//int numOfRows = selenium.getXpathCount("//table[@id='tableid']//tr");
-
-	//int numOfCols = selenium.getXpathCount("//table[@id='tableid']//tr//td");
-
-	cell1.innerHTML = '<p name="numero_P[' + numeroTabla + ']" class="non-margin" style="color = black">'+item+'</p>';
-    cell2.innerHTML = '<p name="codigo_P[' + numeroTabla + ']" class="non-margin" style="color = black">'+precio+'</p>';
+	cell1.innerHTML = '<p name="nombre_I[' + numeroFila + ']" class="non-margin" style="color = black">'+item+'</p>';
+    cell2.innerHTML = '<p name="precio_I[' + numeroFila + ']" class="non-margin" style="color = black">'+precio+'</p>';
     
 	cell3.innerHTML = '<span class="icon fa-edit"></span><span class="icon fa-eraser"></span>';
 
-	numeroTabla++;
-	
+	numeroFila++;
 }
   
 function format(input){

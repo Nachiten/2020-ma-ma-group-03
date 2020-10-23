@@ -52,6 +52,7 @@ public class Router {
 
         // Guardar los datos de las ventanas POST
         Spark.post("/operacionEgreso", entidadesController::guardarOperacionDeEgreso);
+        Spark.post("/operacionIngreso", entidadesController::guardarOperacionDeIngreso);
 
         // OLD
         Spark.get("/loginCorrecto", (request, response) -> "Login Correcto");

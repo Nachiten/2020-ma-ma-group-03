@@ -1,4 +1,4 @@
-package miTest;
+package testsVarios;
 
 import domain.entities.entidades.Afip;
 import domain.entities.tipoEntidadJuridica.Categoria;

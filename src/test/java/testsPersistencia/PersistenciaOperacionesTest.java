@@ -137,7 +137,7 @@ public class PersistenciaOperacionesTest {
         operacionDeEgresoRopaA.setProveedorAsociado(miProveedor);
 
         // Creo y asocio operacion de ingreso
-        OperacionDeIngreso operacionIngreso = new OperacionDeIngreso("Venta de algo", 5000);
+        OperacionDeIngreso operacionIngreso = new OperacionDeIngreso("Venta de algo", 5000, LocalDate.now());
         operacionDeEgresoRopaA.asociarOperacionDeIngreso(operacionIngreso);
 
         System.out.println("Instancie todo");

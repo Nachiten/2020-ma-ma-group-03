@@ -1,5 +1,7 @@
 package domain.entities.operaciones;
 
+import domain.entities.apiMercadoLibre.Moneda;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,12 +12,16 @@ import java.util.List;
 public class OperacionDeIngreso  {
 
     @Id
+    @GeneratedValue
     private int id;
 
     @Column (name = "descripcion")
     private String descripcion;
     @Column (name = "montoTotal")
     private float montoTotal;
+
+    @ManyToOne (cascade = CascadeType.ALL)
+    private Moneda moneda;
 
     @Transient
     private LocalDate fecha;
@@ -25,21 +31,34 @@ public class OperacionDeIngreso  {
     private LocalDate fechaMinima;
     private LocalDate fechaMaxima;
 
-
     public OperacionDeIngreso(){
 
     }
 
-    public OperacionDeIngreso(String descripcion, float montoTotal) {
+    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha, Moneda moneda) {
         this.descripcion = descripcion;
         this.montoTotal = montoTotal;
+        this.fecha = fecha;
+        this.moneda = moneda;
+        inicializar();
     }
 
-    public OperacionDeIngreso(int id, String descripcion, LocalDate fecha, float montoTotal) {
+    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha) {
+        this.descripcion = descripcion;
+        this.montoTotal = montoTotal;
+        this.fecha = fecha;
+        inicializar();
+    }
+
+    /*public OperacionDeIngreso(int id, String descripcion, LocalDate fecha, float montoTotal) {
         this.id = id;
         this.descripcion = descripcion;
         this.montoTotal = montoTotal;
         this.fecha = fecha;
+        inicializar();
+    }*/
+
+    private void inicializar(){
         this.montoSinVincular = montoTotal;
         this.operacionesDeEgresoVinculadas = new ArrayList<>();
     }
@@ -59,6 +78,7 @@ public class OperacionDeIngreso  {
     public float getMontoTotal() {
         return montoTotal;
     }
+
     public int getId(){
         return id;
     }

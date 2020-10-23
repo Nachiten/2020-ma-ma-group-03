@@ -1,4 +1,4 @@
-package miTest;
+package testsVarios;
 
 import domain.entities.apiMercadoLibre.DireccionPostal;
 import criterioSeleccionProveedor.CriterioProveedorMenorValor;
