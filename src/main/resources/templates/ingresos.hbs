@@ -2,37 +2,45 @@
 <div class = "ingresos">
 	<br>
 	<br>
+       <form>
+	     <center>
+	        <table class= "formulario" border = 0 >
+              <tr>
+                 <td><label>Fecha:</label></td></td>
 
-	<center>
-	<table class= "formulario" border = 0 >
-    <tr>
-    <td><label>Fecha:</label></td></td>
+	             <td><input type="date" placeholder="Ingrese la fecha" required></td>
 
-	<td><input type="date" placeholder="Ingrese la fecha" required></td>
+	         </tr>
 
-	</tr>
+	          <tr>
+	             <td><label>Monto: </label></td>
+	             <td><input type="number" placeholder="Ingrese el monto" required></td>
+              </tr>
 
-	<tr>
-	<td><label>Monto: </label></td>
-	<td><input type="number" placeholder="Ingrese el monto" required></td>
-    </tr>
+			  <tr>
+	             <td><label>Moneda: </label></td>
+	             <td> <select name = "moneda" required >
+                         <option>Seleccionar moneda</option>
+                      </select>
+				 </td>
+              </tr>
 
-	<tr>
-	<td><label>Descripcion: </label></td>
-	<td><input type="text" placeholder="Ingrese la descripcion" required></td>
+	          <tr>
+	            <td><label>Descripcion: </label></td>
+	            <td><input type="text" placeholder="Ingrese la descripcion" required></td>
 
-	</tr>
+	          </tr>
 
 
-	<table>
-    <button type= "submit">
-	Cargar
-	</button>
-	</table>
-	</div>
+	        <table>
+        <button type= "submit">
+	    Cargar
+	    </button>
+	   </table>
+	  </div>
 	
 </center>
-
+</form>
 </div>
 {{/partial}}
 {{>principal.hbs}}

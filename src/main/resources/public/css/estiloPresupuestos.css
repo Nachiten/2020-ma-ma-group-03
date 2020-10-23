@@ -1,3 +1,14 @@
-.presupuestos .formulario td{
+.presupuestos .formulario1 td{
     width: 50%;
 }
+.presupuestos .formulario2 td{
+    width: 25%;
+}
+
+button{
+    background: #00afff;
+
+}
+
+
+

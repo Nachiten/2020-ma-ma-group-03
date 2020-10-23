@@ -1,49 +1,77 @@
 {{#partial "contenido"}}
-<div>
-    <label>Fecha</label> <br></br>
-	<input type="date" placeholder="Ingrese la fecha" required><br></br>
-	<label> Monto Total</label> <br></br>
-	<input type="number" placeholder="Ej: 1000" required><br></br>
 
-				
-	<label> Descripcion</label> <br></br>
-	<input type="text" placeholder="Ej: papel" required><br></br>
+<form>
+<div class = "presupuestos">
+    <br>
+    <br>
+    
+    <form>
+     <center>
+        <table class= "formulario1">
+          <tr>
+             <td>Fecha:</td>
+	         <td><input type="date" placeholder="Ingrese la fecha" required></td>
+          </tr>
 
-	<label> Precio</label> <br></br>
-	<input type="number" placeholder="Ej: 200" required><br></br>
+          <tr>
+	         <td>Monto Total:</td> 
+	         <td> <input type="number" placeholder="Ej: 1000" required></td>
+          </tr>
 
-    <input type="submit" value="Agregar" class="button" >
+        </table>
+
+        <table class= "formulario2">
+	      <tr>	
+	          <td>Item:</td> 
+	          <td><input type="text" placeholder="Ej: papel" required></td>
+              <td rowspan="2">
+                        <div >
+                            <button  onclick="newRowTable()" >Agregar</button>
+                        </div>
+              </td>
+                    <td rowspan="2"></td>
+         </tr>	
+
+          <tr>
+              <td> Precio</td> 
+	          <td><input type="number" placeholder="Ej: 200" required> </td>
+
+          </tr>
+         </table>
+
+	
+
+    
     
     <div class="table-wrapper">
         <table id="tabla_items">
             <thead>
                 <tr>
-                    <th>DESCRIPCION</th>
+                    <th>ITEM</th>
                     <th>PRECIO</th>
                     <td>ACCIONES</td>
                 </tr>
             </thead>
         <tbody id="content_table">
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td name="item"></td>
+                    <td name="precio"></td>
+                    
                     
                 </tr>
             </tbody>
 
-            <tfoot>
-                <tr>
-                    <!--Código para mostrar en celdas -->
-                    <td id= "descripcion"></td>
-                    <td id= "precio"></td>
-                </tr>
-            </tfoot>
+        
         </table>
 	</div>
 
-	<input type="submit" value="Cargar Presupuesto" class="button" >
-	
+	<button type="submit" >
+        Cargar 
+    </button>
+	</center>
+    </form>
+    <script src="/js/formatoDeTabla.js"></script>
 </div>
+
 {{/partial}}
 {{>principal.hbs}}
