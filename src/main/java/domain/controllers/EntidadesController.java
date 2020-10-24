@@ -25,6 +25,7 @@ public class EntidadesController {
     private Repositorio<TipoDocumentoComercial> repoTipoDocComercial;
     private Repositorio<Moneda> repoMonedas;
     private Repositorio<OperacionDeIngreso> repoOperacionIngreso;
+    private Repositorio<Presupuesto> repoPresupuesto;
 
     public EntidadesController(){
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
@@ -32,6 +33,7 @@ public class EntidadesController {
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
         this.repoOperacionIngreso = FactoryRepositorio.get(OperacionDeIngreso.class);
         this.repoMonedas = FactoryRepositorio.get(Moneda.class);
+        this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
     }
 
     // --- GETs ---
@@ -59,7 +61,14 @@ public class EntidadesController {
     }
 
     public ModelAndView presupuestos(Request request, Response response) {
-        return new ModelAndView(null, "presupuestos.hbs");
+
+        Map<String, Object> parametros = new HashMap<>();
+
+        List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
+
+        parametros.put("tiposDocumentoComercial", tiposDocumentoComercial);
+
+        return new ModelAndView(parametros, "presupuestos.hbs");
     }
 
     public ModelAndView criterios(Request request, Response response) {
@@ -163,7 +172,7 @@ public class EntidadesController {
 
         try{
             // Persistir operacion
-            repoOperacionEgreso.agregar(operacionAGuardar);
+            repoOperacionIngreso.agregar(operacionAGuardar);
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
@@ -172,6 +181,47 @@ public class EntidadesController {
         }
 
         response.redirect("/ingresos");
+        return response;
+    }
+
+    public Response guardarPresupuesto(Request request, Response response){
+        // Leo query params
+        String montoTotalString = request.queryParams("montoTotal");
+        String tipoDocumentoComercialString = request.queryParams("documentoComercial");
+        String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
+
+        //String fechaString = request.queryParams("fecha");
+        // Convierto de string a LocalDate
+        //LocalDate fecha = convertirAFecha(fechaString);
+
+        // Convierto los numeros
+        float montoTotal = Float.parseFloat(montoTotalString);
+        int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
+
+        // Leo todos los items
+        List<Item> listaItems = obtenerListaItems(request);
+
+        // Genero tipoDocComercial
+        TipoDocumentoComercial tipoDocComercial = buscarTipoDocComercial(tipoDocumentoComercialString);
+        // Genero documento comercial
+        DocumentoComercial documentoComercial = new DocumentoComercial(tipoDocComercial, numeroDocumentoComercial);
+
+        Presupuesto presupuestoAGuardar = new Presupuesto();
+
+        presupuestoAGuardar.setMontoTotal(montoTotal);
+        presupuestoAGuardar.setDocumentoComercial(documentoComercial);
+
+        try{
+            // Persistir operacion
+            repoPresupuesto.agregar(presupuestoAGuardar);
+        }catch (Exception e) {
+            String mensajeError = e.getMessage();
+            System.out.println("EXCEPCION: " + mensajeError);
+            response.redirect("/error");
+            return response;
+        }
+
+        response.redirect("/presupuestos");
         return response;
     }
 

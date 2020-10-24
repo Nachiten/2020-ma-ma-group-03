@@ -72,4 +72,12 @@ public class Presupuesto extends EntidadPersistente {
     public void setDocumentoComercial(DocumentoComercial documentoComercial) {
         this.documentoComercial = documentoComercial;
     }
+
+    public void setMontoTotal(float montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 }

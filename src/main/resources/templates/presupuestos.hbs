@@ -1,73 +1,85 @@
 {{#partial "contenido"}}
 
-<form>
 <div class = "presupuestos">
     <br>
     <br>
-    
-    <form>
+
+    <form action="/presupuesto" method="post">
      <center>
         <table class= "formulario1">
-          <tr>
+            <!--<tr> | No va la fecha
              <td>Fecha:</td>
-	         <td><input type="date" placeholder="Ingrese la fecha" required></td>
-          </tr>
+             <td><input type="date" name="fecha" placeholder="Ingrese la fecha" required></td>
+            </tr>-->
 
-          <tr>
-	         <td>Monto Total:</td> 
-	         <td> <input type="number" placeholder="Ej: 1000" required></td>
-          </tr>
+            <tr>
+             <td>Monto Total:</td>
+             <td> <input type="number" name="montoTotal" placeholder="Ej: 1000" required></td>
+            </tr>
+            <tr>
+                <td>Tipo de Documento Comercial:</td>
+                <td>
+                    <select name = "documentoComercial" >
+                        <option>Seleccionar documento comercial</option>
+                        {{#each tiposDocumentoComercial}}
+                            <option>{{nombre}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Numero Documento Comercial:</td>
+                <td><input type="number" name="numeroDocumentoComercial" placeholder="Ingrese el numero" required></td>
+            </tr>
 
         </table>
 
-        <table class= "formulario2">
-	      <tr>	
-	          <td>Item:</td> 
-	          <td><input type="text" placeholder="Ej: papel" required></td>
-              <td rowspan="2">
-                        <div >
-                            <button  onclick="nuevaFilaEnTabla()" >Agregar</button>
-                        </div>
-              </td>
-                    <td rowspan="2"></td>
-         </tr>	
+         <center>
 
-          <tr>
-              <td> Precio</td> 
-	          <td><input type="number" placeholder="Ej: 200" required> </td>
 
-          </tr>
-         </table>
+             <table class="formulario2" border="0">
+                 <tr style="background-color: white">
+                     <td>Item:</td>
+                     <td><input type="text" placeholder="Ej: papel" id="item"></td>
+                     <td rowspan="2">
+                         <div class="buttons">
+                             <!--<button type="button" class="offset" onclick="nuevaFilaEnTabla()" >Agregar</button>-->
+                             <button type="button" onclick="nuevaFilaEnTabla()">Agregar</button>
+                         </div>
+                     </td><!-- <input type="button" value="Agregar" class="principal" id="add_row" onclick="newRowTable()">-->
 
-	
+                     <td rowspan="2"><!--<p id="textoItems" class="textoItems"></p>--></td>
+                 </tr>
+                 <tr>
+                     <td>Precio:</td>
+                     <td><input type="number" placeholder="Ej: 200" id="precio"></td>
+                     <td></td>
+                 </tr>
+             </table>
 
-    
-    
-    <div class="table-wrapper">
-        <table id="tabla_items">
-            <thead>
-                <tr>
-                    <th>ITEM</th>
-                    <th>PRECIO</th>
-                    <td>ACCIONES</td>
-                </tr>
-            </thead>
-        <tbody id="content_table">
-                <tr>
-                    <td name="item"></td>
-                    <td name="precio"></td>
-                    
-                    
-                </tr>
-            </tbody>
+         </center>
 
-        
-        </table>
-	</div>
+         <center>
+             <div class="table-wrapper">
+                 <table id="tabla_items">
+                     <thead>
+                     <tr>
+                         <th>ITEMS</th>
+                         <th>PRECIO</th>
+                         <td>ACCIONES</td>
+                     </tr>
+                     </thead>
+                     <tbody id = "content_table">
+                     <tr>
+                         <td></td>
+                         <td></td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </div>
+         </center>
 
-	<button type="submit" >
-        Cargar 
-    </button>
+	<button type="submit">Cargar</button>
 	</center>
     </form>
     <script src="/js/formatoDeTabla.js"></script>
