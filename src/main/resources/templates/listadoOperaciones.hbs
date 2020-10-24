@@ -1,6 +1,65 @@
 {{#partial "contenido"}}
- <!--  Tabla de ingresos  -->
-<div>
+ 
+<div class = "listadoOperaciones">
+    
+  <form>
+    <center class="operaciones">
+
+        <table class= "criterio">
+<!--  Tabla de egresos  -->
+    <tr>
+
+     <td>CRITERIO:</td>
+      <td> <select name = "criterio" >
+         <option> Seleccionar Criterio</option><br>
+       </select>
+        
+
+     <td>CATEGORIA:</td>
+      <td> 
+          <!--  Deben aparecer varias categorias -->
+          
+            <input type="checkbox" name="categoria" value="1">categoria1<br>
+          
+      <td>
+      <td rowspan="2">
+         <div class="buttons">
+            <button type="button" >Filtrar</button>
+         </div>
+       </td>
+       
+     </tr>
+     
+
+        </table>
+
+<label>LISTADO DE OPERACIONES DE EGRESOS</label>
+     <div class="table-wrapper">
+        <table id="tabla_operaciones_ingreso">
+            <thead>
+                <tr>
+                    <th>NUMERO OPERACION</th>
+                    <th>DESCRIPCION</th>
+                    <td>MONTO</td>
+                    <td>FECHA</td>
+                </tr>
+            </thead>
+        <tbody id="content_table">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+            
+        </table>
+	</div>
+
+<!--  Tabla de ingresos  -->
+
+<label>LISTADO DE OPERACIONES DE INGRESOS</label>
  <div class="table-wrapper">
         <table id="tabla_operaciones_ingreso">
             <thead>
@@ -20,16 +79,12 @@
                 </tr>
             </tbody>
 
-            <tfoot>
-                <tr>
-                    <!--Código para mostrar en celdas -->
-                    <td id= "descripcion">0.00</td>
-                    <td id= "precio">0.00</td>
-
-                </tr>
-            </tfoot>
+            
         </table>
 	</div>
+
+    </center>
+    </form>    
 
 </div>
 
