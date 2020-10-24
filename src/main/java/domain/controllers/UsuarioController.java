@@ -7,6 +7,9 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class UsuarioController {
 
     private Repositorio<Usuario> repoUsuarios;
@@ -19,5 +22,10 @@ public class UsuarioController {
         return repoUsuarios;
     }
 
+    public ModelAndView cerrarSesion(Request request, Response response){
+        Map<String, Object> model = new HashMap<>();
+        model.put("mensaje", "¿Seguro que deseas cerrar sesión?");
+        return new ModelAndView(model, "modalCerrarSesion.hbs");
+    }
 
 }

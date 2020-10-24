@@ -3,26 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Estilos CSS-->
     <link rel="stylesheet" href="/css/formatoDeTabla.css" />
     <link rel="stylesheet" type="text/css" href="/css/stylePantalla.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/estiloEgresos.css" />
-    <link rel="stylesheet" href="/css/estiloCriterio.css" />
-    <link rel="stylesheet" href="/css/estiloIngresos.css" />
-    <link rel="stylesheet" href="/css/estiloPresupuestos.css" />
-    <link rel="stylesheet" href="/css/estiloListadoOperaciones.css" />
+    <link rel="stylesheet" href="/css/modalVarios.css" />
+    
     <!-- Imagenes-->
     <link rel="icon"   href="/img/e-commerce.png" type="image/png" />
 
     <!-- JS-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    
-    <script src="/js/menu.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript" src="/js/menu.js"></script>
+    <script type="text/javascript" src="/js/usuario.js"></script>
     
      <title>Principal</title>
 </head>
-<body>
+<!-- https://image.freepik.com/vector-gratis/direccion-flecha-3d-luz-azul-fondo-textura-hexagonal_94047-497.jpg
+https://image.freepik.com/vector-gratis/linea-plata-azul-poligono-superponen-sobre-fondo-azul-negro_33869-1220.jpg
+https://image.freepik.com/vector-gratis/lujoso-fondo-azul-oscuro_132724-115.jpg
+https://image.freepik.com/vector-gratis/fondo-futurista-moderno-circuito-metalico-gris-azul_33869-1247.jpg
+https://i.pinimg.com/originals/2a/43/e7/2a43e71….jpg
+https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRVubXIiuj08gh5X3sSw2B4xbNl8LYfcGVgOw&usqp=CAU
+https://lh3.googleusercontent.com/proxy/MZnbR-XN41PRp6pOcPDqGNbU2Daj0TxEHQbVBTYy7tk6K4zvkx0i8UlVDO71vh5xf4g3AxecMfKC91WnHjHkL1P8tM0fUxuybapieE54hQ8JDwU7S7N5_w
+https://fondosmil.com/fondo/504.jpg
+https://image.freepik.com/foto-gratis/fondo-submarino-mar-azul-profundo_1871-308.jpg
+https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_UbQYLp_IVyvhxcs6NaKxov5QJVOA0ebD8A&usqp=CAU
+
+-->
+<body style="background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_UbQYLp_IVyvhxcs6NaKxov5QJVOA0ebD8A&usqp=CAU);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;">
     <div class="wrapper">
         <div class="multi_color_border"></div>
         <div class="top_nav">
@@ -31,16 +53,19 @@
             </div>
             <div class="right">
                 <ul>
-                    <li><a href="#">
-                        <i class="fa fa-envelope" aria-hidden="true"></i> 
-                        Mensajes
-                    </a></li>
-                    <li><a href="#">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                        Cerrar sesión
-                    </a></li>
+                    <li>
+                        <button name="button" >
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            Mensajes
+                        </button>
+                    </li>
+                    <li>
+                        <button name="button"  onclick="cerrarSesion()">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                            Cerrar sesión
+                        </button>
+                    </li>
                 </ul>
-                
             </div>
         </div>
         <div class="bottom_nav">
@@ -54,12 +79,13 @@
             </ul>
         </div>
         <div>
-            <h2>Te has identificado como {{apellido}}, {{nombre}}</h2>
+            <h2 style="color: white;margin-top: 15px;">Te has identificado como {{apellido}}, {{nombre}} con id: {{id}}</h2>
         </div>
         <div class="container">
             {{#block "contenido"}}
    		    {{/block}}
         </div>
     </div>
+    <div id="modal" class="modal fade" role="dialog"></div>
 </body>
 </html>

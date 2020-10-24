@@ -40,6 +40,7 @@ public class InicioController {
                 model.put("usuario", unUsuario);
                 model.put("nombre", unUsuario.getNombre());
                 model.put("apellido", unUsuario.getApellido());
+                model.put("id", unUsuario.getId());
                 administradorDeSesion.iniciarSesion(request, unUsuario);
                 return new ModelAndView(model,"principal.hbs");
             }
@@ -50,12 +51,6 @@ public class InicioController {
 
     public ModelAndView mensajes(Request request, Response response) {
         return new ModelAndView(null, "mensajes.hbs");
-    }
-
-    public Response logout(Request request, Response response){
-        request.session().invalidate();
-        response.redirect("/");
-        return response;
     }
 
     public ModelAndView error404(Request request, Response response){
