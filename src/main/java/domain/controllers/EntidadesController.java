@@ -98,7 +98,7 @@ public class EntidadesController {
         String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
 
         if (noEligioMedioPago(tipoMedioDePagoString) || noEligioDocumentoComercial(tipoDocumentoComercialString)){
-            // TODO | Se deberia mostrar mensaje de error "se debe completar el dato"
+            // No se inserto metodo de pago o documento comercial
             response.redirect("/egresos");
             return response;
         }
@@ -143,10 +143,12 @@ public class EntidadesController {
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
+            // Hubo un error
             response.redirect("/error");
             return response;
         }
 
+        // Se persistio correctamente
         response.redirect("/egresos");
         return response;
     }
@@ -158,6 +160,7 @@ public class EntidadesController {
         String monedaString = request.queryParams("moneda");
         String descripcion = request.queryParams("descripcion");
 
+        // No se eligio una moneda
         if (noEligioMoneda(monedaString)){
             response.redirect("/egresos");
             return response;
@@ -176,10 +179,12 @@ public class EntidadesController {
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
-            response.redirect("/error?codError=" + mensajeError);
+            // Hubo un error
+            response.redirect("/error");
             return response;
         }
 
+        // Fue persistido correctamente
         response.redirect("/ingresos");
         return response;
     }
@@ -189,6 +194,12 @@ public class EntidadesController {
         String montoTotalString = request.queryParams("montoTotal");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
         String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
+
+        if (noEligioDocumentoComercial(tipoDocumentoComercialString)){
+            // No se inserto documento comercial
+            response.redirect("/presupuestos");
+            return response;
+        }
 
         //String fechaString = request.queryParams("fecha");
         // Convierto de string a LocalDate
@@ -217,10 +228,12 @@ public class EntidadesController {
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
+            // Hubo un error
             response.redirect("/error");
             return response;
         }
 
+        // Se persisitio correctamente
         response.redirect("/presupuestos");
         return response;
     }

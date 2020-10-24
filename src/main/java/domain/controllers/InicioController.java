@@ -48,10 +48,6 @@ public class InicioController {
         return new ModelAndView(model, "modalInformativo.hbs");
     }
 
-
-
-
-
     public ModelAndView mensajes(Request request, Response response) {
         return new ModelAndView(null, "mensajes.hbs");
     }
