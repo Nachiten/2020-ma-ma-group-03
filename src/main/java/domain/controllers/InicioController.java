@@ -1,13 +1,6 @@
 package domain.controllers;
 
-import domain.entities.operaciones.MedioDePago;
-import domain.entities.operaciones.TipoDocumentoComercial;
-import domain.entities.operaciones.TipoMedioDePago;
 import domain.entities.usuarios.Usuario;
-import domain.repositories.Repositorio;
-import domain.repositories.RepositorioDeUsuarios;
-import domain.repositories.factories.FactoryRepositorio;
-import domain.repositories.factories.FactoryRepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -20,74 +13,43 @@ import java.util.Map;
 public class InicioController {
 
     UsuarioController unUsuarioController;
+    private AdministradorDeSesion administradorDeSesion;
+    private List<Usuario> usuarios;
 
     public InicioController(){
         unUsuarioController = new UsuarioController();
+        administradorDeSesion = new AdministradorDeSesion();
+        usuarios = new ArrayList<>();
     }
 
-    /*private List<Usuario> usuarios;
-    public InicioController() {
-        usuarios = new ArrayList<>();
-        administradorDeSesion = new AdministradorDeSesion();
-    }*/
-
+    //Devuelve la pantalla inicial (login) y cierra la sesión que se encuentra abierta
     public ModelAndView inicio(Request request, Response response) {
-        //administradorDeSesion.cerrarSesion(request);
+        administradorDeSesion.cerrarSesion(request);
         return new ModelAndView(null, "login.hbs");
     }
-/*
-    public ModelAndView inicio(Request request, Response response){
-        Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros,"login.hbs");
-    }*/
 
-    public Response login(Request request, Response response){
+    public ModelAndView loginUsuario(Request request, Response response){
+        Map<String, Object> model = new HashMap<>();
         List<Usuario> usuarios = this.unUsuarioController.getRepoUsuarios().buscarTodos();
-
         String nombreDeUsuario = request.queryParams("nombreDeUsuario");
         String contrasenia     = request.queryParams("contrasenia");
 
-        for ( Usuario unUsuario : usuarios ) {
+        for ( Usuario unUsuario : usuarios) {
             if (unUsuario.getNombreUsuario().equals(nombreDeUsuario) &&  unUsuario.getContrasenia().equals(contrasenia)){
-                System.out.println("Si encontre el usuario");
-                response.redirect("/principal");
-                return response;
+                model.put("tipoUsuario", unUsuario.getTipo());
+                model.put("usuario", unUsuario);
+                model.put("nombre", unUsuario.getNombre());
+                model.put("apellido", unUsuario.getApellido());
+                administradorDeSesion.iniciarSesion(request, unUsuario);
+                return new ModelAndView(model,"principal.hbs");
             }
         }
-
-        System.out.println("No encontre el usuario");
-        response.redirect("/loginIncorrecto");
-        return response;
-            /*
-            try{
-            RepositorioDeUsuarios repoUsuarios = FactoryRepositorioUsuarios.get();
-                String nombreDeUsuario = request.queryParams("nombreDeUsuario");
-                String contrasenia     = request.queryParams("contrasenia");
-                if(repoUsuarios.existe(nombreDeUsuario, contrasenia)){
-                    Usuario usuario = repoUsuarios.buscarUsuario(nombreDeUsuario, contrasenia);
-                    request.session(true);
-                    request.session().attribute("id", usuario.getId());
-                    System.out.println("Si encontre el usuario");
-                    response.redirect("/principal");
-                }
-                else{
-                    System.out.println("No encontre el usuario");
-                    response.redirect("/loginIncorrecto");
-                }
-            }
-            catch (Exception e){
-                //Funcionalidad disponible solo con persistencia en Base de Datos
-                System.out.println("Mensaje de Excepcion: " + e.getMessage());
-                response.redirect("/loginIncorrecto");
-            }
-            finally {
-                return response;
-            }*/
+        model.put("mensaje", "El nombre de usuario o la contraseña son incorrectos");
+        return new ModelAndView(model, "modalInformativo.hbs");
     }
 
-    //public ModelAndView principal(Request request, Response response) {
-    //    return new ModelAndView(null, "principal.hbs");
-    //}
+
+
 
 
     public ModelAndView mensajes(Request request, Response response) {
@@ -98,5 +60,9 @@ public class InicioController {
         request.session().invalidate();
         response.redirect("/");
         return response;
+    }
+
+    public ModelAndView error404(Request request, Response response){
+        return new ModelAndView(null, "error404.hbs");
     }
 }

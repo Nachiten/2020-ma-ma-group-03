@@ -10,10 +10,10 @@ import java.util.Arrays;
 
 public class ValidadorContraseniasTest {
 
-    Usuario miUsuario1 = new Usuario(TipoUsuario.ESTANDAR, "Nachiten", "zxcpkazxm123ABC");
-    Usuario miUsuario2 = new Usuario(TipoUsuario.ESTANDAR, "Noe", "abcde123ABC");
-    Usuario miUsuario3 = new Usuario(TipoUsuario.ADMIN, "Carlos", "aaaaa123ABC");
-    Usuario miUsuario4 = new Usuario(TipoUsuario.ADMIN, "Maxi", "cosas123ABC");
+    Usuario miUsuario1 = new Usuario(TipoUsuario.ESTANDAR, "Nachiten", "zxcpkazxm123ABC","","");
+    Usuario miUsuario2 = new Usuario(TipoUsuario.ESTANDAR, "Noe", "abcde123ABC","","");
+    Usuario miUsuario3 = new Usuario(TipoUsuario.ADMIN, "Carlos", "aaaaa123ABC","","");
+    Usuario miUsuario4 = new Usuario(TipoUsuario.ADMIN, "Maxi", "cosas123ABC","","");
 
     @Test
     public void probarContrasenias(){

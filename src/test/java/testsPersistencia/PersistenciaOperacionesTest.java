@@ -63,9 +63,9 @@ public class PersistenciaOperacionesTest {
     public static void init() {
 
         //Instancia de usuario
-        usuarioA = new Usuario(TipoUsuario.ESTANDAR,"Nachiten","hola1234ABC");
-        usuarioB = new Usuario(TipoUsuario.ESTANDAR,"Carlos","asdfg");
-        usuarioAdmin = new Usuario(TipoUsuario.ADMIN,"Admin", "admin");
+        usuarioA = new Usuario(TipoUsuario.ESTANDAR,"Nachiten","hola1234ABC", "Ignacio", "Baptista");
+        usuarioB = new Usuario(TipoUsuario.ESTANDAR,"Carlos","asdfg", "Carlos", "Villegas");
+        usuarioAdmin = new Usuario(TipoUsuario.ADMIN,"Admin", "admin", "Admin", "Root");
 
         generarUsuarioAConContraAnterior();
 
