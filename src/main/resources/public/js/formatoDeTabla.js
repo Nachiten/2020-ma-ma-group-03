@@ -1,17 +1,28 @@
 $(document).on('ready', funcMain);
 
+
+$(function () {
+
+	$(document).on('click', '.borrar', function (event) {
+		console.log("entre en la funcion borrar");
+		event.preventDefault();
+		$(this).closest('tr').remove();
+	});
+});
+
+
 function funcMain()
 {
 	$("add_row").on('click',nuevaFilaEnTabla);
 
-	$("loans_table").on('click','.fa-eraser',deleteProduct);
-	$("loans_table").on('click','.fa-edit',editProduct);
+	$("loans_table").on('click','.borrar',deleteProduct);
+	$("loans_table").on('click','.editar',editProduct);
 
-	$("body").on('click',".fa-eraser",deleteProduct);
-	$("body").on('click',".fa-edit",editProduct);
+	$("body").on('click',".borrar",deleteProduct);
+	$("body").on('click',".editar",editProduct);
 }
 
-
+/*
 function funcEliminarProductosso(){
 	//Obteniendo la fila que se esta eliminando
 	var a=this.parentNode.parentNode;
@@ -32,7 +43,7 @@ function deleteProduct(){
 
 	$(this).parent().parent().fadeOut("slow",function(){$(this).remove();});
 }
-
+*/
 
 function editProduct(){
 	var _this = this;;
@@ -111,9 +122,8 @@ function nuevaFilaEnTabla()
 
 	cell1.innerHTML =  itemInputOculto + itemTextoMostrado;
 	cell2.innerHTML =  precioInputOculto + precioTextoMostrado;
-
-	cell3.innerHTML = '<span class="icon fa-edit"></span><span class="icon fa-eraser"></span>';
-
+	//cell3.innerHTML = '<span class="icon fa-edit"></span><span class="icon fa-eraser"></span>';
+	cell3.innerHTML = '<input type="button" class="editar" value="Editar" /> <input type="button" class="borrar" value="Eliminar" />';
 
 	numeroFila++;
 }

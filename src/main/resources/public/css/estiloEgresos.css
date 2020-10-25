@@ -66,7 +66,7 @@
 .egresos .offset{--color:#000000;--hover:#091d9a}
 button{color:var(--color);transition:.25s}
 button:focus,button:hover{border-color:var(--hover);color:#fff}
-button{background:0 0;border:2px solid;font:inherit;line-height:1;margin:.5em;padding:1em 2em}
+button{background:#00afff;border:2px solid;font:inherit;line-height:1;margin:.5em;padding:1em 2em}
 
 .textoItems{
     color: rgb(204, 28, 28);

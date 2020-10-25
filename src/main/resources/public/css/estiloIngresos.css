@@ -2,8 +2,6 @@
     width: 50%;
 }
 
-button{
-    background: #00afff;
-
-}
-
+button{color:var(--color);transition:.25s}
+button:focus,button:hover{border-color:var(--hover);color:#fff}
+button{background:#00afff;border:2px solid;font:inherit;line-height:1;margin:.5em;padding:1em 2em}
