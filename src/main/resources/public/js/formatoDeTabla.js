@@ -1,6 +1,6 @@
 $(document).on('ready', funcMain);
 
-
+//para borrar fila
 $(function () {
 
 	$(document).on('click', '.borrar', function (event) {
@@ -10,12 +10,15 @@ $(function () {
 	});
 });
 
+//para editar fila
+
+
 
 function funcMain()
 {
 	$("add_row").on('click',nuevaFilaEnTabla);
 
-	$("loans_table").on('click','.borrar',deleteProduct);
+	$("loans_table").on('click','.borrar',borrar);
 	$("loans_table").on('click','.editar',editProduct);
 
 	$("body").on('click',".borrar",deleteProduct);
