@@ -121,6 +121,7 @@
     background-color: #ffffff;
     border-radius: 6px;
     border: 1px solid #4caf50;
+    cursor: pointer;
 }
 .modal-body button:hover{
     color: #4caf50;

@@ -26,19 +26,18 @@ function cerrarSesion() {
         }
     });
 }
-/*
-$(document).ready(
-    function () {
-        modal_show("#modal2");
-    }
-);
 
-function confirmarCierre() {
-    alertify.confirm(
-        '¡Atención!',
-        '¿Estas seguro de cerrar sesión?',
-        function(){window.location = "/";},
-        function(){ }
-    );
-}*/
+function verificarSesion() {
+    var ruta = '/';
+    var metodo = 'POST';
+    $.ajax({
+            type : metodo,
+            url : ruta,
+            datatype : "html",
+            succes : function (result) {
+                showInModal("modal", result);
+
+            }
+        });
+}
 

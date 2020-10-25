@@ -7,10 +7,6 @@
     <form action="/presupuesto" method="post">
      <center>
         <table class= "formulario1">
-            <!--<tr> | No va la fecha
-             <td>Fecha:</td>
-             <td><input type="date" name="fecha" placeholder="Ingrese la fecha" required></td>
-            </tr>-->
 
             <tr>
              <td>Monto Total:</td>
@@ -37,15 +33,10 @@
         <table class= "formulario3" border = "0">
           <td>Asociar categoria:</td>
                <td>
-                   <!-- Esto solo me deja seleccionar solo una categoria 
-                   <select name = "categoria" >
-                     <option> Seleccionar categorias</option>
-                     
-                   </select>
-                  -->
 
-                   <input type="checkbox" name="categoria" value="1">categoria1<br>
-                   <input type="checkbox" name="categoria" value="1">categoria2<br>
+
+                   <input type="checkbox" name="categoria" value="1"> categoria1<br>
+                   <input type="checkbox" name="categoria" value="1"> categoria2<br>
                </td>
         </table>
 
@@ -58,12 +49,11 @@
                      <td><input type="text" placeholder="Ej: papel" id="item"></td>
                      <td rowspan="2">
                          <div class="buttons">
-                             <!--<button type="button" class="offset" onclick="nuevaFilaEnTabla()" >Agregar</button>-->
                              <button type="button" onclick="nuevaFilaEnTabla()">Agregar</button>
                          </div>
-                     </td><!-- <input type="button" value="Agregar" class="principal" id="add_row" onclick="newRowTable()">-->
+                     </td>
 
-                     <td rowspan="2"><!--<p id="textoItems" class="textoItems"></p>--></td>
+                     <td rowspan="2"></td>
                  </tr>
                  <tr>
                      <td>Precio:</td>

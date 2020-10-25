@@ -1,5 +1,5 @@
 {{#partial "contenido"}}
-<div>
+<div class="asociarOperaciones">
     <br>
     <br>
     <center>
@@ -9,24 +9,24 @@
                     <td>Operaciones de egreso:</td>
                     <td>
                         <select name = "egreso" required >
-                                <option> Seleccionar operacion de egreso</option>
-                            </select>
+                            <option> Seleccionar operacion de egreso</option>
+                        </select>
                     </td>
-                    <td></td>
                     <td>Operaciones de ingreso:</td>
                     <td>
                         <select name = "ingreso" required >
-                                <option> Seleccionar operacion de ingreso</option>
-                            </select>
+                            <option> Seleccionar operacion de ingreso</option>
+                         </select>
                     </td>
                 </tr>
             </table>
         </div> 
     </center>
     <center>
-    <input type="submit" value="Asociar operaciones" class="button" >
+        <button type="submit">Asociar operaciones</button>
     </center>
     
 </div>
+<link rel="stylesheet" href="/css/estiloAsociaroperaciones.css" />
 {{/partial}}
 {{>principal.hbs}}

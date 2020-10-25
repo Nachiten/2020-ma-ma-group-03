@@ -2,6 +2,32 @@
     width: 50%;
 }
 
-button{color:var(--color);transition:.25s}
-button:focus,button:hover{border-color:var(--hover);color:#fff}
-button{background:#00afff;border:2px solid;font:inherit;line-height:1;margin:.5em;padding:1em 2em}
+button{
+    color:var(--color);
+    transition:.25s;
+    background:#00afff;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.5em;
+    padding:1em 2em;
+    font-size: larger;
+    cursor:pointer;
+}
+button:focus,button:hover{
+    border-color:var(--hover);
+    color:#fff;
+}
+
+.container .ingresos .formulario label{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.container .ingresos .formulario input{
+    font-size: 17px;
+}
+
+.container .ingresos .formulario select{
+    font-size: 17px;
+}

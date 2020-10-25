@@ -1,14 +1,17 @@
-.egresos .formulario td{
+.egresos td{
     width: 50%;
+    font-weight: 600;
+    font-size: 18px;
 }
-.button{
 
+.egresos input{
+    font-size: 17px;
 }
 
-.button :hover{
-    color: black;
-    background: rgba(32, 66, 141, 0.452);
+.egresos select{
+    font-size: 17px;
 }
+
 .egresos .containerBoton{
    
     position:absolute;
@@ -16,58 +19,41 @@
     transform:translate(-50%,-100%);
     
 }
-.btn{
-    margin-top:calc(50% + 25px);
-    position:relative;
-    display:inline-block;
-    width:277px;height:50px;
-    line-height:60px;
-    text-align:center;
-    text-transform:uppercase;
-    background-color:transparent;
+
+button:focus,button:hover{
+    /*border-color:var(--hover);*/
+    color:#fff;
+}
+
+.formulario2 button:hover{
+    /*border-color:var(--hover);*/
+    color:#fff;
+}
+
+button{
+    background:#00afff;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.5em;
+    padding:1em 2em;
+    font-weight: 100;
+    font-size: large;
     cursor:pointer;
-    text-decoration:none;
-    font-family:Roboto,sans-serif;
-    font-weight:900;
-    font-size:17px;
-    letter-spacing:.045em
 }
-.btn svg{
-    position:absolute;top:0;left:0
-}
-.btn svg rect{
-    stroke:#EC0033;
-    stroke-width:4;
-    stroke-dasharray:353,0;
-    stroke-dashoffset:0;
-    -webkit-transition:all 600ms ease;
-    transition:all 600ms ease
-}
-.btn span{
-    background:#ff8282;
-    background:-moz-linear-gradient(left,rgba(255,130,130,1) 0,rgba(225,120,237,1) 100%);
-    background:-webkit-linear-gradient(left,rgba(255,130,130,1) 0,rgba(225,120,237,1) 100%);
-    background:linear-gradient(to right,rgba(255,130,130,1) 0,rgba(225,120,237,1) 100%);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff8282', endColorstr='#e178ed', GradientType=1);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent
-}
-.btn:hover svg rect{
-    stroke-width:4;
-    stroke-dasharray:196,543;
-    stroke-dashoffset:437
-}
-
-@-webkit-keyframes pulse{0%{box-shadow:0 0 var(--hover)}}
-@keyframes pulse{0%{box-shadow:0 0 var(--hover)}}
-
-.egresos .offset{box-shadow:.1em .1em 0 0 var(--color),inset .3em .3em 0 0 var(--color)}
-.egresos .offset:focus,.offset:hover{box-shadow:0 0 var(--hover),inset 6em 3.5em 0 0 var(--hover)}
-.egresos .offset{--color:#000000;--hover:#091d9a}
-button{color:var(--color);transition:.25s}
-button:focus,button:hover{border-color:var(--hover);color:#fff}
-button{background:#00afff;border:2px solid;font:inherit;line-height:1;margin:.5em;padding:1em 2em}
 
 .textoItems{
     color: rgb(204, 28, 28);
+}
+
+.table-wrapper .acciones{
+    display: flex;
+}
+.table-wrapper .acciones input{
+    margin-right: 10px;
+    margin-left: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor:pointer;
 }

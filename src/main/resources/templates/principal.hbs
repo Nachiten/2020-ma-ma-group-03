@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/css/stylePantalla.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/modalVarios.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     
     <!-- Imagenes-->
     <link rel="icon"   href="/img/e-commerce.png" type="image/png" />
@@ -46,45 +47,54 @@ https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_UbQYLp_IVyvhxcs6NaKxov
     background-attachment: fixed;
     background-size: cover;">
     <div class="wrapper">
-        <div class="multi_color_border"></div>
-        <div class="top_nav">
-            <div class="left">
-                <div class="logo"><p><span>GESOC</span></p></div>
+        <div class="fijo">
+            <div class="multi_color_border"></div>
+                <div class="top_nav">
+                    <div class="left">
+                        <div class="logo"><p style="font-size: 30px;"><span>GESOC</span></p>
+                            Bienvenido {{apellido}}, {{nombre}}
+                        </div>
+                    </div>
+                    <div class="right">
+                        <ul>
+                            <li>
+                                <button name="button">
+                                    <i class="fas fa-home"></i>
+                                    Inicio
+                                </button>
+                            </li>
+                            <li>
+                                <button name="button" >
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    Mensajes
+                                </button>
+                            </li>
+                            <li>
+                                <button name="button"  onclick="cerrarSesion()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Cerrar sesión
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bottom_nav">
+                    <ul class="link">
+                        <li class="a"><a href="/usuario/ingresos/{{id}}">Ingresos</a></li>
+                        <li class="b"><a href="/usuario/egresos/{{id}}">Egresos</a></li>
+                        <li class="c"><a href="/usuario/presupuestos/{{id}}">Presupuestos</a></li>
+                        <li class="d"><a href="/usuario/criterios/{{id}}">Criterios</a></li>
+                        <li class="e"><a href="/usuario/listadoOperaciones/{{id}}">Listado de operaciones</a></li>
+                        <li class="f"><a href="/usuario/asociarOperacion/{{id}}">Asociar operación</a></li>
+                    </ul>
+                </div>
+
+        </div>
+
+            <div class="container">
+                {{#block "contenido"}}
+                {{/block}}
             </div>
-            <div class="right">
-                <ul>
-                    <li>
-                        <button name="button" >
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            Mensajes
-                        </button>
-                    </li>
-                    <li>
-                        <button name="button"  onclick="cerrarSesion()">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                            Cerrar sesión
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="bottom_nav">
-            <ul class="link">                        
-                <li class="a"><a href="/usuario/ingresos/{{id}}">Ingresos</a></li>
-                <li class="b"><a href="/usuario/egresos/{{id}}">Egresos</a></li>
-                <li class="c"><a href="/usuario/presupuestos/{{id}}">Presupuestos</a></li>
-                <li class="d"><a href="/usuario/criterios/{{id}}">Criterios</a></li>
-                <li class="e"><a href="/usuario/listadoOperaciones/{{id}}">Listado de operaciones</a></li>
-                <li class="f"><a href="/usuario/asociarOperacion/{{id}}">Asociar operación</a></li>
-            </ul>
-        </div>
-        <div>
-            <h2 style="color: white;margin-top: 15px;">Te has identificado como {{apellido}}, {{nombre}}</h2>
-        </div>
-        <div class="container">
-            {{#block "contenido"}}
-   		    {{/block}}
-        </div>
     </div>
     <div id="modal" class="modal fade" role="dialog"></div>
 </body>

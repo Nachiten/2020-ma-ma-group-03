@@ -12,7 +12,10 @@
     text-decoration: none;
     font-family: 'Josefin Sans', sans-serif;
 }
-
+.fijo{
+    position: fixed;
+    width: 102%;
+}
 .wrapper .multi_color_border{
     width: 100%;
     height: 5px;
@@ -22,10 +25,10 @@
 }
 
 .wrapper .top_nav{
-    /*width: 103%;*/
+
     color:#0374ce;
     font-weight : 550;
-    height: 50px;
+    height: 60px;
     font-size :17px;
     background: #fff;
     padding: 0 50px;
@@ -58,7 +61,8 @@
     background: none;
     cursor: pointer;
     outline:none;
-
+    font-size: 17px;
+    line-height: 1;
 }
 
 
@@ -145,7 +149,10 @@
     animation: 1s ms 1;
 }
 
-
+.container{
+    padding-block-start: 10%;
+    position: inherit;
+}
 
 /*------*/
 

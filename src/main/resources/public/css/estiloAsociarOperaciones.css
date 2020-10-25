@@ -1,0 +1,28 @@
+.tabAO td{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.tabAO table{
+    width: 80%;
+}
+.tabAO select{
+    font-size: 17px;
+}
+
+button{
+    color:var(--color);
+    transition:.25s;
+    background:#00afff;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.5em;
+    padding:1em 2em;
+    font-size: larger;
+    cursor:pointer;
+}
+button:hover{
+    border-color:var(--hover);
+    color:#fff;
+}

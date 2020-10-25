@@ -126,10 +126,96 @@ function nuevaFilaEnTabla()
 	cell1.innerHTML =  itemInputOculto + itemTextoMostrado;
 	cell2.innerHTML =  precioInputOculto + precioTextoMostrado;
 	//cell3.innerHTML = '<span class="icon fa-edit"></span><span class="icon fa-eraser"></span>';
-	cell3.innerHTML = '<input type="button" class="editar" value="Editar" /> <input type="button" class="borrar" value="Eliminar" />';
+	cell3.innerHTML = '<div class="acciones">' +
+		'<i class="fas fa-edit"></i><input type="button" class="editar" value="Editar" /> ' +
+		'<i class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" /></div>' +
+		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">' +
+		'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">';
 
 	numeroFila++;
 }
+
+function nuevaFilaEnCriterio()
+{
+	var criterio = document.getElementById("criterio").value;
+
+	console.log("Criterio: [" + criterio + "]");
+
+	if (criterio === ""){
+		console.log("No hay criterio");
+	} else {
+		console.log("Si hay criterio");
+	}
+
+	if (criterio === "") {
+		//textoItems.innerHTML = 'El nombre de item no puede estar vacio';
+		alert("El nombre de un criterio no puede estar vacio");
+		return
+	}
+
+	var name_table = document.getElementById("tabla_criterios");
+
+	var row = name_table.insertRow(1);
+
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+
+
+	var criterioInputOculto   = '<input type="hidden" name="nombre_I[' + numeroFila + ']" value="' + criterio;
+
+	var criterioTextoMostrado   = '"> <p name="" class="non-margin" style="color = black">' + criterio + '</p>';
+
+	cell1.innerHTML =  criterioInputOculto + criterioTextoMostrado;
+	cell2.innerHTML = '<div class="acciones">' +
+		'<i class="fas fa-edit"></i><input type="button" class="editar" value="Editar" /> ' +
+		'<i class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" /></div>' +
+		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">' +
+		'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">';
+
+	numeroFila++;
+}
+
+function nuevaFilaEnCategoria()
+{
+	var categoria = document.getElementById("categoria").value;
+
+	console.log("Categoria: [" + categoria + "]");
+
+	if (categoria === ""){
+		console.log("No hay categoría");
+	} else {
+		console.log("Si hay categoría");
+	}
+
+	if (categoria === "") {
+		//textoItems.innerHTML = 'El nombre de item no puede estar vacio';
+		alert("El nombre de una categoria no puede estar vacio");
+		return
+	}
+
+	var name_table = document.getElementById("tabla_categorias");
+
+	var row = name_table.insertRow(1);
+
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+
+
+	var categoriaInputOculto   = '<input type="hidden" name="nombre_I[' + numeroFila + ']" value="' + categoria;
+
+	var categoriaTextoMostrado   = '"> <p name="" class="non-margin" style="color = black">' + categoria + '</p>';
+
+	cell1.innerHTML =  categoriaInputOculto + categoriaTextoMostrado;
+	cell2.innerHTML = '<div class="acciones">' +
+		'<i class="fas fa-edit"></i><input type="button" class="editar" value="Editar" /> ' +
+		'<i class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" /></div>' +
+		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">' +
+		'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">';
+
+	numeroFila++;
+}
+
+
   
 function format(input){
 	var num = input.value.replace(/\,/g,'');

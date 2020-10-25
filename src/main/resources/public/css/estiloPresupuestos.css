@@ -1,17 +1,54 @@
 .presupuestos .formulario1 td{
     width: 50%;
+    font-weight: 600;
+    font-size: 18px;
 }
 .presupuestos .formulario2 td{
     width: 25%;
+    font-weight: 600;
+    font-size: 18px;
 }
 .presupuestos .formulario3 td{
     width:25%;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.presupuestos input{
+    font-size: 17px;
+}
+
+.presupuestos select{
+    font-size: 17px;
 }
 
 
-button{color:var(--color);transition:.25s}
 button:focus,button:hover{border-color:var(--hover);color:#fff}
-button{background:#00afff;border:2px solid;font:inherit;line-height:1;margin:.5em;padding:1em 2em}
+button{
+    background:#00afff;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.5em;
+    padding:1em 2em;
+    font-weight: 100;
+    font-size: large;
+    cursor:pointer;
+}
 
+.table-wrapper .acciones input{
+    margin-right: 10px;
+    margin-left: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor:pointer;
+}
+
+.table-wrapper td{
+    width: 30%;
+    font-weight: 600;
+    font-size: 18px;
+}
 
 

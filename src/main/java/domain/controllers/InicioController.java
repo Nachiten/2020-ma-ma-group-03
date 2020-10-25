@@ -45,7 +45,7 @@ public class InicioController {
                 return new ModelAndView(model,"principal.hbs");
             }
         }
-        model.put("mensaje", "El nombre de usuario o la contraseña son incorrectos");
+        model.put("mensaje", "El nombre de usuario o contraseña ingresados son incorrectos");
         return new ModelAndView(model, "modalInformativo.hbs");
     }
 
