@@ -48,12 +48,12 @@ public class Router {
 
 
         // Paginas una vez logueado GET
-        Spark.get("/ingresos", entidadesController::ingresos, Router.engine);
-        Spark.get("/egresos", entidadesController::egresos, Router.engine);
-        Spark.get("/presupuestos", entidadesController::presupuestos, Router.engine);
-        Spark.get("/criterios", entidadesController::criterios, Router.engine);
-        Spark.get("/listadoOperaciones", entidadesController::listadoOperaciones, Router.engine);
-        Spark.get("/asociarOperacion", entidadesController::asociarOperacion, Router.engine);
+        Spark.get("/usuario/ingresos/:id", entidadesController::ingresos, Router.engine);
+        Spark.get("/usuario/egresos/:id", entidadesController::egresos, Router.engine);
+        Spark.get("/usuario/presupuestos/:id", entidadesController::presupuestos, Router.engine);
+        Spark.get("/usuario/criterios/:id", entidadesController::criterios, Router.engine);
+        Spark.get("/usuario/listadoOperaciones/:id", entidadesController::listadoOperaciones, Router.engine);
+        Spark.get("/usuario/asociarOperacion/:id", entidadesController::asociarOperacion, Router.engine);
         // Falta implementar hbs
         //Spark.get("/mensajes", inicioController::presupuestos, Router.engine);
 

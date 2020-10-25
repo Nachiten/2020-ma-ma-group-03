@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class InicioController {
 
-    UsuarioController unUsuarioController;
+    private UsuarioController unUsuarioController;
     private AdministradorDeSesion administradorDeSesion;
     private List<Usuario> usuarios;
 

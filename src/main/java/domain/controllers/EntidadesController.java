@@ -26,6 +26,12 @@ public class EntidadesController {
     private Repositorio<Moneda> repoMonedas;
     private Repositorio<OperacionDeIngreso> repoOperacionIngreso;
     private Repositorio<Presupuesto> repoPresupuesto;
+    private AdministradorDeSesion administradorDeSesion;
+    private UsuarioController unUsuarioController;
+
+    private Map<String, Object> parametros;
+    private Usuario usuario;
+
 
     public EntidadesController(){
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
@@ -34,13 +40,25 @@ public class EntidadesController {
         this.repoOperacionIngreso = FactoryRepositorio.get(OperacionDeIngreso.class);
         this.repoMonedas = FactoryRepositorio.get(Moneda.class);
         this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
+        this.administradorDeSesion = new AdministradorDeSesion();
+        this.unUsuarioController = new UsuarioController();
+
+        this.parametros = new HashMap<>();
+        this.usuario = new Usuario();
     }
 
+    private void obtenerUsuarioDeId(Request request){
+        int id = administradorDeSesion.obtenerIdDeSesion(request);
+        Usuario unUsuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
+        parametros.put("nombre", unUsuario.getNombre());
+        parametros.put("apellido", unUsuario.getApellido());
+        parametros.put("id", unUsuario.getId());
+    }
     // --- GETs ---
 
     public ModelAndView ingresos(Request request, Response response) {
 
-        Map<String, Object> parametros = new HashMap<>();
+        obtenerUsuarioDeId(request);
         List<Moneda> monedas = this.repoMonedas.buscarTodos();
         parametros.put("monedas", monedas);
 
@@ -49,7 +67,7 @@ public class EntidadesController {
 
     public ModelAndView egresos(Request request, Response response) {
 
-        Map<String, Object> parametros = new HashMap<>();
+        obtenerUsuarioDeId(request);
 
         List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
@@ -62,7 +80,7 @@ public class EntidadesController {
 
     public ModelAndView presupuestos(Request request, Response response) {
 
-        Map<String, Object> parametros = new HashMap<>();
+        obtenerUsuarioDeId(request);
 
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
 
@@ -72,15 +90,18 @@ public class EntidadesController {
     }
 
     public ModelAndView criterios(Request request, Response response) {
-        return new ModelAndView(null, "criterios.hbs");
+        obtenerUsuarioDeId(request);
+        return new ModelAndView(parametros, "criterios.hbs");
     }
 
     public ModelAndView listadoOperaciones(Request request, Response response) {
-        return new ModelAndView(null, "listadoOperaciones.hbs");
+        obtenerUsuarioDeId(request);
+        return new ModelAndView(parametros, "listadoOperaciones.hbs");
     }
 
     public ModelAndView asociarOperacion(Request request, Response response) {
-        return new ModelAndView(null, "asociarOperacion.hbs");
+        obtenerUsuarioDeId(request);
+        return new ModelAndView(parametros, "asociarOperacion.hbs");
     }
 
     // --- POSTs ---
