@@ -8,6 +8,15 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 public class ContextTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 
+	/*
+	* --- ORDEN PARA CORRER LOS TESTS DE PERSISTENCIA ---
+	* 1 - PersistenciaTipoTest
+	* 2 - PersistenciaEntidadJuridica
+	* 3 - PersistenciaOperacionesTest
+	* 4 - PersistenciaCategoriasCriteriosTest
+	* 5 - PersistenciaApiMLTest
+	*/
+
 	@Test
 	public void contextUp() {
 		assertNotNull(entityManager());

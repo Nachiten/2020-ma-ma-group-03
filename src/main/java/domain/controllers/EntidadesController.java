@@ -32,10 +32,8 @@ public class EntidadesController {
     private AdministradorDeSesion administradorDeSesion;
     private UsuarioController unUsuarioController;
 
-
     private Map<String, Object> parametros;
     private Usuario usuario;
-
 
     public EntidadesController(){
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
@@ -155,12 +153,15 @@ public class EntidadesController {
         // Genero operacion de egreso
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
 
+        // TODO | Esta hardcodeada la entidad juridica
         EntidadJuridica entidadJuridica = EntityManagerHelper.getEntityManager().find(EntidadJuridica.class, 1);
-        Usuario miUsuario = EntityManagerHelper.getEntityManager().find(Usuario.class, 1);
+
+        int id = administradorDeSesion.obtenerIdDeSesion(request);
+        Usuario usuarioCreador = this.unUsuarioController.getRepoUsuarios().buscar(id);
 
         // Setters necesarios
         operacionAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
-        operacionAGuardar.setUsuario(miUsuario);
+        operacionAGuardar.setUsuario(usuarioCreador);
         operacionAGuardar.setMedioDePago(medioDePago);
         operacionAGuardar.setDocumentoComercial(documentoComercial);
         operacionAGuardar.setCantidadPresupuestosRequerida(presupuestosRequeridos);
@@ -273,6 +274,17 @@ public class EntidadesController {
         response.redirect("/presupuestos");
         return response;
     }
+
+    public Response guardarCriterio(Request request, Response response){
+
+        // TODO | Persistir criterio
+
+        // Para leer lista de categorias copiate de obtenerListaItems
+
+        return response;
+    }
+
+
 
     // --- FUNCIONES AUXILIARES ---
 

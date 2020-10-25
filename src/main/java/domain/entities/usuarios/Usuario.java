@@ -30,7 +30,7 @@ public class Usuario extends EntidadPersistente {
     private String apellido;
 
     // @Transient sirve para que no se persista este atributo
-    @Transient
+    @ManyToOne (cascade = CascadeType.ALL)
     private EntidadJuridica entidadJuridica;
 
     @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
@@ -97,6 +97,9 @@ public class Usuario extends EntidadPersistente {
         operacionesRevisadas.add(operacionDeEgreso);
     }
 
+    public void setEntidadJuridica(EntidadJuridica entidadJuridica) {
+        this.entidadJuridica = entidadJuridica;
+    }
 
     //-------------------------------------------------------------------------
                             //GETTERS
@@ -118,5 +121,9 @@ public class Usuario extends EntidadPersistente {
 
     public String getApellido() {
         return apellido;
+    }
+
+    public EntidadJuridica getEntidadJuridica() {
+        return entidadJuridica;
     }
 }

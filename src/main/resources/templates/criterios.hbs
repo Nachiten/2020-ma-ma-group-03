@@ -2,6 +2,7 @@
 <div class="containerTab">
 	<br>
     <br>
+    <form action="/criterio" method="post" >
     <div class="contenidosInputs">
         <div class="tab">
             <table class="formulario1" border="0">
@@ -9,10 +10,10 @@
                     <td>Nombre de Criterio:</td>
                     <td><input type="text" placeholder="Ej: Un criterio" id="criterio"></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td rowspan="2"><button type="button" onclick="nuevaFilaEnCriterio()">Agregar</button></td>
 
-                </tr>
+                </tr>-->
             </table>
         </div>
         <div class="tab">
@@ -33,7 +34,7 @@
     </div>
 
     <div class="tablasCC">
-        <div class="tab">
+        <!--<div class="tab">
             <div class="table-wrapper">
                 <table id="tabla_criterios">
                     <thead>
@@ -49,7 +50,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div>-->
         <div class="tab">
             <div class="table-wrapper">
                 <table id="tabla_categorias">
@@ -68,12 +69,9 @@
             </div>
         </div>
     </div>
-
-
-
-
-
+    </form>
 </div>
+
 <link rel="stylesheet" href="/css/estiloCriterio.css" />
 <script src="/js/formatoDeTabla.js"></script>
 {{/partial}}

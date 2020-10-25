@@ -59,6 +59,8 @@ public class Router {
         Spark.post("/operacionEgreso", entidadesController::guardarOperacionDeEgreso);
         Spark.post("/operacionIngreso", entidadesController::guardarOperacionDeIngreso);
         Spark.post("/presupuesto", entidadesController::guardarPresupuesto);
+        Spark.post("/criterio", entidadesController::guardarCriterio);
+
 
         // OLD
         Spark.get("/loginCorrecto", (request, response) -> "Login Correcto");

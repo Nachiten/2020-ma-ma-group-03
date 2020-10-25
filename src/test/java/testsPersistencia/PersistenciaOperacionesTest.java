@@ -65,6 +65,7 @@ public class PersistenciaOperacionesTest {
         //Instancia de usuario
         usuarioA = new Usuario(TipoUsuario.ESTANDAR,"Nachiten","hola1234ABC", "Ignacio", "Baptista");
         usuarioB = new Usuario(TipoUsuario.ESTANDAR,"Carlos","asdfg", "Carlos", "Villegas");
+
         usuarioAdmin = new Usuario(TipoUsuario.ADMIN,"Admin", "admin", "Admin", "Root");
 
         generarUsuarioAConContraAnterior();
@@ -73,6 +74,11 @@ public class PersistenciaOperacionesTest {
         usuarioB.publicarMensajeEnBandejaDeMensajes("Un resultado 1",true );
         usuarioB.publicarMensajeEnBandejaDeMensajes("Un resultado 2",false );
         usuarioB.publicarMensajeEnBandejaDeMensajes("Un resultado 3",true );
+
+        EntidadJuridica entidadJuridicaUsuarioB = EntityManagerHelper.getEntityManager().find(EntidadJuridica.class, 1);
+
+        usuarioB.setEntidadJuridica(entidadJuridicaUsuarioB);
+        usuarioA.setEntidadJuridica(entidadJuridicaUsuarioB);
 
         //Instancias de MedioDePago
         tarjetaDeCredito = EntityManagerHelper.getEntityManager().find(TipoMedioDePago.class, 1);
