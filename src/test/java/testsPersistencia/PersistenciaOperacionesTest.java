@@ -208,7 +208,6 @@ public class PersistenciaOperacionesTest {
 
         Assert.assertEquals("Admin", unUsuario.getNombreUsuario());
         Assert.assertEquals(tipo,unUsuario.getTipo());
-
     }
 
     @Test
@@ -217,7 +216,7 @@ public class PersistenciaOperacionesTest {
         OperacionDeEgreso unaoperacionDeEgreso = EntityManagerHelper.getEntityManager().find(OperacionDeEgreso.class, 1);
 
         Assert.assertEquals(1, unaoperacionDeEgreso.getCantidadPresupuestosRequerida());
-        Assert.assertTrue(5600 == unaoperacionDeEgreso.getMontoTotal());
+        Assert.assertEquals(5600, unaoperacionDeEgreso.getMontoTotal(), 0.0);
     }
 
 }

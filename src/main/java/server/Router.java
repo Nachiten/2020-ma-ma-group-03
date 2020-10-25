@@ -35,17 +35,14 @@ public class Router {
         // Pagina root, inicio
         Spark.get("/", inicioController::inicio, Router.engine);
 
-        //cerrar sesion
+        // Cerrar sesion
         Spark.post("/", usuarioController::cerrarSesion, Router.engine);
 
-        //Se verifica que el usuario exista
+        // Se verifica que el usuario exista
         Spark.post("/usuario", inicioController::loginUsuario, Router.engine);
 
-        //página que muestra error 404 cuando tratan de acceder a esta url sin loguearse
+        // Página que muestra error 404 cuando tratan de acceder a esta url sin loguearse
         Spark.get("/usuario", inicioController::error404, Router.engine);
-
-
-
 
         // Paginas una vez logueado GET
         Spark.get("/usuario/ingresos/:id", entidadesController::ingresos, Router.engine);
@@ -54,6 +51,7 @@ public class Router {
         Spark.get("/usuario/criterios/:id", entidadesController::criterios, Router.engine);
         Spark.get("/usuario/listadoOperaciones/:id", entidadesController::listadoOperaciones, Router.engine);
         Spark.get("/usuario/asociarOperacion/:id", entidadesController::asociarOperacion, Router.engine);
+
         // Falta implementar hbs
         //Spark.get("/mensajes", inicioController::presupuestos, Router.engine);
 

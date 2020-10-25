@@ -38,7 +38,7 @@ public class InicioController {
             if (unUsuario.getNombreUsuario().equals(nombreDeUsuario) &&  unUsuario.getContrasenia().equals(contrasenia)){
                 model.put("tipoUsuario", unUsuario.getTipo());
                 model.put("usuario", unUsuario);
-                model.put("nombre", unUsuario.getNombre());
+                model.put("nombre", unUsuario.getNombreUsuario());
                 model.put("apellido", unUsuario.getApellido());
                 model.put("id", unUsuario.getId());
                 administradorDeSesion.iniciarSesion(request, unUsuario);
