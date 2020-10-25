@@ -33,10 +33,10 @@
         <table class= "formulario3" border = "0">
           <td>Asociar categoria:</td>
                <td>
-
-
-                   <input type="checkbox" name="categoria" value="1"> categoria1<br>
-                   <input type="checkbox" name="categoria" value="1"> categoria2<br>
+                   <!--<input type="checkbox" name="categoria1" value="categoria1"> categoria1<br>-->
+                   {{#each categoriasCriterio}}
+                       <input type="checkbox" name="{{nombreCategoria}}" value="1"> {{nombreCategoria}}<br>
+                   {{/each}}
                </td>
         </table>
 

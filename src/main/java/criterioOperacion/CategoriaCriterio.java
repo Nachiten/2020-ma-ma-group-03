@@ -9,8 +9,8 @@ import javax.persistence.Table;
 @Entity
 @Table (name = "categoriacriterio")
 public class CategoriaCriterio extends EntidadPersistente {
-    @Column (name = "nombre")
-    private String nombre;
+    @Column (name = "nombreCategoria")
+    private String nombreCategoria;
     @Column (name = "descripcion")
     private String descripcion;
 
@@ -19,7 +19,15 @@ public class CategoriaCriterio extends EntidadPersistente {
     }
 
     public CategoriaCriterio(String nombre, String descrpcion){
-        this.nombre = nombre;
+        this.nombreCategoria = nombre;
         this.descripcion = descrpcion;
+    }
+
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 }

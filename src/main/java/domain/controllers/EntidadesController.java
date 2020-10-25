@@ -1,8 +1,10 @@
 package domain.controllers;
 
+import criterioOperacion.CategoriaCriterio;
 import domain.entities.apiMercadoLibre.Moneda;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
+import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -26,8 +28,10 @@ public class EntidadesController {
     private Repositorio<Moneda> repoMonedas;
     private Repositorio<OperacionDeIngreso> repoOperacionIngreso;
     private Repositorio<Presupuesto> repoPresupuesto;
+    private Repositorio<CategoriaCriterio> repoCategoriaCriterio;
     private AdministradorDeSesion administradorDeSesion;
     private UsuarioController unUsuarioController;
+
 
     private Map<String, Object> parametros;
     private Usuario usuario;
@@ -40,6 +44,8 @@ public class EntidadesController {
         this.repoOperacionIngreso = FactoryRepositorio.get(OperacionDeIngreso.class);
         this.repoMonedas = FactoryRepositorio.get(Moneda.class);
         this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
+        this.repoCategoriaCriterio = FactoryRepositorio.get(CategoriaCriterio.class);
+
         this.administradorDeSesion = new AdministradorDeSesion();
         this.unUsuarioController = new UsuarioController();
 
@@ -83,8 +89,10 @@ public class EntidadesController {
         obtenerUsuarioDeId(request);
 
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
+        List<CategoriaCriterio> categoriasCriterio = this.repoCategoriaCriterio.buscarTodos();
 
         parametros.put("tiposDocumentoComercial", tiposDocumentoComercial);
+        parametros.put("categoriasCriterio", categoriasCriterio);
 
         return new ModelAndView(parametros, "presupuestos.hbs");
     }
@@ -222,6 +230,12 @@ public class EntidadesController {
             return response;
         }
 
+        String categoria1 = request.queryParams("categoria1");
+        String categoria2 = request.queryParams("categoria2");
+        String categoria3 = request.queryParams("categoria3");
+
+        List<CategoriaCriterio> categoriasCriterio = obtenerListaCategoriaCriterio(request);
+
         //String fechaString = request.queryParams("fecha");
         // Convierto de string a LocalDate
         //LocalDate fecha = convertirAFecha(fechaString);
@@ -242,6 +256,7 @@ public class EntidadesController {
 
         presupuestoAGuardar.setMontoTotal(montoTotal);
         presupuestoAGuardar.setDocumentoComercial(documentoComercial);
+        presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
         try{
             // Persistir operacion
@@ -270,6 +285,23 @@ public class EntidadesController {
 
     private boolean noEligioMoneda(String monedaString){
         return monedaString.equals("Seleccionar moneda");
+    }
+
+    private List<CategoriaCriterio> obtenerListaCategoriaCriterio(Request request){
+
+        List<CategoriaCriterio> listaADevolver = new ArrayList<>();
+
+        List<CategoriaCriterio> categoriasCriterioTotales = this.repoCategoriaCriterio.buscarTodos();
+
+        for(CategoriaCriterio unaCategoriaCriterio : categoriasCriterioTotales){
+            String categoriCriterioLeidaNombre = request.queryParams(unaCategoriaCriterio.getNombreCategoria());
+
+            if (categoriCriterioLeidaNombre != null){
+                listaADevolver.add(unaCategoriaCriterio);
+            }
+        }
+
+        return listaADevolver;
     }
 
     private List<Item> obtenerListaItems(Request request){

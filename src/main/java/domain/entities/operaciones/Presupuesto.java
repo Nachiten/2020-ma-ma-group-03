@@ -80,4 +80,8 @@ public class Presupuesto extends EntidadPersistente {
     public void setItems(List<Item> items) {
         this.items = items;
     }
+
+    public void setListaCategoriaCriterio(List<CategoriaCriterio> listaCategoriaCriterio) {
+        this.listaCategoriaCriterio = listaCategoriaCriterio;
+    }
 }
