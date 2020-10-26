@@ -5,11 +5,9 @@ import criterioOperacion.Criterio;
 import domain.entities.apiMercadoLibre.Moneda;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
-import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
-import persistencia.db.EntityManagerHelper;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -314,8 +312,6 @@ public class EntidadesController {
 
         return categorias;
     }
-
-
 
     // --- FUNCIONES AUXILIARES ---
 
