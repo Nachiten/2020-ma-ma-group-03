@@ -297,17 +297,15 @@ public class EntidadesController {
     private List<CategoriaCriterio> obtenerYGenerarListaCategoriasCriterio(Request request){
         List<CategoriaCriterio> categorias = new ArrayList<>();
 
-        int cantCategorias = 0;
-
         String nombreCategoria;
 
-        while ( (nombreCategoria = request.queryParams("nombre_I[" + cantCategorias + "]") ) != null){
+        for(int i = 0 ; i<30;i++){
 
-            CategoriaCriterio categoria = new CategoriaCriterio(nombreCategoria, null);
+            if ((nombreCategoria = request.queryParams("nombre_I[" + i + "]") ) != null) {
+                CategoriaCriterio categoria = new CategoriaCriterio(nombreCategoria, null);
 
-            categorias.add(categoria);
-
-            cantCategorias++;
+                categorias.add(categoria);
+            }
         }
 
         return categorias;
@@ -342,20 +340,20 @@ public class EntidadesController {
     private List<Item> obtenerListaItems(Request request){
         List<Item> items = new ArrayList<>();
 
-        int cantItems = 0;
-
         String itemNombre;
         String itemPrecioString;
 
-        while ( (itemNombre = request.queryParams("nombre_I[" + cantItems + "]") ) != null){
-            itemPrecioString = request.queryParams("precio_I[" + cantItems + "]");
-            float itemPrecio = Float.parseFloat(itemPrecioString);
+        for (int i = 0; i <30; i++){
 
-            Item miItem = new Item(itemNombre, itemPrecio);
+            if ((itemNombre = request.queryParams("nombre_I[" + i + "]") ) != null){
+                itemPrecioString = request.queryParams("precio_I[" + i + "]");
+                float itemPrecio = Float.parseFloat(itemPrecioString);
 
-            items.add(miItem);
+                Item miItem = new Item(itemNombre, itemPrecio);
 
-            cantItems++;
+                items.add(miItem);
+            }
+
         }
 
         return items;
