@@ -42,7 +42,7 @@ public class InicioController {
                 model.put("apellido", unUsuario.getApellido());
                 model.put("id", unUsuario.getId());
                 administradorDeSesion.iniciarSesion(request, unUsuario);
-                return new ModelAndView(model,"principal.hbs");
+                return new ModelAndView(model,"inicio.hbs");
             }
         }
         model.put("mensaje", "El nombre de usuario o contraseña ingresados son incorrectos");
