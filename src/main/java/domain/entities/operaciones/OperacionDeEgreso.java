@@ -233,6 +233,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public CriterioSeleccionProveedor getCriterioSeleccionProveedor() { return criterioSeleccionProveedor; }
 
+    public MedioDePago getMedioDePago() { return medioDePago; }
+
     public Boolean esValida(){ return soyValida; }
 
     public int getCantidadDeVecesValidada() { return cantidadDeVecesValidada; }

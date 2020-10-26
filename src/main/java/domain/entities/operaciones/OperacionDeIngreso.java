@@ -23,8 +23,9 @@ public class OperacionDeIngreso  {
     @ManyToOne (cascade = CascadeType.ALL)
     private Moneda moneda;
 
-    @Transient
+    @Column (name = "fecha")
     private LocalDate fecha;
+
     @Transient
     private List<OperacionDeEgreso> operacionesDeEgresoVinculadas;
     private float montoSinVincular;
@@ -83,4 +84,7 @@ public class OperacionDeIngreso  {
         return id;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
 }

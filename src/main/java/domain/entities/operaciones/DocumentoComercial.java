@@ -26,4 +26,8 @@ public class DocumentoComercial extends EntidadPersistente {
         this.tipo = tipo;
         this.numero = numero;
     }
+
+    public TipoDocumentoComercial getTipo() {
+        return tipo;
+    }
 }

@@ -20,10 +20,11 @@ public class ApiMercadoLibreInfo {
     static {
         try {
             servicioPais = ServicioUbicacionMercadoLibre.instancia();
-            paisesId = generarListaIdDePaises();
-            listadoPaises = generarListaDePaises();
-            listadoProvincias = generarListaEstados();
-            listadoCiudades = generarListaCiudades();
+
+            //paisesId = generarListaIdDePaises();
+            //listadoPaises = generarListaDePaises();
+            //listadoProvincias = generarListaEstados();
+            //listadoCiudades = generarListaCiudades();
             monedas = generarListadoMonedas();
         } catch (IOException e) {
             e.printStackTrace();
