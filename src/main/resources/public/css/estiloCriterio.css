@@ -1,3 +1,9 @@
+table#tabla_categorias{
+  width:37%;
+  height: 37%;
+}
+
+
 .contenidosInputs{
   display: flex;
   justify-content: space-between;
