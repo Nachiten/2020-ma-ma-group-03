@@ -107,4 +107,7 @@ public class OperacionDeIngreso  {
     public EntidadJuridica getEntidadJuridicaAsociada() {
         return entidadJuridicaAsociada;
     }
+    public String getDescripcion() {
+        return descripcion;
+    }
 }

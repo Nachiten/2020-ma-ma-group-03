@@ -105,6 +105,13 @@ public class EntidadesController {
 
     public ModelAndView listadoOperaciones(Request request, Response response) {
         obtenerUsuarioDeId(request);
+
+        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
+        List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
+
+        parametros.put("operacionesEgreso", operacionesEgreso);
+        parametros.put("operacionesIngreso", operacionesIngreso);
+
         return new ModelAndView(parametros, "listadoOperaciones.hbs");
     }
 

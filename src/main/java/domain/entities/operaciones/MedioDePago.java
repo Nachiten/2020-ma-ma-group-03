@@ -27,4 +27,7 @@ public class MedioDePago extends EntidadPersistente {
         this.numero = numero;
     }
 
+    public TipoMedioDePago getTipo() {
+        return tipo;
+    }
 }

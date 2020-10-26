@@ -39,18 +39,24 @@
             <thead>
                 <tr>
                     <th>NUMERO OPERACION</th>
-                    <th>DESCRIPCION</th>
+                    <th>USUARIO</th>
+                    <th>MEDIO DE PAGO</th>
+                    <th>DOCUMENTO COMERCIAL</th>
                     <td>MONTO</td>
                     <td>FECHA</td>
                 </tr>
             </thead>
         <tbody id="content_table">
+                {{#each operacionesEgreso}}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{IDOperacion}}</td>
+                    <td>{{usuario.nombreUsuario}}</td>
+                    <td>{{medioDePago.tipo.tipoPago}}</td>
+                    <td>{{documentoComercial.tipo.nombre}}</td>
+                    <td>{{montoTotal}}</td>
+                    <td>{{fecha}}</td>
                 </tr>
+                {{/each}}
             </tbody>
 
             
@@ -71,12 +77,14 @@
                 </tr>
             </thead>
         <tbody id="content_table">
+                {{#each operacionesIngreso}}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{id}}</td>
+                    <td>{{descripcion}}</td>
+                    <td>{{montoTotal}}</td>
+                    <td>{{fecha}}</td>
                 </tr>
+                {{/each}}
             </tbody>
 
             
