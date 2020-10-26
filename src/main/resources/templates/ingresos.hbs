@@ -2,7 +2,7 @@
 <div class = "ingresos">
 	<br>
 	<br>
-       <form action="/operacionIngreso" method="post">
+    <form action="/usuario/ingresos/{{id}}" method="post">
 	     <center>
 	        <table class= "formulario" border = 0 >
               <tr>
@@ -14,13 +14,13 @@
 
 	          <tr>
 	             <td><label>Monto: </label></td>
-	             <td><input type="number" name="monto" placeholder="Ingrese el monto" required></td>
+	             <td><input type="number" name="monto" placeholder="Ej. 200" required></td>
               </tr>
 
 			  <tr>
 	             <td><label>Moneda: </label></td>
 	             <td> <select name="moneda" required >
-                         <option>Seleccionar moneda</option>
+                         <option hidden selected>-Seleccionar moneda-</option>
                          {{#each monedas}}
                          <option>{{id}} - {{description}}</option>
                          {{/each}}
@@ -29,18 +29,14 @@
               </tr>
 
 	          <tr>
-	            <td><label>Descripcion: </label></td>
-	            <td><input type="text" name="descripcion" placeholder="Ingrese la descripcion" required></td>
+	            <td><label>Descripción: </label></td>
+	            <td><input type="text" name="descripcion" placeholder="Ingrese la descripción" required></td>
 	          </tr>
 
 	        </table>
-        <button type= "submit">Cargar</button>
+            <button type= "submit" onclick="mostrarModalGuardadoIngreso({{id}})">Guardar</button>
         </center>
-       </form>
-	  </div>
-	
-</center>
-</form>
+    </form>
 </div>
 <link rel="stylesheet" href="/css/estiloIngresos.css" />
 {{/partial}}

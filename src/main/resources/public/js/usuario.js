@@ -14,6 +14,7 @@ function showInModal(unModal, unContenido){
     agregarA(unModal,unContenido);
     modal_show(unModal);
 }
+
 function cerrarSesion() {
     var ruta = "/";
     var metodo = "POST";
@@ -41,3 +42,30 @@ function verificarSesion() {
         });
 }
 
+function mostrarModalGuardadoIngreso(id) {
+    var ruta = "/usuario/ingresos/"+id;
+    var metodo = "Post";
+    $.ajax({
+        type : metodo,
+        url : ruta,
+        datatype : "html",
+        succes : function (result) {
+            showInModal("modal", result);
+
+        }
+    });
+}
+
+/*
+$(document).ready(function(){
+    var $form = $('form');
+    $form.submit(function(){
+        $.post($(this).attr('action'),
+            $(this).serialize(),
+            function(response){
+            // do something here on success
+            },'json');
+        return false;
+    });
+});
+*/

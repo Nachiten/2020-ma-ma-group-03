@@ -56,10 +56,10 @@ public class EntidadesController {
 
     private void obtenerUsuarioDeId(Request request){
         int id = administradorDeSesion.obtenerIdDeSesion(request);
-        Usuario unUsuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
-        parametros.put("nombre", unUsuario.getNombre());
-        parametros.put("apellido", unUsuario.getApellido());
-        parametros.put("id", unUsuario.getId());
+        usuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
+        parametros.put("nombre", usuario.getNombre());
+        parametros.put("apellido", usuario.getApellido());
+        parametros.put("id", usuario.getId());
     }
     // --- GETs ---
 
@@ -115,7 +115,7 @@ public class EntidadesController {
 
     // --- POSTs ---
 
-    public Response guardarOperacionDeEgreso(Request request, Response response){
+    public ModelAndView guardarOperacionDeEgreso(Request request, Response response){
         // Leo los query params
         String fechaString = request.queryParams("fecha");
         String montoTotalString = request.queryParams("montoTotal");
@@ -129,8 +129,8 @@ public class EntidadesController {
 
         if (noEligioMedioPago(tipoMedioDePagoString) || noEligioDocumentoComercial(tipoDocumentoComercialString)){
             // No se inserto metodo de pago o documento comercial
-            response.redirect("/egresos");
-            return response;
+            parametros.put("mensaje","No se inserto metodo de pago o documento comercial");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
         }
 
         // Leo todos los items
@@ -156,15 +156,11 @@ public class EntidadesController {
         // Genero operacion de egreso
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
 
-        // TODO | Esta hardcodeada la entidad juridica
-        EntidadJuridica entidadJuridica = EntityManagerHelper.getEntityManager().find(EntidadJuridica.class, 1);
-
-        int id = administradorDeSesion.obtenerIdDeSesion(request);
-        Usuario usuarioCreador = this.unUsuarioController.getRepoUsuarios().buscar(id);
+        EntidadJuridica entidadJuridica = usuario.getEntidadJuridica();
 
         // Setters necesarios
         operacionAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
-        operacionAGuardar.setUsuario(usuarioCreador);
+        operacionAGuardar.setUsuario(usuario);
         operacionAGuardar.setMedioDePago(medioDePago);
         operacionAGuardar.setDocumentoComercial(documentoComercial);
         operacionAGuardar.setCantidadPresupuestosRequerida(presupuestosRequeridos);
@@ -177,52 +173,55 @@ public class EntidadesController {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
             // Hubo un error
-            response.redirect("/error");
-            return response;
+            parametros.put("mensaje", "Se produjo un erroe al gradar los datos.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
         }
 
         // Se persistio correctamente
-        response.redirect("/egresos");
-        return response;
+        parametros.put("mensaje", "Se guardaron los datos correctamente");
+        return new ModelAndView(parametros,"modalInformativo2.hbs");
     }
 
-    public Response guardarOperacionDeIngreso(Request request, Response response){
+    public ModelAndView guardarOperacionDeIngreso(Request request, Response response){
+
+        obtenerUsuarioDeId(request);
 
         String fechaString = request.queryParams("fecha");
         String montoString = request.queryParams("monto");
         String monedaString = request.queryParams("moneda");
         String descripcion = request.queryParams("descripcion");
 
+        Map<String, Object> model = new HashMap<>();
+
         // No se eligio una moneda
-        if (noEligioMoneda(monedaString)){
-            response.redirect("/egresos");
-            return response;
+        if (validarVacio(monedaString)){
+            model.put("mensaje","No seleccionaste una moneda.");
+            return new ModelAndView(model,"modalInformativo2.hbs");
         }
 
+        //se convierte el string fecha a formato fecha
         LocalDate fecha = convertirAFecha(fechaString);
         float monto = Float.parseFloat(montoString);
 
+        //se convierte el string moneda a tipo moneda
         Moneda monedaElegida = buscarMoneda(monedaString);
 
-        OperacionDeIngreso operacionAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
+        EntidadJuridica unaEntidadJuridica = usuario.getEntidadJuridica();
 
-        try{
-            // Persistir operacion
-            repoOperacionIngreso.agregar(operacionAGuardar);
-        }catch (Exception e) {
-            String mensajeError = e.getMessage();
-            System.out.println("EXCEPCION: " + mensajeError);
-            // Hubo un error
-            response.redirect("/error");
-            return response;
+        //se instancia una operacion de ingreso a persistir
+        OperacionDeIngreso operacionAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
+        operacionAGuardar.setEntidadJuridicaAsociada(unaEntidadJuridica);
+
+        if (!validarPersistencia(repoOperacionIngreso,operacionAGuardar)){
+            model.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
+            return new ModelAndView(model, "modalInformativo2.hbs");
         }
 
-        // Fue persistido correctamente
-        response.redirect("/ingresos");
-        return response;
+        model.put("mensaje","Los datos se guardaron correctamente.");
+        return new ModelAndView(model,"modalInformativo2.hbs");
     }
 
-    public Response guardarPresupuesto(Request request, Response response){
+    public ModelAndView guardarPresupuesto(Request request, Response response){
         // Leo query params
         String montoTotalString = request.queryParams("montoTotal");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
@@ -230,8 +229,8 @@ public class EntidadesController {
 
         if (noEligioDocumentoComercial(tipoDocumentoComercialString)){
             // No se inserto documento comercial
-            response.redirect("/presupuestos");
-            return response;
+            parametros.put("mensaje", "No se inserto documento comercial.");
+            return new ModelAndView(parametros, "modalInformativo2.hbs");
         }
 
         String categoria1 = request.queryParams("categoria1");
@@ -263,42 +262,31 @@ public class EntidadesController {
         presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
         presupuestoAGuardar.setItems(listaItems);
 
-        try{
-            // Persistir operacion
-            repoPresupuesto.agregar(presupuestoAGuardar);
-        }catch (Exception e) {
-            String mensajeError = e.getMessage();
-            System.out.println("EXCEPCION: " + mensajeError);
-            // Hubo un error
-            response.redirect("/error");
-            return response;
+        if (!validarPersistencia(repoPresupuesto,presupuestoAGuardar)){
+            parametros.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
+            return new ModelAndView(parametros, "modalInformativo2.hbs");
         }
 
         // Se persisitio correctamente
-        response.redirect("/presupuestos");
-        return response;
+        parametros.put("mensaje","Los datos se guardaron correctamente.");
+        return new ModelAndView(parametros,"modalInformativo2.hbs");
     }
 
-    public Response guardarCriterio(Request request, Response response){
+    public ModelAndView guardarCriterio(Request request, Response response){
         String nombreCriterio = request.queryParams("nombreCriterio");
 
         List<CategoriaCriterio> listaCategoriasCriterio = obtenerYGenerarListaCategoriasCriterio(request);
 
         Criterio criterioAGuardar = new Criterio(nombreCriterio, listaCategoriasCriterio);
 
-        try{
-            // Persistir operacion
-            repoCriterio.agregar(criterioAGuardar);
-        }catch (Exception e) {
-            String mensajeError = e.getMessage();
-            System.out.println("EXCEPCION: " + mensajeError);
-            // Hubo un error
-            response.redirect("/error");
-            return response;
+        if (!validarPersistencia(repoCriterio,criterioAGuardar)){
+            parametros.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
+            return new ModelAndView(parametros, "modalInformativo2.hbs");
         }
 
-        response.redirect("/criterios");
-        return response;
+        // Se persisitio correctamente
+        parametros.put("mensaje","Los datos se guardaron correctamente.");
+        return new ModelAndView(parametros,"modalInformativo2.hbs");
     }
 
     private List<CategoriaCriterio> obtenerYGenerarListaCategoriasCriterio(Request request){
@@ -329,10 +317,6 @@ public class EntidadesController {
     }
     private boolean noEligioDocumentoComercial(String documentoComercialString){
         return documentoComercialString.equals("Seleccionar documento comercial");
-    }
-
-    private boolean noEligioMoneda(String monedaString){
-        return monedaString.equals("Seleccionar moneda");
     }
 
     private List<CategoriaCriterio> obtenerListaCategoriaCriterio(Request request){
@@ -412,5 +396,18 @@ public class EntidadesController {
             }
         }
         return null;
+    }
+
+    private boolean validarVacio(String cadena){
+        return cadena.trim().isEmpty();
+    }
+
+    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
+        try {
+            objetoFactory.agregar(objetoClase);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 }

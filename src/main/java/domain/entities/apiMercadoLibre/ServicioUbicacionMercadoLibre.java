@@ -63,13 +63,14 @@ public class ServicioUbicacionMercadoLibre {
         return respuestaCiudades.body();
     }
 
-    //listar una ciudad ok
+    // Listar una ciudad ok
     public Ciudad obtenerUnaCiudad(String idCiudad) throws IOException{
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);
         Call<Ciudad> pedidoCiudad = ubicacionService.ciudad(idCiudad, "id, name");
         Response<Ciudad> respuestaCiudad = pedidoCiudad.execute();
         return respuestaCiudad.body();
     }
+
     // Listar todas las monedas ok
     public List<Moneda> listadoMonedas() throws IOException {
         UbicacionService ubicacionService = this.retrofit.create(UbicacionService.class);

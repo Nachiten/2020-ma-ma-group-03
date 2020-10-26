@@ -57,7 +57,7 @@ public class Router {
 
         // Guardar los datos de las ventanas POST
         Spark.post("/operacionEgreso", entidadesController::guardarOperacionDeEgreso);
-        Spark.post("/operacionIngreso", entidadesController::guardarOperacionDeIngreso);
+        Spark.post("/usuario/ingresos/:id", entidadesController::guardarOperacionDeIngreso, Router.engine);
         Spark.post("/presupuesto", entidadesController::guardarPresupuesto);
         Spark.post("/criterio", entidadesController::guardarCriterio);
 
