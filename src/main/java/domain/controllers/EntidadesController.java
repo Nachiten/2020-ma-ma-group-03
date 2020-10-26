@@ -6,6 +6,7 @@ import domain.entities.apiMercadoLibre.Moneda;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
 import domain.entities.usuarios.Usuario;
+import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -29,6 +30,8 @@ public class EntidadesController {
     private Repositorio<Presupuesto> repoPresupuesto;
     private Repositorio<CategoriaCriterio> repoCategoriaCriterio;
     private Repositorio<Criterio> repoCriterio;
+    private Repositorio<Proveedor> repoProveedor;
+
     private AdministradorDeSesion administradorDeSesion;
     private UsuarioController unUsuarioController;
 
@@ -44,6 +47,7 @@ public class EntidadesController {
         this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
         this.repoCategoriaCriterio = FactoryRepositorio.get(CategoriaCriterio.class);
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
+        this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
 
         this.administradorDeSesion = new AdministradorDeSesion();
         this.unUsuarioController = new UsuarioController();
@@ -76,7 +80,9 @@ public class EntidadesController {
 
         List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
+        List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
 
+        parametros.put("proveedores", proveedores);
         parametros.put("tiposMediosDePago", tiposMediosPago);
         parametros.put("tiposDocumentoComercial", tiposDocumentoComercial);
 
@@ -128,6 +134,7 @@ public class EntidadesController {
         String tipoMedioDePagoString = request.queryParams("medioDePago");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
+        String razonSocialProveedor = request.queryParams("proveedor");
 
         String numeroMedioDePagoString = request.queryParams("numeroMedioDePago");
         String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
@@ -150,6 +157,8 @@ public class EntidadesController {
         int numeroMedioDePago = Integer.parseInt(numeroMedioDePagoString);
         int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
 
+        // Busco proveedor
+        Proveedor proveedor = buscarProveedor(razonSocialProveedor);
         // Genero tipo medio pago y tipoDocComercial
         TipoMedioDePago tipoMedioPago = buscarTipoMedioPago(tipoMedioDePagoString);
         TipoDocumentoComercial tipoDocComercial = buscarTipoDocComercial(tipoDocumentoComercialString);
@@ -161,15 +170,19 @@ public class EntidadesController {
         // Genero operacion de egreso
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
 
-        EntidadJuridica entidadJuridica = usuario.getEntidadJuridica();
+        int id = administradorDeSesion.obtenerIdDeSesion(request);
+        Usuario miUsuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
+
+        EntidadJuridica entidadJuridica = miUsuario.getEntidadJuridica();
 
         // Setters necesarios
         operacionAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
-        operacionAGuardar.setUsuario(usuario);
+        operacionAGuardar.setUsuario(miUsuario);
         operacionAGuardar.setMedioDePago(medioDePago);
         operacionAGuardar.setDocumentoComercial(documentoComercial);
         operacionAGuardar.setCantidadPresupuestosRequerida(presupuestosRequeridos);
         operacionAGuardar.setItems(listaItems);
+        operacionAGuardar.setProveedorAsociado(proveedor);
 
         try{
             // Persistir operacion
@@ -238,15 +251,7 @@ public class EntidadesController {
             return new ModelAndView(parametros, "modalInformativo2.hbs");
         }
 
-        String categoria1 = request.queryParams("categoria1");
-        String categoria2 = request.queryParams("categoria2");
-        String categoria3 = request.queryParams("categoria3");
-
         List<CategoriaCriterio> categoriasCriterio = obtenerListaCategoriaCriterio(request);
-
-        //String fechaString = request.queryParams("fecha");
-        // Convierto de string a LocalDate
-        //LocalDate fecha = convertirAFecha(fechaString);
 
         // Convierto los numeros
         float montoTotal = Float.parseFloat(montoTotalString);
@@ -370,6 +375,17 @@ public class EntidadesController {
         for ( TipoMedioDePago unTipoMedioPago : tiposMediosPago ) {
             if (unTipoMedioPago.getTipoPago().equals(nombre)){
                 return unTipoMedioPago;
+            }
+        }
+        return null;
+    }
+
+    private Proveedor buscarProveedor(String razonSocial){
+        List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
+
+        for ( Proveedor unProveedor : proveedores ) {
+            if (unProveedor.getRazonSocial().equals(razonSocial)){
+                return unProveedor;
             }
         }
         return null;

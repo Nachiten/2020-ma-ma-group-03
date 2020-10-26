@@ -33,7 +33,7 @@
                     <tr>
                         <td>Tipo de Documento Comercial:</td>
                         <td>
-                            <select name = "documentoComercial" >
+                            <select name = "documentoComercial" required>
                                 <option hidden selected>-Seleccionar documento comercial-</option>
                                 {{#each tiposDocumentoComercial}}
                                     <option>{{nombre}}</option>
@@ -48,8 +48,11 @@
                     <tr>
                         <td>Proveedor:</td>
                         <td>
-                            <select name = "proveedor">
+                            <select name = "proveedor" required>
                                 <option hidden selected> -Seleccionar proveedor-</option>
+                                {{#each proveedores}}
+                                    <option>{{razonSocial}}</option>
+                                {{/each}}
                             </select>
                         </td>
                     </tr>

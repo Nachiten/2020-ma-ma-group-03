@@ -101,6 +101,26 @@ public class Usuario extends EntidadPersistente {
         this.entidadJuridica = entidadJuridica;
     }
 
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setBandejaDeMensajes(List<Mensaje> bandejaDeMensajes) {
+        this.bandejaDeMensajes = bandejaDeMensajes;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
