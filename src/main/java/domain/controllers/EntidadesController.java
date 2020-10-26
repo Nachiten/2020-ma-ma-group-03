@@ -1,6 +1,7 @@
 package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
+import criterioOperacion.Criterio;
 import domain.entities.apiMercadoLibre.Moneda;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
@@ -29,6 +30,7 @@ public class EntidadesController {
     private Repositorio<OperacionDeIngreso> repoOperacionIngreso;
     private Repositorio<Presupuesto> repoPresupuesto;
     private Repositorio<CategoriaCriterio> repoCategoriaCriterio;
+    private Repositorio<Criterio> repoCriterio;
     private AdministradorDeSesion administradorDeSesion;
     private UsuarioController unUsuarioController;
 
@@ -43,6 +45,7 @@ public class EntidadesController {
         this.repoMonedas = FactoryRepositorio.get(Moneda.class);
         this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
         this.repoCategoriaCriterio = FactoryRepositorio.get(CategoriaCriterio.class);
+        this.repoCriterio = FactoryRepositorio.get(Criterio.class);
 
         this.administradorDeSesion = new AdministradorDeSesion();
         this.unUsuarioController = new UsuarioController();
@@ -258,6 +261,7 @@ public class EntidadesController {
         presupuestoAGuardar.setMontoTotal(montoTotal);
         presupuestoAGuardar.setDocumentoComercial(documentoComercial);
         presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
+        presupuestoAGuardar.setItems(listaItems);
 
         try{
             // Persistir operacion
@@ -276,12 +280,44 @@ public class EntidadesController {
     }
 
     public Response guardarCriterio(Request request, Response response){
+        String nombreCriterio = request.queryParams("nombreCriterio");
 
-        // TODO | Persistir criterio
+        List<CategoriaCriterio> listaCategoriasCriterio = obtenerYGenerarListaCategoriasCriterio(request);
 
-        // Para leer lista de categorias copiate de obtenerListaItems
+        Criterio criterioAGuardar = new Criterio(nombreCriterio, listaCategoriasCriterio);
 
+        try{
+            // Persistir operacion
+            repoCriterio.agregar(criterioAGuardar);
+        }catch (Exception e) {
+            String mensajeError = e.getMessage();
+            System.out.println("EXCEPCION: " + mensajeError);
+            // Hubo un error
+            response.redirect("/error");
+            return response;
+        }
+
+        response.redirect("/criterios");
         return response;
+    }
+
+    private List<CategoriaCriterio> obtenerYGenerarListaCategoriasCriterio(Request request){
+        List<CategoriaCriterio> categorias = new ArrayList<>();
+
+        int cantCategorias = 0;
+
+        String nombreCategoria;
+
+        while ( (nombreCategoria = request.queryParams("nombre_I[" + cantCategorias + "]") ) != null){
+
+            CategoriaCriterio categoria = new CategoriaCriterio(nombreCategoria, null);
+
+            categorias.add(categoria);
+
+            cantCategorias++;
+        }
+
+        return categorias;
     }
 
 

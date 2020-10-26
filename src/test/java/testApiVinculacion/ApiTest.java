@@ -36,7 +36,6 @@ public class ApiTest {
 
     List<String> criterios = new ArrayList<>();
 
-
     public void agregarOperacionesALista(){
         operacionDeEgresoList.add(operacionDeEgreso1);
         operacionDeEgresoList.add(operacionDeEgreso2);

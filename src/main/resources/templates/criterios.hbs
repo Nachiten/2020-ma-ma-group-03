@@ -1,78 +1,78 @@
 {{#partial "contenido"}}
-<div class="containerTab">
-	<br>
-    <br>
-    <form action="/criterio" method="post" >
-    <div class="contenidosInputs">
-        <div class="tab">
-            <table class="formulario1" border="0">
-                <tr style="background-color: white">
-                    <td>Nombre de Criterio:</td>
-                    <td><input type="text" placeholder="Ej: Un criterio" id="criterio"></td>
-                </tr>
-                <!--<tr>
-                    <td rowspan="2"><button type="button" onclick="nuevaFilaEnCriterio()">Agregar</button></td>
+    <div class="containerTab">
+        <br>
+        <br>
+        <form action="/criterio" method="post" >
+            <div class="contenidosInputs">
+                <div class="tab">
+                    <table class="formulario1" border="0">
+                        <tr style="background-color: white">
+                            <td>Nombre de Criterio:</td>
+                            <td><input type="text" name="nombreCriterio" placeholder="Ej: Un criterio" id="criterio"></td>
+                        </tr>
+                        <!--<tr>
+                            <td rowspan="2"><button type="button" onclick="nuevaFilaEnCriterio()">Agregar</button></td>
 
-                </tr>-->
-            </table>
-        </div>
-        <div class="tab">
-            <button type="submit">Cargar</button>
-        </div>
-        <div class="tab">
-        <table class="formulario2" border="0">
-            <tr style="background-color: white">
-                <td>Nombre de Categoría:</td>
-                <td><input type="text" placeholder="Ej: Una categoría" id="categoria"></td>
-            </tr>
-            <tr>
-                <td rowspan="2"><button type="button" onclick="nuevaFilaEnCategoria()">Agregar</button></td>
+                        </tr>-->
+                    </table>
+                </div>
+                <div class="tab">
+                    <button type="submit">Cargar</button>
+                </div>
+                <div class="tab">
+                    <table class="formulario2" border="0">
+                        <tr style="background-color: white">
+                            <td>Nombre de Categoría:</td>
+                            <td><input type="text" name="nombreCategoria"  placeholder="Ej: Una categoría" id="categoria"></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><button type="button" onclick="nuevaFilaEnCategoria()">Agregar</button></td>
 
-            </tr>
-        </table>
-    </div>
-    </div>
-
-    <div class="tablasCC">
-        <!--<div class="tab">
-            <div class="table-wrapper">
-                <table id="tabla_criterios">
-                    <thead>
-                    <tr>
-                        <th>CRITERIO</th>
-                        <td>ACCIONES</td>
-                    </tr>
-                    </thead>
-                    <tbody id = "content_table">
-                    <tr>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>-->
-        <div class="tab">
-            <div class="table-wrapper">
-                <table id="tabla_categorias">
-                    <thead>
-                    <tr>
-                        <th>CATEGORÍA</th>
-                        <td>ACCIONES</td>
-                    </tr>
-                    </thead>
-                    <tbody id = "content_table">
-                    <tr>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    </form>
-</div>
 
-<link rel="stylesheet" href="/css/estiloCriterio.css" />
-<script src="/js/formatoDeTabla.js"></script>
+            <div class="tablasCC">
+                <!--<div class="tab">
+                    <div class="table-wrapper">
+                        <table id="tabla_criterios">
+                            <thead>
+                            <tr>
+                                <th>CRITERIO</th>
+                                <td>ACCIONES</td>
+                            </tr>
+                            </thead>
+                            <tbody id = "content_table">
+                            <tr>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>-->
+                <div class="tab">
+                    <div class="table-wrapper">
+                        <table id="tabla_categorias">
+                            <thead>
+                            <tr>
+                                <th>CATEGORÍA</th>
+                                <td>ACCIONES</td>
+                            </tr>
+                            </thead>
+                            <tbody id = "content_table">
+                            <tr>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <link rel="stylesheet" href="/css/estiloCriterio.css" />
+    <script src="/js/formatoDeTabla.js"></script>
 {{/partial}}
 {{>principal.hbs}}
