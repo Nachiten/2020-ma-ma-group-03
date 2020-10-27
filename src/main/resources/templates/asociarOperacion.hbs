@@ -2,29 +2,45 @@
 <div class="asociarOperaciones">
     <br>
     <br>
+    <form action="" method="post" >
     <center>
+
         <div class="tabAO">
             <table id="tabla1" class="tabla1" border="0">
                 <tr style="background-color:rgba(216, 14, 14, 0.418)">
-                    <td>Operaciones de egreso:</td>
-                    <td>
-                        <select name = "egreso" required >
-                            <option> Seleccionar operacion de egreso</option>
+                    <td>Seleccionar Criterios Vinculacion:</td>
+                    <!--<td>
+                        <select name = "criterioVinculacion" required >
+                            <option>Seleccionar un criterio</option>
+                            <option>Orden-Valor-PrimeroEgreso</option>
+                            <option>Orden-Valor-PrimeroIngreso</option>
+                            <option>Fecha</option>
+                            <option>Mix</option>
                         </select>
+                    </td>-->
+
+                    <td>
+                        <!--<input type="checkbox" name="categoria1" value="categoria1"> categoria1<br>-->
+                        <input type="checkbox" name="0" value="ordenValorPrimeroEgreso">Orden Valor Primero Egreso<br>
+                        <input type="checkbox" name="1" value="ordenValorPrimeroIngreso">Orden Valor Primero Ingreso<br>
+                        <input type="checkbox" name="2" value="fecha">Fecha<br>
                     </td>
-                    <td>Operaciones de ingreso:</td>
+
+                    <!--<td>Operaciones de ingreso:</td>
                     <td>
                         <select name = "ingreso" required >
                             <option> Seleccionar operacion de ingreso</option>
                          </select>
-                    </td>
+                    </td>-->
                 </tr>
             </table>
-        </div> 
+        </div>
+
     </center>
     <center>
-        <button type="submit">Asociar operaciones</button>
+        <button type="submit">Ejecutar Vinculacion</button>
     </center>
+    </form>
     
 </div>
 <link rel="stylesheet" href="/css/estiloAsociaroperaciones.css" />

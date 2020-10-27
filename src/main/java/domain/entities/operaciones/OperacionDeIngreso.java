@@ -31,7 +31,7 @@ public class OperacionDeIngreso  {
     @ManyToOne (cascade = CascadeType.ALL)
     private EntidadJuridica entidadJuridicaAsociada;
 
-    @Transient
+    @OneToMany (cascade = CascadeType.ALL)
     private List<OperacionDeEgreso> operacionesDeEgresoVinculadas;
 
     @Transient

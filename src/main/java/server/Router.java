@@ -60,6 +60,7 @@ public class Router {
         Spark.post("/usuario/ingresos/:id", entidadesController::guardarOperacionDeIngreso, Router.engine);
         Spark.post("/usuario/presupuestos/:id", entidadesController::guardarPresupuesto, Router.engine);
         Spark.post("/usuario/criterios/:id", entidadesController::guardarCriterio, Router.engine);
+        Spark.post("/usuario/asociarOperacion/:id", entidadesController::ejecutarVinculacion, Router.engine);
 
     }
 }

@@ -1,5 +1,6 @@
 package domain.controllers;
 
+import apiEgresoIngreso.ServicioVinculacionEgresosIngresos;
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
 import domain.entities.apiMercadoLibre.Moneda;
@@ -13,6 +14,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -213,6 +215,30 @@ public class EntidadesController {
         return new ModelAndView(parametros,"modalInformativo2.hbs");
     }
 
+    public ModelAndView ejecutarVinculacion(Request request, Response response) throws IOException {
+
+        List<String> criterios = obtenerListaCriteriosVinculacion(request);
+
+        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
+        List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
+
+        ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ServicioVinculacionEgresosIngresos.instancia();
+
+        List<OperacionDeIngreso> ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
+
+        for (OperacionDeIngreso unaOperacion : ingresosVinculados){
+            this.repoOperacionIngreso.modificar(unaOperacion);
+        }
+
+        // Hubo un error
+        //parametros.put("mensaje", "Se produjo un erroe al gradar los datos.");
+        //return new ModelAndView(parametros,"modalInformativo2.hbs");
+
+        // Se persistio correctamente
+        parametros.put("mensaje", "Se guardaron los datos correctamente");
+        return new ModelAndView(parametros,"modalInformativo2.hbs");
+    }
+
     public ModelAndView guardarOperacionDeIngreso(Request request, Response response){
 
         obtenerUsuarioDeId(request);
@@ -350,6 +376,25 @@ public class EntidadesController {
             if (categoriCriterioLeidaNombre != null){
                 listaADevolver.add(unaCategoriaCriterio);
             }
+        }
+
+        return listaADevolver;
+    }
+
+    private List<String> obtenerListaCriteriosVinculacion(Request request){
+
+        List<String> listaADevolver = new ArrayList<>();
+
+        for(int i = 0; i<3;i++){
+            String criterioLeido = request.queryParams(Integer.toString(i));
+
+            if (criterioLeido != null){
+                listaADevolver.add(criterioLeido);
+            }
+        }
+
+        if (listaADevolver.size() > 1){
+            listaADevolver.add(0, "mix");
         }
 
         return listaADevolver;
