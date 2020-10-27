@@ -3,5 +3,12 @@
     width: 80%;
     height: 80%;
 
+}
 
+.fas fa-check{
+    color: #4caf50;
+}
+
+.fas fa-times{
+    color: red;
 }
