@@ -34,7 +34,7 @@ public class OperacionDeIngreso  {
     @OneToMany (cascade = CascadeType.ALL)
     private List<OperacionDeEgreso> operacionesDeEgresoVinculadas;
 
-    @Transient
+    @Column (name = "montoSinVincular")
     private float montoSinVincular;
 
     @Transient
@@ -48,7 +48,7 @@ public class OperacionDeIngreso  {
     //-------------------------------------------------------------------------
 
     public OperacionDeIngreso(){
-
+        inicializar();
     }
 
     public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha, Moneda moneda) {
@@ -70,6 +70,7 @@ public class OperacionDeIngreso  {
     private void inicializar(){
         this.montoSinVincular = montoTotal;
         this.operacionesDeEgresoVinculadas = new ArrayList<>();
+
     }
 
     //-------------------------------------------------------------------------
