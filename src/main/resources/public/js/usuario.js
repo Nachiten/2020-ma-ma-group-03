@@ -56,6 +56,47 @@ function mostrarModalGuardadoIngreso(id) {
     });
 }
 
+function mostrarModalGuardadoEgreso(id) {
+    var ruta = "/usuario/egresos/"+id;
+    var metodo = "Post";
+    $.ajax({
+        type : metodo,
+        url : ruta,
+        datatype : "html",
+        succes : function (result) {
+            showInModal("modal", result);
+
+        }
+    });
+}
+
+function mostrarModalGuardadoPresupuestos(id) {
+    var ruta = "/usuario/presupuestos/"+id;
+    var metodo = "Post";
+    $.ajax({
+        type : metodo,
+        url : ruta,
+        datatype : "html",
+        succes : function (result) {
+            showInModal("modal", result);
+
+        }
+    });
+}
+
+function mostrarModalGuardadocriterios(id) {
+    var ruta = "/usuario/criterios/"+id;
+    var metodo = "Post";
+    $.ajax({
+        type : metodo,
+        url : ruta,
+        datatype : "html",
+        succes : function (result) {
+            showInModal("modal", result);
+
+        }
+    });
+}
 /*
 $(document).ready(function(){
     var $form = $('form');

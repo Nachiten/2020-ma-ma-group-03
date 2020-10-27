@@ -230,7 +230,7 @@ public class EntidadesController {
         OperacionDeIngreso operacionAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
         operacionAGuardar.setEntidadJuridicaAsociada(unaEntidadJuridica);
 
-        if (!validarPersistencia(repoOperacionIngreso,operacionAGuardar)){
+        if (!validarPersistencia(repoOperacionIngreso, operacionAGuardar)){
             model.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
             return new ModelAndView(model, "modalInformativo2.hbs");
         }
@@ -416,7 +416,7 @@ public class EntidadesController {
     }
 
     private boolean validarVacio(String cadena){
-        return cadena.trim().isEmpty();
+        return cadena == null || cadena.trim().isEmpty();
     }
 
     private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){

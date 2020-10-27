@@ -52,20 +52,12 @@ public class Router {
         Spark.get("/usuario/listadoOperaciones/:id", entidadesController::listadoOperaciones, Router.engine);
         Spark.get("/usuario/asociarOperacion/:id", entidadesController::asociarOperacion, Router.engine);
 
-        // Falta implementar hbs
-        //Spark.get("/mensajes", inicioController::presupuestos, Router.engine);
 
         // Guardar los datos de las ventanas POST
-        Spark.post("/operacionEgreso", entidadesController::guardarOperacionDeEgreso);
+        Spark.post("/usuario/egresos/:id", entidadesController::guardarOperacionDeEgreso, Router.engine);
         Spark.post("/usuario/ingresos/:id", entidadesController::guardarOperacionDeIngreso, Router.engine);
-        Spark.post("/presupuesto", entidadesController::guardarPresupuesto);
-        Spark.post("/criterio", entidadesController::guardarCriterio);
-
-
-        // OLD
-        Spark.get("/loginCorrecto", (request, response) -> "Login Correcto");
-        Spark.get("/loginIncorrecto", (request, response) -> "Login incorrecto");
-        Spark.get("/error", (request, response) -> "Ha habido un error inesperado");
+        Spark.post("/usuario/presupuestos/:id", entidadesController::guardarPresupuesto, Router.engine);
+        Spark.post("/usuario/criterios/:id", entidadesController::guardarCriterio, Router.engine);
 
     }
 }
