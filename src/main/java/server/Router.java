@@ -45,12 +45,14 @@ public class Router {
         Spark.get("/usuario", inicioController::error404, Router.engine);
 
         // Paginas una vez logueado GET
+        Spark.get("/usuario/:id", entidadesController::principal, Router.engine);
         Spark.get("/usuario/ingresos/:id", entidadesController::ingresos, Router.engine);
         Spark.get("/usuario/egresos/:id", entidadesController::egresos, Router.engine);
         Spark.get("/usuario/presupuestos/:id", entidadesController::presupuestos, Router.engine);
         Spark.get("/usuario/criterios/:id", entidadesController::criterios, Router.engine);
         Spark.get("/usuario/listadoOperaciones/:id", entidadesController::listadoOperaciones, Router.engine);
         Spark.get("/usuario/asociarOperacion/:id", entidadesController::asociarOperacion, Router.engine);
+        Spark.get("/usuario/mensajes/:id", entidadesController::mensajes, Router.engine);
 
 
         // Guardar los datos de las ventanas POST

@@ -15,11 +15,13 @@
                        </tr>
                  </thead>
                  <tbody >
-                 <tr>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                 </tr>
+                    {{#each bandejaDeMensajes}}
+                     <tr>
+                         <td>{{fechaCreado}}</td>
+                         <td>{{contenido}}</td>
+                         <td>{{fechaYHoraLeido}}</td>
+                     </tr>
+                    {{/each}}
                  </tbody>
              </table>
 

@@ -58,10 +58,12 @@ public class EntidadesController {
 
     private void obtenerUsuarioDeId(Request request){
         int id = administradorDeSesion.obtenerIdDeSesion(request);
+        // ----
         usuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
         parametros.put("id", usuario.getId());
+        parametros.put("bandejaDeMensajes", usuario.getBandejaDeMensajes());
     }
     // --- GETs ---
 
@@ -72,6 +74,12 @@ public class EntidadesController {
         parametros.put("monedas", monedas);
 
         return new ModelAndView(parametros, "ingresos.hbs");
+    }
+
+    public ModelAndView principal(Request request, Response response){
+        obtenerUsuarioDeId(request);
+
+        return new ModelAndView(parametros, "inicio.hbs");
     }
 
     public ModelAndView egresos(Request request, Response response) {
@@ -122,6 +130,11 @@ public class EntidadesController {
     public ModelAndView asociarOperacion(Request request, Response response) {
         obtenerUsuarioDeId(request);
         return new ModelAndView(parametros, "asociarOperacion.hbs");
+    }
+
+    public ModelAndView mensajes(Request request, Response response) {
+        obtenerUsuarioDeId(request);
+        return new ModelAndView(parametros, "mensaje.hbs");
     }
 
     // --- POSTs ---
