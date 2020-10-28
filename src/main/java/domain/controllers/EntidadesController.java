@@ -81,8 +81,7 @@ public class EntidadesController {
         boolean hayUsuario = obtenerUsuarioDeId(request);
 
         if (!hayUsuario){
-            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
+            return new ModelAndView(null,"error404.hbs");
         }
 
         List<Moneda> monedas = this.repoMonedas.buscarTodos();
@@ -95,8 +94,7 @@ public class EntidadesController {
         boolean hayUsuario = obtenerUsuarioDeId(request);
 
         if (!hayUsuario){
-            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
+            return new ModelAndView(null,"error404.hbs");
         }
 
         return new ModelAndView(parametros, "inicio.hbs");
@@ -107,8 +105,7 @@ public class EntidadesController {
         boolean hayUsuario = obtenerUsuarioDeId(request);
 
         if (!hayUsuario){
-            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
+            return new ModelAndView(null,"error404.hbs");
         }
 
         List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
@@ -127,8 +124,7 @@ public class EntidadesController {
         boolean hayUsuario = obtenerUsuarioDeId(request);
 
         if (!hayUsuario){
-            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
+            return new ModelAndView(null,"error404.hbs");
         }
 
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
@@ -144,8 +140,7 @@ public class EntidadesController {
         boolean hayUsuario = obtenerUsuarioDeId(request);
 
         if (!hayUsuario){
-            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
+            return new ModelAndView(null,"error404.hbs");
         }
         return new ModelAndView(parametros, "criterios.hbs");
     }
@@ -154,8 +149,7 @@ public class EntidadesController {
         boolean hayUsuario = obtenerUsuarioDeId(request);
 
         if (!hayUsuario){
-            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
+            return new ModelAndView(null,"error404.hbs");
         }
 
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
@@ -171,8 +165,7 @@ public class EntidadesController {
         boolean hayUsuario = obtenerUsuarioDeId(request);
 
         if (!hayUsuario){
-            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
+            return new ModelAndView(null,"error404.hbs");
         }
         return new ModelAndView(parametros, "asociarOperacion.hbs");
     }
@@ -181,8 +174,7 @@ public class EntidadesController {
         boolean hayUsuario = obtenerUsuarioDeId(request);
 
         if (!hayUsuario){
-            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
+            return new ModelAndView(null,"error404.hbs");
         }
         return new ModelAndView(parametros, "mensaje.hbs");
     }
