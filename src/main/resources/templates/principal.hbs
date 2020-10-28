@@ -58,21 +58,28 @@ https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_UbQYLp_IVyvhxcs6NaKxov
                     <div class="right">
                         <ul>
                             <li>
-                                <button name="button">
-                                    <i class="fas fa-home"></i>
-                                    <a href="/usuario/{{id}}" >Inicio</a>
-                                </button>
+                                <!-- BOTON HOME -->
+                                <a href="/usuario/{{id}}" >
+                                    <button name="button">
+                                        <i class="fas fa-home"></i>
+                                        <br>Inicio
+                                    </button>
+                                </a>
                             </li>
                             <li>
-                                <button name="button">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    <a href="/usuario/mensajes/{{id}}">Mensajes</a>
-                                </button>
+                                <!-- BOTON MENSAJES -->
+                                <a href="/usuario/mensajes/{{id}}">
+                                    <button name="button">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        <br>Mensajes
+                                    </button>
+                                </a>
                             </li>
                             <li>
+                                <!-- CERRAR SESION -->
                                 <button name="button"  onclick="cerrarSesion()">
                                     <i class="fas fa-sign-out-alt"></i>
-                                    Cerrar sesión
+                                    <br>Cerrar sesión
                                 </button>
                             </li>
                         </ul>

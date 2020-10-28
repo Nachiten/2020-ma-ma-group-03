@@ -264,10 +264,12 @@ public class EntidadesController {
 
         ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ServicioVinculacionEgresosIngresos.instancia();
 
-        List<OperacionDeIngreso> ingresosVinculados;
+        List<OperacionDeIngreso> ingresosVinculados = new ArrayList<>();
+
+        servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
 
         try{
-            ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
+            //
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
