@@ -10,7 +10,7 @@
 
             <tr>
              <td>Monto Total:</td>
-             <td> <input type="number" name="montoTotal" placeholder="Ej: 1000" required></td>
+             <td> <input type="number" step="0.01" min="0" name="montoTotal" placeholder="Ej: 1000" required></td>
             </tr>
             <tr>
                 <td>Tipo de Documento Comercial:</td>
@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td>Numero Documento Comercial:</td>
-                <td><input type="number" name="numeroDocumentoComercial" placeholder="Ingrese el numero" required></td>
+                <td><input type="number" min="0" name="numeroDocumentoComercial" placeholder="Ingrese el numero" required></td>
             </tr>
 
         </table>
@@ -41,8 +41,6 @@
         </table>
 
          <center>
-
-
              <table class="formulario2" border="0">
                  <tr style="background-color: white">
                      <td>Item:</td>
@@ -57,7 +55,7 @@
                  </tr>
                  <tr>
                      <td>Precio:</td>
-                     <td><input type="number" placeholder="Ej: 200" id="precio"></td>
+                     <td><input type="number" step="0.01" min="0" placeholder="Ej: 200" id="precio"></td>
                      <td></td>
                  </tr>
              </table>
