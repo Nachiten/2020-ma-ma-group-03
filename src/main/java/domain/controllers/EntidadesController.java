@@ -58,20 +58,33 @@ public class EntidadesController {
         this.usuario = new Usuario();
     }
 
-    private void obtenerUsuarioDeId(Request request){
+    private boolean obtenerUsuarioDeId(Request request){
         int id = administradorDeSesion.obtenerIdDeSesion(request);
-        // ----
+
+        if (id == -1){
+            return false;
+        }
+
         usuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
         parametros.put("id", usuario.getId());
         parametros.put("bandejaDeMensajes", usuario.getBandejaDeMensajes());
+
+        return true;
     }
+
     // --- GETs ---
 
     public ModelAndView ingresos(Request request, Response response) {
 
-        obtenerUsuarioDeId(request);
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
+
         List<Moneda> monedas = this.repoMonedas.buscarTodos();
         parametros.put("monedas", monedas);
 
@@ -79,14 +92,24 @@ public class EntidadesController {
     }
 
     public ModelAndView principal(Request request, Response response){
-        obtenerUsuarioDeId(request);
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
 
         return new ModelAndView(parametros, "inicio.hbs");
     }
 
     public ModelAndView egresos(Request request, Response response) {
 
-        obtenerUsuarioDeId(request);
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
 
         List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
@@ -101,7 +124,12 @@ public class EntidadesController {
 
     public ModelAndView presupuestos(Request request, Response response) {
 
-        obtenerUsuarioDeId(request);
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
 
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
         List<CategoriaCriterio> categoriasCriterio = this.repoCategoriaCriterio.buscarTodos();
@@ -113,12 +141,22 @@ public class EntidadesController {
     }
 
     public ModelAndView criterios(Request request, Response response) {
-        obtenerUsuarioDeId(request);
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
         return new ModelAndView(parametros, "criterios.hbs");
     }
 
     public ModelAndView listadoOperaciones(Request request, Response response) {
-        obtenerUsuarioDeId(request);
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
 
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
         List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
@@ -130,12 +168,22 @@ public class EntidadesController {
     }
 
     public ModelAndView asociarOperacion(Request request, Response response) {
-        obtenerUsuarioDeId(request);
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
         return new ModelAndView(parametros, "asociarOperacion.hbs");
     }
 
     public ModelAndView mensajes(Request request, Response response) {
-        obtenerUsuarioDeId(request);
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            parametros.put("mensaje", "Debes iniciar sesion para poder acceder.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
         return new ModelAndView(parametros, "mensaje.hbs");
     }
 
@@ -224,18 +272,24 @@ public class EntidadesController {
 
         ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ServicioVinculacionEgresosIngresos.instancia();
 
-        List<OperacionDeIngreso> ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
+        List<OperacionDeIngreso> ingresosVinculados;
+
+        try{
+            ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
+        }catch (Exception e) {
+            String mensajeError = e.getMessage();
+            System.out.println("EXCEPCION: " + mensajeError);
+            // Hubo un error
+            parametros.put("mensaje", "Se produjo un erroe al realizar la vinculacion.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
 
         for (OperacionDeIngreso unaOperacion : ingresosVinculados){
             this.repoOperacionIngreso.modificar(unaOperacion);
         }
 
-        // Hubo un error
-        //parametros.put("mensaje", "Se produjo un erroe al gradar los datos.");
-        //return new ModelAndView(parametros,"modalInformativo2.hbs");
-
         // Se persistio correctamente
-        parametros.put("mensaje", "Se guardaron los datos correctamente");
+        parametros.put("mensaje", "Se ejecuto la vinculacion correctamente");
         return new ModelAndView(parametros,"modalInformativo2.hbs");
     }
 

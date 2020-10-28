@@ -20,8 +20,10 @@ public class AdministradorDeSesion {
 	
 	public int obtenerIdDeSesion(Request request) {
 		HttpSession sesion = request.session().raw();
-    	int id = (int) sesion.getAttribute("id");
-    	return id;
+		if (sesion.getAttribute("id") == null){
+			return -1;
+		}
+		return (int) sesion.getAttribute("id");
 	}
 	
 	private <T> int obtenerId(T usuario) {

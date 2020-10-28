@@ -54,7 +54,6 @@ public class Router {
         Spark.get("/usuario/asociarOperacion/:id", entidadesController::asociarOperacion, Router.engine);
         Spark.get("/usuario/mensajes/:id", entidadesController::mensajes, Router.engine);
 
-
         // Guardar los datos de las ventanas POST
         Spark.post("/usuario/egresos/:id", entidadesController::guardarOperacionDeEgreso, Router.engine);
         Spark.post("/usuario/ingresos/:id", entidadesController::guardarOperacionDeIngreso, Router.engine);
