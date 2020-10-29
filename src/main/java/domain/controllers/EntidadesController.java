@@ -128,12 +128,38 @@ public class EntidadesController {
         }
 
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
-        List<CategoriaCriterio> categoriasCriterio = this.repoCategoriaCriterio.buscarTodos();
+        List<Criterio> criterios = this.repoCriterio.buscarTodos();
+        List<Criterio> criterios2 = quitarMitad(criterios);
 
         parametros.put("tiposDocumentoComercial", tiposDocumentoComercial);
-        parametros.put("categoriasCriterio", categoriasCriterio);
+        parametros.put("criterios", criterios);
+        parametros.put("criterios2", criterios2);
 
         return new ModelAndView(parametros, "presupuestos.hbs");
+    }
+
+    // Quita la mitad de la lista y genera otra
+    private List<Criterio> quitarMitad(List<Criterio> lista){
+        List<Criterio> listaADevolver = new ArrayList<>();
+
+        int listaSize = lista.size();
+
+        int limite;
+        if (listaSize % 2 == 0){
+            // Caso par: listaSize / 2 - 1
+            limite = listaSize / 2 - 1;
+        } else {
+            // Caso impar: listaSize / 2
+            limite = listaSize / 2;
+        }
+
+        // Recorro la lista
+        for (int i = listaSize - 1; i > limite;i--){
+            Criterio miCriterio = lista.remove(i);
+
+            listaADevolver.add(miCriterio);
+        }
+        return listaADevolver;
     }
 
     public ModelAndView criterios(Request request, Response response) {
@@ -272,7 +298,7 @@ public class EntidadesController {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
             // Hubo un error
-            parametros.put("mensaje", "Se produjo un erroe al realizar la vinculacion.");
+            parametros.put("mensaje", "Se produjo un error al realizar la vinculacion.");
             return new ModelAndView(parametros,"modalInformativo2.hbs");
         }
 
@@ -389,7 +415,7 @@ public class EntidadesController {
 
         String nombreCategoria;
 
-        for(int i = 0 ; i<30;i++){
+        for(int i = 0 ; i < 30;i++){
 
             if ((nombreCategoria = request.queryParams("nombre_I[" + i + "]") ) != null) {
                 CategoriaCriterio categoria = new CategoriaCriterio(nombreCategoria, null);

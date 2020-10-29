@@ -40,4 +40,12 @@ public class Criterio extends EntidadPersistente {
     public void agregarPadre(Criterio criterio) {
         this.criterioPadre = criterio;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public List<CategoriaCriterio> getListaCategoriaCriterio() {
+        return listaCategoriaCriterio;
+    }
 }
