@@ -69,6 +69,11 @@ public class Presupuesto extends EntidadPersistente {
                                     //SETTERS
     //-------------------------------------------------------------------------
 
+
+    public void setOperacionAsociada(OperacionDeEgreso operacionAsociada) {
+        this.operacionAsociada = operacionAsociada;
+    }
+
     public void setDocumentoComercial(DocumentoComercial documentoComercial) {
         this.documentoComercial = documentoComercial;
     }

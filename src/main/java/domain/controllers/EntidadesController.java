@@ -76,6 +76,16 @@ public class EntidadesController {
 
     // --- GETs ---
 
+    public ModelAndView principal(Request request, Response response){
+        boolean hayUsuario = obtenerUsuarioDeId(request);
+
+        if (!hayUsuario){
+            return new ModelAndView(null,"error404.hbs");
+        }
+
+        return new ModelAndView(parametros, "inicio.hbs");
+    }
+
     public ModelAndView ingresos(Request request, Response response) {
 
         boolean hayUsuario = obtenerUsuarioDeId(request);
@@ -90,16 +100,6 @@ public class EntidadesController {
         return new ModelAndView(parametros, "ingresos.hbs");
     }
 
-    public ModelAndView principal(Request request, Response response){
-        boolean hayUsuario = obtenerUsuarioDeId(request);
-
-        if (!hayUsuario){
-            return new ModelAndView(null,"error404.hbs");
-        }
-
-        return new ModelAndView(parametros, "inicio.hbs");
-    }
-
     public ModelAndView egresos(Request request, Response response) {
 
         boolean hayUsuario = obtenerUsuarioDeId(request);
@@ -111,10 +111,14 @@ public class EntidadesController {
         List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
         List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
+        List<Criterio> criterios = this.repoCriterio.buscarTodos();
+        List<Criterio> criterios2 = quitarMitad(criterios);
 
-        parametros.put("proveedores", proveedores);
         parametros.put("tiposMediosDePago", tiposMediosPago);
         parametros.put("tiposDocumentoComercial", tiposDocumentoComercial);
+        parametros.put("proveedores", proveedores);
+        parametros.put("criterios", criterios);
+        parametros.put("criterios2", criterios2);
 
         return new ModelAndView(parametros, "egresos.hbs");
     }
@@ -127,39 +131,17 @@ public class EntidadesController {
             return new ModelAndView(null,"error404.hbs");
         }
 
+        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
         List<Criterio> criterios = this.repoCriterio.buscarTodos();
         List<Criterio> criterios2 = quitarMitad(criterios);
 
+        parametros.put("operacionesEgreso", operacionesEgreso);
         parametros.put("tiposDocumentoComercial", tiposDocumentoComercial);
         parametros.put("criterios", criterios);
         parametros.put("criterios2", criterios2);
 
         return new ModelAndView(parametros, "presupuestos.hbs");
-    }
-
-    // Quita la mitad de la lista y genera otra
-    private List<Criterio> quitarMitad(List<Criterio> lista){
-        List<Criterio> listaADevolver = new ArrayList<>();
-
-        int listaSize = lista.size();
-
-        int limite;
-        if (listaSize % 2 == 0){
-            // Caso par: listaSize / 2 - 1
-            limite = listaSize / 2 - 1;
-        } else {
-            // Caso impar: listaSize / 2
-            limite = listaSize / 2;
-        }
-
-        // Recorro la lista
-        for (int i = listaSize - 1; i > limite;i--){
-            Criterio miCriterio = lista.remove(i);
-
-            listaADevolver.add(miCriterio);
-        }
-        return listaADevolver;
     }
 
     public ModelAndView criterios(Request request, Response response) {
@@ -213,12 +195,12 @@ public class EntidadesController {
         String montoTotalString = request.queryParams("montoTotal");
 
         String tipoMedioDePagoString = request.queryParams("medioDePago");
+        String numeroMedioDePagoString = request.queryParams("numeroMedioDePago");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
+        String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
+
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
         String razonSocialProveedor = request.queryParams("proveedor");
-
-        String numeroMedioDePagoString = request.queryParams("numeroMedioDePago");
-        String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
 
         if (noEligioMedioPago(tipoMedioDePagoString) || noEligioDocumentoComercial(tipoDocumentoComercialString)){
             // No se inserto metodo de pago o documento comercial
@@ -226,6 +208,8 @@ public class EntidadesController {
             return new ModelAndView(parametros,"modalInformativo2.hbs");
         }
 
+        // Leo lista de categorias
+        List<CategoriaCriterio> categoriasCriterio = obtenerListaCategoriaCriterio(request);
         // Leo todos los items
         List<Item> listaItems = obtenerListaItems(request);
 
@@ -264,6 +248,7 @@ public class EntidadesController {
         operacionAGuardar.setCantidadPresupuestosRequerida(presupuestosRequeridos);
         operacionAGuardar.setItems(listaItems);
         operacionAGuardar.setProveedorAsociado(proveedor);
+        operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
         try{
             // Persistir operacion
@@ -278,36 +263,6 @@ public class EntidadesController {
 
         // Se persistio correctamente
         parametros.put("mensaje", "Se guardaron los datos correctamente");
-        return new ModelAndView(parametros,"modalInformativo2.hbs");
-    }
-
-    public ModelAndView ejecutarVinculacion(Request request, Response response) throws IOException {
-
-        List<String> criterios = obtenerListaCriteriosVinculacion(request);
-
-        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
-        List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
-
-        ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ServicioVinculacionEgresosIngresos.instancia();
-
-        List<OperacionDeIngreso> ingresosVinculados;
-
-        try{
-            ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
-        }catch (Exception e) {
-            String mensajeError = e.getMessage();
-            System.out.println("EXCEPCION: " + mensajeError);
-            // Hubo un error
-            parametros.put("mensaje", "Se produjo un error al realizar la vinculacion.");
-            return new ModelAndView(parametros,"modalInformativo2.hbs");
-        }
-
-        for (OperacionDeIngreso unaOperacion : ingresosVinculados){
-            this.repoOperacionIngreso.modificar(unaOperacion);
-        }
-
-        // Se persistio correctamente
-        parametros.put("mensaje", "Se ejecuto la vinculacion correctamente");
         return new ModelAndView(parametros,"modalInformativo2.hbs");
     }
 
@@ -355,6 +310,12 @@ public class EntidadesController {
         String montoTotalString = request.queryParams("montoTotal");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
         String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
+        String operacionEgresoString = request.queryParams("operacionEgreso");
+
+        if (noEligioOperacionEgreso(operacionEgresoString)){
+            parametros.put("mensaje", "Se debe asociar con una operacion de egreso.");
+            return new ModelAndView(parametros, "modalInformativo2.hbs");
+        }
 
         if (noEligioDocumentoComercial(tipoDocumentoComercialString)){
             // No se inserto documento comercial
@@ -362,14 +323,20 @@ public class EntidadesController {
             return new ModelAndView(parametros, "modalInformativo2.hbs");
         }
 
+        // Leo operacion de egreso asociada
+        OperacionDeEgreso operacionEgresoAsociada = buscarOperacionEgreso(operacionEgresoString);
+        // Leo las categorias
         List<CategoriaCriterio> categoriasCriterio = obtenerListaCategoriaCriterio(request);
+        // Leo todos los items
+        List<Item> listaItems = obtenerListaItems(request);
+
+        /* TODO | Falta checkear que todos los items sean iguales a los de la operacion de egreso.
+         Caso contrario fallar */
 
         // Convierto los numeros
         float montoTotal = Float.parseFloat(montoTotalString);
         int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
 
-        // Leo todos los items
-        List<Item> listaItems = obtenerListaItems(request);
 
         // Genero tipoDocComercial
         TipoDocumentoComercial tipoDocComercial = buscarTipoDocComercial(tipoDocumentoComercialString);
@@ -382,6 +349,7 @@ public class EntidadesController {
         presupuestoAGuardar.setDocumentoComercial(documentoComercial);
         presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
         presupuestoAGuardar.setItems(listaItems);
+        presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
 
         if (!validarPersistencia(repoPresupuesto,presupuestoAGuardar)){
             parametros.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
@@ -410,6 +378,39 @@ public class EntidadesController {
         return new ModelAndView(parametros,"modalInformativo2.hbs");
     }
 
+    public ModelAndView ejecutarVinculacion(Request request, Response response) throws IOException {
+
+        List<String> criterios = obtenerListaCriteriosVinculacion(request);
+
+        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
+        List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
+
+        ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ServicioVinculacionEgresosIngresos.instancia();
+
+        List<OperacionDeIngreso> ingresosVinculados;
+
+        try{
+            ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
+        }catch (Exception e) {
+            String mensajeError = e.getMessage();
+            System.out.println("EXCEPCION: " + mensajeError);
+            // Hubo un error
+            parametros.put("mensaje", "Se produjo un error al realizar la vinculacion.");
+            return new ModelAndView(parametros,"modalInformativo2.hbs");
+        }
+
+        for (OperacionDeIngreso unaOperacion : ingresosVinculados){
+            this.repoOperacionIngreso.modificar(unaOperacion);
+        }
+
+        // Se persistio correctamente
+        parametros.put("mensaje", "Se ejecuto la vinculacion correctamente");
+        return new ModelAndView(parametros,"modalInformativo2.hbs");
+    }
+
+    // --- FUNCIONES AUXILIARES ---
+
+    // Leer la lista de la ventana criterios
     private List<CategoriaCriterio> obtenerYGenerarListaCategoriasCriterio(Request request){
         List<CategoriaCriterio> categorias = new ArrayList<>();
 
@@ -427,8 +428,6 @@ public class EntidadesController {
         return categorias;
     }
 
-    // --- FUNCIONES AUXILIARES ---
-
     private boolean noEligioMedioPago(String medioPagoString){
         return medioPagoString.equals("Seleccionar medio de pago");
     }
@@ -436,6 +435,11 @@ public class EntidadesController {
         return documentoComercialString.equals("Seleccionar documento comercial");
     }
 
+    private boolean noEligioOperacionEgreso(String operacionEgresoString){
+        return operacionEgresoString.equals("-Seleccionar una operacion de egreso-");
+    }
+
+    // Obtener lista al insertar egreso,presupuesto
     private List<CategoriaCriterio> obtenerListaCategoriaCriterio(Request request){
 
         List<CategoriaCriterio> listaADevolver = new ArrayList<>();
@@ -510,6 +514,26 @@ public class EntidadesController {
         return null;
     }
 
+    private OperacionDeEgreso buscarOperacionEgreso(String idMasFecha){
+
+        // Recorto el ID del string
+        int indexDosPuntos = idMasFecha.indexOf(":");
+        int indexPipe = idMasFecha.indexOf("|");
+        String idString = idMasFecha.substring(indexDosPuntos + 2 , indexPipe - 1);
+
+        int idOperacionEgresoBuscado = Integer.parseInt(idString);
+
+        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
+
+        for ( OperacionDeEgreso unaOperacion : operacionesEgreso ) {
+            if (unaOperacion.getIdOperacion() == idOperacionEgresoBuscado){
+                return unaOperacion;
+            }
+        }
+
+        return null;
+    }
+
     private Proveedor buscarProveedor(String razonSocial){
         List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
 
@@ -556,5 +580,29 @@ public class EntidadesController {
             return false;
         }
         return true;
+    }
+
+    // Quita la mitad de la lista y genera otra
+    private List<Criterio> quitarMitad(List<Criterio> lista){
+        List<Criterio> listaADevolver = new ArrayList<>();
+
+        int listaSize = lista.size();
+
+        int limite;
+        if (listaSize % 2 == 0){
+            // Caso par: listaSize / 2 - 1
+            limite = listaSize / 2 - 1;
+        } else {
+            // Caso impar: listaSize / 2
+            limite = listaSize / 2;
+        }
+
+        // Recorro la lista
+        for (int i = listaSize - 1; i > limite;i--){
+            Criterio miCriterio = lista.remove(i);
+
+            listaADevolver.add(miCriterio);
+        }
+        return listaADevolver;
     }
 }

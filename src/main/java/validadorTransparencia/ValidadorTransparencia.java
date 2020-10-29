@@ -40,7 +40,7 @@ public class ValidadorTransparencia implements SchedulerFunction{
 
     private void publicarMensaje(OperacionDeEgreso operacionDeEgreso, Boolean resultadoValidacion){
 
-        String identificacion = "Fecha de la operacion: " + operacionDeEgreso.getFecha().toString() + ", Monto: " + operacionDeEgreso.getMontoTotal() + ", ID: " + operacionDeEgreso.getIDOperacion();
+        String identificacion = "Fecha de la operacion: " + operacionDeEgreso.getFecha().toString() + ", Monto: " + operacionDeEgreso.getMontoTotal() + ", ID: " + operacionDeEgreso.getIdOperacion();
         operacionDeEgreso.getUsuario().publicarMensajeEnBandejaDeMensajes(identificacion, resultadoValidacion);
     }
 

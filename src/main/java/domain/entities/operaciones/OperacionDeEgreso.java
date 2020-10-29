@@ -18,10 +18,9 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     @Id
     @GeneratedValue
-    private int IDOperacion;
+    private int idOperacion;
 
     @ManyToOne (optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
     @Column (name = "fecha")
@@ -100,7 +99,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     }
 
     public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal) {
-        this.IDOperacion = idOperacion;
+        this.idOperacion = idOperacion;
         this.fecha = fecha;
         this.montoTotal = montoTotal;
         inicializar();
@@ -209,6 +208,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.proveedorAsociado = proveedorAsociado;
     }
 
+    public void setIdOperacion(int idOperacion) { this.idOperacion = idOperacion; }
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
@@ -217,7 +218,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public LocalDate getFecha() { return fecha;}
 
-    public int getIDOperacion() { return IDOperacion; }
+    public int getIdOperacion() { return idOperacion; }
 
     public int getCantidadPresupuestosRequerida() { return cantidadPresupuestosRequerida; }
 

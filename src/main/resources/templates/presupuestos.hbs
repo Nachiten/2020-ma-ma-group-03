@@ -7,7 +7,17 @@
     <form action="" method="post">
      <center>
         <table class= "formulario1">
-
+            <tr>
+                <td>Operacion de Egreso asociada:</td>
+                <td>
+                    <select name="operacionEgreso" required >
+                        <option hidden selected>-Seleccionar una operacion de egreso-</option>
+                        {{#each operacionesEgreso}}
+                            <option>ID: {{idOperacion}} | Fecha: {{fecha}}</option>
+                        {{/each}}
+                    </select>
+                </td>
+            </tr>
             <tr>
              <td>Monto Total:</td>
              <td> <input type="number" step="0.01" min="0" name="montoTotal" placeholder="Ej: 1000" required></td>
@@ -98,9 +108,8 @@
                      </tbody>
                  </table>
              </div>
+             <button type="submit"> <!--onclick="mostrarModalGuardadoPresupuestos({{id}})"--> Guardar</button>
          </center>
-
-	<button type="submit" onclick="mostrarModalGuardadoPresupuestos({{id}})">Guardar</button>
 	</center>
     </form>
     

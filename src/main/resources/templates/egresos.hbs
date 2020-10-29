@@ -57,8 +57,46 @@
                         </td>
                     </tr>
                 </table>
+            </center>
+            <center>
+            <table class= "formulario3" border = "0">
+                <td>Asociar categorias:</td>
+                <!-- TR = Fila | TD = Columna-->
+                <tr>
+                    <td>
+                        {{#each criterios}}
+                            <p>Criterio {{nombre}}:</p>
+                            {{#each listaCategoriaCriterio}}
+                                <input type="checkbox" name="{{nombreCategoria}}" value="1"> {{nombreCategoria}}<br>
+                            {{/each}}
+                            <br>
+                        {{/each}}
+                    </td>
+
+                    <td>
+                        {{#each criterios2}}
+                            <p>Criterio {{nombre}}:</p>
+                            {{#each listaCategoriaCriterio}}
+                                <input type="checkbox" name="{{nombreCategoria}}" value="1"> {{nombreCategoria}}<br>
+                            {{/each}}
+                            <br>
+                        {{/each}}
+                    </td>
+                </tr>
+
+            </table>
+            </center>
+
+            <center>
+                <table class="formulario3" border="0">
+                    <tr>
+                        <td>Presupuestos requeridos:</td>
+                        <td><input name="presupuestosRequeridos" min="0" max="1000" type="number" placeholder="Ej: 1" required><br/></td>
+                    </tr>
+                </table>
 
             </center>
+
             <center>
                 <table class="formulario2" border="0">
                     <tr style="background-color: white">
@@ -89,22 +127,15 @@
                         </thead>
                         <tbody id = "content_table">
                         <tr>
-                            <td></td>
-                            <td></td>
+                            <!--<td></td>
+                            <td></td>-->
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <button type="submit" onclick="mostrarModalGuardadoEgreso({{id}})">Guardar</button>
             </center>
-            <center>
-                <table class="formulario3" border="0">
-                    <tr>
-                        <td>Presupuestos requeridos:</td>
-                        <td><input name="presupuestosRequeridos" min="0" max="1000" type="number" placeholder="Ej: 1" required><br/></td>
-                    </tr>
-                </table>
-                    <button type="submit" onclick="mostrarModalGuardadoEgreso({{id}})">Guardar</button>
-            </center>
+
         </form>
     </div>
 <script src="/js/formatoDeTabla.js"></script>
