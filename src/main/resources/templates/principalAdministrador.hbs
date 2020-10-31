@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+      <!-- Estilos CSS-->
+      <link rel="stylesheet" type="text/css" href="/css/stylePantalla.css">
+      <link rel="stylesheet" href="/css/formatoDeTabla.css" />
+
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+
+      <!-- Imagenes-->
+    <link rel="icon"   href="/img/e-commerce.png" type="image/png" />
+
+
+  </head>
+
+
+  <body style="background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_UbQYLp_IVyvhxcs6NaKxov5QJVOA0ebD8A&usqp=CAU);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;">
+  <div class="wrapper">
+      <div class="fijo">
+          <div class="multi_color_border"></div>
+          <div class="top_nav">
+              <div class="left">
+                  <div class="logo"><p style="font-size: 30px;"><span>GESOC</span></p>
+                      Bienvenido {{apellido}}, {{nombre}}
+                  </div>
+              </div>
+              <div class="right">
+                  <ul>
+                      <li>
+                          <!-- BOTON HOME -->
+                          <a href="" >
+                              <button name="button">
+                                  <i class="fas fa-home"></i>
+                                  <br>Inicio
+                              </button>
+                          </a>
+                      </li>
+
+                      <li>
+                          <!-- CERRAR SESION -->
+                          <button name="button"  onclick="cerrarSesion()">
+                              <i class="fas fa-sign-out-alt"></i>
+                              <br>Cerrar sesión
+                          </button>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="bottom_nav">
+              <ul class="link">
+                  <li class="a"><a href="">Alta usuario</a></li>
+                  <li class="b"><a href="">Alta proveedor</a></li>
+                  <li class="c"><a href="">Listado de usuarios</a></li>
+                  <li class="d"><a href="">Listado de proveedores</a></li>
+
+              </ul>
+          </div>
+
+      </div>
+
+      <div class="container">
+          {{#block "contenido"}}
+          {{/block}}
+      </div>
+  </div>
+
+
+</body>
+</html>

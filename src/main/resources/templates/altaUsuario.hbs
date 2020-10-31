@@ -1,0 +1,55 @@
+{{#partial "contenido"}}
+    <div class = "altaUsuario">
+        <br>
+        <br>
+
+
+        <form action="">
+            <center>
+
+            <table class= "formulario" border = 0 >
+                <tr>
+                    <td>Nombre:</td></td>
+
+                    <td><input type="text" name="nombre" placeholder="Ingrese el nombre" required></td>
+                </tr>
+                <tr>
+                    <td>Apellido:</td></td>
+
+                    <td><input type="text" name="apellido" placeholder="Ingrese el apellido" required></td>
+                </tr>
+
+                <tr>
+                    <td>Nombre de usuario:</td></td>
+
+                    <td><input type="text" name="nombreUsuario" placeholder="Ingrese el usuario" required></td>
+                </tr>
+
+                <tr>
+                    <td>Contraseña:</td></td>
+
+                    <td><input type="password" name="contrasenia" placeholder="Ingrese la contraseña" required></td>
+                </tr>
+
+                <tr>
+                    <td>Tipo usuario:</td></td>
+
+                    <td>
+                      <select name = "tipoUsuario" required >
+                        <option>Seleccionar tipo</option>
+                          <option>estandar</option>
+                          <option>administrador</option>
+                    </td>
+                </tr>
+
+            </table>
+                <button type= "submit" >Guardar</button>
+            </center>
+        </form>
+
+
+    </div>
+    <link rel="stylesheet" href="/css/estiloAltaUsuario.css" />
+
+{{/partial}}
+{{>principalAdministrador.hbs}}

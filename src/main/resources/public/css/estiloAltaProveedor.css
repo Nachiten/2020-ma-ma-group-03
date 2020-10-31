@@ -1,0 +1,31 @@
+.formulario td{
+    width: 50%;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+button{
+
+    transition:.25s;
+    background:#00afff;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.5em;
+    padding:1em 2em;
+    font-size: larger;
+    cursor:pointer;
+}
+button:focus,button:hover{
+
+    color:#fff;
+}
+
+
+.formulario input{
+    font-size: 17px;
+}
+
+.formulario select{
+    font-size: 17px;
+}

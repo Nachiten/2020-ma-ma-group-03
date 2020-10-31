@@ -1,0 +1,93 @@
+{{#partial "contenido"}}
+    <div class = "altaProveedor">
+        <br>
+        <br>
+
+        <form action="">
+            <center>
+
+                <table class= "formulario" border = 0 >
+                    <tr>
+                        <td>Nombre:</td></td>
+
+                        <td><input type="text" name="nombre" placeholder="Ingrese el nombre" required></td>
+                    </tr>
+                    <tr>
+                        <td>Apellido:</td></td>
+
+                        <td><input type="text" name="apellido" placeholder="Ingrese el apellido" required></td>
+                    </tr>
+
+                    <tr>
+                        <td>DNI:</td></td>
+
+                        <td><input type="number" name="dni" placeholder="Ingrese el dni" required></td>
+                    </tr>
+
+                    <tr>
+                        <td>Pais:</td></td>
+
+                        <td>
+                            <select name = "pais" required >
+                            <option>Seleccionar pais</option>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Provincia:</td></td>
+
+                        <td>
+                            <select name = "provincia" required >
+                                <option>Seleccionar provincia</option>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Ciudad:</td></td>
+
+                        <td>
+                            <select name = "ciudad" required >
+                                <option>Seleccionar provincia</option>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Calle:</td></td>
+
+
+                        <td><input type="text" name="calle" placeholder="Ingrese la calle" required></td>
+
+                    </tr>
+
+                    <tr>
+                        <td>Altura:</td></td>
+
+                        <td><input type="number" name="altura" placeholder="Ingrese la altura" required></td>
+                    </tr>
+
+                    <tr>
+                        <td>Piso:</td></td>
+                        <td><input type="number" name="piso" placeholder="Ingrese la altura" required></td>
+
+                    </tr>
+
+                    <tr>
+                        <td>Codigo Postal:</td></td>
+                        <td><input type="number" name="codigoPostal" placeholder="Ingrese el codigo postal" required></td>
+
+                    </tr>
+
+                </table>
+                <button type= "submit" >Guardar</button>
+            </center>
+        </form>
+
+
+    </div>
+
+    <link rel="stylesheet" href="/css/estiloAltaProveedor.css" />
+
+{{/partial}}
+{{>principalAdministrador.hbs}}

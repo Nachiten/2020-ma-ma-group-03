@@ -1,0 +1,59 @@
+{{#partial "contenido"}}
+
+
+    <div class = "listadoDeUsuarios">
+        <br>
+        <br>
+
+
+        <form action="">
+            <center>
+
+                    <div class="table-wrapper">
+                        <table id="usuarios">
+                            <thead>
+                            <tr>
+                                <th>NOMBRE</th>
+                                <th>APELLIDO</th>
+                                <th>USUARIO</th>
+                                <th>BORRAR</th>
+
+                            </tr>
+                            </thead>
+
+                            <tbody id="content_table">
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                   <! -- me falta implementar el tema del boton eliminar cuando se llena la tabla con lo de la base de dato
+                                    y que cada fila tenga un boton eliminar con el icono-->
+                                    <div>
+                                    <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            </tbody>
+
+
+                        </table>
+                    </div>
+            </center>
+
+
+
+        </form>
+
+
+    </div>
+    <script src="/js/listadoDeUsuarios.js"></script>
+    <link rel="stylesheet" href="/css/listadoDeUsuarios.css" />
+
+
+
+{{/partial}}
+{{>principalAdministrador.hbs}}
