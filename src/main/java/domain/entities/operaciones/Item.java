@@ -26,4 +26,16 @@ public class Item extends EntidadPersistente {
         this.valor = valor;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public float getValor() {
+        return valor;
+    }
+
+    public boolean soyIgualA(Item unItem){
+        return this.getDescripcion().equals(unItem.getDescripcion()) &&
+               this.getValor() == unItem.getValor();
+    }
 }

@@ -325,18 +325,31 @@ public class EntidadesController {
 
         // Leo operacion de egreso asociada
         OperacionDeEgreso operacionEgresoAsociada = buscarOperacionEgreso(operacionEgresoString);
-        // Leo las categorias
-        List<CategoriaCriterio> categoriasCriterio = obtenerListaCategoriaCriterio(request);
+
         // Leo todos los items
         List<Item> listaItems = obtenerListaItems(request);
 
-        /* TODO | Falta checkear que todos los items sean iguales a los de la operacion de egreso.
-         Caso contrario fallar */
+        if (operacionEgresoAsociada == null){
+            parametros.put("mensaje", "Error al leer la operacion de egreso.");
+            return new ModelAndView(parametros, "modalInformativo2.hbs");
+        }
+
+        if (!listasDeItemsIguales(listaItems, operacionEgresoAsociada.getItems())){
+            // No se inserto documento comercial
+            parametros.put("mensaje", "Los items del presupuesto deben ser iguales a los del egreso.");
+            return new ModelAndView(parametros, "modalInformativo2.hbs");
+        }
+
+        // TODO | Problema, se crea una copia de los items cuando realmente presupuesto
+        //  y egreso deberian referenciar los mismositems
+        // listaItems = operacionEgresoAsociada.getItems();
+
+        // Leo las categorias
+        List<CategoriaCriterio> categoriasCriterio = obtenerListaCategoriaCriterio(request);
 
         // Convierto los numeros
         float montoTotal = Float.parseFloat(montoTotalString);
         int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
-
 
         // Genero tipoDocComercial
         TipoDocumentoComercial tipoDocComercial = buscarTipoDocComercial(tipoDocumentoComercialString);
@@ -409,6 +422,33 @@ public class EntidadesController {
     }
 
     // --- FUNCIONES AUXILIARES ---
+
+    private boolean listasDeItemsIguales(List<Item> itemsPresupuesto, List<Item> itemsEgreso){
+
+        if (itemsPresupuesto.size() != itemsEgreso.size()){
+            return false;
+        }
+
+        List<Item> copiaItemsEgreso = new ArrayList<>(itemsEgreso);
+
+        for (Item unItemPresupuesto : itemsPresupuesto) {
+            if (!encontrarYEliminarDeLista(unItemPresupuesto, copiaItemsEgreso)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean encontrarYEliminarDeLista(Item itemPresupuesto, List<Item> itemsEgreso){
+        for (Item unItemEgreso : itemsEgreso) {
+            if (unItemEgreso.soyIgualA(itemPresupuesto)){
+                itemsEgreso.remove(unItemEgreso);
+                return true;
+            }
+        }
+        return false;
+    }
 
     // Leer la lista de la ventana criterios
     private List<CategoriaCriterio> obtenerYGenerarListaCategoriasCriterio(Request request){
@@ -577,6 +617,7 @@ public class EntidadesController {
         try {
             objetoFactory.agregar(objetoClase);
         }catch (Exception e){
+            System.out.println("EXCEPCION: " + e.getMessage());
             return false;
         }
         return true;
