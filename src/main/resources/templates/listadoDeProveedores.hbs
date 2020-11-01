@@ -1,0 +1,65 @@
+{{#partial "contenido"}}
+
+
+    <div class = "listadoDeUsuarios">
+        <br>
+        <br>
+
+
+        <div action="">
+            <center>
+
+                <div class="table-wrapper">
+                    <table id="usuarios">
+                        <thead>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <th>APELLIDO</th>
+                            <th>RAZON SOCIAL</th>
+                            <th>DNI</th>
+                            <th>PAIS</th>
+                            <th>PROVINCIA</th>
+                            <th>CIUDAD</th>
+                            <th>CODIGO POSTAL</th>
+                            <th>BORRAR</th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody id="content_table">
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+
+                                <div>
+                                    <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+
+                      </table>
+            </center>
+
+        </div>
+
+        </form>
+
+
+    </div>
+
+    <link rel="stylesheet" href="/css/listadoDeProveedores.css" />
+
+{{/partial}}
+{{>principalAdministrador.hbs}}

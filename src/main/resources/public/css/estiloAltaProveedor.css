@@ -3,6 +3,13 @@
     font-weight: 600;
     font-size: 18px;
 }
+.formulario input{
+    font-size: 17px;
+}
+
+.formulario select{
+    font-size: 17px;
+}
 
 button{
 
@@ -22,10 +29,4 @@ button:focus,button:hover{
 }
 
 
-.formulario input{
-    font-size: 17px;
-}
 
-.formulario select{
-    font-size: 17px;
-}
