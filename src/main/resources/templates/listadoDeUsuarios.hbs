@@ -16,6 +16,7 @@
                                 <th>NOMBRE</th>
                                 <th>APELLIDO</th>
                                 <th>USUARIO</th>
+                                <th>TIPO USUARIO</th>
                                 <th>BORRAR</th>
 
                             </tr>
@@ -23,19 +24,25 @@
 
                             <tbody id="content_table">
 
+                            {{#each listadoDeUsuarios}}
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+
+
+                                <td>{{nombre}}</td>
+                                <td>{{apellido}}</td>
+                                <td>{{nombreUsuario}}</td>
+                                <td>{{tipoUsuario}}</td>
+
+
                                 <td>
-                                   <! -- me falta implementar el tema del boton eliminar cuando se llena la tabla con lo de la base de dato
-                                    y que cada fila tenga un boton eliminar con el icono-->
+                                   <! EL BOTON BORRAR TODAVIA NO ESTÁ IMPLEMENTADO-->
                                     <div>
                                     <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>
                                     </div>
                                 </td>
 
                             </tr>
+                            {{/each}}
 
                             </tbody>
 

@@ -27,7 +27,11 @@ public class InicioController {
     public ModelAndView inicio(Request request, Response response) {
         administradorDeSesion.cerrarSesion(request);
         return new ModelAndView(null, "login.hbs");
+
+
+
     }
+
 
     public ModelAndView loginUsuario(Request request, Response response){
         Map<String, Object> model = new HashMap<>();
@@ -50,6 +54,8 @@ public class InicioController {
         model.put("mensaje", "El nombre de usuario o contraseña ingresados son incorrectos");
         return new ModelAndView(model, "modalInformativo.hbs");
     }
+
+
 
     public ModelAndView mensajes(Request request, Response response) {
         return new ModelAndView(null, "mensajes.hbs");

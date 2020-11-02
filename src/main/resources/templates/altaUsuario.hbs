@@ -36,9 +36,15 @@
 
                     <td>
                       <select name = "tipoUsuario" required >
-                        <option>Seleccionar tipo</option>
-                          <option>estandar</option>
-                          <option>administrador</option>
+                        <option hidden selected>Elegir tipo de usuario</option>
+
+                          {{#each tiposUsuarios}}
+                              <option>{{this}}</option>
+                              {{/each}}
+
+
+
+                      </select>
                     </td>
                 </tr>
 

@@ -1,8 +1,6 @@
 package server;
 
-import domain.controllers.EntidadesController;
-import domain.controllers.InicioController;
-import domain.controllers.UsuarioController;
+import domain.controllers.*;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
@@ -31,6 +29,8 @@ public class Router {
         UsuarioController usuarioController = new UsuarioController();
         InicioController inicioController 	= new InicioController();
         EntidadesController entidadesController = new EntidadesController();
+        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController();
+        ListarUsuariosController listarUsuariosController = new ListarUsuariosController();
 
         // Pagina root, inicio
         Spark.get("/", inicioController::inicio, Router.engine);
@@ -60,6 +60,14 @@ public class Router {
         Spark.post("/presupuestos", entidadesController::guardarPresupuesto, Router.engine);
         Spark.post("/criterios", entidadesController::guardarCriterio, Router.engine);
         Spark.post("/asociarOperacion", entidadesController::ejecutarVinculacion, Router.engine);
+
+        //
+        Spark.get("/altaUsuario",darAltaUsuarioController::altaUsuario,Router.engine);
+
+
+        //
+        Spark.get("/listadoDeUsuarios",listarUsuariosController::listarUsuarios,Router.engine);
+
 
     }
 }
