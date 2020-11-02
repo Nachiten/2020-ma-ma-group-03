@@ -34,7 +34,7 @@ public class EntidadesController {
     private Repositorio<Criterio> repoCriterio;
     private Repositorio<Proveedor> repoProveedor;
 
-    private AdministradorDeSesion administradorDeSesion;
+    private InicioController inicioController;
     private UsuarioController unUsuarioController;
 
     private Map<String, Object> parametros;
@@ -51,7 +51,7 @@ public class EntidadesController {
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
 
-        this.administradorDeSesion = new AdministradorDeSesion();
+        this.inicioController = new InicioController();
         this.unUsuarioController = new UsuarioController();
 
         this.parametros = new HashMap<>();
@@ -59,7 +59,7 @@ public class EntidadesController {
     }
 
     private boolean obtenerUsuarioDeId(Request request){
-        int id = administradorDeSesion.obtenerIdDeSesion(request);
+        int id = inicioController.obtenerIdDeUsuarioLogueado();
 
         if (id == -1){
             return false;
@@ -77,9 +77,9 @@ public class EntidadesController {
     // --- GETs ---
 
     public ModelAndView principal(Request request, Response response){
-        boolean hayUsuario = obtenerUsuarioDeId(request);
+        Usuario usuario = inicioController.obtenerUsuarioLogueado();
 
-        if (!hayUsuario){
+        if (usuario == null){
             return new ModelAndView(null,"error404.hbs");
         }
 
@@ -88,9 +88,9 @@ public class EntidadesController {
 
     public ModelAndView ingresos(Request request, Response response) {
 
-        boolean hayUsuario = obtenerUsuarioDeId(request);
+        Usuario usuario = inicioController.obtenerUsuarioLogueado();
 
-        if (!hayUsuario){
+        if (usuario == null){
             return new ModelAndView(null,"error404.hbs");
         }
 
@@ -189,6 +189,10 @@ public class EntidadesController {
 
     // --- POSTs ---
 
+    public ModelAndView login(Request request, Response response){
+        return inicioController.loginUsuario(request, response);
+    }
+
     public ModelAndView guardarOperacionDeEgreso(Request request, Response response){
         // Leo los query params
         String fechaString = request.queryParams("fecha");
@@ -235,7 +239,7 @@ public class EntidadesController {
         // Genero operacion de egreso
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
 
-        int id = administradorDeSesion.obtenerIdDeSesion(request);
+        int id = inicioController.obtenerIdDeUsuarioLogueado();
         Usuario miUsuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
 
         EntidadJuridica entidadJuridica = miUsuario.getEntidadJuridica();
@@ -268,7 +272,7 @@ public class EntidadesController {
 
     public ModelAndView guardarOperacionDeIngreso(Request request, Response response){
 
-        obtenerUsuarioDeId(request);
+        Usuario usuario = inicioController.obtenerUsuarioLogueado();
 
         String fechaString = request.queryParams("fecha");
         String montoString = request.queryParams("monto");

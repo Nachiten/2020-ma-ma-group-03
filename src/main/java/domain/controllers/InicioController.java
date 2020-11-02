@@ -1,6 +1,7 @@
 package domain.controllers;
 
 import domain.entities.usuarios.Usuario;
+import org.apache.commons.codec.digest.DigestUtils;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -33,9 +34,10 @@ public class InicioController {
         List<Usuario> usuarios = this.unUsuarioController.getRepoUsuarios().buscarTodos();
         String nombreDeUsuario = request.queryParams("nombreDeUsuario");
         String contrasenia     = request.queryParams("contrasenia");
+        String contraseniaEncriptada = DigestUtils.md5Hex(contrasenia);
 
         for ( Usuario unUsuario : usuarios) {
-            if (unUsuario.getNombreUsuario().equals(nombreDeUsuario) &&  unUsuario.getContrasenia().equals(contrasenia)){
+            if (unUsuario.getNombreUsuario().equals(nombreDeUsuario) &&  unUsuario.getContrasenia().equals(contraseniaEncriptada)){
                 model.put("tipoUsuario", unUsuario.getTipo());
                 model.put("usuario", unUsuario);
                 model.put("nombre", unUsuario.getNombreUsuario());
@@ -55,5 +57,13 @@ public class InicioController {
 
     public ModelAndView error404(Request request, Response response){
         return new ModelAndView(null, "error404.hbs");
+    }
+
+    public int obtenerIdDeUsuarioLogueado(){
+        return administradorDeSesion.getUsuario().getId();
+    }
+
+    public Usuario obtenerUsuarioLogueado(){
+        return administradorDeSesion.getUsuario();
     }
 }

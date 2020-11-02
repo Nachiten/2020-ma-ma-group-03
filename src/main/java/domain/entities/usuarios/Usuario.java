@@ -2,6 +2,7 @@ package domain.entities.usuarios;
 
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.OperacionDeEgreso;
+import org.apache.commons.codec.digest.DigestUtils;
 import persistencia.EntidadPersistente;
 
 import javax.persistence.*;
@@ -20,8 +21,8 @@ public class Usuario extends EntidadPersistente {
     @Column (name = "nombreUsuario")
     private String nombreUsuario;
 
-    @Column (name = "contrasenia")
-    private String contrasenia;
+    @Column (name = "contraseniaEncriptada")
+    private String contraseniaEncriptada;
 
     @Column(name = "nombre")
     private String nombre;
@@ -56,10 +57,14 @@ public class Usuario extends EntidadPersistente {
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
-        this.contrasenia = contrasenia;
+        this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
         inicializar();
+    }
+
+    public String encriptarContrasenia(String contrasenia) {
+        return DigestUtils.md5Hex(contrasenia);
     }
 
     //-------------------------------------------------------------------------
@@ -110,7 +115,7 @@ public class Usuario extends EntidadPersistente {
     }
 
     public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+        this.contraseniaEncriptada = contrasenia;
     }
 
     public void setNombre(String nombre) {
@@ -125,7 +130,7 @@ public class Usuario extends EntidadPersistente {
                             //GETTERS
     //-------------------------------------------------------------------------
 
-    public String getContrasenia() { return contrasenia; }
+    public String getContrasenia() { return contraseniaEncriptada; }
 
     public List<Mensaje> getBandejaDeMensajes() {
         return bandejaDeMensajes;

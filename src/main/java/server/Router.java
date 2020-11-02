@@ -39,27 +39,27 @@ public class Router {
         Spark.post("/", usuarioController::cerrarSesion, Router.engine);
 
         // Se verifica que el usuario exista
-        Spark.post("/usuario", inicioController::loginUsuario, Router.engine);
+        Spark.post("/usuario", entidadesController::login, Router.engine);
 
         // Página que muestra error 404 cuando tratan de acceder a esta url sin loguearse
         Spark.get("/usuario", inicioController::error404, Router.engine);
 
         // Paginas una vez logueado GET
-        Spark.get("/usuario/:id", entidadesController::principal, Router.engine);
-        Spark.get("/usuario/ingresos/:id", entidadesController::ingresos, Router.engine);
-        Spark.get("/usuario/egresos/:id", entidadesController::egresos, Router.engine);
-        Spark.get("/usuario/presupuestos/:id", entidadesController::presupuestos, Router.engine);
-        Spark.get("/usuario/criterios/:id", entidadesController::criterios, Router.engine);
-        Spark.get("/usuario/listadoOperaciones/:id", entidadesController::listadoOperaciones, Router.engine);
-        Spark.get("/usuario/asociarOperacion/:id", entidadesController::asociarOperacion, Router.engine);
-        Spark.get("/usuario/mensajes/:id", entidadesController::mensajes, Router.engine);
+        Spark.get("/principal", entidadesController::principal, Router.engine);
+        Spark.get("/ingresos", entidadesController::ingresos, Router.engine);
+        Spark.get("/egresos", entidadesController::egresos, Router.engine);
+        Spark.get("/presupuestos", entidadesController::presupuestos, Router.engine);
+        Spark.get("/criterios", entidadesController::criterios, Router.engine);
+        Spark.get("/listadoOperaciones", entidadesController::listadoOperaciones, Router.engine);
+        Spark.get("/asociarOperacion", entidadesController::asociarOperacion, Router.engine);
+        Spark.get("/mensajes", entidadesController::mensajes, Router.engine);
 
         // Guardar los datos de las ventanas POST
-        Spark.post("/usuario/egresos/:id", entidadesController::guardarOperacionDeEgreso, Router.engine);
-        Spark.post("/usuario/ingresos/:id", entidadesController::guardarOperacionDeIngreso, Router.engine);
-        Spark.post("/usuario/presupuestos/:id", entidadesController::guardarPresupuesto, Router.engine);
-        Spark.post("/usuario/criterios/:id", entidadesController::guardarCriterio, Router.engine);
-        Spark.post("/usuario/asociarOperacion/:id", entidadesController::ejecutarVinculacion, Router.engine);
+        Spark.post("/egresos", entidadesController::guardarOperacionDeEgreso, Router.engine);
+        Spark.post("/ingresos", entidadesController::guardarOperacionDeIngreso, Router.engine);
+        Spark.post("/presupuestos", entidadesController::guardarPresupuesto, Router.engine);
+        Spark.post("/criterios", entidadesController::guardarCriterio, Router.engine);
+        Spark.post("/asociarOperacion", entidadesController::ejecutarVinculacion, Router.engine);
 
     }
 }
