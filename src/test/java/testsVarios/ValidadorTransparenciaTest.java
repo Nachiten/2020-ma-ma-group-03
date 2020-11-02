@@ -4,6 +4,8 @@ import domain.entities.apiMercadoLibre.DireccionPostal;
 import criterioSeleccionProveedor.CriterioProveedorMenorValor;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
+import domain.entities.usuarios.TipoUsuario;
+import domain.entities.usuarios.Usuario;
 import validadorTransparencia.*;
 import domain.entities.vendedor.Proveedor;
 import org.junit.Assert;
@@ -72,6 +74,7 @@ public class ValidadorTransparenciaTest {
     private final Proveedor proveedorRopaA = indumentariaDeportivaBsAs;
     private final MedioDePago medioDePagoRopaA = medioDePagoTarjetaDeCredito;
     private final OperacionDeEgreso operacionDeEgresoRopaA = new OperacionDeEgreso(LocalDate.now(),5600, medioDePagoRopaA, itemsPresupuestoRopaA);
+    Usuario usuarioA = new Usuario(TipoUsuario.ESTANDAR,"Nachiten","hola1234ABC", "Ignacio", "Baptista");
 
 
     private final Presupuesto presupuestoRopaA = new Presupuesto(5600, itemsPresupuestoRopaA, operacionDeEgresoRopaA);
@@ -148,12 +151,14 @@ public class ValidadorTransparenciaTest {
 
     @Test
     public void verificarEgresoConPresupuesto(){
+        operacionDeEgresoRopaA.setUsuario(usuarioA);
         asociarOperacionConPresupuesto(operacionDeEgresoRopaA, presupuestoRopaA);
         Assert.assertTrue(operacionDeEgresoRopaA.validarEgreso());
     }
 
     @Test
     public void verificarEgresoSinPresupuesto() {
+        operacionDeEgresoRopaA.setUsuario(usuarioA);
         operacionDeEgresoRopaA.setCriterioSeleccionProveedor(proveedorMenorValor);
         List<OperacionDeEgreso> operacionesDeEgresos = entidadJuridica.getOperacionesDeEgreso();
         validadorTransparencia.setOperacionesDeEgresoAValidar(operacionesDeEgresos);
@@ -163,25 +168,28 @@ public class ValidadorTransparenciaTest {
 
     @Test
     public void verificarQueTengaPresupuestoErroneo(){
+      operacionDeEgresoRopaA.setUsuario(usuarioA);
       asociarOperacionConPresupuesto(operacionDeEgresoRopaA, presupuestoRopaB);
       Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
-
     }
 
     @Test
     public void verificarQueTengaDistintoMonto(){
+        operacionDeEgresoRopaA.setUsuario(usuarioA);
         asociarOperacionConPresupuesto(operacionDeEgresoRopaA, presupuestoRopaAOtroMonto);
         Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
      }
 
     @Test
     public void verificarQueTengaDistintosItems(){
+        operacionDeEgresoRopaA.setUsuario(usuarioA);
         asociarOperacionConPresupuesto(operacionDeEgresoRopaA,presupuestoRopaAOtrosItems);
         Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
      }
 
     @Test
     public void verificarQueTengaDistintoDocumentoComercial(){
+        operacionDeEgresoRopaA.setUsuario(usuarioA);
         presupuestoRopaAConDistintoDocumento.setDocumentoComercial(documentoComercialRopaB);
         asociarOperacionConPresupuesto(operacionDeEgresoRopaA,presupuestoRopaAConDistintoDocumento);
         Assert.assertFalse(operacionDeEgresoRopaA.validarEgreso());
