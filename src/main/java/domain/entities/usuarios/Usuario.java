@@ -46,6 +46,9 @@ public class Usuario extends EntidadPersistente {
     @ManyToMany(cascade = {CascadeType.ALL})
     private List<OperacionDeEgreso> operacionesRevisadas;
 
+    @Column(name="estoyHabilitado")
+    private boolean estoyHabilitado ;
+
     //-------------------------------------------------------------------------
                     //CONTRUCTOR
     //-------------------------------------------------------------------------
@@ -75,6 +78,7 @@ public class Usuario extends EntidadPersistente {
         this.operacionesRevisadas = new ArrayList<>();
         this.contraseniasAnteriores = new ArrayList<>();
         this.bandejaDeMensajes = new ArrayList<>();
+        this.estoyHabilitado = true;
     }
 
 
