@@ -26,26 +26,24 @@ public class Router {
 
     private static void configure(){
         // Controllers
-        UsuarioController usuarioController = new UsuarioController();
-        InicioController inicioController 	= new InicioController();
-        EntidadesController entidadesController = new EntidadesController();
-        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController();
-        ListarUsuariosController listarUsuariosController = new ListarUsuariosController();
+        ContextoDeUsuarioLogueado contextoDeUsuarioLogueado = new ContextoDeUsuarioLogueado();
+        UsuarioController usuarioController = new UsuarioController(contextoDeUsuarioLogueado);
+        InicioController inicioController 	= new InicioController(contextoDeUsuarioLogueado);
+        EntidadesController entidadesController = new EntidadesController(contextoDeUsuarioLogueado);
+        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(contextoDeUsuarioLogueado);
+        ListarUsuariosController listarUsuariosController = new ListarUsuariosController(contextoDeUsuarioLogueado);
 
-        // Pagina root, inicio
+        // Pagina iniciar sesión
         Spark.get("/", inicioController::inicio, Router.engine);
 
         // Cerrar sesion
         Spark.post("/", usuarioController::cerrarSesion, Router.engine);
 
         // Se verifica que el usuario exista
-        Spark.post("/usuario", entidadesController::login, Router.engine);
+        Spark.post("/inicio", usuarioController::loginUsuario, Router.engine);
 
-        // Página que muestra error 404 cuando tratan de acceder a esta url sin loguearse
-        Spark.get("/usuario", inicioController::error404, Router.engine);
 
-        // Paginas una vez logueado GET
-        Spark.get("/principal", entidadesController::principal, Router.engine);
+        // Paginas una vez logueado GET para usuarios ESTANDAR
         Spark.get("/ingresos", entidadesController::ingresos, Router.engine);
         Spark.get("/egresos", entidadesController::egresos, Router.engine);
         Spark.get("/presupuestos", entidadesController::presupuestos, Router.engine);
@@ -53,6 +51,7 @@ public class Router {
         Spark.get("/listadoOperaciones", entidadesController::listadoOperaciones, Router.engine);
         Spark.get("/asociarOperacion", entidadesController::asociarOperacion, Router.engine);
         Spark.get("/mensajes", entidadesController::mensajes, Router.engine);
+        Spark.get("/inicio", entidadesController::principal, Router.engine);
 
         // Guardar los datos de las ventanas POST
         Spark.post("/egresos", entidadesController::guardarOperacionDeEgreso, Router.engine);
@@ -61,13 +60,8 @@ public class Router {
         Spark.post("/criterios", entidadesController::guardarCriterio, Router.engine);
         Spark.post("/asociarOperacion", entidadesController::ejecutarVinculacion, Router.engine);
 
-        //
+        //Paginas una vez logueado GET para usuario ADMIN
         Spark.get("/altaUsuario",darAltaUsuarioController::altaUsuario,Router.engine);
-
-
-        //
         Spark.get("/listadoDeUsuarios",listarUsuariosController::listarUsuarios,Router.engine);
-
-
     }
 }

@@ -1,5 +1,4 @@
 package domain.repositories;
-
 import domain.entities.usuarios.Usuario;
 import domain.repositories.daos.DAO;
 
@@ -8,7 +7,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class RepositorioDeUsuarios extends Repositorio<Usuario> {
+public class RepositorioDeUsuarios  extends Repositorio<Usuario> {
+
+
 
     public RepositorioDeUsuarios(DAO<Usuario> dao) {
         super(dao);
@@ -37,5 +38,6 @@ public class RepositorioDeUsuarios extends Repositorio<Usuario> {
 
         return new BusquedaCondicional(null, usuarioQuery);
     }
+
 }
 

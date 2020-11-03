@@ -2,32 +2,30 @@ package domain.controllers;
 
 import domain.entities.usuarios.Usuario;
 import spark.Request;
-
-import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 public class AdministradorDeSesion {
 
-	private int id;
-	private Usuario usuario;
-	
-	public <T> void iniciarSesion(Request request,Usuario usuario) {
-		spark.Session sesion = request.session(true);
-    	sesion.attribute("id",obtenerId(usuario));
-    	this.id = obtenerId(usuario);
-    	this.usuario = usuario;
+	private Optional<spark.Session> sesionOpcional;
+
+	public AdministradorDeSesion() {
+		this.sesionOpcional = Optional.empty();
+	}
+
+	public <T> void iniciarSesion(Request request, T usuario) {
+		sesionOpcional = Optional.of(request.session(true));
+		sesionOpcional.get().attribute("id",obtenerId(usuario));
 	}
 	
 	public void cerrarSesion(Request request) {
-		HttpSession sesion = request.session().raw();
-    	sesion.invalidate();
+		if(this.esLaSesionValida(request)){
+			sesionOpcional.get().invalidate();
+		}
 	}
 	
-	public int obtenerIdDeSesion(Request request) {
-		HttpSession sesion = request.session().raw();
-		if (sesion.getAttribute("id") == null){
-			return -1;
-		}
-		return (int) sesion.getAttribute("id");
+	public String idDeSesionEn(Request request) {
+
+		return request.session().id();
 	}
 	
 	private <T> int obtenerId(T usuario) {
@@ -35,7 +33,9 @@ public class AdministradorDeSesion {
 		return unUsuario.getId();
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public boolean esLaSesionValida(Request request) {
+		return sesionOpcional
+				.map((session) -> session.id().equals(this.idDeSesionEn(request)))
+				.orElse(false);
 	}
 }

@@ -13,6 +13,7 @@ import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.utils.StringUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class EntidadesController {
 
@@ -34,13 +36,16 @@ public class EntidadesController {
     private Repositorio<Criterio> repoCriterio;
     private Repositorio<Proveedor> repoProveedor;
 
-    private InicioController inicioController;
-    private UsuarioController unUsuarioController;
-
     private Map<String, Object> parametros;
     private Usuario usuario;
 
-    public EntidadesController(){
+    private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
+
+    //-------------------------------------------------------------------------
+                            //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
+    public EntidadesController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado){
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
         this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
@@ -51,48 +56,42 @@ public class EntidadesController {
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
 
-        this.inicioController = new InicioController();
-        this.unUsuarioController = new UsuarioController();
-
         this.parametros = new HashMap<>();
         this.usuario = new Usuario();
+
+        this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
     }
 
-    private boolean obtenerUsuarioDeId(Request request){
-        int id = inicioController.obtenerIdDeUsuarioLogueado();
+    //-------------------------------------------------------------------------
+                            //METODOS DE INICIO
+    //-------------------------------------------------------------------------
 
-        if (id == -1){
-            return false;
+    private ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
+
+        if(!contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
+            return new ModelAndView(null,"error404.hbs");
         }
 
-        usuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
+        return bloque.get();
+    }
+
+    private void cargarParametosHashMap() throws Exception {
+        usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
-        parametros.put("id", usuario.getId());
-        parametros.put("bandejaDeMensajes", usuario.getBandejaDeMensajes());
-
-        return true;
     }
 
-    // --- GETs ---
+    //-------------------------------------------------------------------------
+                        //METODOS CARGA DE PAGINAS - GET
+    //-------------------------------------------------------------------------
 
-    public ModelAndView principal(Request request, Response response){
-        Usuario usuario = inicioController.obtenerUsuarioLogueado();
+    public ModelAndView principal(Request request, Response response) throws Exception {
 
-        if (usuario == null){
-            return new ModelAndView(null,"error404.hbs");
-        }
-
-        return new ModelAndView(parametros, "inicio.hbs");
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> new ModelAndView(parametros, "inicioEstandar.hbs"));
     }
 
-    public ModelAndView ingresos(Request request, Response response) {
-
-        Usuario usuario = inicioController.obtenerUsuarioLogueado();
-
-        if (usuario == null){
-            return new ModelAndView(null,"error404.hbs");
-        }
+    private ModelAndView modalAndViewIngresos() {
 
         List<Moneda> monedas = this.repoMonedas.buscarTodos();
         parametros.put("monedas", monedas);
@@ -100,13 +99,13 @@ public class EntidadesController {
         return new ModelAndView(parametros, "ingresos.hbs");
     }
 
-    public ModelAndView egresos(Request request, Response response) {
+    public ModelAndView ingresos(Request request, Response response) throws Exception {
 
-        boolean hayUsuario = obtenerUsuarioDeId(request);
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewIngresos());
+    }
 
-        if (!hayUsuario){
-            return new ModelAndView(null,"error404.hbs");
-        }
+    private ModelAndView modalAndViewEgresos(){
 
         List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
@@ -119,17 +118,16 @@ public class EntidadesController {
         parametros.put("proveedores", proveedores);
         parametros.put("criterios", criterios);
         parametros.put("criterios2", criterios2);
-
         return new ModelAndView(parametros, "egresos.hbs");
     }
+    public ModelAndView egresos(Request request, Response response)throws Exception {
 
-    public ModelAndView presupuestos(Request request, Response response) {
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewEgresos());
 
-        boolean hayUsuario = obtenerUsuarioDeId(request);
+    }
 
-        if (!hayUsuario){
-            return new ModelAndView(null,"error404.hbs");
-        }
+    private ModelAndView modalAndViewPresupuestos(){
 
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
@@ -144,21 +142,25 @@ public class EntidadesController {
         return new ModelAndView(parametros, "presupuestos.hbs");
     }
 
-    public ModelAndView criterios(Request request, Response response) {
-        boolean hayUsuario = obtenerUsuarioDeId(request);
+    public ModelAndView presupuestos(Request request, Response response)throws Exception {
 
-        if (!hayUsuario){
-            return new ModelAndView(null,"error404.hbs");
-        }
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewPresupuestos());
+
+    }
+
+    private ModelAndView modalAndViewCriterios(){
+
         return new ModelAndView(parametros, "criterios.hbs");
     }
 
-    public ModelAndView listadoOperaciones(Request request, Response response) {
-        boolean hayUsuario = obtenerUsuarioDeId(request);
+    public ModelAndView criterios(Request request, Response response)throws Exception {
 
-        if (!hayUsuario){
-            return new ModelAndView(null,"error404.hbs");
-        }
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewCriterios());
+    }
+
+    private ModelAndView modalAndViewListadoOperaciones(){
 
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
         List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
@@ -169,31 +171,77 @@ public class EntidadesController {
         return new ModelAndView(parametros, "listadoOperaciones.hbs");
     }
 
-    public ModelAndView asociarOperacion(Request request, Response response) {
-        boolean hayUsuario = obtenerUsuarioDeId(request);
+    public ModelAndView listadoOperaciones(Request request, Response response)throws Exception {
 
-        if (!hayUsuario){
-            return new ModelAndView(null,"error404.hbs");
-        }
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListadoOperaciones());
+
+    }
+
+    private ModelAndView modalAndViewAsociarOperacion(){
+
         return new ModelAndView(parametros, "asociarOperacion.hbs");
     }
 
-    public ModelAndView mensajes(Request request, Response response) {
-        boolean hayUsuario = obtenerUsuarioDeId(request);
+    public ModelAndView asociarOperacion(Request request, Response response)throws Exception {
 
-        if (!hayUsuario){
-            return new ModelAndView(null,"error404.hbs");
-        }
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAsociarOperacion());
+    }
+
+    private ModelAndView modalAndViewMensajes(){
         return new ModelAndView(parametros, "mensaje.hbs");
     }
 
-    // --- POSTs ---
+    public ModelAndView mensajes(Request request, Response response)throws Exception {
 
-    public ModelAndView login(Request request, Response response){
-        return inicioController.loginUsuario(request, response);
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMensajes());
     }
 
-    public ModelAndView guardarOperacionDeEgreso(Request request, Response response){
+    //-------------------------------------------------------------------------
+                            //PERSISTENCIA DE DATOS - POST
+    //-------------------------------------------------------------------------
+
+    public ModelAndView guardarOperacionDeIngreso(Request request, Response response){
+
+        String fechaString = request.queryParams("fecha");
+        String periodoDeAceptacion = request.queryParams("periodoDeAceptacion");
+        String montoString = request.queryParams("monto");
+        String monedaString = request.queryParams("moneda");
+        String descripcion = request.queryParams("descripcion");
+
+        Map<String, Object> model = new HashMap<>();
+
+        // No se eligio una moneda
+        if (validarVacio(monedaString)){
+            model.put("mensaje","No seleccionaste una moneda.");
+            return new ModelAndView(model,"modalInformativo2.hbs");
+        }
+
+        //se convierte el string fecha a formato fecha
+        LocalDate fecha = convertirAFecha(fechaString);
+        float monto = Float.parseFloat(montoString);
+
+        //se convierte el string moneda a tipo moneda
+        Moneda monedaElegida = buscarMoneda(monedaString);
+
+        EntidadJuridica unaEntidadJuridica = usuario.getEntidadJuridica();
+
+        //se instancia una operacion de ingreso a persistir
+        OperacionDeIngreso operacionDeIngresoAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
+        operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(unaEntidadJuridica);
+
+        if (!validarPersistencia(repoOperacionIngreso, operacionDeIngresoAGuardar)){
+            model.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
+            return new ModelAndView(model, "modalInformativo2.hbs");
+        }
+
+        model.put("mensaje","Los datos se guardaron correctamente.");
+        return new ModelAndView(model,"modalInformativo2.hbs");
+    }
+
+    public ModelAndView guardarOperacionDeEgreso(Request request, Response response) throws Exception {
         // Leo los query params
         String fechaString = request.queryParams("fecha");
         String montoTotalString = request.queryParams("montoTotal");
@@ -239,9 +287,7 @@ public class EntidadesController {
         // Genero operacion de egreso
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
 
-        int id = inicioController.obtenerIdDeUsuarioLogueado();
-        Usuario miUsuario = this.unUsuarioController.getRepoUsuarios().buscar(id);
-
+        Usuario miUsuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
         EntidadJuridica entidadJuridica = miUsuario.getEntidadJuridica();
 
         // Setters necesarios
@@ -254,13 +300,7 @@ public class EntidadesController {
         operacionAGuardar.setProveedorAsociado(proveedor);
         operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
-        try{
-            // Persistir operacion
-            repoOperacionEgreso.agregar(operacionAGuardar);
-        }catch (Exception e) {
-            String mensajeError = e.getMessage();
-            System.out.println("EXCEPCION: " + mensajeError);
-            // Hubo un error
+        if (!validarPersistencia(repoOperacionEgreso, operacionAGuardar)){
             parametros.put("mensaje", "Se produjo un erroe al gradar los datos.");
             return new ModelAndView(parametros,"modalInformativo2.hbs");
         }
@@ -268,45 +308,6 @@ public class EntidadesController {
         // Se persistio correctamente
         parametros.put("mensaje", "Se guardaron los datos correctamente");
         return new ModelAndView(parametros,"modalInformativo2.hbs");
-    }
-
-    public ModelAndView guardarOperacionDeIngreso(Request request, Response response){
-
-        Usuario usuario = inicioController.obtenerUsuarioLogueado();
-
-        String fechaString = request.queryParams("fecha");
-        String montoString = request.queryParams("monto");
-        String monedaString = request.queryParams("moneda");
-        String descripcion = request.queryParams("descripcion");
-
-        Map<String, Object> model = new HashMap<>();
-
-        // No se eligio una moneda
-        if (validarVacio(monedaString)){
-            model.put("mensaje","No seleccionaste una moneda.");
-            return new ModelAndView(model,"modalInformativo2.hbs");
-        }
-
-        //se convierte el string fecha a formato fecha
-        LocalDate fecha = convertirAFecha(fechaString);
-        float monto = Float.parseFloat(montoString);
-
-        //se convierte el string moneda a tipo moneda
-        Moneda monedaElegida = buscarMoneda(monedaString);
-
-        EntidadJuridica unaEntidadJuridica = usuario.getEntidadJuridica();
-
-        //se instancia una operacion de ingreso a persistir
-        OperacionDeIngreso operacionAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
-        operacionAGuardar.setEntidadJuridicaAsociada(unaEntidadJuridica);
-
-        if (!validarPersistencia(repoOperacionIngreso, operacionAGuardar)){
-            model.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
-            return new ModelAndView(model, "modalInformativo2.hbs");
-        }
-
-        model.put("mensaje","Los datos se guardaron correctamente.");
-        return new ModelAndView(model,"modalInformativo2.hbs");
     }
 
     public ModelAndView guardarPresupuesto(Request request, Response response){
@@ -614,7 +615,7 @@ public class EntidadesController {
     }
 
     private boolean validarVacio(String cadena){
-        return cadena == null || cadena.trim().isEmpty();
+        return StringUtils.isEmpty(cadena);
     }
 
     private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){

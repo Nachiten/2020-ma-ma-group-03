@@ -2,30 +2,31 @@
 <div class = "ingresos">
 	<br>
 	<br>
-    <form action="#" method="post">
+    <form action="" method="post">
 	     <center>
 	        <table class= "formulario" border = 0 >
               <tr>
                  <td><label>Fecha:</label></td></td>
 
-	             <td><input type="date" name="fecha" placeholder="Ingrese la fecha" required></td>
+	             <td><input type="date" name="fecha" id="alta-fecha" placeholder="Ingrese la fecha" required></td>
 
 	         </tr>
                 <tr>
                     <td><label>Periodo de aceptacion:</label></td></td>
 
-                    <td><input type="number" name="periodoDeAceptacion" min= "0" placeholder="Ingrese el periodo " required></td>
+                    <td><input type="number" name="periodoDeAceptacion" id="alta-periodoDeAceptacion" min= "0" placeholder="Ingrese el periodo " required></td>
 
                 </tr>
 
 	          <tr>
 	             <td><label>Monto: </label></td>
-	             <td><input type="number" name="monto" step="0.01" min="0" placeholder="Ej. 200" required></td>
+	             <td><input type="number" name="monto" id="alta-monto" step="0.01" min="0" placeholder="Ej. 200.00" required></td>
               </tr>
 
 			  <tr>
 	             <td><label>Moneda: </label></td>
-	             <td> <select name="moneda" required >
+	             <td>
+                     <select name="moneda" id="alta-moneda" required>
                          <option hidden selected>-Seleccionar moneda-</option>
                          {{#each monedas}}
                          <option>{{id}} - {{description}}</option>
@@ -36,15 +37,14 @@
 
 	          <tr>
 	            <td><label>Descripción: </label></td>
-	            <td><input type="text" name="descripcion" placeholder="Ingrese la descripción" required></td>
+	            <td><input type="text" name="descripcion" id="alta-descripcion" placeholder="Ingrese la descripción" required></td>
 	          </tr>
 
 	        </table>
-            <button type= "submit" onclick="mostrarModalGuardadoIngreso({{id}})">Guardar</button>
+            <button type= "submit" onclick="mostrarModalGuardadoIngreso()">Guardar</button>
         </center>
     </form>
 </div>
-<div id="modal" class="modal fade" role="dialog"></div>
 <link rel="stylesheet" href="/css/estiloIngresos.css" />
 {{/partial}}
 {{>principal.hbs}}

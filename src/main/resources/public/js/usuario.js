@@ -9,6 +9,10 @@ function vaciar(unaVariableDelDocumento){
     $("#"+unaVariableDelDocumento+"").empty();
 }
 
+function valorDe(unaVariableDelDocumento){
+    return $("#"+unaVariableDelDocumento+"").val();
+}
+
 function showInModal(unModal, unContenido){
     vaciar(unModal);
     agregarA(unModal,unContenido);
@@ -42,13 +46,26 @@ function verificarSesion() {
         });
 }
 
-function mostrarModalGuardadoIngreso(id) {
-    var ruta = "/usuario/ingresos/"+id;
+function recuperarDatosFormularioIngresos(){
+    var datos = {
+        fecha               : valorDe("alta-fecha"),
+        periodoDeAceptacion : valorDe("alta-periodoDeAceptacion"),
+        monto               : valorDe("alta-monto"),
+        moneda              : valorDe("alta-moneda"),
+        descripcion         : valorDe("alta-descripcion")
+    };
+    return datos;
+}
+
+function mostrarModalGuardadoIngreso() {
+    var datos = recuperarDatosFormularioIngresos();
+    var ruta = "/ingresos";
     var metodo = "Post";
     $.ajax({
         type : metodo,
         url : ruta,
         datatype : "html",
+        data: datos,
         succes : function (result) {
             showInModal("modal", result);
 
