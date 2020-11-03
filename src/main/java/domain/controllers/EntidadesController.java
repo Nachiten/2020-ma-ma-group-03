@@ -226,11 +226,9 @@ public class EntidadesController {
         //se convierte el string moneda a tipo moneda
         Moneda monedaElegida = buscarMoneda(monedaString);
 
-        EntidadJuridica unaEntidadJuridica = usuario.getEntidadJuridica();
-
         //se instancia una operacion de ingreso a persistir
         OperacionDeIngreso operacionDeIngresoAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
-        operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(unaEntidadJuridica);
+        operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(usuario.getEntidadJuridica());
 
         if (!validarPersistencia(repoOperacionIngreso, operacionDeIngresoAGuardar)){
             model.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
