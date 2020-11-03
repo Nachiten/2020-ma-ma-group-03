@@ -1,7 +1,6 @@
 package domain.controllers;
 
-import domain.entities.operaciones.OperacionDeEgreso;
-import domain.entities.operaciones.OperacionDeIngreso;
+
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
