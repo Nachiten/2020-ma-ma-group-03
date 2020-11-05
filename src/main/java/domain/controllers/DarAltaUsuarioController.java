@@ -10,9 +10,11 @@ import spark.Response;
 
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class DarAltaUsuarioController {
 
+    private Repositorio<Usuario> repoUsuario;
     private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
     private Usuario usuario;
     private Map<String, Object> parametros;
@@ -46,10 +48,22 @@ public class DarAltaUsuarioController {
         return new ModelAndView(parametros,"altaUsuario.hbs");
     }
 
-    public ModelAndView altaUsuario(Request request, Response response) throws Exception {
+    public ModelAndView tiposDeUsuarios(Request request, Response response) throws Exception {
         cargarParametosHashMap();
         return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
     }
 
 
+    public ModelAndView modalAndViewListarUsuariosNoHabilitados(){
+
+        List<Usuario> usuarios = this.repoUsuario.buscarTodos();
+        List<Usuario> usuariosNoHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado()==false).collect(Collectors.toList());
+        parametros.put("listadoDeUsuariosNoHabilitados", usuariosNoHabilitados);
+        return new ModelAndView(parametros, "altaUsuario.hbs");
+    }
+
+    public ModelAndView listarUsuariosNoHabilitados(Request request, Response response) throws Exception {
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuariosNoHabilitados());
+    }
 }

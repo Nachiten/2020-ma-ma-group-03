@@ -51,11 +51,57 @@
             </table>
                 <button type= "submit" >Guardar</button>
             </center>
+
         </form>
 
+        <center>
+
+            <table>
+                <td> Habilitar Usuario</td>
+            </table>
+        <div class= "formulario2" border = "0">
+
+            <div class="table-wrapper">
+
+                <table id="usuarios">
+
+
+                    <thead>
+                    <tr>
+                        <th>NOMBRE</th>
+                        <th>APELLIDO</th>
+                        <th>USUARIO</th>
+                        <th>TIPO USUARIO</th>
+                        <th>ESTOY HABILITADO</th>
+                        <th>HABILITAR</th>
+                    </tr>
+                    </thead>
+                    <tbody id="content_table">
+                    {{#each listadoDeUsuariosNoHabilitados}}
+                        <tr>
+                            <td>{{nombre}}</td>
+                            <td>{{apellido}}</td>
+                            <td>{{nombreUsuario}}</td>
+                            <td>{{tipo}}</td>
+                            <td>{{estoyHabilitado}}</td>
+                            <td>
+                                <! EL BOTON BORRAR TODAVIA NO ESTÁ IMPLEMENTADO-->
+                                <div>
+                                    <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>
+                                </div>
+                            </td>
+
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+
+        </center>
+    </div>
+    </div>
 
     </div>
     <link rel="stylesheet" href="/css/estiloAltaUsuario.css" />
-
+    <script src="/js/formatoDeTabla.js"></script>
 {{/partial}}
 {{>principalAdministrador.hbs}}

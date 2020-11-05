@@ -61,7 +61,9 @@ public class Router {
         Spark.post("/asociarOperacion", entidadesController::ejecutarVinculacion, Router.engine);
 
         //Paginas una vez logueado GET para usuario ADMIN
-        Spark.get("/altaUsuario",darAltaUsuarioController::altaUsuario,Router.engine);
+        Spark.get("/altaUsuario",darAltaUsuarioController::tiposDeUsuarios,Router.engine);
+        Spark.get("altaUsuario", darAltaUsuarioController::listarUsuariosNoHabilitados,Router.engine);
         Spark.get("/listadoDeUsuarios",listarUsuariosController::listarUsuarios,Router.engine);
+
     }
 }
