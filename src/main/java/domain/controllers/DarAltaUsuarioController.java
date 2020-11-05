@@ -58,7 +58,7 @@ public class DarAltaUsuarioController {
 
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
         List<Usuario> usuariosNoHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado()==false).collect(Collectors.toList());
-        parametros.put("listadoDeUsuariosNoHabilitados", usuariosNoHabilitados);
+        parametros.put("usuariosNoHabilitados",usuariosNoHabilitados);
         return new ModelAndView(parametros, "altaUsuario.hbs");
     }
 
