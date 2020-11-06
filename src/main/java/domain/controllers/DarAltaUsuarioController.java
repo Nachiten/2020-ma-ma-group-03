@@ -23,6 +23,7 @@ public class DarAltaUsuarioController {
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
         this.usuario = new Usuario();
         this.parametros = new HashMap<>();
+        this.repoUsuario = FactoryRepositorio.get(Usuario.class);
     }
 
     //Evalua si se accedio correctame (previo inicio de sesion) y devuelve lo que corresponde
@@ -50,20 +51,20 @@ public class DarAltaUsuarioController {
 
     public ModelAndView tiposDeUsuarios(Request request, Response response) throws Exception {
         cargarParametosHashMap();
-        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuariosNoHabilitados());
     }
 
 
     public ModelAndView modalAndViewListarUsuariosNoHabilitados(){
-
+        parametros.put("tiposUsuarios", TipoUsuario.values());
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
-        List<Usuario> usuariosNoHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado()==false).collect(Collectors.toList());
+        List<Usuario> usuariosNoHabilitados = usuarios.stream().filter(usuario -> !usuario.getEstoyHabilitado()).collect(Collectors.toList());
         parametros.put("usuariosNoHabilitados",usuariosNoHabilitados);
         return new ModelAndView(parametros, "altaUsuario.hbs");
     }
 
-    public ModelAndView listarUsuariosNoHabilitados(Request request, Response response) throws Exception {
+    /*public ModelAndView listarUsuariosNoHabilitados(Request request, Response response) throws Exception {
         cargarParametosHashMap();
         return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuariosNoHabilitados());
-    }
+    }*/
 }

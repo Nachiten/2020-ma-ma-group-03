@@ -1,5 +1,6 @@
 import criterioSeleccionProveedor.CriterioProveedorMenorValor;
 import domain.entities.operaciones.*;
+import domain.entities.usuarios.Mensaje;
 import domain.entities.usuarios.Usuario;
 import validadorTransparencia.*;
 
@@ -81,8 +82,6 @@ public class Principal {
 
         Usuario miUsuario = new Usuario(ADMIN, "Nachiten", "abcdeFGH1234","","");
 
-        /*miUsuario.setBandejaDeMensajes(new Publicador());
-
         operacionDeEgresoRopaA.agregarRevisor(miUsuario);
 
         int segundoEnMilisegundos = 1000;
@@ -92,12 +91,12 @@ public class Principal {
         // printear los mensajes de la bandeja de mensajes del usuario.
         // TODO La bandeja de mensajes queda vacia entonces no se printea nada
 
-        List<Mensaje> listaMensajes = miUsuario.getBandejaDeMensajes().getMensajes();
+        List<Mensaje> listaMensajes = miUsuario.getBandejaDeMensajes();
 
         listaMensajes.forEach(Principal::printearMensaje);
     }
 
     static void printearMensaje(Mensaje unMensaje){
-        System.out.println(unMensaje.getContenido());*/
+        System.out.println(unMensaje.getContenido());
     }
 }

@@ -5,7 +5,7 @@ import spark.Request;
 
 import java.util.Optional;
 
-public class ContextoDeUsuarioLogueado {
+public class  ContextoDeUsuarioLogueado {
 
     private Optional<Usuario> usuarioLogueadoOpcional;
     private AdministradorDeSesion administradorDeSesion;

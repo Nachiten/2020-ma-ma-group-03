@@ -25,9 +25,17 @@
                                     <td>{{tipo}}</td>
                                     <td>{{estoyHabilitado}}</td>
                                     <td>
-                                       <! EL BOTON BORRAR TODAVIA NO ESTÁ IMPLEMENTADO-->
+                                       <!-- EL BOTON BORRAR TODAVIA NO ESTÁ IMPLEMENTADO-->
                                         <div>
-                                        <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>
+                                            <!--<i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>-->
+                                            <!--<i class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" />-->
+
+                                            <a href="/listadoDeUsuarios" class="fas fa-trash" onclick="eliminarUsuario('{{id}}')">
+                                                <!-- <i class="fas fa-trash"></i> -->
+                                                <!--<button name="button" class="fas fa-trash" ></button>-->
+                                            </a>
+
+
                                         </div>
                                     </td>
 
@@ -36,12 +44,18 @@
                         </tbody>
 
 
+
+
                     </table>
                 </div>
         </center>
     </form>
 </div>
 <script src="/js/listadoDeUsuarios.js"></script>
-<link rel="stylesheet" href="/css/listadoDeUsuarios.css" />
+<!--<link rel="stylesheet" href="/css/listadoDeUsuarios.css" />-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
 {{/partial}}
 {{>principalAdministrador.hbs}}
