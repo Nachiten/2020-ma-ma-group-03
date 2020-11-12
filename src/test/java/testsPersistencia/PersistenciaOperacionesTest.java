@@ -26,6 +26,8 @@ public class PersistenciaOperacionesTest {
 
     static private Usuario usuarioA;
     static private Usuario usuarioB;
+    //agregado
+    static private Usuario usuarioC;
     static private Usuario usuarioAdmin;
 
     static private TipoMedioDePago tarjetaDeCredito;
@@ -65,10 +67,14 @@ public class PersistenciaOperacionesTest {
         //Instancia de usuario
         usuarioA = new Usuario(TipoUsuario.ESTANDAR,"Nachiten","hola1234ABC", "Ignacio", "Baptista");
         usuarioB = new Usuario(TipoUsuario.ESTANDAR,"Carlos","asdfg", "Carlos", "Villegas");
-
+        //
+        usuarioC = new Usuario(TipoUsuario.ESTANDAR,"Edu","kocina77","Eduardo","Lopez");
         usuarioAdmin = new Usuario(TipoUsuario.ADMIN,"Admin", "admin", "Admin", "Root");
 
         generarUsuarioAConContraAnterior();
+
+        //Poner en desabilitado a usuario C
+        usuarioC.setEstoyHabilitado(false);
 
         //Mensaje en usuarioB
         usuarioB.publicarMensajeEnBandejaDeMensajes("Un resultado 1",true );
@@ -79,6 +85,7 @@ public class PersistenciaOperacionesTest {
 
         usuarioB.setEntidadJuridica(entidadJuridicaUsuarioB);
         usuarioA.setEntidadJuridica(entidadJuridicaUsuarioB);
+        usuarioC.setEntidadJuridica(entidadJuridicaUsuarioB);
 
         //Instancias de MedioDePago
         tarjetaDeCredito = EntityManagerHelper.getEntityManager().find(TipoMedioDePago.class, 1);
@@ -181,6 +188,7 @@ public class PersistenciaOperacionesTest {
         persistirUnObjeto(operacionDeEgresoRopaA);
     }
 
+
     @Test
     public void t3_persistirUsuarioAdmin(){ persistirUnObjeto(usuarioAdmin);}
 
@@ -195,6 +203,9 @@ public class PersistenciaOperacionesTest {
         Proveedor miProveedor3 = new Proveedor("Martinez", "Julieta", 42374333, null, "Alimentos SA");
         persistirUnObjeto(miProveedor3);
     }
+    @Test
+    public void t5_persistirUsuarioC(){persistirUnObjeto(usuarioC);}
+
     @Test
     public void verificarUsuarioAPersistido(){
 
@@ -217,6 +228,7 @@ public class PersistenciaOperacionesTest {
 
     }
 
+
     @Test
     public void verificarUsuarioAdminPersistido(){
 
@@ -225,6 +237,16 @@ public class PersistenciaOperacionesTest {
 
         Assert.assertEquals("Admin", unUsuario.getNombreUsuario());
         Assert.assertEquals(tipo,unUsuario.getTipo());
+    }
+    @Test
+    public void verificarUsuarioCPersistido(){
+
+        Usuario unUsuario = EntityManagerHelper.getEntityManager().find(Usuario.class, 4);
+        TipoUsuario tipo = TipoUsuario.ESTANDAR;
+
+        Assert.assertEquals("Edu", unUsuario.getNombreUsuario());
+        Assert.assertEquals(tipo,unUsuario.getTipo());
+
     }
 
     @Test
@@ -235,5 +257,7 @@ public class PersistenciaOperacionesTest {
         Assert.assertEquals(1, unaoperacionDeEgreso.getCantidadPresupuestosRequerida());
         Assert.assertEquals(5600, unaoperacionDeEgreso.getMontoTotal(), 0.0);
     }
+
+
 
 }

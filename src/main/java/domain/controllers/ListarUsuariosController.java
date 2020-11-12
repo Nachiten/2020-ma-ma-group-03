@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class ListarUsuariosController {
 
@@ -50,7 +51,8 @@ public class ListarUsuariosController {
     public ModelAndView modalAndViewListarUsuarios(){
 
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
-        parametros.put("listadoDeUsuarios", usuarios);
+        List<Usuario> usuariosHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado()).collect(Collectors.toList());
+        parametros.put("listadoDeUsuarios", usuariosHabilitados);
         return new ModelAndView(parametros, "listadoDeUsuarios.hbs");
     }
 

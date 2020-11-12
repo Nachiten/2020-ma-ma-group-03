@@ -10,9 +10,11 @@ import spark.Response;
 
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class DarAltaUsuarioController {
 
+    private Repositorio<Usuario> repoUsuario;
     private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
     private Usuario usuario;
     private Map<String, Object> parametros;
@@ -21,6 +23,7 @@ public class DarAltaUsuarioController {
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
         this.usuario = new Usuario();
         this.parametros = new HashMap<>();
+        this.repoUsuario = FactoryRepositorio.get(Usuario.class);
     }
 
     //Evalua si se accedio correctame (previo inicio de sesion) y devuelve lo que corresponde
@@ -46,10 +49,22 @@ public class DarAltaUsuarioController {
         return new ModelAndView(parametros,"altaUsuario.hbs");
     }
 
-    public ModelAndView altaUsuario(Request request, Response response) throws Exception {
+    public ModelAndView tiposDeUsuarios(Request request, Response response) throws Exception {
         cargarParametosHashMap();
-        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuariosNoHabilitados());
     }
 
 
+    public ModelAndView modalAndViewListarUsuariosNoHabilitados(){
+        parametros.put("tiposUsuarios", TipoUsuario.values());
+        List<Usuario> usuarios = this.repoUsuario.buscarTodos();
+        List<Usuario> usuariosNoHabilitados = usuarios.stream().filter(usuario -> !usuario.getEstoyHabilitado()).collect(Collectors.toList());
+        parametros.put("usuariosNoHabilitados",usuariosNoHabilitados);
+        return new ModelAndView(parametros, "altaUsuario.hbs");
+    }
+
+    /*public ModelAndView listarUsuariosNoHabilitados(Request request, Response response) throws Exception {
+        cargarParametosHashMap();
+        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuariosNoHabilitados());
+    }*/
 }

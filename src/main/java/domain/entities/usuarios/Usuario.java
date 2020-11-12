@@ -130,6 +130,9 @@ public class Usuario extends EntidadPersistente {
         this.nombreUsuario = nombreUsuario;
     }
 
+    //
+    public void setEstoyHabilitado(Boolean estoyHabilitado){this.estoyHabilitado= estoyHabilitado;}
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
@@ -155,4 +158,6 @@ public class Usuario extends EntidadPersistente {
     public EntidadJuridica getEntidadJuridica() {
         return entidadJuridica;
     }
+
+    public boolean getEstoyHabilitado(){return estoyHabilitado;}
 }

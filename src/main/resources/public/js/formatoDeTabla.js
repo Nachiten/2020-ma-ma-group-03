@@ -149,6 +149,8 @@ function nuevaFilaEnItems()
 	numeroFila++;
 }
 
+
+
 /*
 function nuevaFilaEnCriterio()
 {

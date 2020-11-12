@@ -29,27 +29,48 @@ public class UsuarioController {
         String contraseniaEncriptada = DigestUtils.md5Hex(contrasenia);
 
         for ( Usuario unUsuario : usuarios) {
-            if (unUsuario.getNombreUsuario().equals(nombreDeUsuario) &&  unUsuario.getContrasenia().equals(contraseniaEncriptada) && unUsuario.getTipo().toString().equals(TipoUsuario.ESTANDAR.toString())){
-                contextoDeUsuarioLogueado.inicioSesionNuevoUsuarioLogueado(request, unUsuario);
-                model.put("nombre", unUsuario.getNombreUsuario());
-                model.put("apellido", unUsuario.getApellido());
-                return new ModelAndView(model,"inicioEstandar.hbs");
-            }
-            if (unUsuario.getNombreUsuario().equals(nombreDeUsuario) &&  unUsuario.getContrasenia().equals(contraseniaEncriptada) && unUsuario.getTipo().toString().equals(TipoUsuario.ADMIN.toString())){
-                contextoDeUsuarioLogueado.inicioSesionNuevoUsuarioLogueado(request, unUsuario);
-                model.put("nombre", unUsuario.getNombreUsuario());
-                model.put("apellido", unUsuario.getApellido());
-                return new ModelAndView(model,"inicioAdministrador.hbs");
+            if (coincidenCredencialesDe(unUsuario, nombreDeUsuario, contraseniaEncriptada) && unUsuario.getEstoyHabilitado()){
+                if (unUsuario.getTipo().toString().equals(TipoUsuario.ESTANDAR.toString())){
+                    contextoDeUsuarioLogueado.inicioSesionNuevoUsuarioLogueado(request, unUsuario);
+                    model.put("nombre", unUsuario.getNombreUsuario());
+                    model.put("apellido", unUsuario.getApellido());
+                    return new ModelAndView(model,"inicioEstandar.hbs");
+                }
+                if (unUsuario.getTipo().toString().equals(TipoUsuario.ADMIN.toString())){
+                    contextoDeUsuarioLogueado.inicioSesionNuevoUsuarioLogueado(request, unUsuario);
+                    model.put("nombre", unUsuario.getNombreUsuario());
+                    model.put("apellido", unUsuario.getApellido());
+                    return new ModelAndView(model,"inicioAdministrador.hbs");
+                }
             }
         }
         model.put("mensaje", "El nombre de usuario o contraseña ingresados son incorrectos");
         return new ModelAndView(model, "modalInformativo.hbs");
     }
 
+    private boolean coincidenCredencialesDe(Usuario unUsuario, String nombreUsuario, String contraseniaEncriptada){
+        return unUsuario.getNombreUsuario().equals(nombreUsuario) &&  unUsuario.getContrasenia().equals(contraseniaEncriptada);
+    }
+
     public ModelAndView cerrarSesion(Request request, Response response){
         Map<String, Object> model = new HashMap<>();
         model.put("mensaje", "¿Seguro que deseas cerrar sesión?");
         return new ModelAndView(model, "modalCerrarSesion.hbs");
+    }
+
+    public Response eliminar(Request request, Response response){
+        int idBuscado = Integer.parseInt(request.params("id"));
+        Usuario usuarioBuscado = this.repositorioDeUsuarios.getRepoUsuarios().buscar(idBuscado);
+
+        usuarioBuscado.setEstoyHabilitado(false);
+
+        this.repositorioDeUsuarios.getRepoUsuarios().modificar(usuarioBuscado);
+
+        return response;
+        //response.redirect("/listadoDeUsuarios");
+
+        //return response;
+       // return new ModelAndView(null, "listadoDeUsuarios.hbs");
     }
 
 }
