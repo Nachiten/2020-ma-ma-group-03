@@ -35,8 +35,8 @@ public class EntidadJuridica extends EntidadPersistente {
     @OneToMany(mappedBy = "entidadJuridicaAsociada", cascade = {CascadeType.ALL})
     private List<OperacionDeEgreso> operacionesDeEgreso;
 
-    @Transient
-    private List<OperacionDeIngreso> operacionDeIngreso;
+    @OneToMany(mappedBy = "entidadJuridicaAsociada",cascade = CascadeType.ALL)
+    private List<OperacionDeIngreso> operacionesDeIngreso;
 
     @OneToMany(mappedBy = "entidadJuridicaAsociada", cascade = {CascadeType.ALL})
     private List<EntidadBase> entidadesBase; //domain.entities.entidades que puede tener o no!
@@ -65,6 +65,7 @@ public class EntidadJuridica extends EntidadPersistente {
 
     private void inicializar(){
         this.operacionesDeEgreso = new ArrayList<>();
+        this.operacionesDeIngreso = new ArrayList<>();
     }
 
     public void agregarCriterio(Criterio criterio){ listaCriterio.add(criterio);}
@@ -78,6 +79,10 @@ public class EntidadJuridica extends EntidadPersistente {
         operacionesDeEgreso.add(operacionDeEgreso);
     }
 
+    public void agregarOperacionDeIngresoAsociada(OperacionDeIngreso operacionDeIngreso){
+        operacionesDeIngreso.add(operacionDeIngreso);
+    }
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
@@ -86,11 +91,23 @@ public class EntidadJuridica extends EntidadPersistente {
         return operacionesDeEgreso;
     }
 
+    public List<OperacionDeIngreso> getOperacionesDeIngreso() {
+        return operacionesDeIngreso;
+    }
+
     //-------------------------------------------------------------------------
                             //SETTERS
     //-------------------------------------------------------------------------
 
     public void setTipoEntidadJuridica(TipoEntidadJuridica tipoEntidadJuridica) {
         this.tipoEntidadJuridica = tipoEntidadJuridica;
+    }
+
+    public void setOperacionesDeEgreso(List<OperacionDeEgreso> operacionesDeEgreso) {
+        this.operacionesDeEgreso = operacionesDeEgreso;
+    }
+
+    public void setOperacionesDeIngreso(List<OperacionDeIngreso> operacionDeIngreso) {
+        this.operacionesDeIngreso = operacionDeIngreso;
     }
 }
