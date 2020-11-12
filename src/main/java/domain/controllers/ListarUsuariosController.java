@@ -62,4 +62,18 @@ public class ListarUsuariosController {
         return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuarios());
     }
 
+    public ModelAndView eliminar(Request request, Response response) {
+        int idBuscado = Integer.parseInt(request.params("id"));
+        Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
+
+        usuarioBuscado.setEstoyHabilitado(false);
+
+        this.repoUsuario.modificar(usuarioBuscado);
+
+        parametros.put("mensaje","El usuario se eliminó correctamente");
+        return new ModelAndView(parametros,"modalInformativo2.hbs") ;
+    }
+
+
+
 }

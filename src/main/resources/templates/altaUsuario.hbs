@@ -87,7 +87,12 @@
                                 <!-- EL BOTON BORRAR TODAVIA NO ESTÁ IMPLEMENTADO  <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>-->
 
                                 <div>
-                                    <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>
+
+                                    <a href="/altaUsuario" class="fas fa-edit" onclick="eliminarUsuario('{{id}}')">
+
+                                    </a>
+
+
                                 </div>
 
 
@@ -106,5 +111,6 @@
 
     <link rel="stylesheet" href="/css/estiloAltaUsuario.css" />
     <script src="/js/formatoDeTabla.js"></script>
+    <script src="/js/altaUsuario.js"></script>
 {{/partial}}
 {{>principalAdministrador.hbs}}

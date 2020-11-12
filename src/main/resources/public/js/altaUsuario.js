@@ -22,13 +22,13 @@ function showInModal(unModal, unContenido){
 }
 
 function eliminarUsuario(id){
-    console.log("Tengo que borrar el usuario con id " + id);
+    console.log("Tengo que editar el usuario con id " + id);
     //var id = document.getElementById("userId").value;
-    var mensaje = confirm("¿Está seguro que quiere eliminar éste usuario?");
+    var mensaje = confirm("¿Está seguro que quiere habilitar a este usuario?");
     if (mensaje) {
         $.ajax({
-            type: "DELETE",
-            url: "/listadoDeUsuario/eliminar/" + id,
+            type: "POST",
+            url: "/altaUsuario/alta/" + id,
             dataType: "html",
             success : function(result){
                 showInModal("modal",result);
@@ -37,4 +37,3 @@ function eliminarUsuario(id){
         });
     }
 }
-

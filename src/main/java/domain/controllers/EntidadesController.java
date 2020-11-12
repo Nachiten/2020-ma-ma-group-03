@@ -236,7 +236,7 @@ public class EntidadesController {
         }
 
         model.put("mensaje","Los datos se guardaron correctamente.");
-        return new ModelAndView(model,"modalInformativo3.hbs");
+        return new ModelAndView(model,"modalInformativo2.hbs");
     }
 
     public ModelAndView guardarOperacionDeEgreso(Request request, Response response) throws Exception {

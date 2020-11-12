@@ -63,6 +63,18 @@ public class DarAltaUsuarioController {
         return new ModelAndView(parametros, "altaUsuario.hbs");
     }
 
+    public ModelAndView darAltaUsuarioInhabilitado(Request request, Response response) {
+        int idBuscado = Integer.parseInt(request.params("id"));
+        Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
+
+        usuarioBuscado.setEstoyHabilitado(true);
+
+        this.repoUsuario.modificar(usuarioBuscado);
+
+        parametros.put("mensaje", "El usuario se editó correctamente");
+        return new ModelAndView(parametros, "modalInformativo2.hbs");
+
+    }
     /*public ModelAndView listarUsuariosNoHabilitados(Request request, Response response) throws Exception {
         cargarParametosHashMap();
         return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuariosNoHabilitados());
