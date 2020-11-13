@@ -68,5 +68,8 @@ public class Router {
         Spark.delete("/usuario/:id", usuarioController::eliminar);
 
 
+        // TODO | Borrar, para probar
+        Spark.get("/testLink", (req, res) -> "La pagina funciona capo");
+
     }
 }
