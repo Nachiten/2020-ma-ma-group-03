@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static domain.entities.usuarios.TipoUsuario.ESTANDAR;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario extends EntidadPersistente {
@@ -94,6 +96,13 @@ public class Usuario extends EntidadPersistente {
         bandejaDeMensajes.add(mensaje);
     }
 
+    public void cambiarAHabilitado(){
+        this.setEstoyHabilitado(true);
+    }
+
+    public void cambiarAInhabilitado(){
+        this.setEstoyHabilitado(false);
+    }
     //-------------------------------------------------------------------------
                             //SETTERS
     //-------------------------------------------------------------------------
@@ -133,6 +142,9 @@ public class Usuario extends EntidadPersistente {
     //
     public void setEstoyHabilitado(Boolean estoyHabilitado){this.estoyHabilitado= estoyHabilitado;}
 
+    public void setTipoUsuario(TipoUsuario tipoUsuario){
+        this.tipo = tipoUsuario;
+    }
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------

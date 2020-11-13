@@ -67,7 +67,6 @@ public class PersistenciaOperacionesTest {
         //Instancia de usuario
         usuarioA = new Usuario(TipoUsuario.ESTANDAR,"Nachiten","hola1234ABC", "Ignacio", "Baptista");
         usuarioB = new Usuario(TipoUsuario.ESTANDAR,"Carlos","asdfg", "Carlos", "Villegas");
-        //
         usuarioC = new Usuario(TipoUsuario.ESTANDAR,"Edu","kocina77","Eduardo","Lopez");
         usuarioAdmin = new Usuario(TipoUsuario.ADMIN,"Admin", "admin", "Admin", "Root");
 

@@ -66,8 +66,7 @@ public class ListarUsuariosController {
         int idBuscado = Integer.parseInt(request.params("id"));
         Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
 
-        //agregar en un usario un metodo void para no tocar el setter
-        usuarioBuscado.setEstoyHabilitado(false);
+        usuarioBuscado.cambiarAInhabilitado();
 
         this.repoUsuario.modificar(usuarioBuscado);
 
