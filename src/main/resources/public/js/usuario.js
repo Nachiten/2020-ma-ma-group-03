@@ -20,6 +20,8 @@ function showInModal(unModal, unContenido){
     modal_show(unModal);
 }
 
+
+
 function cerrarSesion() {
     var ruta = "/";
     var metodo = "POST";
@@ -33,14 +35,24 @@ function cerrarSesion() {
     });
 }
 
+function recuperarDatosUsuario(){
+    var datos = {
+        nombreDeUsuario     : valorDe("login-usuario"),
+        contrasenia         : valorDe("login-contrasenia")
+    };
+    return datos;
+}
+
 function verificarSesion() {
-    var ruta = '/';
+    var datos = recuperarDatosUsuario();
+    var ruta = '/inicio';
     var metodo = 'POST';
     $.ajax({
-            type : metodo,
-            url : ruta,
+            type     : metodo,
+            url      : ruta,
             datatype : "html",
-            success : function (result) {
+            data     : datos,
+            success  : function (result) {
                 showInModal("modal", result);
 
             }
