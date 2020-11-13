@@ -65,7 +65,11 @@ public class Router {
         Spark.get("/listadoDeUsuarios",listarUsuariosController::listarUsuarios,Router.engine);
 
         // Delete para eliminar un usuario
-        Spark.delete("/usuario/:id", usuarioController::eliminar);
+        Spark.delete("/listadoDeUsuario/eliminar/:id", listarUsuariosController::eliminar,Router.engine);
+        Spark.post("/altaUsuario/alta/:id", darAltaUsuarioController::darAltaUsuarioInhabilitado,Router.engine);
+
+        //Guardar los datos de las pestañas POST
+        Spark.post("/altaUsuario",darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
 
 
         // TODO | Borrar, para probar

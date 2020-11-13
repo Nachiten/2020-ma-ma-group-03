@@ -1,16 +1,17 @@
-function modal_show(unModal, resultado){
+function valorDe(unaVariableDelDocumento){
+    return $("#"+unaVariableDelDocumento+"").val();
+}
 
+function modal_show(unModal){
     $("#"+unModal+"").modal('show');
 }
+
 function agregarA(unaVariableDelDocumento, unValor){
     $("#"+unaVariableDelDocumento+"").append(unValor);
 }
+
 function vaciar(unaVariableDelDocumento){
     $("#"+unaVariableDelDocumento+"").empty();
-}
-
-function valorDe(unaVariableDelDocumento){
-    return $("#"+unaVariableDelDocumento+"").val();
 }
 
 function showInModal(unModal, unContenido){
@@ -39,7 +40,7 @@ function verificarSesion() {
             type : metodo,
             url : ruta,
             datatype : "html",
-            succes : function (result) {
+            success : function (result) {
                 showInModal("modal", result);
 
             }
@@ -60,15 +61,14 @@ function recuperarDatosFormularioIngresos(){
 function mostrarModalGuardadoIngreso() {
     var datos = recuperarDatosFormularioIngresos();
     var ruta = "/ingresos";
-    var metodo = "Post";
+    var metodo = "POST";
     $.ajax({
-        type : metodo,
-        url : ruta,
+        type     : metodo,
+        url      : ruta,
         datatype : "html",
-        data: datos,
-        succes : function (result) {
+        data     : datos,
+        success  : function (result) {
             showInModal("modal", result);
-
         }
     });
 }
@@ -77,10 +77,10 @@ function mostrarModalGuardadoEgreso(id) {
     var ruta = "/usuario/egresos/"+id;
     var metodo = "Post";
     $.ajax({
-        type : metodo,
-        url : ruta,
+        type     : metodo,
+        url      : ruta,
         datatype : "html",
-        succes : function (result) {
+        success  : function (result) {
             showInModal("modal", result);
 
         }
@@ -94,7 +94,7 @@ function mostrarModalGuardadoPresupuestos(id) {
         type : metodo,
         url : ruta,
         datatype : "html",
-        succes : function (result) {
+        success : function (result) {
             showInModal("modal", result);
 
         }
@@ -108,7 +108,7 @@ function mostrarModalGuardadocriterios(id) {
         type : metodo,
         url : ruta,
         datatype : "html",
-        succes : function (result) {
+        success : function (result) {
             showInModal("modal", result);
 
         }

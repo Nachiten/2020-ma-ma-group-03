@@ -231,7 +231,7 @@ public class EntidadesController {
         operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(usuario.getEntidadJuridica());
 
         if (!validarPersistencia(repoOperacionIngreso, operacionDeIngresoAGuardar)){
-            model.put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
+            model.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
             return new ModelAndView(model, "modalInformativo2.hbs");
         }
 

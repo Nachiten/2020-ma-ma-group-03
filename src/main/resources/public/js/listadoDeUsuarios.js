@@ -1,21 +1,40 @@
-/*$(function () {
 
-    $(document).on('click', '.borrar', function (event) {
-        console.log("Entre en la funcion borrar");
-        event.preventDefault();
-        $(this).closest('tr').remove();
-    });
-});*/
+function valorDe(unaVariableDelDocumento){
+    return $("#"+unaVariableDelDocumento+"").val();
+}
+
+function modal_show(unModal){
+    $("#"+unModal+"").modal('show');
+}
+
+function agregarA(unaVariableDelDocumento, unValor){
+    $("#"+unaVariableDelDocumento+"").append(unValor);
+}
+
+function vaciar(unaVariableDelDocumento){
+    $("#"+unaVariableDelDocumento+"").empty();
+}
+
+function showInModal(unModal, unContenido){
+    vaciar(unModal);
+    agregarA(unModal,unContenido);
+    modal_show(unModal);
+}
 
 function eliminarUsuario(id){
     console.log("Tengo que borrar el usuario con id " + id);
     //var id = document.getElementById("userId").value;
-    $.ajax({
-        type: "DELETE",
-        url: "usuario/"+id,
-        success: function(result){
-            location.reload(true);
-        }
-    });
+    var mensaje = confirm("¿Está seguro que quiere eliminar éste usuario?");
+    if (mensaje) {
+        $.ajax({
+            type: "DELETE",
+            url: "/listadoDeUsuario/eliminar/" + id,
+            dataType: "html",
+            success : function(result){
+                showInModal("modal",result);
+
+            }
+        });
+    }
 }
 

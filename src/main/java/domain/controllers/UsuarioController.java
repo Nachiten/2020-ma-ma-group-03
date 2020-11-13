@@ -58,6 +58,7 @@ public class UsuarioController {
         return new ModelAndView(model, "modalCerrarSesion.hbs");
     }
 
+  /*
     public Response eliminar(Request request, Response response){
         int idBuscado = Integer.parseInt(request.params("id"));
         Usuario usuarioBuscado = this.repositorioDeUsuarios.getRepoUsuarios().buscar(idBuscado);
@@ -72,5 +73,39 @@ public class UsuarioController {
         //return response;
        // return new ModelAndView(null, "listadoDeUsuarios.hbs");
     }
+*/
 
-}
+
+    public Response eliminar(Request request, Response response) {
+        int idBuscado = Integer.parseInt(request.params("id"));
+        Usuario usuarioBuscado = this.repositorioDeUsuarios.getRepoUsuarios().buscar(idBuscado);
+
+        if (usuarioBuscado.getEstoyHabilitado()) {
+            usuarioBuscado.setEstoyHabilitado(false);
+
+            this.repositorioDeUsuarios.getRepoUsuarios().modificar(usuarioBuscado);
+
+        }else if(!usuarioBuscado.getEstoyHabilitado()) {
+
+            usuarioBuscado.setEstoyHabilitado(true);
+
+            this.repositorioDeUsuarios.getRepoUsuarios().modificar(usuarioBuscado);
+        }
+
+        return response;
+
+    }
+
+   }
+
+    /*
+    public Response editar(Request request, Response response){
+        int idBuscado = Integer.parseInt(request.params("id"));
+        Usuario usuarioBuscado = this.repositorioDeUsuarios.getRepoUsuarios().buscar(idBuscado);
+
+        usuarioBuscado.setEstoyHabilitado(true);
+
+        this.repositorioDeUsuarios.getRepoUsuarios().modificar(usuarioBuscado);
+
+        return response;
+    }*/

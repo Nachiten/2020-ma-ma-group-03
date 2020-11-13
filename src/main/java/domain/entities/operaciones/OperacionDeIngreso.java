@@ -28,7 +28,7 @@ public class OperacionDeIngreso  {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     private EntidadJuridica entidadJuridicaAsociada;
 
     @OneToMany (cascade = CascadeType.ALL)
@@ -87,6 +87,7 @@ public class OperacionDeIngreso  {
 
     public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) {
         this.entidadJuridicaAsociada = entidadJuridicaAsociada;
+        this.entidadJuridicaAsociada.agregarOperacionDeIngresoAsociada(this);
     }
 
     //-------------------------------------------------------------------------

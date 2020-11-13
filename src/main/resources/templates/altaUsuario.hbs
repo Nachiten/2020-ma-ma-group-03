@@ -4,38 +4,55 @@
         <br>
 
 
-        <form action="">
+        <form action= "javascript:void(0)" method="post">
             <center>
 
             <table class= "formulario" border = 0 >
                 <tr>
                     <td>Nombre:</td></td>
 
-                    <td><input type="text" name="nombre" placeholder="Ingrese el nombre" required></td>
+                    <td><input type="text" name="nombre" id = "altaUsuario-nombre" placeholder="Ingrese el nombre" required></td>
                 </tr>
                 <tr>
                     <td>Apellido:</td></td>
 
-                    <td><input type="text" name="apellido" placeholder="Ingrese el apellido" required></td>
+                    <td><input type="text" name="apellido" id = "altaUsuario-apellido" placeholder="Ingrese el apellido" required></td>
                 </tr>
 
                 <tr>
                     <td>Nombre de usuario:</td></td>
 
-                    <td><input type="text" name="nombreUsuario" placeholder="Ingrese el usuario" required></td>
+                    <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" placeholder="Ingrese el usuario" required></td>
                 </tr>
 
                 <tr>
                     <td>Contraseña:</td></td>
 
-                    <td><input type="password" name="contrasenia" placeholder="Ingrese la contraseña" required></td>
+                    <td><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" placeholder="Ingrese la contraseña" required></td>
+                </tr>
+
+                <tr>
+                    <td>Entidad Juridica:</td></td>
+
+                    <td>
+                        <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" required >
+                            <option hidden selected>Elegir una entidad juridica</option>
+
+                            {{#each entidadJuridica}}
+                                <option>{{razonSocial}}</option>
+                            {{/each}}
+
+
+
+                        </select>
+                    </td>
                 </tr>
 
                 <tr>
                     <td>Tipo usuario:</td></td>
 
                     <td>
-                      <select name = "tipoUsuario" required >
+                      <select name = "tipoUsuario" id = "altaUsuario-tipoUsuario" required >
                         <option hidden selected>Elegir tipo de usuario</option>
 
                           {{#each tiposUsuarios}}
@@ -49,7 +66,7 @@
                 </tr>
 
             </table>
-                <button type= "submit" >Guardar</button>
+                <button type= "submit" onclick="mostrarModalGuardadoAltaNuevoUsuario()">Guardar</button>
             </center>
 
         </form>
@@ -84,10 +101,15 @@
                             <td>{{tipo}}</td>
                             <td>{{estoyHabilitado}}</td>
                             <td>
-                                <!-- EL BOTON BORRAR TODAVIA NO ESTÁ IMPLEMENTADO  <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>-->
+
 
                                 <div>
-                                    <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>
+
+                                    <a href="/altaUsuario" class="fas fa-edit" onclick="eliminarUsuario('{{id}}')">
+
+                                    </a>
+
+
                                 </div>
 
 
@@ -106,5 +128,6 @@
 
     <link rel="stylesheet" href="/css/estiloAltaUsuario.css" />
     <script src="/js/formatoDeTabla.js"></script>
+    <script src="/js/altaUsuario.js"></script>
 {{/partial}}
 {{>principalAdministrador.hbs}}
