@@ -19,9 +19,15 @@
                 <version>3.0.0</version>
                 <configuration>
                     <descriptorRefs>
+                        <!-- This tells Maven to include all dependencies -->
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <finalName>GESOC</finalName>
+                    <archive>
+                        <manifest>
+                            <mainClass>server.Server</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
