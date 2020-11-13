@@ -9,7 +9,7 @@ public class Server {
         Spark.port(getHerokuAssignedPort());
         Router.init();
         DebugScreen.enableDebugScreen();
-        System.out.println("Estas en el puerto 9000");
+        System.out.println("Estas en el puerto [" + getHerokuAssignedPort() + "]");
     }
 
     static int getHerokuAssignedPort() {
