@@ -69,7 +69,7 @@ public class Router {
 
 
         // TODO | Borrar, para probar
-        Spark.get("/testLink", (req, res) -> "La pagina funciona capo");
+        Spark.get("/testLink", (req, res) -> "La pagina funciona :D");
 
     }
 }
