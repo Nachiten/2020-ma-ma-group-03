@@ -9,16 +9,16 @@
                 <table class="formulario" border="0">
                     <tr>
                         <td>Fecha:</td>
-                        <td><input type="date" name="fecha" placeholder="Ingrese la fecha" required></td>
+                        <td><input type="date" name="fecha" id="alta-fecha" placeholder="Ingrese la fecha" required></td>
                     </tr>
                     <tr>
                         <td>Monto Total:</td>
-                        <td><input type="number" step="0.01" name="montoTotal" placeholder="Ej: $200" required></td>
+                        <td><input type="number" step="0.01" name="montoTotal" id="alta-montoTotal" placeholder="Ej: $200" required></td>
                     </tr>
                     <tr>
                         <td>Tipo de Medio De Pago:</td>
                         <td>
-                            <select name = "medioDePago" required >
+                            <select name="medioDePago" id="alta-medioDePago" required >
                                 <option hidden selected>-Seleccionar medio de pago-</option>
                                 {{#each tiposMediosDePago}}
                                     <option>{{tipoPago}}</option>
@@ -28,12 +28,12 @@
                     </tr>
                     <tr>
                         <td>Número Medio De Pago:</td>
-                        <td><input type="number" name="numeroMedioDePago" placeholder="Ej: 9999999999999" required></td>
+                        <td><input type="number" name="numeroMedioDePago" id="alta-numeroMedioDePago" placeholder="Ej: 9999999999999" required></td>
                     </tr>
                     <tr>
                         <td>Tipo de Documento Comercial:</td>
                         <td>
-                            <select name = "documentoComercial" required>
+                            <select name = "documentoComercial" id="alta-documentoComercial" required>
                                 <option hidden selected>-Seleccionar documento comercial-</option>
                                 {{#each tiposDocumentoComercial}}
                                     <option>{{nombre}}</option>
@@ -43,12 +43,12 @@
                     </tr>
                     <tr>
                         <td>Número Documento Comercial:</td>
-                        <td><input type="number" name="numeroDocumentoComercial" placeholder="Ej: 9999999999999" required></td>
+                        <td><input type="number" name="numeroDocumentoComercial" id="alta-numeroDocumentoComercial" placeholder="Ej: 9999999999999" required></td>
                     </tr>
                     <tr>
                         <td>Proveedor:</td>
                         <td>
-                            <select name = "proveedor" required>
+                            <select name = "proveedor" id="alta-proveedor" required>
                                 <option hidden selected> -Seleccionar proveedor-</option>
                                 {{#each proveedores}}
                                     <option>{{razonSocial}}</option>
@@ -91,7 +91,7 @@
                 <table class="formulario3" border="0">
                     <tr>
                         <td>Presupuestos requeridos:</td>
-                        <td><input name="presupuestosRequeridos" min="0" max="1000" type="number" placeholder="Ej: 1" required><br/></td>
+                        <td><input name="presupuestosRequeridos" id="alta-presupuestosRequeridos" min="0" max="1000" type="number" placeholder="Ej: 1" required><br/></td>
                     </tr>
                 </table>
 
@@ -133,7 +133,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" onclick="mostrarModalGuardadoEgreso({{id}})">Guardar</button>
+                <button type="submit" onclick="mostrarModalGuardadoEgreso()">Guardar</button>
             </center>
 
         </form>

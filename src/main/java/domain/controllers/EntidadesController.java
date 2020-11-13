@@ -299,7 +299,7 @@ public class EntidadesController {
         operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
         if (!validarPersistencia(repoOperacionEgreso, operacionAGuardar)){
-            parametros.put("mensaje", "Se produjo un erroe al gradar los datos.");
+            parametros.put("mensaje", "Se produjo un error al guardar los datos.");
             return new ModelAndView(parametros,"modalInformativo2.hbs");
         }
 
@@ -520,8 +520,28 @@ public class EntidadesController {
     }
 
     private List<Item> obtenerListaItems(Request request){
+
+
         List<Item> items = new ArrayList<>();
 
+        String preciosItemsString = request.queryParams("preciosItems");
+        String nombresItemsString = request.queryParams("nombresItems");
+
+        String[] precios = preciosItemsString.split("=");
+        String[] nombres = nombresItemsString.split("=");
+
+        for (int i = 0; i < precios.length; i++){
+            String unPrecioString = precios[i];
+            String unNombre = nombres[i];
+
+            float unPrecio = Float.parseFloat(unPrecioString);
+
+            Item miItem = new Item(unNombre, unPrecio);
+
+            items.add(miItem);
+        }
+
+        /*
         String itemNombre;
         String itemPrecioString;
 
@@ -537,7 +557,7 @@ public class EntidadesController {
             }
 
         }
-
+        */
         return items;
     }
 

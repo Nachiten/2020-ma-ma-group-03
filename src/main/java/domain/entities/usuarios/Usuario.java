@@ -32,8 +32,7 @@ public class Usuario extends EntidadPersistente {
     @Column(name = "apellido")
     private String apellido;
 
-    // @Transient sirve para que no se persista este atributo
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     private EntidadJuridica entidadJuridica;
 
     @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
@@ -45,7 +44,7 @@ public class Usuario extends EntidadPersistente {
     @Column (name = "tiempoUltimaContrasenia")
     private LocalDate tiempoUltimaContrasenia;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     private List<OperacionDeEgreso> operacionesRevisadas;
 
     @Column(name="estoyHabilitado")

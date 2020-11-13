@@ -129,8 +129,10 @@ function nuevaFilaEnItems()
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
 
-	var itemInputOculto   = '<input type="hidden" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + item;
-	var precioInputOculto = '<input type="hidden" name="precio_I[' + numeroFila + ']" id="precio_I[' + numeroFila + ']" value="' + precio;
+	// name="nombre_I[3]" 7 14
+
+	var itemInputOculto   = '<input type="hidden" class="nombreItem" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + item;
+	var precioInputOculto = '<input type="hidden" class="precioItem" name="precio_I[' + numeroFila + ']" id="precio_I[' + numeroFila + ']" value="' + precio;
 
 	var itemTextoMostrado   = '"> <p name="" class="non-margin" style="color = black">' + item + '</p>';
 	var precioTextoMostrado = '"> <p name="" class="non-margin" style="color = black">' + precio + '</p>';
