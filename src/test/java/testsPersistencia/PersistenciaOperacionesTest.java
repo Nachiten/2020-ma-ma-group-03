@@ -193,13 +193,13 @@ public class PersistenciaOperacionesTest {
 
     @Test
     public void t4_persistirProveedores(){
-        Proveedor miProveedor1 = new Proveedor("Ramirez", "Carla", 42374333, null, "Contruccion SRL");
+        Proveedor miProveedor1 = new Proveedor("Ramirez", "Carla", 41374383, null, "Contruccion SRL");
         persistirUnObjeto(miProveedor1);
 
-        Proveedor miProveedor2 = new Proveedor("Baptista", "Fernando", 42374333, null, "Cosas SA");
+        Proveedor miProveedor2 = new Proveedor("Baptista", "Fernando", 42954333, null, "Cosas SA");
         persistirUnObjeto(miProveedor2);
 
-        Proveedor miProveedor3 = new Proveedor("Martinez", "Julieta", 42374333, null, "Alimentos SA");
+        Proveedor miProveedor3 = new Proveedor("Martinez", "Julian", 36374333, null, "Alimentos SA");
         persistirUnObjeto(miProveedor3);
     }
     @Test
