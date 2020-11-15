@@ -27,9 +27,15 @@ public class Router {
     private static void configure(){
         // Controllers
         ContextoDeUsuarioLogueado contextoDeUsuarioLogueado = new ContextoDeUsuarioLogueado();
+        ModalAndViewController modalAndViewController = new ModalAndViewController(contextoDeUsuarioLogueado);
         UsuarioController usuarioController = new UsuarioController(contextoDeUsuarioLogueado);
         InicioController inicioController 	= new InicioController(contextoDeUsuarioLogueado);
-        EntidadesController entidadesController = new EntidadesController(contextoDeUsuarioLogueado);
+        mainController mainController = new mainController(modalAndViewController);
+        IngresosController ingresosController = new IngresosController(modalAndViewController);
+        PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController);
+        EgresosController egresosController = new EgresosController(modalAndViewController);
+        CriteriosController criteriosController = new CriteriosController(modalAndViewController);
+        AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
         DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(contextoDeUsuarioLogueado);
         ListarUsuariosController listarUsuariosController = new ListarUsuariosController(contextoDeUsuarioLogueado);
 
@@ -44,21 +50,21 @@ public class Router {
 
 
         // Paginas una vez logueado GET para usuarios ESTANDAR
-        Spark.get("/ingresos", entidadesController::ingresos, Router.engine);
-        Spark.get("/egresos", entidadesController::egresos, Router.engine);
-        Spark.get("/presupuestos", entidadesController::presupuestos, Router.engine);
-        Spark.get("/criterios", entidadesController::criterios, Router.engine);
-        Spark.get("/listadoOperaciones", entidadesController::listadoOperaciones, Router.engine);
-        Spark.get("/asociarOperacion", entidadesController::asociarOperacion, Router.engine);
-        Spark.get("/mensajes", entidadesController::mensajes, Router.engine);
-        Spark.get("/inicio", entidadesController::principal, Router.engine);
+        Spark.get("/ingresos", ingresosController::ingresos, Router.engine);
+        Spark.get("/egresos", egresosController::egresos, Router.engine);
+        Spark.get("/presupuestos", presupuestosController::presupuestos, Router.engine);
+        Spark.get("/criterios", criteriosController::criterios, Router.engine);
+        Spark.get("/listadoOperaciones", asociacionOperacionesController::listadoOperaciones, Router.engine);
+        Spark.get("/asociarOperacion", asociacionOperacionesController::asociarOperacion, Router.engine);
+        Spark.get("/mensajes", mainController::mensajes, Router.engine);
+        Spark.get("/inicio", mainController::principal, Router.engine);
 
         // Guardar los datos de las ventanas POST
-        Spark.post("/egresos", entidadesController::guardarOperacionDeEgreso, Router.engine);
-        Spark.post("/ingresos", entidadesController::guardarOperacionDeIngreso, Router.engine);
-        Spark.post("/presupuestos", entidadesController::guardarPresupuesto, Router.engine);
-        Spark.post("/criterios", entidadesController::guardarCriterio, Router.engine);
-        Spark.post("/asociarOperacion", entidadesController::ejecutarVinculacion, Router.engine);
+        Spark.post("/egresos", egresosController::guardarOperacionDeEgreso, Router.engine);
+        Spark.post("/ingresos", ingresosController::guardarOperacionDeIngreso, Router.engine);
+        Spark.post("/presupuestos", presupuestosController::guardarPresupuesto, Router.engine);
+        Spark.post("/criterios", criteriosController::guardarCriterio, Router.engine);
+        Spark.post("/asociarOperacion", asociacionOperacionesController::ejecutarVinculacion, Router.engine);
 
         //Paginas una vez logueado GET para usuario ADMIN
         Spark.get("/altaUsuario",darAltaUsuarioController::tiposDeUsuarios, Router.engine);
@@ -70,7 +76,5 @@ public class Router {
 
         //Guardar los datos de las pestañas POST
         Spark.post("/altaUsuario",darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
-
-
     }
 }
