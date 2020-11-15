@@ -22,8 +22,11 @@ public class Proveedor extends EntidadPersistente {
     private String razonSocial;
     @Column(name = "cuit")
     private int cuit;
+    @Column(name="estoyHabilitado")
+    private boolean estoyHabilitado ;
 
     public Proveedor(){
+        inicializar();
 
     }
 
@@ -33,15 +36,44 @@ public class Proveedor extends EntidadPersistente {
         this.dni = dni;
         this.direccionPostal = direccionPostal;
         this.razonSocial = razonSocial;
+        inicializar();
     }
 
     public Proveedor(String razonSocial, int cuit, DireccionPostal direccionPostal) {
         this.razonSocial = razonSocial;
         this.cuit = cuit;
         this.direccionPostal = direccionPostal;
+        inicializar();
     }
+
+    private void inicializar(){
+        this.estoyHabilitado = true;
+    }
+    public void cambiarAHabilitado(){
+        this.setEstoyHabilitado(true);
+    }
+
+    public void cambiarAInhabilitado(){
+        this.setEstoyHabilitado(false);
+    }
+
+    //-------------------------------------------------------------------------
+                                    //GETTERS
+    //-------------------------------------------------------------------------
 
     public String getRazonSocial() {
         return razonSocial;
+    }
+
+    public boolean getEstoyHabilitado(){
+        return estoyHabilitado;
+    }
+
+    //-------------------------------------------------------------------------
+                                  //SETTERS
+    //-------------------------------------------------------------------------
+
+    public void setEstoyHabilitado(Boolean estoyHabilitado){
+        this.estoyHabilitado= estoyHabilitado;
     }
 }

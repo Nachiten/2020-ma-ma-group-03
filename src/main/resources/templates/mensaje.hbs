@@ -1,44 +1,25 @@
 {{#partial "contenido"}}
-    <div>
-        <br>
-        <br>
-
-     <form>
-
-             <center>
-                  <table id="mensajes">
-                    <thead>
-                       <tr>
-                           <th>FECHA CREACION</th>
-                           <th>CONTENIDO</th>
-                           <th>FECHA LECTURA</th>
-                       </tr>
-                 </thead>
-                 <tbody >
-                    {{#each bandejaDeMensajes}}
-                     <tr>
-                         <td>{{fechaCreado}}</td>
-                         <td>{{contenido}}</td>
-                         <td>{{fechaYHoraLeido}}</td>
-                     </tr>
-                    {{/each}}
-                 </tbody>
-             </table>
-
-
-         </table>
-
-
-
-
-         </center>
-     </form>
-
-
+    <div class="table-wrapper">
+        <table id="tabla_mensajes">
+            <thead>
+                <tr>
+                    <th>FECHA CREACIÓN</th>
+                    <th>CONTENIDO</th>
+                    <td>FECHA LECTURA</td>
+                </tr>
+            </thead>
+            <tbody id = "content_table">
+            {{#each bandejaDeMensajes}}
+                <tr>
+                    <td>{{fechaCreado}}</td>
+                    <td>{{contenido}}</td>
+                    <td>{{fechaYHoraLeido}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
     </div>
-        <link rel="stylesheet" href="/css/estiloMensaje.css" />
-      <script><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"></script>
-
-
+    <link rel="stylesheet" href="/css/estiloMensaje.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 {{/partial}}
-{{>principal.hbs}}
+{{>principalStandar.hbs}}

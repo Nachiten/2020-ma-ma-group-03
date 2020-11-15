@@ -37,14 +37,14 @@ function verificarSesion() {
     var ruta = '/';
     var metodo = 'POST';
     $.ajax({
-            type : metodo,
-            url : ruta,
-            datatype : "html",
-            success : function (result) {
-                showInModal("modal", result);
+        type : metodo,
+        url : ruta,
+        datatype : "html",
+        success : function (result) {
+            showInModal("modal", result);
 
-            }
-        });
+        }
+    });
 }
 
 function recuperarDatosFormularioIngresos(){
@@ -83,7 +83,7 @@ function datosNombresCategorias(){
     for (var x = 0; x < categorias.length; x++) {
         if (categorias[x].checked){
             categoriasString += categorias[x].name;
-                categoriasString += '=';
+            categoriasString += '=';
         }
 
     }
@@ -129,7 +129,7 @@ function datosNombresItems() {
 
     console.log("Nombres: " + nombresItemsValores);
 
-   return nombresItemsValores;
+    return nombresItemsValores;
 }
 
 /*

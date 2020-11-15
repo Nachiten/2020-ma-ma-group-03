@@ -7,7 +7,7 @@
     <link  rel="icon"   href="/img/entrar.png" type="image/png" />
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <link rel="stylesheet" href="/css/modal.css" type="text/css">
-      <script type="text/javascript" src="/js/usuario.js"></script>
+    <script type="text/javascript" src="/js/usuario.js"></script>
   </head>
   <body>
     <div class="titulo">
@@ -17,15 +17,15 @@
 
     <div class="login-box">
         <h1>Iniciar Sesión</h1>
-        <form action="/inicio" method="post" class="form-">
+        <form action = "/inicio" method = "post" class = "form-">
             <div class="textbox">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="Usuario" name="nombreDeUsuario" required>
+                <input type="text" placeholder="Usuario" name="nombreDeUsuario" id="login-usuario" required>
             </div>
 
             <div class="textbox">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Contraseña" name="contrasenia" required>
+                <input type="password" placeholder="Contraseña" name="contrasenia" id="login-contrasenia" required>
             </div>
 
         <input type="submit" class="btn" value="Ingresar" onclick="verificarSesion()">

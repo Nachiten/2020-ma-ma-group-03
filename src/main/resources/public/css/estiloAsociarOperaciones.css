@@ -1,6 +1,6 @@
 .tabAO td{
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .tabAO table{
@@ -21,6 +21,7 @@ button{
     padding:1em 2em;
     font-size: larger;
     cursor:pointer;
+    border-radius: 10px 10px;
 }
 button:hover{
     border-color:var(--hover);

@@ -26,17 +26,21 @@ table {
     table td {
         padding: 1em 1em;
         background-color: #7cb9ff;
+        font-weight: 600;
+        font-size: 20px;
     }
 
     table th {
         color:#000;
-        font-size: 0.9em;
-        font-weight: 550;
+        /*font-size: 0.9em;
+        font-weight: 550;*/
+        font-weight: 600;
+        font-size: 20px;
         padding: 0 1em;
     }
 
     table thead {
-        border-bottom: solid 1px #000000;
+        border-bottom: solid 1px  #ffffff;
     }
 
     table tfoot {
@@ -45,6 +49,9 @@ table {
 
     .table-wrapper td {
         text-align :center;
+        color: #000;
+        font-weight: 600;
+        font-size: 20px;
    }
     table.alt {
         border-collapse: separate;

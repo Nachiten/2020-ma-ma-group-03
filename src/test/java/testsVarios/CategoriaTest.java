@@ -4,9 +4,9 @@ import domain.entities.entidades.Afip;
 import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.tipoEntidadJuridica.Empresa;
 import domain.entities.tipoEntidadJuridica.Sector;
-import domain.entities.usuarios.TipoUsuario;
 import org.junit.Assert;
 import org.junit.Test;
+
 
 public class CategoriaTest {
 
@@ -52,6 +52,7 @@ public class CategoriaTest {
         servicios4.addCategorias(micro, pequenia, medianaT1, medianaT2);
         Assert.assertSame(Afip.clasificacion(empresaD), medianaT2);
     }
+
 }
 
 

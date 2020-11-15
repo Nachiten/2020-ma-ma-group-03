@@ -21,7 +21,8 @@ public class DarAltaUsuarioController {
     private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
     private Usuario usuario ;
     private Map<String, Object> parametros;
-private List<EntidadJuridica> entidadesJuridicas ;
+    private List<EntidadJuridica> entidadesJuridicas;
+
     public DarAltaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
         this.parametros = new HashMap<>();
@@ -30,7 +31,7 @@ private List<EntidadJuridica> entidadesJuridicas ;
         this.entidadesJuridicas = new ArrayList<>();
     }
 
-    //Evalua si se accedio correctame (previo inicio de sesion) y devuelve lo que corresponde
+    //Evalua si se accedio correctamente (previo inicio de sesion) y devuelve lo que corresponde
     //si se accedió a la página sin haberse logueado devuelve error 404
     private ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
 

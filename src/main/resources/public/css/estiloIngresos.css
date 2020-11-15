@@ -1,5 +1,7 @@
 .ingresos .formulario td{
     width: 50%;
+    font-weight: 600;
+    font-size: 20px;
 }
 
 button{
@@ -13,21 +15,21 @@ button{
     padding:1em 2em;
     font-size: larger;
     cursor:pointer;
+    border-radius: 10px 10px;
 }
 button:focus,button:hover{
     border-color:var(--hover);
     color:#fff;
 }
 
-.container .ingresos .formulario label{
-    font-weight: 600;
-    font-size: 20px;
-}
-
 .container .ingresos .formulario input{
     font-size: 17px;
+    border-radius: 5px 5px;
+    border: 0;
 }
 
 .container .ingresos .formulario select{
     font-size: 17px;
+    border-radius: 5px 5px;
+    border: 0;
 }

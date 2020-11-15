@@ -23,3 +23,8 @@ SELECT * FROM entidadjuridica;
 SELECT * FROM tipoentidadjuridicaempresa;
 SELECT * FROM sector;
 SELECT * FROM categoriaEmpresa;
+
+SELECT * FROM paises;
+SELECT * FROM provincias;
+SELECT * FROM ciudades;
+SELECT * FROM monedas;

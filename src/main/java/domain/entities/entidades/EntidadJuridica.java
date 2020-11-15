@@ -95,6 +95,10 @@ public class EntidadJuridica extends EntidadPersistente {
         return operacionesDeIngreso;
     }
 
+    public String getRazonSocial() {
+        return razonSocial;
+    }
+
     //-------------------------------------------------------------------------
                             //SETTERS
     //-------------------------------------------------------------------------
