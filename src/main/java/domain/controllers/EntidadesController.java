@@ -491,19 +491,28 @@ public class EntidadesController {
     // Obtener lista al insertar egreso,presupuesto
     private List<CategoriaCriterio> obtenerListaCategoriaCriterio(Request request){
 
-        List<CategoriaCriterio> listaADevolver = new ArrayList<>();
+        String categoriasLeidas = request.queryParams("nombresCategorias");
 
+        String[] listaNombresCategorias = categoriasLeidas.split("=");
+
+        List<CategoriaCriterio> listaADevolver = new ArrayList<>();
         List<CategoriaCriterio> categoriasCriterioTotales = this.repoCategoriaCriterio.buscarTodos();
 
-        for(CategoriaCriterio unaCategoriaCriterio : categoriasCriterioTotales){
-            String categoriCriterioLeidaNombre = request.queryParams(unaCategoriaCriterio.getNombreCategoria());
-
-            if (categoriCriterioLeidaNombre != null){
-                listaADevolver.add(unaCategoriaCriterio);
-            }
+        for(String unNombreCategoria : listaNombresCategorias){
+            CategoriaCriterio categoriaEncontrada = encontrarCategoria(unNombreCategoria, categoriasCriterioTotales);
+            listaADevolver.add(categoriaEncontrada);
         }
 
         return listaADevolver;
+    }
+
+    private CategoriaCriterio encontrarCategoria(String nombreCategoria, List<CategoriaCriterio> categorias){
+        for(CategoriaCriterio unaCategoria : categorias){
+            if (unaCategoria.getNombreCategoria().equals(nombreCategoria)){
+                return unaCategoria;
+            }
+        }
+        return null;
     }
 
     private List<String> obtenerListaCriteriosVinculacion(Request request){

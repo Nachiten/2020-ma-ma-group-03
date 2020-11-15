@@ -69,17 +69,36 @@ function recuperarDatosFormularioEgresos(){
         presupuestosRequeridos   : valorDe("alta-presupuestosRequeridos"),
         proveedor                : valorDe("alta-proveedor"),
         preciosItems : datosPreciosItems(),
-        nombresItems : datosNombresItems()
+        nombresItems : datosNombresItems(),
+        nombresCategorias : datosNombresCategorias()
     };
 
     return datos;
+}
+
+function datosNombresCategorias(){
+    var categorias = document.querySelectorAll(".categoria");
+
+    var categoriasString = '';
+    for (var x = 0; x < categorias.length; x++) {
+        if (categorias[x].checked){
+            categoriasString += categorias[x].name;
+                categoriasString += '=';
+        }
+
+    }
+
+    var cadenaADevolver = categoriasString.substring(0, categoriasString.length - 1);
+
+    console.log("Categorias: " + cadenaADevolver);
+
+    return cadenaADevolver;
 }
 
 function datosPreciosItems(){
     var precios = document.querySelectorAll(".precioItem");
 
     if (precios.length === 0){
-        alert("Se debe insertar al menos un item");
         return 'noHayPrecios';
     }
 
@@ -148,6 +167,7 @@ function mostrarModalGuardadoEgreso() {
     var datos = recuperarDatosFormularioEgresos();
 
     if (datos.preciosItems === 'noHayPrecios'){
+        alert("Se debe insertar al menos un item");
         console.log("No habia items, cancelo post");
         return;
     }
