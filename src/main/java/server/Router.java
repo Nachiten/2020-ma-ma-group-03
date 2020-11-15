@@ -27,16 +27,17 @@ public class Router {
     private static void configure(){
         // Controllers
         ContextoDeUsuarioLogueado contextoDeUsuarioLogueado = new ContextoDeUsuarioLogueado();
+        OperadorController operadorController = new OperadorController();
         ModalAndViewController modalAndViewController = new ModalAndViewController(contextoDeUsuarioLogueado);
         UsuarioController usuarioController = new UsuarioController(contextoDeUsuarioLogueado);
         InicioController inicioController 	= new InicioController(contextoDeUsuarioLogueado);
         MainController mainController = new MainController(modalAndViewController);
-        IngresosController ingresosController = new IngresosController(modalAndViewController);
-        PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController);
-        EgresosController egresosController = new EgresosController(modalAndViewController);
-        CriteriosController criteriosController = new CriteriosController(modalAndViewController);
+        IngresosController ingresosController = new IngresosController(modalAndViewController, operadorController);
+        PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController, operadorController);
+        EgresosController egresosController = new EgresosController(modalAndViewController, operadorController);
+        CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
         AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
-        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(contextoDeUsuarioLogueado);
+        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(contextoDeUsuarioLogueado, operadorController);
         ListarUsuariosController listarUsuariosController = new ListarUsuariosController(contextoDeUsuarioLogueado);
 
         // Pagina iniciar sesión

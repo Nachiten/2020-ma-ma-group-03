@@ -15,10 +15,12 @@ public class CriteriosController {
 
     private ModalAndViewController modalAndViewController;
     private Repositorio<Criterio> repoCriterio;
+    private OperadorController operadorController;
 
-    public CriteriosController(ModalAndViewController modalAndViewController){
+    public CriteriosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
         this.modalAndViewController = modalAndViewController;
+        this.operadorController = operadorController;
     }
 
     private ModelAndView modalAndViewCriterios(){
@@ -39,7 +41,7 @@ public class CriteriosController {
 
         Criterio criterioAGuardar = new Criterio(nombreCriterio, listaCategoriasCriterio);
 
-        if (!validarPersistencia(repoCriterio,criterioAGuardar)){
+        if (!operadorController.validarPersistencia(repoCriterio,criterioAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
@@ -65,15 +67,5 @@ public class CriteriosController {
         }
 
         return categorias;
-    }
-
-    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
-        try {
-            objetoFactory.agregar(objetoClase);
-        }catch (Exception e){
-            System.out.println("EXCEPCION: " + e.getMessage());
-            return false;
-        }
-        return true;
     }
 }

@@ -15,22 +15,20 @@ import java.util.List;
 public class PresupuestosController {
 
     private Repositorio<OperacionDeEgreso> repoOperacionEgreso;
-    private Repositorio<TipoMedioDePago> repoTipoMedioPago;
     private Repositorio<TipoDocumentoComercial> repoTipoDocComercial;
     private Repositorio<Criterio> repoCriterio;
-    private Repositorio<CategoriaCriterio> repoCategoriaCriterio;
     private ModalAndViewController modalAndViewController;
     private Repositorio<Presupuesto> repoPresupuesto;
+    private OperadorController operadorController;
 
-    public PresupuestosController(ModalAndViewController modalAndViewController){
+    public PresupuestosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
 
-        this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
         this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
-        this.repoCategoriaCriterio = FactoryRepositorio.get(CategoriaCriterio.class);
         this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
         this.modalAndViewController = modalAndViewController;
+        this.operadorController = operadorController;
     }
 
     private ModelAndView modalAndViewPresupuestos(){
@@ -38,7 +36,7 @@ public class PresupuestosController {
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
         List<Criterio> criterios = this.repoCriterio.buscarTodos();
-        List<Criterio> criterios2 = quitarMitad(criterios);
+        List<Criterio> criterios2 = operadorController.quitarMitad(criterios);
 
         modalAndViewController.getParametros().put("operacionesEgreso", operacionesEgreso);
         modalAndViewController.getParametros().put("tiposDocumentoComercial", tiposDocumentoComercial);
@@ -55,7 +53,6 @@ public class PresupuestosController {
 
     }
 
-
     public ModelAndView guardarPresupuesto(Request request, Response response){
         // Leo query params
         String montoTotalString = request.queryParams("montoTotal");
@@ -68,7 +65,7 @@ public class PresupuestosController {
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        if (noEligioDocumentoComercial(tipoDocumentoComercialString)){
+        if (operadorController.noEligioDocumentoComercial(tipoDocumentoComercialString)){
             // No se inserto documento comercial
             modalAndViewController.getParametros().put("mensaje", "No se inserto documento comercial.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
@@ -78,7 +75,7 @@ public class PresupuestosController {
         OperacionDeEgreso operacionEgresoAsociada = buscarOperacionEgreso(operacionEgresoString);
 
         // Leo todos los items
-        List<Item> listaItems = obtenerListaItems(request);
+        List<Item> listaItems = operadorController.obtenerListaItems(request);
 
         if (operacionEgresoAsociada == null){
             modalAndViewController.getParametros().put("mensaje", "Error al leer la operacion de egreso.");
@@ -96,14 +93,14 @@ public class PresupuestosController {
         // listaItems = operacionEgresoAsociada.getItems();
 
         // Leo las categorias
-        List<CategoriaCriterio> categoriasCriterio = obtenerListaCategoriaCriterio(request);
+        List<CategoriaCriterio> categoriasCriterio = operadorController.obtenerListaCategoriaCriterio(request);
 
         // Convierto los numeros
         float montoTotal = Float.parseFloat(montoTotalString);
         int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
 
         // Genero tipoDocComercial
-        TipoDocumentoComercial tipoDocComercial = buscarTipoDocComercial(tipoDocumentoComercialString);
+        TipoDocumentoComercial tipoDocComercial = operadorController.buscarTipoDocComercial(tipoDocumentoComercialString);
         // Genero documento comercial
         DocumentoComercial documentoComercial = new DocumentoComercial(tipoDocComercial, numeroDocumentoComercial);
 
@@ -115,7 +112,7 @@ public class PresupuestosController {
         presupuestoAGuardar.setItems(listaItems);
         presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
 
-        if (!validarPersistencia(repoPresupuesto,presupuestoAGuardar)){
+        if (!operadorController.validarPersistencia(repoPresupuesto,presupuestoAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
@@ -125,58 +122,8 @@ public class PresupuestosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 
-
-    private List<Criterio> quitarMitad(List<Criterio> lista){
-        List<Criterio> listaADevolver = new ArrayList<>();
-
-        int listaSize = lista.size();
-
-        int limite;
-        if (listaSize % 2 == 0){
-            // Caso par: listaSize / 2 - 1
-            limite = listaSize / 2 - 1;
-        } else {
-            // Caso impar: listaSize / 2
-            limite = listaSize / 2;
-        }
-
-        // Recorro la lista
-        for (int i = listaSize - 1; i > limite;i--){
-            Criterio miCriterio = lista.remove(i);
-
-            listaADevolver.add(miCriterio);
-        }
-        return listaADevolver;
-    }
-
-    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
-        try {
-            objetoFactory.agregar(objetoClase);
-        }catch (Exception e){
-            System.out.println("EXCEPCION: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
     private boolean noEligioOperacionEgreso(String operacionEgresoString){
         return operacionEgresoString.equals("-Seleccionar una operacion de egreso-");
-    }
-
-    private boolean noEligioDocumentoComercial(String documentoComercialString){
-        return documentoComercialString.equals("Seleccionar documento comercial");
-    }
-
-
-    private TipoDocumentoComercial buscarTipoDocComercial(String nombre){
-        List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
-
-        for ( TipoDocumentoComercial unTipoDocComercial : tiposDocumentoComercial ) {
-            if (unTipoDocComercial.getNombre().equals(nombre)){
-                return unTipoDocComercial;
-            }
-        }
-        return null;
     }
 
     private boolean listasDeItemsIguales(List<Item> itemsPresupuesto, List<Item> itemsEgreso){
@@ -204,55 +151,6 @@ public class PresupuestosController {
             }
         }
         return false;
-    }
-
-    // Obtener lista al insertar egreso,presupuesto
-    private List<CategoriaCriterio> obtenerListaCategoriaCriterio(Request request){
-
-        String categoriasLeidas = request.queryParams("nombresCategorias");
-
-        String[] listaNombresCategorias = categoriasLeidas.split("=");
-
-        List<CategoriaCriterio> listaADevolver = new ArrayList<>();
-        List<CategoriaCriterio> categoriasCriterioTotales = this.repoCategoriaCriterio.buscarTodos();
-
-        for(String unNombreCategoria : listaNombresCategorias){
-            CategoriaCriterio categoriaEncontrada = encontrarCategoria(unNombreCategoria, categoriasCriterioTotales);
-            listaADevolver.add(categoriaEncontrada);
-        }
-
-        return listaADevolver;
-    }
-
-    private CategoriaCriterio encontrarCategoria(String nombreCategoria, List<CategoriaCriterio> categorias){
-        for(CategoriaCriterio unaCategoria : categorias){
-            if (unaCategoria.getNombreCategoria().equals(nombreCategoria)){
-                return unaCategoria;
-            }
-        }
-        return null;
-    }
-
-    private List<Item> obtenerListaItems(Request request){
-        List<Item> items = new ArrayList<>();
-
-        String itemNombre;
-        String itemPrecioString;
-
-        for (int i = 0; i <30; i++){
-
-            if ((itemNombre = request.queryParams("nombre_I[" + i + "]") ) != null){
-                itemPrecioString = request.queryParams("precio_I[" + i + "]");
-                float itemPrecio = Float.parseFloat(itemPrecioString);
-
-                Item miItem = new Item(itemNombre, itemPrecio);
-
-                items.add(miItem);
-            }
-
-        }
-
-        return items;
     }
 
     private OperacionDeEgreso buscarOperacionEgreso(String idMasFecha){

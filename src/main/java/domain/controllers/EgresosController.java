@@ -13,8 +13,6 @@ import spark.Request;
 import spark.Response;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class EgresosController {
@@ -22,20 +20,20 @@ public class EgresosController {
     private Repositorio<OperacionDeEgreso> repoOperacionEgreso;
     private Repositorio<TipoMedioDePago> repoTipoMedioPago;
     private Repositorio<TipoDocumentoComercial> repoTipoDocComercial;
-    private Repositorio<CategoriaCriterio> repoCategoriaCriterio;
     private Repositorio<Criterio> repoCriterio;
     private Repositorio<Proveedor> repoProveedor;
     private ModalAndViewController modalAndViewController;
+    private OperadorController operadorController;
 
-    public EgresosController(ModalAndViewController modalAndViewController){
+    public EgresosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
 
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
         this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
-        this.repoCategoriaCriterio = FactoryRepositorio.get(CategoriaCriterio.class);
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
         this.modalAndViewController = modalAndViewController;
+        this.operadorController = operadorController;
     }
 
     private ModelAndView modalAndViewEgresos(){
@@ -44,7 +42,7 @@ public class EgresosController {
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
         List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
         List<Criterio> criterios = this.repoCriterio.buscarTodos();
-        List<Criterio> criterios2 = quitarMitad(criterios);
+        List<Criterio> criterios2 = operadorController.quitarMitad(criterios);
 
         modalAndViewController.getParametros().put("tiposMediosDePago", tiposMediosPago);
         modalAndViewController.getParametros().put("tiposDocumentoComercial", tiposDocumentoComercial);
@@ -72,19 +70,19 @@ public class EgresosController {
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
         String razonSocialProveedor = request.queryParams("proveedor");
 
-        if (noEligioMedioPago(tipoMedioDePagoString) || noEligioDocumentoComercial(tipoDocumentoComercialString)){
+        if (noEligioMedioPago(tipoMedioDePagoString) || operadorController.noEligioDocumentoComercial(tipoDocumentoComercialString)){
             // No se inserto metodo de pago o documento comercial
             modalAndViewController.getParametros().put("mensaje","No se inserto metodo de pago o documento comercial");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
 
         // Leo lista de categorias
-        List<CategoriaCriterio> categoriasCriterio = obtenerListaCategoriaCriterio(request);
+        List<CategoriaCriterio> categoriasCriterio = operadorController.obtenerListaCategoriaCriterio(request);
         // Leo todos los items
-        List<Item> listaItems = obtenerListaItems(request);
+        List<Item> listaItems = operadorController.obtenerListaItems(request);
 
         // Convierto de string a LocalDate
-        LocalDate fecha = convertirAFecha(fechaString);
+        LocalDate fecha = operadorController.convertirAFecha(fechaString);
         // Convierto de string a float
         float montoTotal = Float.parseFloat(montoTotalString);
         // Convierto de string a int
@@ -96,7 +94,7 @@ public class EgresosController {
         Proveedor proveedor = buscarProveedor(razonSocialProveedor);
         // Genero tipo medio pago y tipoDocComercial
         TipoMedioDePago tipoMedioPago = buscarTipoMedioPago(tipoMedioDePagoString);
-        TipoDocumentoComercial tipoDocComercial = buscarTipoDocComercial(tipoDocumentoComercialString);
+        TipoDocumentoComercial tipoDocComercial = operadorController.buscarTipoDocComercial(tipoDocumentoComercialString);
 
         // Genero medio pago y documento comercial
         MedioDePago medioDePago = new MedioDePago(tipoMedioPago, numeroMedioDePago);
@@ -119,7 +117,7 @@ public class EgresosController {
         operacionAGuardar.setProveedorAsociado(proveedor);
         operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
-        if (!validarPersistencia(repoOperacionEgreso, operacionAGuardar)){
+        if (!operadorController.validarPersistencia(repoOperacionEgreso, operacionAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "Se produjo un erroe al gradar los datos.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
@@ -129,122 +127,9 @@ public class EgresosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 
-    private OperacionDeEgreso buscarOperacionEgreso(String idMasFecha){
-
-        // Recorto el ID del string
-        int indexDosPuntos = idMasFecha.indexOf(":");
-        int indexPipe = idMasFecha.indexOf("|");
-        String idString = idMasFecha.substring(indexDosPuntos + 2 , indexPipe - 1);
-
-        int idOperacionEgresoBuscado = Integer.parseInt(idString);
-
-        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
-
-        for ( OperacionDeEgreso unaOperacion : operacionesEgreso ) {
-            if (unaOperacion.getIdOperacion() == idOperacionEgresoBuscado){
-                return unaOperacion;
-            }
-        }
-
-        return null;
-    }
-
     private boolean noEligioMedioPago(String medioPagoString){
         return medioPagoString.equals("Seleccionar medio de pago");
     }
-    private boolean noEligioDocumentoComercial(String documentoComercialString){
-        return documentoComercialString.equals("Seleccionar documento comercial");
-    }
-
-    // Quita la mitad de la lista y genera otra
-    private List<Criterio> quitarMitad(List<Criterio> lista){
-        List<Criterio> listaADevolver = new ArrayList<>();
-
-        int listaSize = lista.size();
-
-        int limite;
-        if (listaSize % 2 == 0){
-            // Caso par: listaSize / 2 - 1
-            limite = listaSize / 2 - 1;
-        } else {
-            // Caso impar: listaSize / 2
-            limite = listaSize / 2;
-        }
-
-        // Recorro la lista
-        for (int i = listaSize - 1; i > limite;i--){
-            Criterio miCriterio = lista.remove(i);
-
-            listaADevolver.add(miCriterio);
-        }
-        return listaADevolver;
-    }
-
-    private LocalDate convertirAFecha(String fechaString){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(fechaString, formatter);
-    }
-
-    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
-        try {
-            objetoFactory.agregar(objetoClase);
-        }catch (Exception e){
-            System.out.println("EXCEPCION: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
-
-    // Obtener lista al insertar egreso,presupuesto
-    private List<CategoriaCriterio> obtenerListaCategoriaCriterio(Request request){
-
-        String categoriasLeidas = request.queryParams("nombresCategorias");
-
-        String[] listaNombresCategorias = categoriasLeidas.split("=");
-
-        List<CategoriaCriterio> listaADevolver = new ArrayList<>();
-        List<CategoriaCriterio> categoriasCriterioTotales = this.repoCategoriaCriterio.buscarTodos();
-
-        for(String unNombreCategoria : listaNombresCategorias){
-            CategoriaCriterio categoriaEncontrada = encontrarCategoria(unNombreCategoria, categoriasCriterioTotales);
-            listaADevolver.add(categoriaEncontrada);
-        }
-
-        return listaADevolver;
-    }
-
-    private CategoriaCriterio encontrarCategoria(String nombreCategoria, List<CategoriaCriterio> categorias){
-        for(CategoriaCriterio unaCategoria : categorias){
-            if (unaCategoria.getNombreCategoria().equals(nombreCategoria)){
-                return unaCategoria;
-            }
-        }
-        return null;
-    }
-
-    private List<Item> obtenerListaItems(Request request){
-        List<Item> items = new ArrayList<>();
-
-        String itemNombre;
-        String itemPrecioString;
-
-        for (int i = 0; i <30; i++){
-
-            if ((itemNombre = request.queryParams("nombre_I[" + i + "]") ) != null){
-                itemPrecioString = request.queryParams("precio_I[" + i + "]");
-                float itemPrecio = Float.parseFloat(itemPrecioString);
-
-                Item miItem = new Item(itemNombre, itemPrecio);
-
-                items.add(miItem);
-            }
-
-        }
-
-        return items;
-    }
-
 
     private TipoMedioDePago buscarTipoMedioPago(String nombre){
         List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
@@ -263,17 +148,6 @@ public class EgresosController {
         for ( Proveedor unProveedor : proveedores ) {
             if (unProveedor.getRazonSocial().equals(razonSocial)){
                 return unProveedor;
-            }
-        }
-        return null;
-    }
-
-    private TipoDocumentoComercial buscarTipoDocComercial(String nombre){
-        List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
-
-        for ( TipoDocumentoComercial unTipoDocComercial : tiposDocumentoComercial ) {
-            if (unTipoDocComercial.getNombre().equals(nombre)){
-                return unTipoDocComercial;
             }
         }
         return null;

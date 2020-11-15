@@ -1,6 +1,5 @@
 package domain.controllers;
 
-
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -72,7 +71,4 @@ public class ListarUsuariosController {
         parametros.put("mensaje","El usuario se eliminó correctamente");
         return new ModelAndView(parametros,"modalInformativo2.hbs") ;
     }
-
-
-
 }

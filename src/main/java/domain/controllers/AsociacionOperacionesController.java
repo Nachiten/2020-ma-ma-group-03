@@ -24,7 +24,6 @@ public class AsociacionOperacionesController {
         this.modalAndViewController = modalAndViewController;
     }
 
-
     private ModelAndView modalAndViewListadoOperaciones(){
 
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
@@ -83,10 +82,6 @@ public class AsociacionOperacionesController {
         modalAndViewController.getParametros().put("mensaje", "Se ejecuto la vinculacion correctamente");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
-
-    // --- FUNCIONES AUXILIARES ---
-
-
 
     private List<String> obtenerListaCriteriosVinculacion(Request request){
 

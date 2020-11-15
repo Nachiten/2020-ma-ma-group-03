@@ -22,13 +22,15 @@ public class DarAltaUsuarioController {
     private Usuario usuario ;
     private Map<String, Object> parametros;
     private List<EntidadJuridica> entidadesJuridicas;
+    private OperadorController operadorController;
 
-    public DarAltaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
+    public DarAltaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado, OperadorController operadorController) {
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
         this.parametros = new HashMap<>();
         this.usuario = new Usuario();
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.entidadesJuridicas = new ArrayList<>();
+        this.operadorController = operadorController;
     }
 
     //Evalua si se accedio correctamente (previo inicio de sesion) y devuelve lo que corresponde
@@ -73,9 +75,6 @@ public class DarAltaUsuarioController {
         return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
     }
 
-
-
-
     public ModelAndView darAltaUsuarioInhabilitado(Request request, Response response) {
         int idBuscado = Integer.parseInt(request.params("id"));
         Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
@@ -119,7 +118,7 @@ public class DarAltaUsuarioController {
         Usuario usuarioApersistir = new Usuario(tipoUsuario,nombreDeUsuario,contrasenia,nombre,apellido);
         //usuarioApersistir.setEntidadJuridica(entidadJuridica);
 
-        if(!validarPersistencia(repoUsuario,usuarioApersistir)){
+        if(!operadorController.validarPersistencia(repoUsuario,usuarioApersistir)){
             parametros.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
             return new ModelAndView(parametros, "modalInformativo2.hbs");
         }
@@ -127,15 +126,5 @@ public class DarAltaUsuarioController {
         parametros.put("mensaje","Se insertaron los datos correctamente");
         return new ModelAndView(parametros,"modalInformativo2.hbs");
 
-    }
-
-    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
-        try {
-            objetoFactory.agregar(objetoClase);
-        }catch (Exception e){
-            System.out.println("EXCEPCION: " + e.getMessage());
-            return false;
-        }
-        return true;
     }
 }
