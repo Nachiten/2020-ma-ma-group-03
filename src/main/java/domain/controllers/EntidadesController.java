@@ -6,6 +6,7 @@ import criterioOperacion.Criterio;
 import domain.entities.apiMercadoLibre.Moneda;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
+import domain.entities.usuarios.TipoUsuario;
 import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
@@ -23,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+
+import static domain.entities.usuarios.TipoUsuario.ESTANDAR;
 
 public class EntidadesController {
 
@@ -86,9 +89,11 @@ public class EntidadesController {
     //-------------------------------------------------------------------------
 
     public ModelAndView principal(Request request, Response response) throws Exception {
-
         cargarParametosHashMap();
-        return siElUsuarioEstaLogueadoRealiza(request, () -> new ModelAndView(parametros, "inicioEstandar.hbs"));
+        if(usuario.getTipo().equals(TipoUsuario.ESTANDAR)){
+            return siElUsuarioEstaLogueadoRealiza(request, () -> new ModelAndView(parametros, "inicioEstandar.hbs"));
+        }
+        return siElUsuarioEstaLogueadoRealiza(request, () -> new ModelAndView(parametros, "inicioAdministrador.hbs"));
     }
 
     private ModelAndView modalAndViewIngresos() {
