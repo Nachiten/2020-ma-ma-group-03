@@ -30,7 +30,7 @@ public class Router {
         ModalAndViewController modalAndViewController = new ModalAndViewController(contextoDeUsuarioLogueado);
         UsuarioController usuarioController = new UsuarioController(contextoDeUsuarioLogueado);
         InicioController inicioController 	= new InicioController(contextoDeUsuarioLogueado);
-        mainController mainController = new mainController(modalAndViewController);
+        MainController mainController = new MainController(modalAndViewController);
         IngresosController ingresosController = new IngresosController(modalAndViewController);
         PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController);
         EgresosController egresosController = new EgresosController(modalAndViewController);
@@ -76,5 +76,8 @@ public class Router {
 
         //Guardar los datos de las pestañas POST
         Spark.post("/altaUsuario",darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
+
+        //Spark.get("/*", (request, response) -> "Error 404 no hay nada aca.");
+        Spark.get("/*", inicioController::retornarError, Router.engine);
     }
 }

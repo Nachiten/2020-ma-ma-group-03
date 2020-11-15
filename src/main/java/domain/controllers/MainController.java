@@ -6,11 +6,11 @@ import spark.Request;
 import spark.Response;
 
 
-public class mainController {
+public class MainController {
 
     private ModalAndViewController modalAndViewController;
 
-    public mainController(ModalAndViewController modalAndViewController){
+    public MainController(ModalAndViewController modalAndViewController){
         this.modalAndViewController = modalAndViewController;
     }
 

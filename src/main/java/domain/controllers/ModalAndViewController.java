@@ -34,6 +34,9 @@ public class ModalAndViewController {
 
     void cargarParametosHashMap() throws Exception {
         usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
+        if (usuario == null){
+            return;
+        }
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
     }

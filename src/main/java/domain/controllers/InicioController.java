@@ -17,4 +17,8 @@ public class InicioController {
         contextoDeUsuarioLogueado.cerrarSesion(request);
         return new ModelAndView(null, "login.hbs");
     }
+
+    public ModelAndView retornarError(Request request, Response response){
+        return new ModelAndView(null,"error404.hbs");
+    }
 }
