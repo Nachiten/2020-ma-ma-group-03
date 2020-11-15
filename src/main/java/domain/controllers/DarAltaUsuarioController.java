@@ -43,6 +43,9 @@ private List<EntidadJuridica> entidadesJuridicas ;
 
     private void cargarParametosHashMap() throws Exception {
         usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
+        if (usuario == null){
+            return;
+        }
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
     }
@@ -58,11 +61,14 @@ private List<EntidadJuridica> entidadesJuridicas ;
         parametros.put("tiposUsuarios",TipoUsuario.values());
         parametros.put("entidadJuridica",entidadesJuridicas);
         return new ModelAndView(parametros,"altaUsuario.hbs");
-//buscar entidad jUridica parecido a moneda
+        //buscar entidad jUridica parecido a moneda
     }
 
     public ModelAndView tiposDeUsuarios(Request request, Response response) throws Exception {
         cargarParametosHashMap();
+        if (usuario == null){
+            return new ModelAndView(null,"error404.hbs");
+        }
         return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
     }
 
@@ -105,21 +111,16 @@ private List<EntidadJuridica> entidadesJuridicas ;
         TipoUsuario tipoUsuario ;
         if(tipoDeUsuario.equals(TipoUsuario.ESTANDAR)) {
             tipoUsuario = TipoUsuario.ESTANDAR;
-
         }else{
             tipoUsuario = TipoUsuario.ADMIN;
         }
 
-            Usuario usuarioApersistir = new Usuario(tipoUsuario,nombreDeUsuario,contrasenia,nombre,apellido);
-      //usuarioApersistir.setEntidadJuridica(entidadJuridica);
-
-
-
+        Usuario usuarioApersistir = new Usuario(tipoUsuario,nombreDeUsuario,contrasenia,nombre,apellido);
+        //usuarioApersistir.setEntidadJuridica(entidadJuridica);
 
         if(!validarPersistencia(repoUsuario,usuarioApersistir)){
             parametros.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
             return new ModelAndView(parametros, "modalInformativo2.hbs");
-
         }
 
         parametros.put("mensaje","Se insertaron los datos correctamente");

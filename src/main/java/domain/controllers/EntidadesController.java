@@ -77,6 +77,9 @@ public class EntidadesController {
 
     private void cargarParametosHashMap() throws Exception {
         usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
+        if (usuario == null){
+            return;
+        }
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
     }
@@ -286,6 +289,9 @@ public class EntidadesController {
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
 
         Usuario miUsuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
+        if (usuario == null){
+            return new ModelAndView(null,"error404.hbs");
+        }
         EntidadJuridica entidadJuridica = miUsuario.getEntidadJuridica();
 
         // Setters necesarios

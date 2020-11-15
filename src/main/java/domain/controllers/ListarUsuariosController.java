@@ -42,7 +42,6 @@ public class ListarUsuariosController {
     }
 
     private void cargarParametosHashMap() throws Exception {
-
         usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());

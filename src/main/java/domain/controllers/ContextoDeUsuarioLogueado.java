@@ -30,6 +30,7 @@ public class  ContextoDeUsuarioLogueado {
     }
 
     public Usuario getUsuarioLogueado() throws Exception {
-        return usuarioLogueadoOpcional.orElseThrow(() -> new Exception("No se encuentra el usuario logueado..."));
+        //return usuarioLogueadoOpcional.orElseThrow(() -> new Exception("No se encuentra el usuario logueado..."));
+        return usuarioLogueadoOpcional.orElse(null);
     }
 }
