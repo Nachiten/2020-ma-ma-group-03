@@ -8,10 +8,10 @@
      <center>
         <table class= "formulario1">
             <tr>
-                <td>Operacion de Egreso asociada:</td>
+                <td>Operación de Egreso asociada:</td>
                 <td>
                     <select name="operacionEgreso" required >
-                        <option hidden selected>-Seleccionar una operacion de egreso-</option>
+                        <option hidden selected>-Seleccionar una operación de egreso-</option>
                         {{#each operacionesEgreso}}
                             <option>ID: {{idOperacion}} | Fecha: {{fecha}}</option>
                         {{/each}}
@@ -34,8 +34,8 @@
                 </td>
             </tr>
             <tr>
-                <td>Numero Documento Comercial:</td>
-                <td><input type="number" min="0" name="numeroDocumentoComercial" placeholder="Ingrese el numero" required></td>
+                <td>Número Documento Comercial:</td>
+                <td><input type="number" min="0" name="numeroDocumentoComercial" placeholder="Ingrese el número" required></td>
             </tr>
 
         </table>
@@ -119,4 +119,4 @@
 <script src="/js/formatoDeTabla.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 {{/partial}}
-{{>principal.hbs}}
+{{>principalStandar.hbs}}

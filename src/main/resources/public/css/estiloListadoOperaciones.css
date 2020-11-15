@@ -1,6 +1,13 @@
 .operaciones{
     width: 100%;
 }
- label{
-     color: white;
- }
+
+h3{
+ color: white;
+ font-size: 20px;
+    margin-block-end: 1.5%;
+}
+
+.table-wrapper tbody td{
+    font-size: 18px;
+}

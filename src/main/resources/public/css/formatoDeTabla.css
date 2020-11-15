@@ -30,8 +30,10 @@ table {
 
     table th {
         color:#000;
-        font-size: 0.9em;
-        font-weight: 550;
+        /*font-size: 0.9em;
+        font-weight: 550;*/
+        font-weight: 600;
+        font-size: 20px;
         padding: 0 1em;
     }
 
@@ -45,6 +47,9 @@ table {
 
     .table-wrapper td {
         text-align :center;
+        color: #000;
+        font-weight: 600;
+        font-size: 20px;
    }
     table.alt {
         border-collapse: separate;

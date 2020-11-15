@@ -6,12 +6,95 @@
 
 *{
     margin: 0;
-    /*padding: 0;*/
     box-sizing: border-box;
     list-style: none;
     text-decoration: none;
     font-family: 'Josefin Sans', sans-serif;
 }
+
+.titulo{
+    margin-block-end: 50px;
+    margin-block-start: 30px;
+}
+
+.titulo h1{
+    text-align: center;
+    font-size: 50px;
+    color: white;
+}
+
+.imagen{
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-left: 57px;
+    float: left;
+
+    width: 45%;
+    height: auto;
+}
+
+.imagen img{
+    width: 80%;
+}
+.articulo{
+    padding-top: 10%;
+    padding-left: 10px;
+    margin-left: 10px;
+
+    float: left;
+    width: 45%;
+    height: auto;
+    text-align: inherit;
+}
+
+.articulo h2{
+    font-size: 30px;
+    color: white;
+}
+
+.articulo h3{
+    font-size: 20px;
+    color: white;
+    margin-block-start: 5%;
+}
+
+.sist{
+
+    float:none;
+    overflow-y: auto;
+    margin-block-end: 5%;
+}
+
+.func{
+
+    float: none;
+    overflow-y: auto;
+    margin-block-start: 5%;
+    margin-block-end: 5%;
+}
+
+.list{
+    padding-left: 10px;
+    padding-top: 10%;
+    margin-left: 57px;
+    float: left;
+
+    width: 45%;
+    height: auto;
+    text-align: inherit;
+}
+
+.list h2{
+    font-size: 30px;
+    color: white;
+    margin-block-end: 5%;
+}
+
+.list h3{
+    font-size: 20px;
+    color: white;
+}
+
 .fijo{
     position: fixed;
     width: 102%;
@@ -104,7 +187,7 @@
     color: #ffffff;
     letter-spacing: 2px;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .wrapper .bottom_nav .link .a:hover{
