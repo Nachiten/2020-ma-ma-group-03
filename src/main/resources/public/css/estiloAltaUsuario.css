@@ -5,14 +5,18 @@
 }
 
  .formulario input{
-     font-size: 17px;
+     font-size: 18px;
+     border-radius: 10px 10px;
+     border: 0;
  }
 
  .formulario select{
-     font-size: 17px;
+     font-size: 18px;
+     border-radius: 10px 10px;
+     border: 0;
  }
-button{
 
+.altaUsuario button{
     transition:.25s;
     background:#00afff;
     border:0px solid;
@@ -22,10 +26,20 @@ button{
     padding:1em 2em;
     font-size: larger;
     cursor:pointer;
+    border-radius: 10px 10px;
+    margin-block-end: 3%;
 }
-button:focus,button:hover{
 
+.altaUsuario button:focus,button:hover{
     color:#fff;
 }
 
+.table-wrapper tbody td{
+    font-size: 18px;
+}
 
+.altaUsuario h2{
+    font-size: 30px;
+    color: white;
+    margin-block-end: 2%;
+}

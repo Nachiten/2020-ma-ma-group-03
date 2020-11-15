@@ -1,98 +1,68 @@
 {{#partial "contenido"}}
-    <div class = "altaUsuario">
-        <br>
-        <br>
+<div class = "altaUsuario">
 
-
-        <form action= "javascript:void(0)" method="post">
-            <center>
-
+    <form action= "javascript:void(0)" method="post">
+        <center>
+            <h2>Nuevo usuario</h2>
             <table class= "formulario" border = 0 >
                 <tr>
                     <td>Nombre:</td></td>
-
-                    <td><input type="text" name="nombre" id = "altaUsuario-nombre" placeholder="Ingrese el nombre" required></td>
+                    <td><input type="text" name="nombre" id = "altaUsuario-nombre" placeholder="Ingrese un nombre" required></td>
                 </tr>
                 <tr>
                     <td>Apellido:</td></td>
 
-                    <td><input type="text" name="apellido" id = "altaUsuario-apellido" placeholder="Ingrese el apellido" required></td>
+                    <td><input type="text" name="apellido" id = "altaUsuario-apellido" placeholder="Ingrese un apellido" required></td>
                 </tr>
-
                 <tr>
                     <td>Nombre de usuario:</td></td>
-
-                    <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" placeholder="Ingrese el usuario" required></td>
+                    <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" placeholder="Ingrese un usuario" required></td>
                 </tr>
-
                 <tr>
                     <td>Contraseña:</td></td>
-
-                    <td><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" placeholder="Ingrese la contraseña" required></td>
+                    <td><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" placeholder="Ingrese una contraseña" required></td>
                 </tr>
-
                 <tr>
                     <td>Entidad Juridica:</td></td>
-
                     <td>
                         <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" required >
-                            <option hidden selected>Elegir una entidad juridica</option>
-
+                            <option hidden selected>Elegir una entidad jurídica</option>
                             {{#each entidadJuridica}}
                                 <option>{{razonSocial}}</option>
                             {{/each}}
-
-
-
                         </select>
                     </td>
                 </tr>
-
                 <tr>
-                    <td>Tipo usuario:</td></td>
-
+                    <td>Tipo de usuario:</td></td>
                     <td>
                       <select name = "tipoUsuario" id = "altaUsuario-tipoUsuario" required >
                         <option hidden selected>Elegir tipo de usuario</option>
-
                           {{#each tiposUsuarios}}
                               <option>{{this}}</option>
-                              {{/each}}
-
-
-
+                          {{/each}}
                       </select>
                     </td>
                 </tr>
-
             </table>
                 <button type= "submit" onclick="mostrarModalGuardadoAltaNuevoUsuario()">Guardar</button>
-            </center>
-
-        </form>
-
-        <center>
-            <table>
-                <td> Habilitar Usuario</td>
-            </table>
-
-
-            <div class="table-wrapper">
-
-                <table id="usuariosNoHabilitados">
-
-
-                    <thead>
+        </center>
+    </form>
+    <center>
+            <h2>Habilitar usuarios</h2>
+        <div class="table-wrapper">
+            <table id="usuariosNoHabilitados">
+                <thead>
                     <tr>
                         <th>NOMBRE</th>
                         <th>APELLIDO</th>
                         <th>USUARIO</th>
                         <th>TIPO USUARIO</th>
                         <th>ESTOY HABILITADO</th>
-                        <th>HABILITAR</th>
+                        <td>HABILITAR</td>
                     </tr>
-                    </thead>
-                    <tbody id="content_table">
+                </thead>
+                <tbody id="content_table">
                     {{#each usuariosNoHabilitados}}
                         <tr>
                             <td>{{nombre}}</td>
@@ -101,33 +71,19 @@
                             <td>{{tipo}}</td>
                             <td>{{estoyHabilitado}}</td>
                             <td>
-
-
                                 <div>
-
-                                    <a href="/altaUsuario" class="fas fa-edit" onclick="eliminarUsuario('{{id}}')">
-
-                                    </a>
-
-
+                                    <a href="/altaUsuario" class="fas fa-edit" onclick="eliminarUsuario('{{id}}')"></a>
                                 </div>
-
-
                             </td>
-
                         </tr>
                     {{/each}}
-                    </tbody>
-                </table>
-            </div>
-
-        </center>
-    </div>
-
-
-
-    <link rel="stylesheet" href="/css/estiloAltaUsuario.css" />
-    <script src="/js/formatoDeTabla.js"></script>
-    <script src="/js/altaUsuario.js"></script>
+                </tbody>
+            </table>
+        </div>
+    </center>
+</div>
+<link rel="stylesheet" href="/css/estiloAltaUsuario.css" />
+<script src="/js/formatoDeTabla.js"></script>
+<script src="/js/altaUsuario.js"></script>
 {{/partial}}
 {{>principalAdministrador.hbs}}

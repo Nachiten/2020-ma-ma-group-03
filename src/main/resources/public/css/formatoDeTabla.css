@@ -26,6 +26,8 @@ table {
     table td {
         padding: 1em 1em;
         background-color: #7cb9ff;
+        font-weight: 600;
+        font-size: 20px;
     }
 
     table th {
@@ -38,7 +40,7 @@ table {
     }
 
     table thead {
-        border-bottom: solid 1px #000000;
+        border-bottom: solid 1px  #ffffff;
     }
 
     table tfoot {
