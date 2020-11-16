@@ -71,10 +71,9 @@ public class ProveedorController {
         int altura = Integer.parseInt(alturaString);
         int piso = Integer.parseInt(pisoString);
 
-        DireccionPostal direccionPostal = new DireccionPostal();
+        Direccion direccion = new Direccion(calle, altura, piso, "A");
 
-        Direccion direccion = new Direccion(calle, altura, piso, null);
-        direccionPostal.setDireccion(direccion);
+        DireccionPostal direccionPostal = new DireccionPostal(direccion);
 
         Proveedor proveedorAGuardar = new Proveedor(nombre, apellido, cuit_cuil, direccionPostal, razonSocial);
 

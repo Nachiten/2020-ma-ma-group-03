@@ -22,9 +22,9 @@ public class ApiMercadoLibreInfo {
             servicioPais = ServicioUbicacionMercadoLibre.instancia();
 
             //paisesId = generarListaIdDePaises();
-            //listadoPaises = generarListaDePaises();
-            //listadoProvincias = generarListaEstados();
-            //listadoCiudades = generarListaCiudades();
+            listadoPaises = generarListaDePaises();
+            listadoProvincias = generarListaEstados();
+            listadoCiudades = generarListaCiudades();
             monedas = generarListadoMonedas();
         } catch (IOException e) {
             e.printStackTrace();

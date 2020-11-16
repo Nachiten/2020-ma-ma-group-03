@@ -11,7 +11,7 @@ public class Persistencia {
 		      Process p = Runtime
 		            .getRuntime()
 		            .exec("mysqldump -u root -p0147852. persistenciatp");
-			   //  .exec("mysqldump -u root -p1234 persistenciatp");
+					//  .exec("mysqldump -u root -p1234 persistenciatp");
 
 		      InputStream is = p.getInputStream();
 		      FileOutputStream fos = new FileOutputStream("gesoc.sql");
@@ -33,7 +33,7 @@ public class Persistencia {
 		   try {
 		      Process p = Runtime
 		            .getRuntime()
-			   // .exec("mysql -u root -p1234 persistenciatp");
+					//  .exec("mysql -u root -p1234 persistenciatp");
 		            .exec("mysql -u root -p0147852. persistenciatp");
 
 		      OutputStream os = p.getOutputStream();

@@ -11,13 +11,13 @@ import java.util.Optional;
 @Entity
 @Table (name = "direccionPostal")
 public class DireccionPostal extends EntidadPersistente {
-    @ManyToOne (cascade = {CascadeType.ALL})
+    @ManyToOne //(cascade = {CascadeType.ALL})
     private Direccion direccion;
 
-    @ManyToOne (cascade = {CascadeType.ALL})
+    @ManyToOne //(cascade = {CascadeType.ALL})
     private Estado provincia;
 
-    @ManyToOne (cascade = {CascadeType.ALL})
+    @ManyToOne //(cascade = {CascadeType.ALL})
     private Pais pais;
 
     //-------------------------------------------------------------------------
@@ -25,6 +25,10 @@ public class DireccionPostal extends EntidadPersistente {
     //-------------------------------------------------------------------------
 
     public DireccionPostal(){
+    }
+
+    public DireccionPostal(Direccion direccion){
+        this.direccion = direccion;
     }
 
     //-------------------------------------------------------------------------
