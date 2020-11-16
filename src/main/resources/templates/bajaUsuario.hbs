@@ -25,27 +25,14 @@
                                     <td>{{tipo}}</td>
                                     <td>{{estoyHabilitado}}</td>
                                     <td>
-                                       <!-- EL BOTON BORRAR TODAVIA NO ESTÁ IMPLEMENTADO-->
                                         <div>
-                                            <!--<i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>-->
-                                            <!--<i class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" />-->
-
-                                            <a href="/bajaProveedor" class="fas fa-trash" onclick="eliminarUsuario('{{id}}')">
-                                                <!-- <i class="fas fa-trash"></i> -->
-                                                <!--<button name="button" class="fas fa-trash" ></button>-->
-                                            </a>
-
-
+                                            <a class="fas fa-trash" onclick="darDeBajaUsuario('{{id}}')" style="cursor: pointer"></a>
                                         </div>
                                     </td>
 
                                 </tr>
                             {{/each}}
                         </tbody>
-
-
-
-
                     </table>
                 </div>
         </center>

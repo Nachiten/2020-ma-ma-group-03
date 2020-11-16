@@ -10,63 +10,39 @@ import spark.Request;
 import spark.Response;
 
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 
 public class DarAltaUsuarioController {
 
     private Repositorio<Usuario> repoUsuario;
-    private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
-    private Usuario usuario ;
-    private Map<String, Object> parametros;
-    private List<EntidadJuridica> entidadesJuridicas;
     private OperadorController operadorController;
+    private ModalAndViewController modalAndViewController;
 
-    public DarAltaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado,OperadorController operadorController) {
-        this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
-        this.parametros = new HashMap<>();
-        this.usuario = new Usuario();
+    public DarAltaUsuarioController(ModalAndViewController modalAndViewController,OperadorController operadorController) {
+        this.modalAndViewController = modalAndViewController;
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
-        this.entidadesJuridicas = new ArrayList<>();
         this.operadorController = operadorController;
 
     }
 
-    //Evalua si se accedio correctamente (previo inicio de sesion) y devuelve lo que corresponde
-    //si se accedió a la página sin haberse logueado devuelve error 404
-    private ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
-
-        if(!contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
-            return new ModelAndView(null,"error404.hbs");
-        }
-
-        return bloque.get();
-    }
-
-    private void cargarParametosHashMap() throws Exception {
-        usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
-        parametros.put("nombre", usuario.getNombre());
-        parametros.put("apellido", usuario.getApellido());
-    }
 
     //devuelve la página correspondiente
     private ModelAndView modalAndViewAltaUsuario(){
 
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
         List<Usuario> usuariosNoHabilitados = usuarios.stream().filter(usuario -> !usuario.getEstoyHabilitado()).collect(Collectors.toList());
-        parametros.put("usuariosNoHabilitados",usuariosNoHabilitados);
+        modalAndViewController.getParametros().put("usuariosNoHabilitados",usuariosNoHabilitados);
         Repositorio<EntidadJuridica> repoEntidadesJuridicas = FactoryRepositorio.get(EntidadJuridica.class);
-       List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
-        parametros.put("tiposUsuarios",TipoUsuario.values());
-        parametros.put("entidadJuridica",entidadesJuridicas);
-        return new ModelAndView(parametros,"altaUsuario.hbs");
+        List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
+        modalAndViewController.getParametros().put("tiposUsuarios",TipoUsuario.values());
+        modalAndViewController.getParametros().put("entidadJuridica",entidadesJuridicas);
+        return new ModelAndView(modalAndViewController.getParametros(),"altaUsuario.hbs");
         //buscar entidad jUridica parecido a moneda
     }
 
     public ModelAndView tiposDeUsuarios(Request request, Response response) throws Exception {
-        cargarParametosHashMap();
-        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewAltaUsuario);
     }
 
     public ModelAndView darAltaUsuarioInhabilitado(Request request, Response response) {
@@ -78,8 +54,8 @@ public class DarAltaUsuarioController {
 
         this.repoUsuario.modificar(usuarioBuscado);
 
-        parametros.put("mensaje", "El usuario se editó correctamente");
-        return new ModelAndView(parametros, "modalInformativo2.hbs");
+        modalAndViewController.getParametros().put("mensaje", "El usuario se habilitó correctamente");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
 
     }
     /*public ModelAndView listarUsuariosNoHabilitados(Request request, Response response) throws Exception {
@@ -115,12 +91,12 @@ public class DarAltaUsuarioController {
          usuarioApersistir.setEntidadJuridica(entidadJuridicaObtenida);
 
         if(!operadorController.validarPersistencia(repoUsuario,usuarioApersistir)){
-            parametros.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
-            return new ModelAndView(parametros, "modalInformativo2.hbs");
+            modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        parametros.put("mensaje","Se insertaron los datos correctamente");
-        return new ModelAndView(parametros,"modalInformativo2.hbs");
+        modalAndViewController.getParametros().put("mensaje","Se insertaron los datos correctamente");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
 
     }
 

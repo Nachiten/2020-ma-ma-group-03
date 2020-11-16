@@ -21,7 +21,7 @@ function showInModal(unModal, unContenido){
     modal_show(unModal);
 }
 
-function eliminarUsuario(id) {
+function habilitarUsuario(id) {
     console.log("Tengo que editar el usuario con id " + id);
     //var id = document.getElementById("userId").value;
     var mensaje = confirm("¿Está seguro que quiere habilitar a este usuario?");

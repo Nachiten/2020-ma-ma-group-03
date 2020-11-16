@@ -4,6 +4,7 @@
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
     text-align: -webkit-center;
+    margin-block-end: 2%;
 }
 
 table {

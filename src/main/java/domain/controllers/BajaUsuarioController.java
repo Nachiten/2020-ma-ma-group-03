@@ -1,6 +1,5 @@
 package domain.controllers;
 
-
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -8,69 +7,39 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
 
 public class BajaUsuarioController {
 
     private Repositorio<Usuario> repoUsuario;
-    private Usuario usuario;
-    private Map<String, Object> parametros;
-    private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
+    private ModalAndViewController modalAndViewController;
 
 
-    public BajaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
+    public BajaUsuarioController(ModalAndViewController modalAndViewController) {
 
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
-        this.usuario = new Usuario();
-        this.parametros = new HashMap<>();
-        this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
-    }
-
-    //Evalua si se accedio correctame (previo inicio de sesion) y devuelve lo que corresponde
-    //si se accedió a la página sin haberse logueado devuelve error 404
-    private ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
-
-        if(!contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
-            return new ModelAndView(null,"error404.hbs");
-        }
-
-        return bloque.get();
-    }
-
-    private void cargarParametosHashMap() throws Exception {
-
-        usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
-        parametros.put("nombre", usuario.getNombre());
-        parametros.put("apellido", usuario.getApellido());
+        this.modalAndViewController = modalAndViewController;
     }
 
     public ModelAndView modalAndViewListarUsuarios(){
-
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
-        List<Usuario> usuariosHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado() & !usuario.getNombreUsuario().equals(this.usuario.getNombreUsuario())).collect(Collectors.toList());
-        parametros.put("listadoDeUsuarios", usuariosHabilitados);
-        return new ModelAndView(parametros, "bajaUsuario.hbs");
+        List<Usuario> usuariosHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado() & !usuario.getNombreUsuario().equals(modalAndViewController.getUsuario().getNombreUsuario())).collect(Collectors.toList());
+        modalAndViewController.getParametros().put("listadoDeUsuarios", usuariosHabilitados);
+        return new ModelAndView(modalAndViewController.getParametros(), "bajaUsuario.hbs");
     }
 
     public ModelAndView listarUsuarios(Request request, Response response) throws Exception {
-
-        cargarParametosHashMap();
-        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuarios());
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewListarUsuarios);
     }
 
     public ModelAndView eliminar(Request request, Response response) {
         int idBuscado = Integer.parseInt(request.params("id"));
         Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
-
         usuarioBuscado.cambiarAInhabilitado();
-
         this.repoUsuario.modificar(usuarioBuscado);
-
-        parametros.put("mensaje","El usuario se eliminó correctamente");
-        return new ModelAndView(parametros,"modalInformativo2.hbs") ;
+        modalAndViewController.getParametros().put("mensaje","El usuario se eliminó correctamente");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
     }
 }

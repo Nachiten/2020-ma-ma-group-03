@@ -67,4 +67,8 @@ public class Mensaje extends EntidadPersistente {
     public Date getFechaCreado() { return fechaCreado; }
 
     public LocalDateTime getFechaYHoraLeido() { return fechaYHoraLeido; }
+
+    public boolean isLeido() {
+        return leido;
+    }
 }

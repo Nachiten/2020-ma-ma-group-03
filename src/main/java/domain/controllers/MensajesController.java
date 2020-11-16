@@ -34,6 +34,12 @@ public class MensajesController {
     }
 
     public ModelAndView mostrarContenidoMensaje(Request request, Response response) {
-        return new ModelAndView(null,"");
+        String id = request.params("id");
+        int idMensaje = Integer.parseInt(id);
+        Mensaje mensaje = repoMensajes.buscar(idMensaje);
+        modalAndViewController.getParametros().put("contenidoMensaje", mensaje.getContenido());
+        mensaje.leerMensaje();
+        repoMensajes.modificar(mensaje);
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo3.hbs");
     }
 }
