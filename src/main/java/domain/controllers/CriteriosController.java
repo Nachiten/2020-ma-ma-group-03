@@ -39,7 +39,7 @@ public class CriteriosController {
 
         Criterio criterioAGuardar = new Criterio(nombreCriterio, listaCategoriasCriterio);
 
-        if (!operadorController.validarPersistencia(repoCriterio,criterioAGuardar)){
+        if (operadorController.persistenciaNoValida(repoCriterio, criterioAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }

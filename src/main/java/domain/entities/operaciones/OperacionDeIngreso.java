@@ -28,6 +28,9 @@ public class OperacionDeIngreso  {
     @Column(name = "fecha")
     private LocalDate fecha;
 
+    @Column (name = "periodoAceptacion")
+    private LocalDate periodoAceptacion;
+
     @ManyToOne
     private EntidadJuridica entidadJuridicaAsociada;
 
@@ -36,6 +39,7 @@ public class OperacionDeIngreso  {
 
     @Column (name = "montoSinVincular")
     private float montoSinVincular;
+
 
     @Transient
     private LocalDate fechaMinima;
@@ -90,6 +94,10 @@ public class OperacionDeIngreso  {
         this.entidadJuridicaAsociada.agregarOperacionDeIngresoAsociada(this);
     }
 
+    public void setPeriodoAceptacion(LocalDate periodoAceptacion) {
+        this.periodoAceptacion = periodoAceptacion;
+    }
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
@@ -109,7 +117,12 @@ public class OperacionDeIngreso  {
     public EntidadJuridica getEntidadJuridicaAsociada() {
         return entidadJuridicaAsociada;
     }
+
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public LocalDate getPeriodoAceptacion() {
+        return periodoAceptacion;
     }
 }

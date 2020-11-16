@@ -91,7 +91,7 @@ public class DarAltaUsuarioController {
         EntidadJuridica entidadJuridicaObtenida = obtenerEntidadJuridica(entidadJuridica);
          usuarioApersistir.setEntidadJuridica(entidadJuridicaObtenida);
 
-        if(!operadorController.validarPersistencia(repoUsuario,usuarioApersistir)){
+        if(operadorController.persistenciaNoValida(repoUsuario, usuarioApersistir)){
             parametros.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
             return new ModelAndView(parametros, "modalInformativo2.hbs");
         }

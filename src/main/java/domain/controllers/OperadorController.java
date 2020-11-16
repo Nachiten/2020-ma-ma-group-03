@@ -23,14 +23,14 @@ public class OperadorController {
         this.repoCategoriaCriterio = FactoryRepositorio.get(CategoriaCriterio.class);
     }
 
-    boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
+    boolean persistenciaNoValida(Repositorio<?> objetoFactory, Object objetoClase){
         try {
             objetoFactory.agregar(objetoClase);
         }catch (Exception e){
             System.out.println("EXCEPCION: " + e.getMessage());
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     LocalDate convertirAFecha(String fechaString){
@@ -39,22 +39,24 @@ public class OperadorController {
     }
 
     public List<Item> obtenerListaItems(Request request){
+
         List<Item> items = new ArrayList<>();
 
-        String itemNombre;
-        String itemPrecioString;
+        String preciosItemsString = request.queryParams("preciosItems");
+        String nombresItemsString = request.queryParams("nombresItems");
 
-        for (int i = 0; i <30; i++){
+        String[] precios = preciosItemsString.split("=");
+        String[] nombres = nombresItemsString.split("=");
 
-            if ((itemNombre = request.queryParams("nombre_I[" + i + "]") ) != null){
-                itemPrecioString = request.queryParams("precio_I[" + i + "]");
-                float itemPrecio = Float.parseFloat(itemPrecioString);
+        for (int i = 0; i < precios.length; i++){
+            String unPrecioString = precios[i];
+            String unNombre = nombres[i];
 
-                Item miItem = new Item(itemNombre, itemPrecio);
+            float unPrecio = Float.parseFloat(unPrecioString);
 
-                items.add(miItem);
-            }
+            Item miItem = new Item(unNombre, unPrecio);
 
+            items.add(miItem);
         }
 
         return items;

@@ -110,7 +110,7 @@ public class PresupuestosController {
         presupuestoAGuardar.setItems(listaItems);
         presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
 
-        if (!operadorController.validarPersistencia(repoPresupuesto,presupuestoAGuardar)){
+        if (operadorController.persistenciaNoValida(repoPresupuesto, presupuestoAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }

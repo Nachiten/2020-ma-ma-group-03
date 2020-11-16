@@ -115,7 +115,7 @@ public class EgresosController {
         operacionAGuardar.setProveedorAsociado(proveedor);
         operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
-        if (!operadorController.validarPersistencia(repoOperacionEgreso, operacionAGuardar)){
+        if (operadorController.persistenciaNoValida(repoOperacionEgreso, operacionAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "Se produjo un erroe al gradar los datos.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
