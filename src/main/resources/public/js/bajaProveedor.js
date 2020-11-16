@@ -21,14 +21,14 @@ function showInModal(unModal, unContenido){
     modal_show(unModal);
 }
 
-function eliminarUsuario(id){
-    console.log("Tengo que borrar el usuario con id " + id);
+function eliminarProveedor(id){
+    console.log("Tengo que borrar el proveedor con id " + id);
     //var id = document.getElementById("userId").value;
-    var mensaje = confirm("¿Está seguro que quiere eliminar éste usuario?");
+    var mensaje = confirm("¿Está seguro que quiere eliminar éste proveedor?");
     if (mensaje) {
         $.ajax({
             type: "DELETE",
-            url: "/listadoDeUsuario/eliminar/" + id,
+            url: "/bajaProveedor/eliminar/" + id,
             dataType: "html",
             success : function(result){
                 showInModal("modal",result);

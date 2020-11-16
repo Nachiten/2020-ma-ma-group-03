@@ -38,9 +38,10 @@ public class Router {
         CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
         AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
         DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(contextoDeUsuarioLogueado, operadorController);
-        ListarUsuariosController listarUsuariosController = new ListarUsuariosController(contextoDeUsuarioLogueado);
         MensajesController mensajesController = new MensajesController(modalAndViewController);
-
+        BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(contextoDeUsuarioLogueado);
+        BajaProveedorController bajaProveedorController = new BajaProveedorController(contextoDeUsuarioLogueado);
+        AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(contextoDeUsuarioLogueado);
         // Pagina iniciar sesión
         Spark.get("/", inicioController::inicio, Router.engine);
 
@@ -71,14 +72,24 @@ public class Router {
 
         //Paginas una vez logueado GET para usuario ADMIN
         Spark.get("/altaUsuario",darAltaUsuarioController::tiposDeUsuarios, Router.engine);
-        Spark.get("/listadoDeUsuarios",listarUsuariosController::listarUsuarios,Router.engine);
+        Spark.get("/bajaUsuario", bajaUsuarioController::listarUsuarios,Router.engine);
 
         // Delete para eliminar un usuario
-        Spark.delete("/listadoDeUsuario/eliminar/:id", listarUsuariosController::eliminar,Router.engine);
+        Spark.delete("/bajaUsuario/eliminar/:id", bajaUsuarioController::eliminar,Router.engine);
         Spark.post("/altaUsuario/alta/:id", darAltaUsuarioController::darAltaUsuarioInhabilitado,Router.engine);
 
-        //Guardar los datos de las pestañas POST
+        //Guardar los datos de las pestañas POST de un usuario
         Spark.post("/altaUsuario",darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
+
+        // Proveedor
+        Spark.get("/bajaProveedor",bajaProveedorController::listarProveedores , Router.engine);
+
+        //Delete para eliminar un proveedor
+        Spark.delete("/bajaProveedor/eliminar/:id",bajaProveedorController::eliminar,Router.engine);
+
+        //Entidad Juridica
+        Spark.get("/altaEntidadJuridica",altaEntidadJuridicaController::mostrarPaginaAltaEntidadJuridica,Router.engine);
+
 
         //Spark.get("/*", (request, response) -> "Error 404 no hay nada aca.");
         Spark.get("/*", inicioController::retornarError, Router.engine);

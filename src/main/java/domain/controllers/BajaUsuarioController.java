@@ -1,5 +1,6 @@
 package domain.controllers;
 
+
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -13,9 +14,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static javax.persistence.criteria.Predicate.BooleanOperator.AND;
-
-public class ListarUsuariosController {
+public class BajaUsuarioController {
 
     private Repositorio<Usuario> repoUsuario;
     private Usuario usuario;
@@ -23,7 +22,7 @@ public class ListarUsuariosController {
     private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
 
 
-    public ListarUsuariosController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
+    public BajaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
 
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.usuario = new Usuario();
@@ -43,6 +42,7 @@ public class ListarUsuariosController {
     }
 
     private void cargarParametosHashMap() throws Exception {
+
         usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
@@ -53,7 +53,7 @@ public class ListarUsuariosController {
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
         List<Usuario> usuariosHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado() & !usuario.getNombreUsuario().equals(this.usuario.getNombreUsuario())).collect(Collectors.toList());
         parametros.put("listadoDeUsuarios", usuariosHabilitados);
-        return new ModelAndView(parametros, "listadoDeUsuarios.hbs");
+        return new ModelAndView(parametros, "bajaUsuario.hbs");
     }
 
     public ModelAndView listarUsuarios(Request request, Response response) throws Exception {

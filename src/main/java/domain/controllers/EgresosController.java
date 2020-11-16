@@ -144,7 +144,7 @@ public class EgresosController {
         List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
 
         for ( Proveedor unProveedor : proveedores ) {
-            if (unProveedor.getRazonSocial().equals(razonSocial)){
+            if (unProveedor.getRazonSocialProveedor().equals(razonSocial)){
                 return unProveedor;
             }
         }

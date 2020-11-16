@@ -1,43 +1,32 @@
 {{#partial "contenido"}}
-    <div class = "altaProveedor">
-        <br>
-        <br>
 
-        <form action="">
+
+    <div class = "altaEntidadJuridica">
+
+        <form action= "javascript:void(0)" method="post">
             <center>
-
+                <h2>Nueva Entidad Juridica</h2>
                 <table class= "formulario" border = 0 >
                     <tr>
-                        <td>Nombre:</td></td>
-
-                        <td><input type="text" name="nombre" placeholder="Ingrese el nombre"  id=" altaProveedor-nombre" required></td>
+                        <td>Codigo Inscripcion Definitiva:</td></td>
+                        <td><input type="text" name="codigo" id = "altaEntidadJuridica-codigo" placeholder="Ingrese un codigo" required></td>
                     </tr>
                     <tr>
-                        <td>Apellido:</td></td>
+                        <td>Cuit:</td></td>
 
-                        <td><input type="text" name="apellido" placeholder="Ingrese el apellido" id="altaProveedor-apellido" required></td>
+                        <td><input type="text" name="cuit" id = "altaEntidadJuridica-cuit" placeholder="Ingrese un cuit" required></td>
                     </tr>
-
                     <tr>
                         <td>Razon Social:</td></td>
-
-                        <td><input type="text" name="dni" placeholder="Ingrese la razon social"  id = "altaProveedor-razonSocial" required></td>
+                        <td><input type="text" name="razonSocial" id = "altaEntidadJuridica-razonSocial" placeholder="Ingrese una razon social" required></td>
                     </tr>
-
-                    <tr>
-                        <td>DNI:</td></td>
-
-                        <td><input type="number" min="0" name="dni" placeholder="Ingrese el dni" id="altaProveedor-dni" required></td>
-                    </tr>
-
-
 
                     <tr>
                         <td>Pais:</td></td>
 
                         <td>
                             <select name = "pais" id="altaProveedor-pais" required >
-                            <option>Seleccionar pais</option>
+                                <option>Seleccionar pais</option>
                         </td>
                     </tr>
 
@@ -82,16 +71,12 @@
                     </tr>
 
 
-
                 </table>
-                <button type= "submit" >Guardar</button>
+
             </center>
         </form>
 
-
     </div>
-
-    <link rel="stylesheet" href="/css/estiloAltaProveedor.css" />
-
+    <script src="/js/formatoDeTabla.js"></script>
 {{/partial}}
 {{>principalAdministrador.hbs}}

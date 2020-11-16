@@ -28,7 +28,7 @@
                         <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" required >
                             <option hidden selected>Elegir una entidad jurídica</option>
                             {{#each entidadJuridica}}
-                                <option>{{razonSocial}}</option>
+                                <option>{{id}}-{{razonSocial}}</option>
                             {{/each}}
                         </select>
                     </td>

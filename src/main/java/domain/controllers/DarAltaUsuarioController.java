@@ -13,7 +13,6 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static domain.entities.usuarios.TipoUsuario.ESTANDAR;
 
 public class DarAltaUsuarioController {
 
@@ -24,13 +23,14 @@ public class DarAltaUsuarioController {
     private List<EntidadJuridica> entidadesJuridicas;
     private OperadorController operadorController;
 
-    public DarAltaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado, OperadorController operadorController) {
+    public DarAltaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado,OperadorController operadorController) {
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
         this.parametros = new HashMap<>();
         this.usuario = new Usuario();
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.entidadesJuridicas = new ArrayList<>();
         this.operadorController = operadorController;
+
     }
 
     //Evalua si se accedio correctamente (previo inicio de sesion) y devuelve lo que corresponde
@@ -46,9 +46,6 @@ public class DarAltaUsuarioController {
 
     private void cargarParametosHashMap() throws Exception {
         usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
-        if (usuario == null){
-            return;
-        }
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
     }
@@ -60,7 +57,7 @@ public class DarAltaUsuarioController {
         List<Usuario> usuariosNoHabilitados = usuarios.stream().filter(usuario -> !usuario.getEstoyHabilitado()).collect(Collectors.toList());
         parametros.put("usuariosNoHabilitados",usuariosNoHabilitados);
         Repositorio<EntidadJuridica> repoEntidadesJuridicas = FactoryRepositorio.get(EntidadJuridica.class);
-        entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
+       List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
         parametros.put("tiposUsuarios",TipoUsuario.values());
         parametros.put("entidadJuridica",entidadesJuridicas);
         return new ModelAndView(parametros,"altaUsuario.hbs");
@@ -69,9 +66,6 @@ public class DarAltaUsuarioController {
 
     public ModelAndView tiposDeUsuarios(Request request, Response response) throws Exception {
         cargarParametosHashMap();
-        if (usuario == null){
-            return new ModelAndView(null,"error404.hbs");
-        }
         return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
     }
 
@@ -98,7 +92,7 @@ public class DarAltaUsuarioController {
     //                  PERSISTENCIA DE DATOS - POST
     //-------------------------------------------------------------------------
 
-    //NO FUNCIONA LA PERSISTENCIA EN BD
+
     public ModelAndView guardarAltaDeUsuario(Request request, Response response) {
 
         String nombre = request.queryParams("nombre");
@@ -109,14 +103,16 @@ public class DarAltaUsuarioController {
         String entidadJuridica = request.queryParams("entidadJuridica");
 
         TipoUsuario tipoUsuario ;
-        if(tipoDeUsuario.equals(TipoUsuario.ESTANDAR)) {
+        if(tipoDeUsuario.equals(TipoUsuario.ESTANDAR.toString())) {
             tipoUsuario = TipoUsuario.ESTANDAR;
         }else{
             tipoUsuario = TipoUsuario.ADMIN;
         }
 
-        Usuario usuarioApersistir = new Usuario(tipoUsuario,nombreDeUsuario,contrasenia,nombre,apellido);
-        //usuarioApersistir.setEntidadJuridica(entidadJuridica);
+            Usuario usuarioApersistir = new Usuario(tipoUsuario,nombreDeUsuario,contrasenia,nombre,apellido);
+
+        EntidadJuridica entidadJuridicaObtenida = obtenerEntidadJuridica(entidadJuridica);
+         usuarioApersistir.setEntidadJuridica(entidadJuridicaObtenida);
 
         if(!operadorController.validarPersistencia(repoUsuario,usuarioApersistir)){
             parametros.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
@@ -126,5 +122,24 @@ public class DarAltaUsuarioController {
         parametros.put("mensaje","Se insertaron los datos correctamente");
         return new ModelAndView(parametros,"modalInformativo2.hbs");
 
+    }
+
+    private EntidadJuridica obtenerEntidadJuridica(String entidadJuridica){
+        String[] obtenerId = entidadJuridica.split("-");
+        String id = obtenerId[0];
+        int idEntidadJuridica = Integer.parseInt(id);
+        Repositorio<EntidadJuridica> repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
+        return repoEntidadJuridica.buscar(idEntidadJuridica);
+    }
+
+
+    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
+        try {
+            objetoFactory.agregar(objetoClase);
+        }catch (Exception e){
+            System.out.println("EXCEPCION: " + e.getMessage());
+            return false;
+        }
+        return true;
     }
 }

@@ -10,16 +10,16 @@ import javax.persistence.*;
 public class Proveedor extends EntidadPersistente {
 
     @Column(name = "nombre")
-    private String nombre;
+    private String nombreProveedor;
     @Column (name = "apellido")
-    private String apellido;
+    private String apellidoProveedor;
     @Column(name = "dni")
-    private int dni;
+    private int dniProveedor;
     @OneToOne
     @JoinColumn(name = "direccionPostal_id", referencedColumnName = "id")
     private DireccionPostal direccionPostal;
     @Column(name = "razonSocial")
-    private String razonSocial;
+    private String razonSocialProveedor;
     @Column(name = "cuit")
     private int cuit;
     @Column(name="estoyHabilitado")
@@ -30,17 +30,17 @@ public class Proveedor extends EntidadPersistente {
 
     }
 
-    public Proveedor(String nombre, String apellido, int dni, DireccionPostal direccionPostal, String razonSocial) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
+    public Proveedor(String nombreProveedor, String apellidoProveedor, int dniProveedor, DireccionPostal direccionPostal, String razonSocialProveedor) {
+        this.nombreProveedor = nombreProveedor;
+        this.apellidoProveedor = apellidoProveedor;
+        this.dniProveedor = dniProveedor;
         this.direccionPostal = direccionPostal;
-        this.razonSocial = razonSocial;
+        this.razonSocialProveedor = razonSocialProveedor;
         inicializar();
     }
 
-    public Proveedor(String razonSocial, int cuit, DireccionPostal direccionPostal) {
-        this.razonSocial = razonSocial;
+    public Proveedor(String razonSocialProveedor, int cuit, DireccionPostal direccionPostal) {
+        this.razonSocialProveedor = razonSocialProveedor;
         this.cuit = cuit;
         this.direccionPostal = direccionPostal;
         inicializar();
@@ -61,12 +61,28 @@ public class Proveedor extends EntidadPersistente {
                                     //GETTERS
     //-------------------------------------------------------------------------
 
-    public String getRazonSocial() {
-        return razonSocial;
+    public String getRazonSocialProveedor() {
+        return razonSocialProveedor;
     }
 
     public boolean getEstoyHabilitado(){
         return estoyHabilitado;
+    }
+
+    public int getCuit() {
+        return cuit;
+    }
+
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public int getDniProveedor() {
+        return dniProveedor;
+    }
+
+    public String getApellidoProveedor() {
+        return apellidoProveedor;
     }
 
     //-------------------------------------------------------------------------
@@ -76,4 +92,6 @@ public class Proveedor extends EntidadPersistente {
     public void setEstoyHabilitado(Boolean estoyHabilitado){
         this.estoyHabilitado= estoyHabilitado;
     }
+
+
 }

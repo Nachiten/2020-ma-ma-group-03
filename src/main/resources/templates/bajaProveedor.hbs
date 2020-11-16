@@ -6,21 +6,17 @@
         <br>
 
 
-        <div action="">
+        <form action="">
             <center>
 
                 <div class="table-wrapper">
-                    <table id="usuarios">
+                    <table id="proveedores">
                         <thead>
                         <tr>
                             <th>NOMBRE</th>
                             <th>APELLIDO</th>
                             <th>RAZON SOCIAL</th>
                             <th>DNI</th>
-                            <th>PAIS</th>
-                            <th>PROVINCIA</th>
-                            <th>CIUDAD</th>
-                            <th>CODIGO POSTAL</th>
                             <td>BORRAR</td>
 
                         </tr>
@@ -28,33 +24,36 @@
 
                         <tbody id="content_table">
 
+                        {{#each listadoProveedores}}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{nombreProveedor}}</td>
+                            <td>{{apellidoProveedor}}</td>
+                            <td>{{razonSocialProveedor}}</td>
+                            <td>{{dniProveedor}}</td>
+
+
                             <td>
 
                                 <div>
-                                    <i class="fas fa-trash"  id = "borrar" value="Eliminar" /></i>
+
+                                    <a href="/bajaProveedor" class="fas fa-trash" onclick="eliminarProveedor('{{id}}')">
+                                    </a>
                                 </div>
                             </td>
 
                         </tr>
+                        {{/each}}
 
                         </tbody>
 
 
                       </table>
+                </div>
             </center>
 
-        </div>
-
         </form>
+
+    </div>
 
 
     </div>
