@@ -30,5 +30,11 @@ button:focus,button:hover{
     color:#fff;
 }
 
+.altaProveedor h2{
+    font-size: 30px;
+    color: white;
+    margin-block-end: 2%;
+}
+
 
 

@@ -2,97 +2,65 @@
     <div class = "altaProveedor">
         <br>
         <br>
-
-        <form action="javascript:void(0)" method="post">
-            <center>
-
+        <center>
+            <h2>Nuevo proveedor</h2>
+            <form action="javascript:void(0)" method="post">
                 <table class= "formulario" border = 0 >
                     <tr>
-                        <td>Nombre:</td></td>
-
+                        <td>Nombre:</td>
                         <td><input type="text" name="nombre" id="alta-nombre" placeholder="Ingrese el nombre"  id=" altaProveedor-nombre" required></td>
                     </tr>
                     <tr>
-                        <td>Apellido:</td></td>
-
+                        <td>Apellido:</td>
                         <td><input type="text" name="apellido" id="alta-apellido" placeholder="Ingrese el apellido" id="altaProveedor-apellido" required></td>
                     </tr>
-
                     <tr>
-                        <td>Razon Social:</td></td>
-
+                        <td>Razon Social:</td>
                         <td><input type="text" name="dni" id="alta-razonSocial" placeholder="Ingrese la razon social"  id = "altaProveedor-razonSocial" required></td>
                     </tr>
-
                     <tr>
-                        <td>CUIT/CUIL:</td></td>
-
+                        <td>CUIT/CUIL:</td>
                         <td><input type="number" min="0" name="dni" id="alta-cuit_cuil" placeholder="Ingrese el dni" id="altaProveedor-dni" required></td>
                     </tr>
-
-
-
                     <tr>
-                        <td>Pais:</td></td>
-
+                        <td>Pais:</td>
                         <td>
                             <select name = "pais" id="altaProveedor-pais" required >
                             <option>Seleccionar pais</option>
                         </td>
                     </tr>
-
                     <tr>
-                        <td>Provincia:</td></td>
-
+                        <td>Provincia:</td>
                         <td>
                             <select name = "provincia" id="provincia"required >
                                 <option>Seleccionar provincia</option>
-
                         </td>
                     </tr>
-
                     <tr>
-                        <td>Ciudad:</td></td>
-
+                        <td>Ciudad:</td>
                         <td>
                             <select name = "ciudad"  id="ciudad" required >
                                 <option>Seleccionar provincia</option>
-
                         </td>
                     </tr>
-
                     <tr>
-                        <td>Calle:</td></td>
-
-
+                        <td>Calle:</td>
                         <td><input type="text" name="calle" id="alta-calle" placeholder="Ingrese la calle"  id = "calle" required></td>
-
                     </tr>
-
                     <tr>
-                        <td>Altura:</td></td>
-
+                        <td>Altura:</td>
                         <td><input type="number" min="0" name="altura" id="alta-altura" placeholder="Ingrese la altura"  id = "altura" required></td>
                     </tr>
-
                     <tr>
-                        <td>Piso:</td></td>
+                        <td>Piso:</td>
                         <td><input type="number"  min="0" name="piso" id="alta-piso" placeholder="Ingrese la altura" id="piso" required></td>
-
                     </tr>
-
-
-
                 </table>
                 <button type= "submit" onclick="mostrarModalGuardadoAltaNuevoProveedor()">Guardar</button>
-            </center>
-        </form>
-
-
+            </form>
+        </center>
     </div>
-
     <script src="/js/altaProveedor.js"></script>
     <link rel="stylesheet" href="/css/estiloAltaProveedor.css" />
-
 {{/partial}}
 {{>principalAdministrador.hbs}}

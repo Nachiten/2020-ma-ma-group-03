@@ -1,82 +1,61 @@
 {{#partial "contenido"}}
-
-
     <div class = "altaEntidadJuridica">
-
         <form action= "javascript:void(0)" method="post">
             <center>
                 <h2>Nueva Entidad Juridica</h2>
                 <table class= "formulario" border = 0 >
                     <tr>
-                        <td>Codigo Inscripcion Definitiva:</td></td>
+                        <td>Codigo Inscripcion Definitiva:</td>
                         <td><input type="text" name="codigo" id = "altaEntidadJuridica-codigo" placeholder="Ingrese un codigo" required></td>
                     </tr>
                     <tr>
-                        <td>Cuit:</td></td>
+                        <td>Cuit:</td>
 
                         <td><input type="text" name="cuit" id = "altaEntidadJuridica-cuit" placeholder="Ingrese un cuit" required></td>
                     </tr>
                     <tr>
-                        <td>Razon Social:</td></td>
+                        <td>Razon Social:</td>
                         <td><input type="text" name="razonSocial" id = "altaEntidadJuridica-razonSocial" placeholder="Ingrese una razon social" required></td>
                     </tr>
-
                     <tr>
-                        <td>Pais:</td></td>
-
+                        <td>Pais:</td>
                         <td>
                             <select name = "pais" id="altaProveedor-pais" required >
                                 <option>Seleccionar pais</option>
                         </td>
                     </tr>
-
                     <tr>
-                        <td>Provincia:</td></td>
-
+                        <td>Provincia:</td>
                         <td>
                             <select name = "provincia" id="provincia"required >
                                 <option>Seleccionar provincia</option>
-
                         </td>
                     </tr>
-
                     <tr>
-                        <td>Ciudad:</td></td>
-
+                        <td>Ciudad:</td>
                         <td>
                             <select name = "ciudad"  id="ciudad" required >
                                 <option>Seleccionar provincia</option>
-
                         </td>
                     </tr>
-
                     <tr>
-                        <td>Calle:</td></td>
-
-
+                        <td>Calle:</td>
                         <td><input type="text" name="calle" placeholder="Ingrese la calle"  id = "calle" required></td>
-
                     </tr>
-
                     <tr>
-                        <td>Altura:</td></td>
-
+                        <td>Altura:</td>
                         <td><input type="number" min="0" name="altura" placeholder="Ingrese la altura"  id = "altura" required></td>
                     </tr>
-
                     <tr>
-                        <td>Piso:</td></td>
+                        <td>Piso:</td>
                         <td><input type="number"  min="0" name="piso" placeholder="Ingrese la altura" id="piso" required></td>
-
                     </tr>
-
-
                 </table>
                 <button type= "submit" >Guardar</button>
             </center>
         </form>
-
     </div>
     <script src="/js/formatoDeTabla.js"></script>
+    <link rel="stylesheet" href="/css/estiloAltaEntidadJuridica.css" />
 {{/partial}}
 {{>principalAdministrador.hbs}}
