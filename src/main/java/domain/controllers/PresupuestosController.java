@@ -22,7 +22,6 @@ public class PresupuestosController {
     private OperadorController operadorController;
 
     public PresupuestosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
-
         this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
         this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
@@ -80,6 +79,7 @@ public class PresupuestosController {
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
+        // TODO | No va comentado
         if (!listasDeItemsIguales(listaItems, operacionEgresoAsociada.getItems())){
             // No se inserto documento comercial
             modalAndViewController.getParametros().put("mensaje", "Los items del presupuesto deben ser iguales a los del egreso.");

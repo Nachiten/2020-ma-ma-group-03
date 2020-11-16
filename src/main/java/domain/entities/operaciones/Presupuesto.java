@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table (name = "presupuesto")
-public class Presupuesto extends EntidadPersistente {
+public class    Presupuesto extends EntidadPersistente {
 
     @ManyToOne
     private OperacionDeEgreso operacionAsociada;
