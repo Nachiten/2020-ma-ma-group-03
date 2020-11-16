@@ -23,6 +23,7 @@ SELECT * FROM entidadjuridica;
 SELECT * FROM tipoentidadjuridicaempresa;
 SELECT * FROM sector;
 SELECT * FROM categoriaEmpresa;
+SELECT * FROM criterio;
 
 SELECT * FROM paises;
 SELECT * FROM provincias;
