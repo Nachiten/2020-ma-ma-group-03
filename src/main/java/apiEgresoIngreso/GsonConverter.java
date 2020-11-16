@@ -1,4 +1,4 @@
-package apiEgresoIngreso;
+package ApiEgresoIngreso;
 
 import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.OperacionDeIngreso;
@@ -13,7 +13,7 @@ public class GsonConverter {
         List<String> operacionesGson = new ArrayList<>();
         Gson gson = new Gson();
         for (OperacionDeEgreso operacionDeEgreso : egresos) {
-            String operacionEgresoGson = gson.toJson(operacionDeEgreso);
+            String operacionEgresoGson = gson.toJson(operacionDeEgreso); //todo el problema esta aca!
             operacionesGson.add(operacionEgresoGson);
         }
         return operacionesGson;

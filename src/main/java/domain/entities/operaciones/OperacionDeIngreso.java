@@ -31,18 +31,14 @@ public class OperacionDeIngreso  {
     @Column (name = "periodoAceptacion")
     private LocalDate periodoAceptacion;
 
-    @ManyToOne
-    private EntidadJuridica entidadJuridicaAsociada;
+    @Column (name = "entidadJuridica_id")
+    private int entidadJuridicaAsociada;
 
     @OneToMany (cascade = CascadeType.ALL)
     private List<OperacionDeEgreso> operacionesDeEgresoVinculadas;
 
     @Column (name = "montoSinVincular")
     private float montoSinVincular;
-
-
-    @Transient
-    private LocalDate fechaMinima;
 
     @Transient
     private LocalDate fechaMaxima;
@@ -81,17 +77,13 @@ public class OperacionDeIngreso  {
                             //SETTERS
     //-------------------------------------------------------------------------
 
-    public void setFechaMinima(LocalDate fechaMinima) {
-        this.fechaMinima = fechaMinima;
-    }
-
     public void setFechaMaxima(LocalDate fechaMaxima) {
         this.fechaMaxima = fechaMaxima;
     }
 
     public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) {
-        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
-        this.entidadJuridicaAsociada.agregarOperacionDeIngresoAsociada(this);
+        this.entidadJuridicaAsociada = entidadJuridicaAsociada.getId();
+        entidadJuridicaAsociada.agregarOperacionDeIngresoAsociada(this);
     }
 
     public void setPeriodoAceptacion(LocalDate periodoAceptacion) {
@@ -114,7 +106,7 @@ public class OperacionDeIngreso  {
         return id;
     }
 
-    public EntidadJuridica getEntidadJuridicaAsociada() {
+    public int getEntidadJuridicaAsociada_id() {
         return entidadJuridicaAsociada;
     }
 

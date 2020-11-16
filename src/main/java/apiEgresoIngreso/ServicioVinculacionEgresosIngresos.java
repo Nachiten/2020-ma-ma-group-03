@@ -1,4 +1,4 @@
-package apiEgresoIngreso;
+package ApiEgresoIngreso;
 
 import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.OperacionDeIngreso;
@@ -31,9 +31,9 @@ public class ServicioVinculacionEgresosIngresos {
     }
 
     public List<OperacionDeIngreso> ejecutarVinculacion(List<OperacionDeEgreso> egresos, List<OperacionDeIngreso> ingresos, List<String> criterio) throws IOException {
-        VinculacionService vinculacionService = this.retrofit.create(VinculacionService.class);
-        GsonConverter gsonConverter = new GsonConverter();
-        List<String> egresosGson = gsonConverter.convertirEgresosAGson(egresos);
+        apiEgresoIngreso.VinculacionService vinculacionService = this.retrofit.create(apiEgresoIngreso.VinculacionService.class);
+        ApiEgresoIngreso.GsonConverter gsonConverter = new ApiEgresoIngreso.GsonConverter();
+        List<String> egresosGson = gsonConverter.convertirEgresosAGson(egresos); //todo no puede convertirlo a gson
         List<String> ingresosGson = gsonConverter.convertirIngresosAGson(ingresos);
         Call<List<String>> operacionesDeIngreso = vinculacionService.ejecutarCriterio(egresosGson, ingresosGson, criterio);
         Response<List<String>> responseOperacionesDeIngreso = operacionesDeIngreso.execute();

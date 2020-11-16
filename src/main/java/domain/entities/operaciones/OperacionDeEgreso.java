@@ -41,7 +41,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     private List<Item> items;
 
     // Error | Genera una tabla intermedia como si fuera many to many
-    @OneToMany (mappedBy = "operacionAsociada", cascade = CascadeType.ALL)
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Presupuesto> presupuestos;
 
     @Transient // No se persiste
@@ -56,9 +56,6 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToMany (cascade = CascadeType.ALL)
     private List<CategoriaCriterio> listaCategoriaCriterio;
 
-    @ManyToOne (cascade = CascadeType.ALL)
-    private OperacionDeIngreso operacionDeIngreso;
-
     @Column (name = "cantidadPresupuestosRequerida")
     private int cantidadPresupuestosRequerida;
 
@@ -71,17 +68,14 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToOne(cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
-    @ManyToOne (optional = false)
-    @JoinColumn(name = "entidadJuridicaAsociada_id")
-    private EntidadJuridica entidadJuridicaAsociada;
+    @Column (name = "entidadJuridica_id")
+    private int entidadJuridicaAsociada_id;
 
-    @Transient
-    private int operacioDeIngresoId;
+    @Column (name = "operacionDeIngreso")
+    private int operacionDeIngreso_id;
 
     @Transient
     private boolean fueVinculada;
-
-
 
     //-------------------------------------------------------------------------
                             //CONTRUCTOR
@@ -131,8 +125,6 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     }
 
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
-
-    public void asociarOperacionDeIngreso(OperacionDeIngreso unaOperacionDeIngreso){ this.operacionDeIngreso = unaOperacionDeIngreso; }
 
     public void agregarRevisor(Usuario revisor){
         revisores.add(revisor);
@@ -202,13 +194,13 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.presupuestos = presupuestos;
     }
 
-    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) { this.entidadJuridicaAsociada = entidadJuridicaAsociada; }
+    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) { this.entidadJuridicaAsociada_id = entidadJuridicaAsociada.getId(); }
 
     public void setProveedorAsociado(Proveedor proveedorAsociado) {
         this.proveedorAsociado = proveedorAsociado;
     }
 
-    public void setIdOperacion(int idOperacion) { this.idOperacion = idOperacion; }
+    public void setOperacionDeIngreso(OperacionDeIngreso operacionDeIngreso) { this.idOperacion = operacionDeIngreso.getId(); }
 
     //-------------------------------------------------------------------------
                             //GETTERS
@@ -239,4 +231,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     public Boolean esValida(){ return soyValida; }
 
     public int getCantidadDeVecesValidada() { return cantidadDeVecesValidada; }
+
+    public int getEntidadJuridicaAsociada_id(){
+        return entidadJuridicaAsociada_id;
+    }
 }

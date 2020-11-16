@@ -32,10 +32,10 @@ public class EntidadJuridica extends EntidadPersistente {
     @ManyToOne(cascade = {CascadeType.ALL})
     private TipoEntidadJuridica tipoEntidadJuridica;
 
-    @OneToMany(mappedBy = "entidadJuridicaAsociada", cascade = {CascadeType.ALL})
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<OperacionDeEgreso> operacionesDeEgreso;
 
-    @OneToMany(mappedBy = "entidadJuridicaAsociada",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OperacionDeIngreso> operacionesDeIngreso;
 
     @OneToMany(mappedBy = "entidadJuridicaAsociada", cascade = {CascadeType.ALL})
