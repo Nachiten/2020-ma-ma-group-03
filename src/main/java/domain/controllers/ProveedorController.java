@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class BajaProveedorController {
+public class ProveedorController {
     private Repositorio<Proveedor> repoProveedor;
     private Proveedor proveedor;
     private Map<String, Object> parametros;
@@ -22,7 +22,7 @@ public class BajaProveedorController {
     private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
 
 
-    public BajaProveedorController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
+    public ProveedorController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
 
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.proveedor = new Proveedor();
@@ -59,9 +59,9 @@ public class BajaProveedorController {
 
     public ModelAndView listarProveedores(Request request, Response response) throws Exception {
         //problema que me carga los datos del proveedor en nombre y apellido
-        cargarParametosHashMap();
         return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarProveedores());
     }
+
     public ModelAndView eliminar(Request request, Response response) {
         int idBuscado = Integer.parseInt(request.params("id"));
         Proveedor proveedorBuscado = this.repoProveedor.buscar(idBuscado);
@@ -72,6 +72,14 @@ public class BajaProveedorController {
 
         parametros.put("mensaje","El proveedor se eliminó correctamente");
         return new ModelAndView(parametros,"modalInformativo2.hbs") ;
+    }
+
+    public ModelAndView altaProveedor(Request request, Response response){
+        return siElUsuarioEstaLogueadoRealiza(request, this::modelAndViewAltaProveedor);
+    }
+
+    public ModelAndView modelAndViewAltaProveedor(){
+        return new ModelAndView(parametros,"altaProveedor.hbs");
     }
 
 }

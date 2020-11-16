@@ -29,7 +29,7 @@ public class  ContextoDeUsuarioLogueado {
         administradorDeSesion.cerrarSesion(request);
     }
 
-    public Usuario getUsuarioLogueado() throws Exception {
+    public Usuario getUsuarioLogueado() {
         //return usuarioLogueadoOpcional.orElseThrow(() -> new Exception("No se encuentra el usuario logueado..."));
         return usuarioLogueadoOpcional.orElse(null);
     }

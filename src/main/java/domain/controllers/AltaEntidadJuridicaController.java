@@ -23,8 +23,8 @@ public class AltaEntidadJuridicaController {
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
         this.parametros = new HashMap<>();
         this.usuario = new Usuario();
-
     }
+
     private ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
 
         if(!contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){

@@ -44,6 +44,7 @@ public class Usuario extends EntidadPersistente {
     @Column (name = "tiempoUltimaContrasenia")
     private LocalDate tiempoUltimaContrasenia;
 
+    // TODO | Sacar el cascade para correr el server | (cascade=CascadeType.ALL)
     @ManyToMany
     private List<OperacionDeEgreso> operacionesRevisadas;
 

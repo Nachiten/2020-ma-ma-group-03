@@ -29,7 +29,7 @@ public class Router {
         ContextoDeUsuarioLogueado contextoDeUsuarioLogueado = new ContextoDeUsuarioLogueado();
         OperadorController operadorController = new OperadorController();
         ModalAndViewController modalAndViewController = new ModalAndViewController(contextoDeUsuarioLogueado);
-        
+
         UsuarioController usuarioController = new UsuarioController(contextoDeUsuarioLogueado);
         InicioController inicioController 	= new InicioController(contextoDeUsuarioLogueado);
         MainController mainController = new MainController(modalAndViewController);
@@ -42,6 +42,8 @@ public class Router {
 
         DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(modalAndViewController, operadorController);
         BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
+        BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(contextoDeUsuarioLogueado);
+        ProveedorController proveedorController = new ProveedorController(contextoDeUsuarioLogueado);
         AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(contextoDeUsuarioLogueado);
         BajaProveedorController bajaProveedorController = new BajaProveedorController(contextoDeUsuarioLogueado);
         CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
@@ -85,10 +87,11 @@ public class Router {
         Spark.post("/altaUsuario",darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
 
         // Proveedor
-        Spark.get("/bajaProveedor",bajaProveedorController::listarProveedores , Router.engine);
+        Spark.get("/bajaProveedor",proveedorController::listarProveedores , Router.engine);
+        Spark.get("/altaProveedor",proveedorController::altaProveedor , Router.engine);
 
         //Delete para eliminar un proveedor
-        Spark.delete("/bajaProveedor/eliminar/:id",bajaProveedorController::eliminar,Router.engine);
+        Spark.delete("/bajaProveedor/eliminar/:id",proveedorController::eliminar,Router.engine);
 
         //Entidad Juridica
         Spark.get("/altaEntidadJuridica",altaEntidadJuridicaController::mostrarPaginaAltaEntidadJuridica,Router.engine);
