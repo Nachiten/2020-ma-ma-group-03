@@ -36,11 +36,9 @@ public class AsociacionOperacionesController {
 
     public ModelAndView listadoOperaciones(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListadoOperaciones());
-
     }
 
     private ModelAndView modalAndViewAsociarOperacion(){
-
         return new ModelAndView(modalAndViewController.getParametros(), "asociarOperacion.hbs");
     }
 
@@ -61,16 +59,16 @@ public class AsociacionOperacionesController {
 
         try{
             ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
+
+            for (OperacionDeIngreso unaOperacion : ingresosVinculados){
+                this.repoOperacionIngreso.modificar(unaOperacion);
+            }
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
             // Hubo un error
             modalAndViewController.getParametros().put("mensaje", "Se produjo un error al realizar la vinculacion.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
-        }
-
-        for (OperacionDeIngreso unaOperacion : ingresosVinculados){
-            this.repoOperacionIngreso.modificar(unaOperacion);
         }
 
         // Se persistio correctamente
