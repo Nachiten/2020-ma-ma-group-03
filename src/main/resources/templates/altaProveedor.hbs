@@ -2,63 +2,97 @@
     <div class = "altaProveedor">
         <br>
         <br>
-        <form action="">
+
+        <form action="javascript:void(0)" method="post">
             <center>
-                <table class= "formulario" border = 0>
+
+                <table class= "formulario" border = 0 >
                     <tr>
-                        <td>Nombre:</td>
-                        <td><input type="text" name="nombre" placeholder="Ingrese el nombre"  id=" altaProveedor-nombre" required></td>
+                        <td>Nombre:</td></td>
+
+                        <td><input type="text" name="nombre" id="alta-nombre" placeholder="Ingrese el nombre"  id=" altaProveedor-nombre" required></td>
                     </tr>
                     <tr>
-                        <td>Apellido:</td>
-                        <td><input type="text" name="apellido" placeholder="Ingrese el apellido" id="altaProveedor-apellido" required></td>
+                        <td>Apellido:</td></td>
+
+                        <td><input type="text" name="apellido" id="alta-apellido" placeholder="Ingrese el apellido" id="altaProveedor-apellido" required></td>
                     </tr>
+
                     <tr>
-                        <td>Razon Social:</td>
-                        <td><input type="text" name="dni" placeholder="Ingrese la razon social"  id = "altaProveedor-razonSocial" required></td>
+                        <td>Razon Social:</td></td>
+
+                        <td><input type="text" name="dni" id="alta-razonSocial" placeholder="Ingrese la razon social"  id = "altaProveedor-razonSocial" required></td>
                     </tr>
+
                     <tr>
-                        <td>DNI:</td>
-                        <td><input type="number" min="0" name="dni" placeholder="Ingrese el dni" id="altaProveedor-dni" required></td>
+                        <td>CUIT/CUIL:</td></td>
+
+                        <td><input type="number" min="0" name="dni" id="alta-cuit_cuil" placeholder="Ingrese el dni" id="altaProveedor-dni" required></td>
                     </tr>
+
+
+
                     <tr>
-                        <td>Pais:</td>
+                        <td>Pais:</td></td>
+
                         <td>
                             <select name = "pais" id="altaProveedor-pais" required >
                             <option>Seleccionar pais</option>
                         </td>
                     </tr>
+
                     <tr>
-                        <td>Provincia:</td>
+                        <td>Provincia:</td></td>
+
                         <td>
                             <select name = "provincia" id="provincia"required >
                                 <option>Seleccionar provincia</option>
+
                         </td>
                     </tr>
+
                     <tr>
-                        <td>Ciudad:</td>
+                        <td>Ciudad:</td></td>
+
                         <td>
                             <select name = "ciudad"  id="ciudad" required >
                                 <option>Seleccionar provincia</option>
+
                         </td>
                     </tr>
+
                     <tr>
-                        <td>Calle:</td>
-                        <td><input type="text" name="calle" placeholder="Ingrese la calle"  id = "calle" required></td>
+                        <td>Calle:</td></td>
+
+
+                        <td><input type="text" name="calle" id="alta-calle" placeholder="Ingrese la calle"  id = "calle" required></td>
+
                     </tr>
+
                     <tr>
-                        <td>Altura:</td>
-                        <td><input type="number" min="0" name="altura" placeholder="Ingrese la altura"  id = "altura" required></td>
+                        <td>Altura:</td></td>
+
+                        <td><input type="number" min="0" name="altura" id="alta-altura" placeholder="Ingrese la altura"  id = "altura" required></td>
                     </tr>
+
                     <tr>
-                        <td>Piso:</td>
-                        <td><input type="number"  min="0" name="piso" placeholder="Ingrese la altura" id="piso" required></td>
+                        <td>Piso:</td></td>
+                        <td><input type="number"  min="0" name="piso" id="alta-piso" placeholder="Ingrese la altura" id="piso" required></td>
+
                     </tr>
+
+
+
                 </table>
-                <button type= "submit" >Guardar</button>
+                <button type= "submit" onclick="mostrarModalGuardadoAltaNuevoProveedor()">Guardar</button>
             </center>
         </form>
+
+
     </div>
+
+    <script src="/js/altaProveedor.js"></script>
     <link rel="stylesheet" href="/css/estiloAltaProveedor.css" />
+
 {{/partial}}
 {{>principalAdministrador.hbs}}

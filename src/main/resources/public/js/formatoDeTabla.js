@@ -224,7 +224,7 @@ function nuevaFilaEnCategoria()
 	var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
 
-	var categoriaInputOculto   = '<input type="hidden" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + categoria;
+	var categoriaInputOculto   = '<input type="hidden" class="categoriaCriterio" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + categoria;
 	var categoriaTextoMostrado = '"> <p name="" class="non-margin" style="color = black">' + categoria + '</p>';
 
 	cell1.innerHTML =  categoriaInputOculto + categoriaTextoMostrado;

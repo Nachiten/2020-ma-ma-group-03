@@ -107,15 +107,4 @@ public class DarAltaUsuarioController {
         Repositorio<EntidadJuridica> repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
         return repoEntidadJuridica.buscar(idEntidadJuridica);
     }
-
-
-    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
-        try {
-            objetoFactory.agregar(objetoClase);
-        }catch (Exception e){
-            System.out.println("EXCEPCION: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
 }

@@ -2,6 +2,8 @@ package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
+import domain.entities.operaciones.Item;
+import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -51,19 +53,23 @@ public class CriteriosController {
 
     // Leer la lista de la ventana criterios
     private List<CategoriaCriterio> obtenerYGenerarListaCategoriasCriterio(Request request){
-        List<CategoriaCriterio> categorias = new ArrayList<>();
+        List<CategoriaCriterio> categoriasLista = new ArrayList<>();
 
-        String nombreCategoria;
+        String categoriasString = request.queryParams("categoriasCriterio");
 
-        for(int i = 0 ; i < 30;i++){
+        String[] categorias;
 
-            if ((nombreCategoria = request.queryParams("nombre_I[" + i + "]") ) != null) {
-                CategoriaCriterio categoria = new CategoriaCriterio(nombreCategoria, null);
-
-                categorias.add(categoria);
-            }
+        try{
+            categorias = categoriasString.split("=");
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return categoriasLista;
         }
 
-        return categorias;
+        for (String unaCategoria : categorias) {
+            categoriasLista.add(new CategoriaCriterio(unaCategoria, null));
+        }
+
+        return categoriasLista;
     }
 }

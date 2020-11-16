@@ -22,19 +22,35 @@ function showInModal(unModal, unContenido){
 }
 
 function recuperarDatosFormularioAltaNuevoUsuario(){
-    var datos = {
-        nombre            : valorDe("altaUsuario-nombre"),
-        apellido          : valorDe("altaUsuario-apellido"),
-        nombreDeUsuario   : valorDe("altaUsuario-nombreDeUsuario"),
-        contrasenia       : valorDe("altaUsuario-contrasenia"),
-        tipoUsuario       : valorDe("altaUsuario-tipoUsuario"),
-        entidadJuridica  : valorDe("altaUsuario-entidadJuridica")
+    return {
+        nombre: valorDe("altaUsuario-nombre"),
+        apellido: valorDe("altaUsuario-apellido"),
+        nombreDeUsuario: valorDe("altaUsuario-nombreDeUsuario"),
+        contrasenia: valorDe("altaUsuario-contrasenia"),
+        tipoUsuario: valorDe("altaUsuario-tipoUsuario"),
+        entidadJuridica: valorDe("altaUsuario-entidadJuridica")
     };
-    return datos;
+}
+
+function recuperarDatosFormularioAltaProveedor(){
+    return {
+        nombre: valorDe("alta-nombre"),
+        apellido: valorDe("alta-apellido"),
+        razonSocial: valorDe("alta-razonSocial"),
+        cuit_cuil: valorDe("alta-cuit_cuil"),
+        calle: valorDe("alta-calle"),
+        altura: valorDe("alta-altura"),
+        piso: valorDe("alta-piso")
+        // TODO | Falta datos de pais ciudad y provincia
+    }
 }
 
 function mostrarModalGuardadoAltaNuevoProveedor() {
-    var datos = recuperarDatosFormularioAltaNuevoProveedor();
+
+    console.log("Entre a la funcion de guardar proveedor");
+
+    var datos = recuperarDatosFormularioAltaProveedor();
+
     var ruta = "/altaProveedor";
     var metodo = "POST";
     $.ajax({
