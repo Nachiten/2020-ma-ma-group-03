@@ -23,44 +23,38 @@ public class ProveedorController {
     public ProveedorController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
 
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
-        this.parametros = new HashMap<>();
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
 
     }
 
-    public ModelAndView modalAndViewListarProveedores(){
+    private ModelAndView modalAndViewListarProveedores(){
 
         List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
-        List<Proveedor> proveedoresHabilitados = proveedores.stream().filter(unProveedor-> unProveedor.getEstoyHabilitado()).collect(Collectors.toList());
-        parametros.put("listadoProveedores", proveedoresHabilitados);
-        return new ModelAndView(parametros, "bajaProveedor.hbs");
+        List<Proveedor> proveedoresHabilitados = proveedores.stream().filter(Proveedor::getEstoyHabilitado).collect(Collectors.toList());
+        modalAndViewController.getParametros().put("listadoProveedores", proveedoresHabilitados);
+        return new ModelAndView(modalAndViewController.getParametros(), "bajaProveedor.hbs");
 
     }
 
-    public ModelAndView listarProveedores(Request request, Response response) {
-        //problema que me carga los datos del proveedor en nombre y apellido
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarProveedores());
+    public ModelAndView listarProveedores(Request request, Response response) throws Exception {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewListarProveedores);
     }
 
     public ModelAndView eliminar(Request request, Response response) {
         int idBuscado = Integer.parseInt(request.params("id"));
         Proveedor proveedorBuscado = this.repoProveedor.buscar(idBuscado);
-
         proveedorBuscado.cambiarAInhabilitado();
-
         this.repoProveedor.modificar(proveedorBuscado);
-
-        parametros.put("mensaje","El proveedor se eliminó correctamente");
-        return new ModelAndView(parametros,"modalInformativo2.hbs") ;
+        modalAndViewController.getParametros().put("mensaje","El proveedor se dio de baja correctamente");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
     }
 
-    public ModelAndView altaProveedor(Request request, Response response){
+    private ModelAndView modelAndViewAltaProveedor(){
+        return new ModelAndView(modalAndViewController.getParametros(),"altaProveedor.hbs");
+    }
+    public ModelAndView altaProveedor(Request request, Response response) throws Exception {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modelAndViewAltaProveedor);
-    }
-
-    public ModelAndView modelAndViewAltaProveedor(){
-        return new ModelAndView(parametros,"altaProveedor.hbs");
     }
 
     public ModelAndView guardarProveedor(Request request, Response response){

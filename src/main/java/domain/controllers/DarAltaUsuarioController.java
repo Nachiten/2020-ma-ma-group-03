@@ -16,34 +16,33 @@ import java.util.stream.Collectors;
 public class DarAltaUsuarioController {
 
     private Repositorio<Usuario> repoUsuario;
-    private Map<String, Object> parametros;
     private OperadorController operadorController;
     private ModalAndViewController modalAndViewController;
 
-    public DarAltaUsuarioController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
-        this.parametros = new HashMap<>();
+    public DarAltaUsuarioController(ModalAndViewController modalAndViewController,OperadorController operadorController) {
+        this.modalAndViewController = modalAndViewController;
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.operadorController = operadorController;
-        this.modalAndViewController = modalAndViewController;
+
     }
+
 
     //devuelve la página correspondiente
     private ModelAndView modalAndViewAltaUsuario(){
 
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
         List<Usuario> usuariosNoHabilitados = usuarios.stream().filter(usuario -> !usuario.getEstoyHabilitado()).collect(Collectors.toList());
-        parametros.put("usuariosNoHabilitados",usuariosNoHabilitados);
+        modalAndViewController.getParametros().put("usuariosNoHabilitados",usuariosNoHabilitados);
         Repositorio<EntidadJuridica> repoEntidadesJuridicas = FactoryRepositorio.get(EntidadJuridica.class);
-       List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
-        parametros.put("tiposUsuarios",TipoUsuario.values());
-        parametros.put("entidadJuridica",entidadesJuridicas);
-        return new ModelAndView(parametros,"altaUsuario.hbs");
+        List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
+        modalAndViewController.getParametros().put("tiposUsuarios",TipoUsuario.values());
+        modalAndViewController.getParametros().put("entidadJuridica",entidadesJuridicas);
+        return new ModelAndView(modalAndViewController.getParametros(),"altaUsuario.hbs");
         //buscar entidad jUridica parecido a moneda
     }
 
     public ModelAndView tiposDeUsuarios(Request request, Response response) throws Exception {
-        modalAndViewController.cargarParametrosHashMap();
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewAltaUsuario);
     }
 
     public ModelAndView darAltaUsuarioInhabilitado(Request request, Response response) {
@@ -55,8 +54,8 @@ public class DarAltaUsuarioController {
 
         this.repoUsuario.modificar(usuarioBuscado);
 
-        parametros.put("mensaje", "El usuario se editó correctamente");
-        return new ModelAndView(parametros, "modalInformativo2.hbs");
+        modalAndViewController.getParametros().put("mensaje", "El usuario se habilitó correctamente");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
 
     }
     /*public ModelAndView listarUsuariosNoHabilitados(Request request, Response response) throws Exception {
@@ -91,13 +90,13 @@ public class DarAltaUsuarioController {
         EntidadJuridica entidadJuridicaObtenida = obtenerEntidadJuridica(entidadJuridica);
          usuarioApersistir.setEntidadJuridica(entidadJuridicaObtenida);
 
-        if(operadorController.persistenciaNoValida(repoUsuario, usuarioApersistir)){
-            parametros.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
-            return new ModelAndView(parametros, "modalInformativo2.hbs");
+        if(operadorController.persistenciaNoValida(repoUsuario,usuarioApersistir)){
+            modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        parametros.put("mensaje","Se insertaron los datos correctamente");
-        return new ModelAndView(parametros,"modalInformativo2.hbs");
+        modalAndViewController.getParametros().put("mensaje","Se insertaron los datos correctamente");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
 
     }
 
@@ -109,4 +108,14 @@ public class DarAltaUsuarioController {
         return repoEntidadJuridica.buscar(idEntidadJuridica);
     }
 
+
+    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
+        try {
+            objetoFactory.agregar(objetoClase);
+        }catch (Exception e){
+            System.out.println("EXCEPCION: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
 }

@@ -29,9 +29,11 @@ public class Router {
         ContextoDeUsuarioLogueado contextoDeUsuarioLogueado = new ContextoDeUsuarioLogueado();
         OperadorController operadorController = new OperadorController();
         ModalAndViewController modalAndViewController = new ModalAndViewController(contextoDeUsuarioLogueado);
+
         UsuarioController usuarioController = new UsuarioController(contextoDeUsuarioLogueado);
         InicioController inicioController 	= new InicioController(contextoDeUsuarioLogueado);
         MainController mainController = new MainController(modalAndViewController);
+
         IngresosController ingresosController = new IngresosController(modalAndViewController, operadorController);
         PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController, operadorController);
         EgresosController egresosController = new EgresosController(modalAndViewController, operadorController);
@@ -39,9 +41,11 @@ public class Router {
         AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
         DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(modalAndViewController, operadorController);
         MensajesController mensajesController = new MensajesController(modalAndViewController);
+
         BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
         ProveedorController proveedorController = new ProveedorController(modalAndViewController, operadorController);
         AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController);
+
         ValidadorTransparenciaController validadorTransparenciaController = new ValidadorTransparenciaController(modalAndViewController);
 
         // Pagina iniciar sesión
@@ -63,6 +67,8 @@ public class Router {
         Spark.get("/asociarOperacion", asociacionOperacionesController::asociarOperacion, Router.engine);
         Spark.get("/mensajes", mensajesController::mensajes, Router.engine);
         Spark.get("/mensajes/:id",mensajesController::mostrarContenidoMensaje,Router.engine);
+
+        //muestra página inicio dependiendo del tipo de usuario logueado
         Spark.get("/inicio", mainController::principal, Router.engine);
 
         // Guardar los datos de las ventanas POST

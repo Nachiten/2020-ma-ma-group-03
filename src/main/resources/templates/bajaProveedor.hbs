@@ -1,14 +1,9 @@
 {{#partial "contenido"}}
-
-
     <div class = "listadoDeUsuarios">
         <br>
         <br>
-
-
         <form action="">
             <center>
-
                 <div class="table-wrapper">
                     <table id="proveedores">
                         <thead>
@@ -18,47 +13,29 @@
                             <th>RAZON SOCIAL</th>
                             <th>DNI</th>
                             <td>BORRAR</td>
-
                         </tr>
                         </thead>
-
                         <tbody id="content_table">
-
-                        {{#each listadoProveedores}}
-                        <tr>
-                            <td>{{nombreProveedor}}</td>
-                            <td>{{apellidoProveedor}}</td>
-                            <td>{{razonSocialProveedor}}</td>
-                            <td>{{dniProveedor}}</td>
-
-
-                            <td>
-
-                                <div>
-
-                                    <a href="/bajaProveedor" class="fas fa-trash" onclick="eliminarProveedor('{{id}}')">
-                                    </a>
-                                </div>
-                            </td>
-
-                        </tr>
-                        {{/each}}
-
+                            {{#each listadoProveedores}}
+                                <tr>
+                                    <td>{{nombreProveedor}}</td>
+                                    <td>{{apellidoProveedor}}</td>
+                                    <td>{{razonSocialProveedor}}</td>
+                                    <td>{{dniProveedor}}</td>
+                                    <td>
+                                        <div>
+                                            <a class="fas fa-trash" onclick="eliminarProveedor('{{id}}')" style="cursor: pointer"></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/each}}
                         </tbody>
-
-
                       </table>
                 </div>
             </center>
-
         </form>
-
     </div>
-
-
-    </div>
-
     <link rel="stylesheet" href="/css/listadoDeProveedores.css" />
-
+    <script src="/js/bajaProveedor.js"></script>
 {{/partial}}
 {{>principalAdministrador.hbs}}
