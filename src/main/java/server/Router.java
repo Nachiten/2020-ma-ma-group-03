@@ -40,7 +40,7 @@ public class Router {
         DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(modalAndViewController, operadorController);
         MensajesController mensajesController = new MensajesController(modalAndViewController);
         BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
-        ProveedorController proveedorController = new ProveedorController(modalAndViewController);
+        ProveedorController proveedorController = new ProveedorController(modalAndViewController, operadorController);
         AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController);
         ValidadorTransparenciaController validadorTransparenciaController = new ValidadorTransparenciaController(modalAndViewController);
 
@@ -76,17 +76,19 @@ public class Router {
         Spark.get("/altaUsuario",darAltaUsuarioController::tiposDeUsuarios, Router.engine);
         Spark.get("/bajaUsuario", bajaUsuarioController::listarUsuarios,Router.engine);
         Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);
+        // Proveedor
+        Spark.get("/bajaProveedor",proveedorController::listarProveedores , Router.engine);
+        Spark.get("/altaProveedor",proveedorController::altaProveedor , Router.engine);
 
         // Delete para eliminar un usuario
         Spark.delete("/bajaUsuario/eliminar/:id", bajaUsuarioController::eliminar,Router.engine);
         Spark.post("/altaUsuario/alta/:id", darAltaUsuarioController::darAltaUsuarioInhabilitado,Router.engine);
 
-        //Guardar los datos de las pestañas POST de un usuario
-        Spark.post("/altaUsuario",darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
+        //Guardar los datos de las pestañas POST de ADMIN
+        Spark.post("/altaUsuario", darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
+        Spark.post("/altaUsuario", darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
+        Spark.post("/altaProveedor", proveedorController::guardarProveedor , Router.engine);
 
-        // Proveedor
-        Spark.get("/bajaProveedor",proveedorController::listarProveedores , Router.engine);
-        Spark.get("/altaProveedor",proveedorController::altaProveedor , Router.engine);
 
         //Delete para eliminar un proveedor
         Spark.delete("/bajaProveedor/eliminar/:id",proveedorController::eliminar,Router.engine);

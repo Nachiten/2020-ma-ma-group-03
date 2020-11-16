@@ -10,14 +10,15 @@ import javax.persistence.Table;
 @Entity
 @Table (name = "direccion")
 public class Direccion extends EntidadPersistente {
+
     @Column (name = "calle")
-    String calle;
+    private String calle;
     @Column (name = "numero")
-    int numero;
+    private int numero;
     @Column (name = "piso")
-    int piso;
+    private int piso;
     @Column (name = "dpto")
-    String dpto;
+    private String dpto;
 
     //-------------------------------------------------------------------------
                             //CONTRUCTOR
@@ -32,5 +33,45 @@ public class Direccion extends EntidadPersistente {
         this.numero = numero;
         this.piso = piso;
         this.dpto = dpto;
+    }
+
+    //-------------------------------------------------------------------------
+                            //GETTERS
+    //-------------------------------------------------------------------------
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public int getPiso() {
+        return piso;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public String getDpto() {
+        return dpto;
+    }
+
+    //-------------------------------------------------------------------------
+                            //SETTERS
+    //-------------------------------------------------------------------------
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public void setDpto(String dpto) {
+        this.dpto = dpto;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public void setPiso(int piso) {
+        this.piso = piso;
     }
 }

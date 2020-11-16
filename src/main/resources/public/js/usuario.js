@@ -59,45 +59,40 @@ function recuperarDatosFormularioIngresos(){
 }
 
 function recuperarDatosFormularioEgresos(){
-    var datos = {
-        fecha                    : valorDe("alta-fecha"),
-        montoTotal               : valorDe("alta-montoTotal"),
-        medioDePago              : valorDe("alta-medioDePago"),
-        numeroMedioDePago        : valorDe("alta-numeroMedioDePago"),
-        documentoComercial       : valorDe("alta-documentoComercial"),
-        numeroDocumentoComercial : valorDe("alta-numeroDocumentoComercial"),
-        presupuestosRequeridos   : valorDe("alta-presupuestosRequeridos"),
-        proveedor                : valorDe("alta-proveedor"),
-        preciosItems : datosPreciosItems(),
-        nombresItems : datosNombresItems(),
-        nombresCategorias : datosNombresCategorias()
+    return {
+        fecha: valorDe("alta-fecha"),
+        montoTotal: valorDe("alta-montoTotal"),
+        medioDePago: valorDe("alta-medioDePago"),
+        numeroMedioDePago: valorDe("alta-numeroMedioDePago"),
+        documentoComercial: valorDe("alta-documentoComercial"),
+        numeroDocumentoComercial: valorDe("alta-numeroDocumentoComercial"),
+        presupuestosRequeridos: valorDe("alta-presupuestosRequeridos"),
+        proveedor: valorDe("alta-proveedor"),
+        preciosItems: datosDeTablaPorNombreDeClase(".precioItem"),
+        nombresItems: datosDeTablaPorNombreDeClase(".nombreItem"),
+        nombresCategorias: datosNombresCategorias()
     };
-
-    return datos;
 }
-
-/*
-    String montoTotalString = request.queryParams("montoTotal");
-    String tipoDocumentoComercialString = request.queryParams("documentoComercial");
-    String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
-    String operacionEgresoString = request.queryParams("operacionEgreso");
-    ITEMS
-    CATEGORIAS
- */
 
 function recuperarDatosFormularioPresupuesto(){
-    var datos = {
-        montoTotal               : valorDe("alta-montoTotal"),
-        documentoComercial       : valorDe("alta-tipoDocumentoComercial"),
-        numeroDocumentoComercial : valorDe("alta-numeroDocumentoComercial"),
-        operacionEgreso          : valorDe("alta-operacionEgreso"),
-        preciosItems             : datosPreciosItems(),
-        nombresItems             : datosNombresItems(),
-        nombresCategorias        : datosNombresCategorias()
+    return {
+        montoTotal: valorDe("alta-montoTotal"),
+        documentoComercial: valorDe("alta-tipoDocumentoComercial"),
+        numeroDocumentoComercial: valorDe("alta-numeroDocumentoComercial"),
+        operacionEgreso: valorDe("alta-operacionEgreso"),
+        preciosItems: datosDeTablaPorNombreDeClase(".precioItem"),
+        nombresItems: datosDeTablaPorNombreDeClase(".nombreItem"),
+        nombresCategorias: datosNombresCategorias()
     };
-
-    return datos;
 }
+
+function recuperarDatosFormularioCriterio (){
+    return {
+        nombreCriterio: valorDe("alta-nombreCriterio"),
+        categoriasCriterio: datosDeTablaPorNombreDeClase(".categoriaCriterio"),
+    }
+}
+
 
 function datosNombresCategorias(){
     var categorias = document.querySelectorAll(".categoria");
@@ -118,6 +113,7 @@ function datosNombresCategorias(){
     return cadenaADevolver;
 }
 
+/*
 function datosPreciosItems(){
     var precios = document.querySelectorAll(".precioItem");
 
@@ -136,11 +132,11 @@ function datosPreciosItems(){
     console.log("Precios: " + preciosItemsValores);
 
     return preciosItemsValores;
-}
+}*/
 
-function datosNombresItems() {
+function datosDeTablaPorNombreDeClase(nombreClase) {
 
-    var nombres = document.querySelectorAll(".nombreItem");
+    var nombres = document.querySelectorAll(nombreClase);
 
     var nombresItemsValores = '';
     for (var x = 0; x < nombres.length; x++) {
@@ -154,6 +150,8 @@ function datosNombresItems() {
 
     return nombresItemsValores;
 }
+
+
 
 function mostrarModalGuardadoIngreso() {
     var datos = recuperarDatosFormularioIngresos();
@@ -214,19 +212,23 @@ function mostrarModalGuardadoPresupuestos(id) {
     });
 }
 
-function mostrarModalGuardadocriterios(id) {
-    var ruta = "/usuario/criterios/"+id;
-    var metodo = "Post";
+function mostrarModalGuardadocriterios() {
+    var datos = recuperarDatosFormularioCriterio();
+
+    var ruta = "/criterios";
+    var metodo = "POST";
     $.ajax({
         type : metodo,
         url : ruta,
         datatype : "html",
+        data : datos,
         success : function (result) {
             showInModal("modal", result);
-
         }
     });
 }
+
+
 /*
 $(document).ready(function(){
     var $form = $('form');

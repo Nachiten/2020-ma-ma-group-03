@@ -84,8 +84,6 @@ public class DireccionPostal extends EntidadPersistente {
         this.provincia = provincia;
     }
 
-
-
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
@@ -100,5 +98,9 @@ public class DireccionPostal extends EntidadPersistente {
 
     public Pais getPais() {
         return pais;
+    }
+
+    public Direccion getDireccion() {
+        return direccion;
     }
 }
