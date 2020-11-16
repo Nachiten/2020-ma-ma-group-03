@@ -19,9 +19,9 @@ public class PersistenciaApiMLTest {
 
     @BeforeClass
     public static void init(){
-        listaDePaises = ApiMercadoLibreInfo.getListadoPaises();
-        listaProvincias = ApiMercadoLibreInfo.getListadoProvincias();
-        listaCiudades = ApiMercadoLibreInfo.getListadoCiudades();
+        //listaDePaises = ApiMercadoLibreInfo.getListadoPaises();
+        //listaProvincias = ApiMercadoLibreInfo.getListadoProvincias();
+        //listaCiudades = ApiMercadoLibreInfo.getListadoCiudades();
         listaMonedas = ApiMercadoLibreInfo.getMonedas();
     }
 

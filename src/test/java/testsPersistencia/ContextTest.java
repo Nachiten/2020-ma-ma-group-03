@@ -12,8 +12,8 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
 	* --- ORDEN PARA CORRER LOS TESTS DE PERSISTENCIA ---
 	* 1 - PersistenciaTipoTest
 	* 2 - PersistenciaEntidadJuridica
-	* 3 - PersistenciaOperacionesTest
-	* 4 - PersistenciaCategoriasCriteriosTest
+	* 3 - PersistenciaCategoriasCriteriosTest
+	* 4 - PersistenciaOperacionesTest
 	* 5 - PersistenciaApiMLTest
 	*/
 
