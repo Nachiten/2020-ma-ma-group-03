@@ -24,7 +24,7 @@ function showInModal(unModal, unContenido){
 function eliminarProveedor(id){
     console.log("Tengo que borrar el proveedor con id " + id);
     //var id = document.getElementById("userId").value;
-    var mensaje = confirm("¿Está seguro que quiere eliminar éste proveedor?");
+    var mensaje = confirm("¿Está seguro que quiere dar de baja a éste proveedor?");
     if (mensaje) {
         $.ajax({
             type: "DELETE",

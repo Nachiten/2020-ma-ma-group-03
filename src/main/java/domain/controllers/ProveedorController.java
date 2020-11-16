@@ -23,7 +23,7 @@ public class ProveedorController {
 
     }
 
-    public ModelAndView modalAndViewListarProveedores(){
+    private ModelAndView modalAndViewListarProveedores(){
 
         List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
         List<Proveedor> proveedoresHabilitados = proveedores.stream().filter(Proveedor::getEstoyHabilitado).collect(Collectors.toList());
@@ -39,16 +39,13 @@ public class ProveedorController {
     public ModelAndView eliminar(Request request, Response response) {
         int idBuscado = Integer.parseInt(request.params("id"));
         Proveedor proveedorBuscado = this.repoProveedor.buscar(idBuscado);
-
         proveedorBuscado.cambiarAInhabilitado();
-
         this.repoProveedor.modificar(proveedorBuscado);
-
-        modalAndViewController.getParametros().put("mensaje","El proveedor se eliminó correctamente");
+        modalAndViewController.getParametros().put("mensaje","El proveedor se dio de baja correctamente");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
     }
 
-    public ModelAndView modelAndViewAltaProveedor(){
+    private ModelAndView modelAndViewAltaProveedor(){
         return new ModelAndView(modalAndViewController.getParametros(),"altaProveedor.hbs");
     }
     public ModelAndView altaProveedor(Request request, Response response) throws Exception {
