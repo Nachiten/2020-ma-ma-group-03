@@ -1,6 +1,5 @@
 package domain.controllers;
 
-import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -11,41 +10,20 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class ProveedorController {
     private Repositorio<Proveedor> repoProveedor;
-    private Proveedor proveedor;
     private Map<String, Object> parametros;
-    private Usuario usuario;
-    private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
+    private ModalAndViewController modalAndViewController;
 
 
-    public ProveedorController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
+    public ProveedorController(ModalAndViewController modalAndViewController) {
 
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
-        this.proveedor = new Proveedor();
         this.parametros = new HashMap<>();
-        this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
+        this.modalAndViewController = modalAndViewController;
 
-    }
-
-    private ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
-
-        if(!contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
-            return new ModelAndView(null,"error404.hbs");
-        }
-
-        return bloque.get();
-    }
-
-
-    private void cargarParametosHashMap() throws Exception {
-
-        usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
-        parametros.put("nombre", usuario.getNombre());
-        parametros.put("apellido", usuario.getApellido());
     }
 
     public ModelAndView modalAndViewListarProveedores(){
@@ -57,9 +35,9 @@ public class ProveedorController {
 
     }
 
-    public ModelAndView listarProveedores(Request request, Response response) throws Exception {
+    public ModelAndView listarProveedores(Request request, Response response) {
         //problema que me carga los datos del proveedor en nombre y apellido
-        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarProveedores());
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarProveedores());
     }
 
     public ModelAndView eliminar(Request request, Response response) {
@@ -75,7 +53,7 @@ public class ProveedorController {
     }
 
     public ModelAndView altaProveedor(Request request, Response response){
-        return siElUsuarioEstaLogueadoRealiza(request, this::modelAndViewAltaProveedor);
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modelAndViewAltaProveedor);
     }
 
     public ModelAndView modelAndViewAltaProveedor(){

@@ -44,7 +44,7 @@ public class IngresosController {
     public ModelAndView guardarOperacionDeIngreso(Request request, Response response){
 
         String fechaString = request.queryParams("fecha");
-        String periodoDeAceptacion = request.queryParams("periodoDeAceptacion");
+        String periodoDeAceptacionString = request.queryParams("periodoDeAceptacion");
         String montoString = request.queryParams("monto");
         String monedaString = request.queryParams("moneda");
         String descripcion = request.queryParams("descripcion");
@@ -59,6 +59,7 @@ public class IngresosController {
 
         //se convierte el string fecha a formato fecha
         LocalDate fecha = operadorController.convertirAFecha(fechaString);
+        LocalDate fechaPeriodoAceptacion = operadorController.convertirAFecha(periodoDeAceptacionString);
         float monto = Float.parseFloat(montoString);
 
         //se convierte el string moneda a tipo moneda
@@ -67,8 +68,9 @@ public class IngresosController {
         //se instancia una operacion de ingreso a persistir
         OperacionDeIngreso operacionDeIngresoAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
         operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(modalAndViewController.getUsuario().getEntidadJuridica());
+        operacionDeIngresoAGuardar.setPeriodoAceptacion(fechaPeriodoAceptacion);
 
-        if (!operadorController.validarPersistencia(repoOperacionIngreso, operacionDeIngresoAGuardar)){
+        if (operadorController.persistenciaNoValida(repoOperacionIngreso, operacionDeIngresoAGuardar)){
             model.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
             return new ModelAndView(model, "modalInformativo2.hbs");
         }

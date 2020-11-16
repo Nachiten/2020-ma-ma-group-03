@@ -22,7 +22,6 @@ public class PresupuestosController {
     private OperadorController operadorController;
 
     public PresupuestosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
-
         this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
         this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
@@ -46,9 +45,8 @@ public class PresupuestosController {
         return new ModelAndView(modalAndViewController.getParametros(), "presupuestos.hbs");
     }
 
-    public ModelAndView presupuestos(Request request, Response response)throws Exception {
+    public ModelAndView presupuestos(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewPresupuestos);
-
     }
 
     public ModelAndView guardarPresupuesto(Request request, Response response){
@@ -80,6 +78,7 @@ public class PresupuestosController {
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
+        // TODO | No va comentado
         if (!listasDeItemsIguales(listaItems, operacionEgresoAsociada.getItems())){
             // No se inserto documento comercial
             modalAndViewController.getParametros().put("mensaje", "Los items del presupuesto deben ser iguales a los del egreso.");
@@ -110,7 +109,7 @@ public class PresupuestosController {
         presupuestoAGuardar.setItems(listaItems);
         presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
 
-        if (!operadorController.validarPersistencia(repoPresupuesto,presupuestoAGuardar)){
+        if (operadorController.persistenciaNoValida(repoPresupuesto, presupuestoAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }

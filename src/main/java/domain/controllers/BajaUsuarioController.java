@@ -1,5 +1,6 @@
 package domain.controllers;
 
+
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -10,20 +11,20 @@ import spark.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class BajaUsuarioController {
 
     private Repositorio<Usuario> repoUsuario;
     private ModalAndViewController modalAndViewController;
 
 
-    public BajaUsuarioController(ModalAndViewController modalAndViewController) {
+    public BajaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
 
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.modalAndViewController = modalAndViewController;
     }
 
     public ModelAndView modalAndViewListarUsuarios(){
+
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
         List<Usuario> usuariosHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado() & !usuario.getNombreUsuario().equals(modalAndViewController.getUsuario().getNombreUsuario())).collect(Collectors.toList());
         modalAndViewController.getParametros().put("listadoDeUsuarios", usuariosHabilitados);

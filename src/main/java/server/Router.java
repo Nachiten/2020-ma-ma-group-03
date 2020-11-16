@@ -35,8 +35,12 @@ public class Router {
         MainController mainController = new MainController(modalAndViewController);
 
         IngresosController ingresosController = new IngresosController(modalAndViewController, operadorController);
+        PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController, operadorController);
         EgresosController egresosController = new EgresosController(modalAndViewController, operadorController);
         PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController, operadorController);
+        CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
+        AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
+        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(modalAndViewController, operadorController);
         MensajesController mensajesController = new MensajesController(modalAndViewController);
         AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
 
@@ -48,6 +52,11 @@ public class Router {
         BajaProveedorController bajaProveedorController = new BajaProveedorController(contextoDeUsuarioLogueado);
         CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
 
+        BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
+        ProveedorController proveedorController = new ProveedorController(modalAndViewController);
+        AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController);
+        ValidadorTransparenciaController validadorTransparenciaController = new ValidadorTransparenciaController(modalAndViewController);
+
         // Pagina iniciar sesión
         Spark.get("/", inicioController::inicio, Router.engine);
 
@@ -56,6 +65,7 @@ public class Router {
 
         // Se verifica que el usuario exista
         Spark.post("/inicio", usuarioController::loginUsuario, Router.engine);
+
 
         // Paginas una vez logueado GET para usuarios ESTANDAR
         Spark.get("/ingresos", ingresosController::ingresos, Router.engine);
@@ -78,6 +88,7 @@ public class Router {
         //Paginas una vez logueado GET para usuario ADMIN
         Spark.get("/altaUsuario",darAltaUsuarioController::tiposDeUsuarios, Router.engine);
         Spark.get("/bajaUsuario", bajaUsuarioController::listarUsuarios,Router.engine);
+        Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);
 
         // Delete para eliminar un usuario
         Spark.delete("/bajaUsuario/eliminar/:id", bajaUsuarioController::eliminar,Router.engine);
@@ -96,7 +107,6 @@ public class Router {
         //Entidad Juridica
         Spark.get("/altaEntidadJuridica",altaEntidadJuridicaController::mostrarPaginaAltaEntidadJuridica,Router.engine);
 
-        //Spark.get("/*", (request, response) -> "Error 404 no hay nada aca.");
         Spark.get("/*", inicioController::retornarError, Router.engine);
     }
 }

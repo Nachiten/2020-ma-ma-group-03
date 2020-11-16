@@ -10,7 +10,7 @@
             <tr>
                 <td>Operación de Egreso asociada:</td>
                 <td>
-                    <select name="operacionEgreso" required >
+                    <select name="operacionEgreso" id="alta-operacionEgreso" required >
                         <option hidden selected>-Seleccionar una operación de egreso-</option>
                         {{#each operacionesEgreso}}
                             <option>ID: {{idOperacion}} | Fecha: {{fecha}}</option>
@@ -20,12 +20,12 @@
             </tr>
             <tr>
              <td>Monto Total:</td>
-             <td> <input type="number" step="0.01" min="0" name="montoTotal" placeholder="Ej: 1000" required></td>
+             <td> <input type="number" step="0.01" min="0" name="montoTotal" id="alta-montoTotal" placeholder="Ej: 1000" required></td>
             </tr>
             <tr>
                 <td>Tipo de Documento Comercial:</td>
                 <td>
-                    <select name = "documentoComercial" >
+                    <select name = "documentoComercial" id="alta-tipoDocumentoComercial">
                         <option>Seleccionar documento comercial</option>
                         {{#each tiposDocumentoComercial}}
                             <option>{{nombre}}</option>
@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <td>Número Documento Comercial:</td>
-                <td><input type="number" min="0" name="numeroDocumentoComercial" placeholder="Ingrese el número" required></td>
+                <td><input type="number" min="0" name="numeroDocumentoComercial" id="alta-numeroDocumentoComercial" placeholder="Ingrese el número" required></td>
             </tr>
 
         </table>
@@ -48,7 +48,7 @@
                    {{#each criterios}}
                        <p>Criterio {{nombre}}:</p>
                        {{#each listaCategoriaCriterio}}
-                       <input type="checkbox" name="{{nombreCategoria}}" value="1"> {{nombreCategoria}}<br>
+                       <input type="checkbox" name="{{nombreCategoria}}" class="categoria" value="1"> {{nombreCategoria}}<br>
                        {{/each}}
                        <br>
                    {{/each}}
@@ -108,8 +108,7 @@
                      </tbody>
                  </table>
              </div>
-             <!-- TODO | Carlos: Desactive la funcion de javasript porque hacia que no me funcionada el POST. Nacho-->
-             <button type="submit"> <!--onclick="mostrarModalGuardadoPresupuestos({{id}})"--> Guardar</button>
+             <button type="submit" onclick="mostrarModalGuardadoPresupuestos({{id}})"> Guardar</button>
          </center>
 	</center>
     </form>

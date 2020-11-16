@@ -22,13 +22,13 @@ public class ModalAndViewController {
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
     }
 
-    private void cargarParametrosHashMap() throws Exception {
+    void cargarParametrosHashMap() {
         usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
     }
 
-    public ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque) throws Exception {
+    public ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque) {
 
         if(contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
             this.cargarParametrosHashMap();

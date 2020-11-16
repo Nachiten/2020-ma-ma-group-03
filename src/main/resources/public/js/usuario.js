@@ -76,6 +76,29 @@ function recuperarDatosFormularioEgresos(){
     return datos;
 }
 
+/*
+    String montoTotalString = request.queryParams("montoTotal");
+    String tipoDocumentoComercialString = request.queryParams("documentoComercial");
+    String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
+    String operacionEgresoString = request.queryParams("operacionEgreso");
+    ITEMS
+    CATEGORIAS
+ */
+
+function recuperarDatosFormularioPresupuesto(){
+    var datos = {
+        montoTotal               : valorDe("alta-montoTotal"),
+        documentoComercial       : valorDe("alta-tipoDocumentoComercial"),
+        numeroDocumentoComercial : valorDe("alta-numeroDocumentoComercial"),
+        operacionEgreso          : valorDe("alta-operacionEgreso"),
+        preciosItems             : datosPreciosItems(),
+        nombresItems             : datosNombresItems(),
+        nombresCategorias        : datosNombresCategorias()
+    };
+
+    return datos;
+}
+
 function datosNombresCategorias(){
     var categorias = document.querySelectorAll(".categoria");
 
@@ -132,22 +155,6 @@ function datosNombresItems() {
     return nombresItemsValores;
 }
 
-/*
-
-
-String fechaString = request.queryParams("fecha");
-String montoTotalString = request.queryParams("montoTotal");
-
-String tipoMedioDePagoString = request.queryParams("medioDePago");
-String numeroMedioDePagoString = request.queryParams("numeroMedioDePago");
-String tipoDocumentoComercialString = request.queryParams("documentoComercial");
-String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
-
-String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
-String razonSocialProveedor = request.queryParams("proveedor");
-
- */
-
 function mostrarModalGuardadoIngreso() {
     var datos = recuperarDatosFormularioIngresos();
     var ruta = "/ingresos";
@@ -186,15 +193,23 @@ function mostrarModalGuardadoEgreso() {
 }
 
 function mostrarModalGuardadoPresupuestos(id) {
-    var ruta = "/usuario/presupuestos/"+id;
-    var metodo = "Post";
+    var datos = recuperarDatosFormularioPresupuesto();
+
+    if (datos.preciosItems === 'noHayPrecios'){
+        alert("Se debe insertar al menos un item");
+        console.log("No habia items, cancelo post");
+        return;
+    }
+
+    var ruta = "/presupuestos";
+    var metodo = "POST";
     $.ajax({
-        type : metodo,
-        url : ruta,
+        type     : metodo,
+        url      : ruta,
         datatype : "html",
+        data     : datos,
         success : function (result) {
             showInModal("modal", result);
-
         }
     });
 }

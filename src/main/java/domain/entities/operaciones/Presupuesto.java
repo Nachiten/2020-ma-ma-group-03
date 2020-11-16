@@ -9,10 +9,10 @@ import java.util.List;
 
 @Entity
 @Table (name = "presupuesto")
-public class Presupuesto extends EntidadPersistente {
+public class    Presupuesto extends EntidadPersistente {
 
-    @ManyToOne
-    private OperacionDeEgreso operacionAsociada;
+    @Column (name = "operacionDeEgreso_id")
+    private int operacionDeEgreso_id;
 
     @Column (name = "montoTotal")
     private float montoTotal;
@@ -40,7 +40,7 @@ public class Presupuesto extends EntidadPersistente {
     public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada) {
         this.montoTotal = montoTotal;
         this.items = items;
-        this.operacionAsociada = operacionAsociada;
+        this.operacionDeEgreso_id = operacionAsociada.getIdOperacion();
     }
 
     //-------------------------------------------------------------------------
@@ -71,7 +71,7 @@ public class Presupuesto extends EntidadPersistente {
 
 
     public void setOperacionAsociada(OperacionDeEgreso operacionAsociada) {
-        this.operacionAsociada = operacionAsociada;
+        this.operacionDeEgreso_id = operacionAsociada.getIdOperacion();
     }
 
     public void setDocumentoComercial(DocumentoComercial documentoComercial) {

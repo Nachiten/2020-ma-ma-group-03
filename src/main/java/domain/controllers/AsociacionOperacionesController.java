@@ -8,7 +8,6 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,43 +34,41 @@ public class AsociacionOperacionesController {
         return new ModelAndView(modalAndViewController.getParametros(), "listadoOperaciones.hbs");
     }
 
-    public ModelAndView listadoOperaciones(Request request, Response response)throws Exception {
+    public ModelAndView listadoOperaciones(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListadoOperaciones());
-
     }
 
     private ModelAndView modalAndViewAsociarOperacion(){
-
         return new ModelAndView(modalAndViewController.getParametros(), "asociarOperacion.hbs");
     }
 
-    public ModelAndView asociarOperacion(Request request, Response response)throws Exception {
+    public ModelAndView asociarOperacion(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAsociarOperacion());
     }
 
-    public ModelAndView ejecutarVinculacion(Request request, Response response) throws IOException {
+    public ModelAndView ejecutarVinculacion(Request request, Response response) {
 
         List<String> criterios = obtenerListaCriteriosVinculacion(request);
 
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
         List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
 
-        apiEgresoIngreso.ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = apiEgresoIngreso.ServicioVinculacionEgresosIngresos.instancia();
+        ApiEgresoIngreso.ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ApiEgresoIngreso.ServicioVinculacionEgresosIngresos.instancia();
 
         List<OperacionDeIngreso> ingresosVinculados;
 
         try{
             ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
+
+            for (OperacionDeIngreso unaOperacion : ingresosVinculados){
+                this.repoOperacionIngreso.modificar(unaOperacion);
+            }
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
             // Hubo un error
             modalAndViewController.getParametros().put("mensaje", "Se produjo un error al realizar la vinculacion.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
-        }
-
-        for (OperacionDeIngreso unaOperacion : ingresosVinculados){
-            this.repoOperacionIngreso.modificar(unaOperacion);
         }
 
         // Se persistio correctamente

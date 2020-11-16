@@ -1,6 +1,6 @@
 package testApiVinculacion;
 
-import apiEgresoIngreso.ServicioVinculacionEgresosIngresos;
+import ApiEgresoIngreso.ServicioVinculacionEgresosIngresos;
 import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.OperacionDeIngreso;
 import org.junit.Test;
@@ -49,13 +49,9 @@ public class ApiTest {
     }
 
     public void agregarFechasMinimasYMaximaAIngresos(){
-        operacionDeIngreso1.setFechaMinima(date2);
         operacionDeIngreso1.setFechaMaxima(date3);
-        operacionDeIngreso2.setFechaMinima(date4);
         operacionDeIngreso2.setFechaMaxima(date3);
-        operacionDeIngreso3.setFechaMinima(date1);
         operacionDeIngreso3.setFechaMaxima(date2);
-        operacionDeIngreso4.setFechaMinima(date1);
         operacionDeIngreso4.setFechaMaxima(date3);
     }
 
