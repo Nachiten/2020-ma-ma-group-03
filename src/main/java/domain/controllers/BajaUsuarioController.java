@@ -17,13 +17,13 @@ public class BajaUsuarioController {
     private ModalAndViewController modalAndViewController;
 
 
-    public BajaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
+    public BajaUsuarioController(ModalAndViewController modalAndViewController) {
 
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.modalAndViewController = modalAndViewController;
     }
 
-    public ModelAndView modalAndViewListarUsuarios(){
+    private ModelAndView modalAndViewListarUsuarios(){
 
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
         List<Usuario> usuariosHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado() & !usuario.getNombreUsuario().equals(modalAndViewController.getUsuario().getNombreUsuario())).collect(Collectors.toList());
@@ -40,7 +40,7 @@ public class BajaUsuarioController {
         Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
         usuarioBuscado.cambiarAInhabilitado();
         this.repoUsuario.modificar(usuarioBuscado);
-        modalAndViewController.getParametros().put("mensaje","El usuario se eliminó correctamente");
+        modalAndViewController.getParametros().put("mensaje","El usuario se dio de baja correctamente");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
     }
 }

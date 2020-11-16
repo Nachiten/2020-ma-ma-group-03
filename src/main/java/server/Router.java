@@ -37,24 +37,15 @@ public class Router {
         IngresosController ingresosController = new IngresosController(modalAndViewController, operadorController);
         PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController, operadorController);
         EgresosController egresosController = new EgresosController(modalAndViewController, operadorController);
-        PresupuestosController presupuestosController = new PresupuestosController(modalAndViewController, operadorController);
         CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
         AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
         DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(modalAndViewController, operadorController);
         MensajesController mensajesController = new MensajesController(modalAndViewController);
-        AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
-
-        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(modalAndViewController, operadorController);
-        BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
-        BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(contextoDeUsuarioLogueado);
-        ProveedorController proveedorController = new ProveedorController(contextoDeUsuarioLogueado);
-        AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(contextoDeUsuarioLogueado);
-        BajaProveedorController bajaProveedorController = new BajaProveedorController(contextoDeUsuarioLogueado);
-        CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
 
         BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
         ProveedorController proveedorController = new ProveedorController(modalAndViewController);
         AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController);
+
         ValidadorTransparenciaController validadorTransparenciaController = new ValidadorTransparenciaController(modalAndViewController);
 
         // Pagina iniciar sesión
@@ -76,6 +67,8 @@ public class Router {
         Spark.get("/asociarOperacion", asociacionOperacionesController::asociarOperacion, Router.engine);
         Spark.get("/mensajes", mensajesController::mensajes, Router.engine);
         Spark.get("/mensajes/:id",mensajesController::mostrarContenidoMensaje,Router.engine);
+
+        //muestra página inicio dependiendo del tipo de usuario logueado
         Spark.get("/inicio", mainController::principal, Router.engine);
 
         // Guardar los datos de las ventanas POST
