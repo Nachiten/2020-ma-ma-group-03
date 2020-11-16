@@ -40,7 +40,7 @@ public class Router {
         DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(contextoDeUsuarioLogueado, operadorController);
         MensajesController mensajesController = new MensajesController(modalAndViewController);
         BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(contextoDeUsuarioLogueado);
-        BajaProveedorController bajaProveedorController = new BajaProveedorController(contextoDeUsuarioLogueado);
+        ProveedorController proveedorController = new ProveedorController(contextoDeUsuarioLogueado);
         AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(contextoDeUsuarioLogueado);
         // Pagina iniciar sesión
         Spark.get("/", inicioController::inicio, Router.engine);
@@ -82,16 +82,15 @@ public class Router {
         Spark.post("/altaUsuario",darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
 
         // Proveedor
-        Spark.get("/bajaProveedor",bajaProveedorController::listarProveedores , Router.engine);
+        Spark.get("/bajaProveedor",proveedorController::listarProveedores , Router.engine);
+        Spark.get("/altaProveedor",proveedorController::altaProveedor , Router.engine);
 
         //Delete para eliminar un proveedor
-        Spark.delete("/bajaProveedor/eliminar/:id",bajaProveedorController::eliminar,Router.engine);
+        Spark.delete("/bajaProveedor/eliminar/:id",proveedorController::eliminar,Router.engine);
 
         //Entidad Juridica
         Spark.get("/altaEntidadJuridica",altaEntidadJuridicaController::mostrarPaginaAltaEntidadJuridica,Router.engine);
 
-
-        //Spark.get("/*", (request, response) -> "Error 404 no hay nada aca.");
         Spark.get("/*", inicioController::retornarError, Router.engine);
     }
 }
