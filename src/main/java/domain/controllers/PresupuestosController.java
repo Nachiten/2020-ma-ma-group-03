@@ -45,9 +45,8 @@ public class PresupuestosController {
         return new ModelAndView(modalAndViewController.getParametros(), "presupuestos.hbs");
     }
 
-    public ModelAndView presupuestos(Request request, Response response)throws Exception {
+    public ModelAndView presupuestos(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewPresupuestos);
-
     }
 
     public ModelAndView guardarPresupuesto(Request request, Response response){

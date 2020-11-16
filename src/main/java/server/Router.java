@@ -42,6 +42,8 @@ public class Router {
         BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
         ProveedorController proveedorController = new ProveedorController(modalAndViewController);
         AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController);
+        ValidadorTransparenciaController validadorTransparenciaController = new ValidadorTransparenciaController(modalAndViewController);
+
         // Pagina iniciar sesión
         Spark.get("/", inicioController::inicio, Router.engine);
 
@@ -73,6 +75,7 @@ public class Router {
         //Paginas una vez logueado GET para usuario ADMIN
         Spark.get("/altaUsuario",darAltaUsuarioController::tiposDeUsuarios, Router.engine);
         Spark.get("/bajaUsuario", bajaUsuarioController::listarUsuarios,Router.engine);
+        Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);
 
         // Delete para eliminar un usuario
         Spark.delete("/bajaUsuario/eliminar/:id", bajaUsuarioController::eliminar,Router.engine);
