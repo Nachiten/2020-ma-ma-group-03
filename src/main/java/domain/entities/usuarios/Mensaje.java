@@ -23,23 +23,41 @@ public class Mensaje extends EntidadPersistente {
     @Column(name = "contenido")
     private String contenido;
 
-    //CONSTRUCTOR
+    @Column(name = "leido")
+    private boolean leido;
+
+    //-------------------------------------------------------------------------
+                            //CONTRUCTOR
+    //-------------------------------------------------------------------------
+
     public Mensaje() {
+        inicializar();
     }
 
     public Mensaje(Boolean resultado, String identificacion, Usuario usuario){
         this.fechaCreado = new Date();
         this.contenido = "La operacion de egreso: " + identificacion + " tiene resultado " + resultado.toString();
         this.usuarioAsociado = usuario;
+        inicializar();
     }
 
-    //METHOD'S
-    public Mensaje leerMensaje(){
-        fechaYHoraLeido = LocalDateTime.now();
-        return this;
+    //-------------------------------------------------------------------------
+                            //METODOS
+    //-------------------------------------------------------------------------
+
+    public void leerMensaje(){
+        this.fechaYHoraLeido = LocalDateTime.now();
+        this.leido = true;
     }
 
-    //GETTERS
+    private void inicializar(){
+        this.leido = false;
+    }
+
+    //-------------------------------------------------------------------------
+                            //GETTERS
+    //-------------------------------------------------------------------------
+
     public Usuario getUsuarioAsociado() { return usuarioAsociado; }
 
     public String getContenido() {

@@ -22,24 +22,22 @@ public class ModalAndViewController {
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
     }
 
-
-    ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
-
-        if(!contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
-            return new ModelAndView(null,"error404.hbs");
-        }
-
-        return bloque.get();
-    }
-
-    void cargarParametosHashMap() throws Exception {
+    private void cargarParametrosHashMap() throws Exception {
         usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
-        if (usuario == null){
-            return;
-        }
         parametros.put("nombre", usuario.getNombre());
         parametros.put("apellido", usuario.getApellido());
     }
+
+    public ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque) throws Exception {
+
+        if(contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
+            this.cargarParametrosHashMap();
+            return bloque.get();
+        }
+        return new ModelAndView(null,"error404.hbs");
+    }
+
+
 
     public Map<String, Object> getParametros() {
         return parametros;

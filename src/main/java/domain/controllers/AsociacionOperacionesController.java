@@ -36,8 +36,6 @@ public class AsociacionOperacionesController {
     }
 
     public ModelAndView listadoOperaciones(Request request, Response response)throws Exception {
-
-        modalAndViewController.cargarParametosHashMap();
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListadoOperaciones());
 
     }
@@ -48,8 +46,6 @@ public class AsociacionOperacionesController {
     }
 
     public ModelAndView asociarOperacion(Request request, Response response)throws Exception {
-
-        modalAndViewController.cargarParametosHashMap();
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAsociarOperacion());
     }
 

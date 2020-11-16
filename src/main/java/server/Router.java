@@ -39,6 +39,7 @@ public class Router {
         AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
         DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(contextoDeUsuarioLogueado, operadorController);
         ListarUsuariosController listarUsuariosController = new ListarUsuariosController(contextoDeUsuarioLogueado);
+        MensajesController mensajesController = new MensajesController(modalAndViewController);
 
         // Pagina iniciar sesión
         Spark.get("/", inicioController::inicio, Router.engine);
@@ -57,7 +58,8 @@ public class Router {
         Spark.get("/criterios", criteriosController::criterios, Router.engine);
         Spark.get("/listadoOperaciones", asociacionOperacionesController::listadoOperaciones, Router.engine);
         Spark.get("/asociarOperacion", asociacionOperacionesController::asociarOperacion, Router.engine);
-        Spark.get("/mensajes", mainController::mensajes, Router.engine);
+        Spark.get("/mensajes", mensajesController::mensajes, Router.engine);
+        Spark.get("/mensajes/:id",mensajesController::mostrarContenidoMensaje,Router.engine);
         Spark.get("/inicio", mainController::principal, Router.engine);
 
         // Guardar los datos de las ventanas POST

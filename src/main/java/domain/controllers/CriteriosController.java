@@ -29,8 +29,6 @@ public class CriteriosController {
     }
 
     public ModelAndView criterios(Request request, Response response)throws Exception {
-
-        modalAndViewController.cargarParametosHashMap();
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewCriterios());
     }
 

@@ -47,9 +47,7 @@ public class PresupuestosController {
     }
 
     public ModelAndView presupuestos(Request request, Response response)throws Exception {
-
-        modalAndViewController.cargarParametosHashMap();
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewPresupuestos());
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewPresupuestos);
 
     }
 

@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import static javax.persistence.criteria.Predicate.BooleanOperator.AND;
+
 public class ListarUsuariosController {
 
     private Repositorio<Usuario> repoUsuario;
@@ -49,7 +51,7 @@ public class ListarUsuariosController {
     public ModelAndView modalAndViewListarUsuarios(){
 
         List<Usuario> usuarios = this.repoUsuario.buscarTodos();
-        List<Usuario> usuariosHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado()).collect(Collectors.toList());
+        List<Usuario> usuariosHabilitados = usuarios.stream().filter(usuario -> usuario.getEstoyHabilitado() & !usuario.getNombreUsuario().equals(this.usuario.getNombreUsuario())).collect(Collectors.toList());
         parametros.put("listadoDeUsuarios", usuariosHabilitados);
         return new ModelAndView(parametros, "listadoDeUsuarios.hbs");
     }

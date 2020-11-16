@@ -16,11 +16,13 @@ table#tabla_categorias{
 .containerTab td{
   width: 50%;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .containerTab input{
   font-size: 17px;
+  border-radius: 5px 5px;
+  border: 0;
 }
 
 .tab{
@@ -58,6 +60,7 @@ button{
   font-weight: 100;
   font-size: large;
   cursor:pointer;
+  border-radius: 10px 10px;
 }
 
 button:hover{

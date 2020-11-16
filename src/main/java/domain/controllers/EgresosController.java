@@ -52,9 +52,7 @@ public class EgresosController {
         return new ModelAndView(modalAndViewController.getParametros(), "egresos.hbs");
     }
     public ModelAndView egresos(Request request, Response response)throws Exception {
-
-        modalAndViewController.cargarParametosHashMap();
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewEgresos());
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewEgresos);
     }
 
     public ModelAndView guardarOperacionDeEgreso(Request request, Response response) throws Exception {

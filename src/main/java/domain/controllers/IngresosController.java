@@ -38,8 +38,6 @@ public class IngresosController {
     }
 
     public ModelAndView ingresos(Request request, Response response) throws Exception {
-
-        modalAndViewController.cargarParametosHashMap();
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewIngresos);
     }
 

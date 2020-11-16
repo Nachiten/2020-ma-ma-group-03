@@ -144,6 +144,7 @@ public class Usuario extends EntidadPersistente {
     public void setTipoUsuario(TipoUsuario tipoUsuario){
         this.tipo = tipoUsuario;
     }
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
