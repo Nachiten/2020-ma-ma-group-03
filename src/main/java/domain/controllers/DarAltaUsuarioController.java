@@ -10,44 +10,21 @@ import spark.Request;
 import spark.Response;
 
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 
 public class DarAltaUsuarioController {
 
     private Repositorio<Usuario> repoUsuario;
-    private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
-    private Usuario usuario ;
     private Map<String, Object> parametros;
-    private List<EntidadJuridica> entidadesJuridicas;
     private OperadorController operadorController;
+    private ModalAndViewController modalAndViewController;
 
-    public DarAltaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado,OperadorController operadorController) {
-        this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
+    public DarAltaUsuarioController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
         this.parametros = new HashMap<>();
-        this.usuario = new Usuario();
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
-        this.entidadesJuridicas = new ArrayList<>();
         this.operadorController = operadorController;
-
-    }
-
-    //Evalua si se accedio correctamente (previo inicio de sesion) y devuelve lo que corresponde
-    //si se accedió a la página sin haberse logueado devuelve error 404
-    private ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
-
-        if(!contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
-            return new ModelAndView(null,"error404.hbs");
-        }
-
-        return bloque.get();
-    }
-
-    private void cargarParametosHashMap() throws Exception {
-        usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
-        parametros.put("nombre", usuario.getNombre());
-        parametros.put("apellido", usuario.getApellido());
+        this.modalAndViewController = modalAndViewController;
     }
 
     //devuelve la página correspondiente
@@ -65,8 +42,8 @@ public class DarAltaUsuarioController {
     }
 
     public ModelAndView tiposDeUsuarios(Request request, Response response) throws Exception {
-        cargarParametosHashMap();
-        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
+        modalAndViewController.cargarParametrosHashMap();
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAltaUsuario());
     }
 
     public ModelAndView darAltaUsuarioInhabilitado(Request request, Response response) {
@@ -132,14 +109,4 @@ public class DarAltaUsuarioController {
         return repoEntidadJuridica.buscar(idEntidadJuridica);
     }
 
-
-    private boolean validarPersistencia(Repositorio<?> objetoFactory, Object objetoClase){
-        try {
-            objetoFactory.agregar(objetoClase);
-        }catch (Exception e){
-            System.out.println("EXCEPCION: " + e.getMessage());
-            return false;
-        }
-        return true;
-    }
 }

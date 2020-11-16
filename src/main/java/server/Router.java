@@ -37,11 +37,11 @@ public class Router {
         EgresosController egresosController = new EgresosController(modalAndViewController, operadorController);
         CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
         AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
-        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(contextoDeUsuarioLogueado, operadorController);
+        DarAltaUsuarioController darAltaUsuarioController = new DarAltaUsuarioController(modalAndViewController, operadorController);
         MensajesController mensajesController = new MensajesController(modalAndViewController);
-        BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(contextoDeUsuarioLogueado);
-        ProveedorController proveedorController = new ProveedorController(contextoDeUsuarioLogueado);
-        AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(contextoDeUsuarioLogueado);
+        BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
+        ProveedorController proveedorController = new ProveedorController(modalAndViewController);
+        AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController);
         // Pagina iniciar sesión
         Spark.get("/", inicioController::inicio, Router.engine);
 

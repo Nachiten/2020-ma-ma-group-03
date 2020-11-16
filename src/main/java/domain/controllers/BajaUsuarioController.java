@@ -19,33 +19,14 @@ public class BajaUsuarioController {
     private Repositorio<Usuario> repoUsuario;
     private Usuario usuario;
     private Map<String, Object> parametros;
-    private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
+    private ModalAndViewController modalAndViewController;
 
-
-    public BajaUsuarioController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado) {
+    public BajaUsuarioController(ModalAndViewController modalAndViewController) {
 
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.usuario = new Usuario();
         this.parametros = new HashMap<>();
-        this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
-    }
-
-    //Evalua si se accedio correctame (previo inicio de sesion) y devuelve lo que corresponde
-    //si se accedió a la página sin haberse logueado devuelve error 404
-    private ModelAndView siElUsuarioEstaLogueadoRealiza(Request request, Supplier<ModelAndView> bloque){
-
-        if(!contextoDeUsuarioLogueado.esValidoElUsuarioLogueadoEn(request)){
-            return new ModelAndView(null,"error404.hbs");
-        }
-
-        return bloque.get();
-    }
-
-    private void cargarParametosHashMap() throws Exception {
-
-        usuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
-        parametros.put("nombre", usuario.getNombre());
-        parametros.put("apellido", usuario.getApellido());
+        this.modalAndViewController = modalAndViewController;
     }
 
     public ModelAndView modalAndViewListarUsuarios(){
@@ -58,8 +39,8 @@ public class BajaUsuarioController {
 
     public ModelAndView listarUsuarios(Request request, Response response) throws Exception {
 
-        cargarParametosHashMap();
-        return siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuarios());
+        modalAndViewController.cargarParametrosHashMap();
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListarUsuarios());
     }
 
     public ModelAndView eliminar(Request request, Response response) {
