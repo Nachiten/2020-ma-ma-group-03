@@ -40,9 +40,6 @@ public class OperacionDeIngreso  {
     @Column (name = "montoSinVincular")
     private float montoSinVincular;
 
-    @Transient
-    private LocalDate fechaMaxima;
-
     //-------------------------------------------------------------------------
                         //CONTRUCTOR
     //-------------------------------------------------------------------------
@@ -66,6 +63,14 @@ public class OperacionDeIngreso  {
         inicializar();
     }
 
+    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha, int id, LocalDate periodoAceptable) {
+        this.descripcion = descripcion;
+        this.montoTotal = montoTotal;
+        this.fecha = fecha;
+        this.id = id;
+        this.periodoAceptacion = periodoAceptable;
+        inicializar();
+    }
 
     private void inicializar(){
         this.montoSinVincular = montoTotal;
@@ -77,10 +82,6 @@ public class OperacionDeIngreso  {
                             //SETTERS
     //-------------------------------------------------------------------------
 
-    public void setFechaMaxima(LocalDate fechaMaxima) {
-        this.fechaMaxima = fechaMaxima;
-    }
-
     public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) {
         this.entidadJuridicaAsociada = entidadJuridicaAsociada.getId();
         entidadJuridicaAsociada.agregarOperacionDeIngresoAsociada(this);
@@ -88,6 +89,14 @@ public class OperacionDeIngreso  {
 
     public void setPeriodoAceptacion(LocalDate periodoAceptacion) {
         this.periodoAceptacion = periodoAceptacion;
+    }
+
+    public void setOperacionesDeEgresoVinculadas(List<OperacionDeEgreso> operacionesDeEgresoVinculadas) {
+        this.operacionesDeEgresoVinculadas = operacionesDeEgresoVinculadas;
+    }
+
+    public void setMontoSinVincular(float montoSinVincular) {
+        this.montoSinVincular = montoSinVincular;
     }
 
     //-------------------------------------------------------------------------
@@ -116,5 +125,13 @@ public class OperacionDeIngreso  {
 
     public LocalDate getPeriodoAceptacion() {
         return periodoAceptacion;
+    }
+
+    public float getMontoSinVincular() {
+        return montoSinVincular;
+    }
+
+    public List<OperacionDeEgreso> getOperacionesDeEgresoVinculadas() {
+        return operacionesDeEgresoVinculadas;
     }
 }

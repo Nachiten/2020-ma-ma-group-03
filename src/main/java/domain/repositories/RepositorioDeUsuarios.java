@@ -9,8 +9,6 @@ import javax.persistence.criteria.Root;
 
 public class RepositorioDeUsuarios  extends Repositorio<Usuario> {
 
-
-
     public RepositorioDeUsuarios(DAO<Usuario> dao) {
         super(dao);
     }

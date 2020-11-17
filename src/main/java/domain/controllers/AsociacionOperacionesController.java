@@ -59,9 +59,11 @@ public class AsociacionOperacionesController {
 
         try{
             ingresosVinculados = servicioVinculacionEgresosIngresos.ejecutarVinculacion(operacionesEgreso, operacionesIngreso, criterios);
-
             for (OperacionDeIngreso unaOperacion : ingresosVinculados){
-                this.repoOperacionIngreso.modificar(unaOperacion);
+                actualizarIngresoEnBaseDeDatos(unaOperacion);
+                for(OperacionDeEgreso unEgreso : unaOperacion.getOperacionesDeEgresoVinculadas()){
+                    actualizarEgresoEnBaseDeDatos(unaOperacion, unEgreso);
+                }
             }
         }catch (Exception e) {
             String mensajeError = e.getMessage();
@@ -93,5 +95,19 @@ public class AsociacionOperacionesController {
         }
 
         return listaADevolver;
+    }
+
+    private void actualizarIngresoEnBaseDeDatos(OperacionDeIngreso unaOperacion){
+        OperacionDeIngreso operacionDeIngreso = repoOperacionIngreso.buscar(unaOperacion.getId());
+        operacionDeIngreso.setMontoSinVincular(unaOperacion.getMontoSinVincular());
+        operacionDeIngreso.setOperacionesDeEgresoVinculadas(unaOperacion.getOperacionesDeEgresoVinculadas());
+        repoOperacionIngreso.modificar(operacionDeIngreso);
+    }
+
+    private void actualizarEgresoEnBaseDeDatos(OperacionDeIngreso operacionDeIngreso,OperacionDeEgreso unEgreso){
+        OperacionDeEgreso operacionDeEgreso = repoOperacionEgreso.buscar(unEgreso.getIdOperacion());
+        operacionDeEgreso.setOperacionDeIngreso(operacionDeIngreso);
+        operacionDeEgreso.setFueVinculada(true);
+        repoOperacionEgreso.modificar(operacionDeEgreso);
     }
 }
