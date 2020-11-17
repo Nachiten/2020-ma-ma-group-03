@@ -44,7 +44,7 @@ public class Router {
 
         BajaUsuarioController bajaUsuarioController = new BajaUsuarioController(modalAndViewController);
         ProveedorController proveedorController = new ProveedorController(modalAndViewController, operadorController);
-        AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController);
+        AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController, operadorController);
 
         ValidadorTransparenciaController validadorTransparenciaController = new ValidadorTransparenciaController(modalAndViewController);
 
@@ -82,9 +82,9 @@ public class Router {
         Spark.get("/altaUsuario",darAltaUsuarioController::tiposDeUsuarios, Router.engine);
         Spark.get("/bajaUsuario", bajaUsuarioController::listarUsuarios,Router.engine);
         Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);
-        // Proveedor
         Spark.get("/bajaProveedor",proveedorController::listarProveedores , Router.engine);
         Spark.get("/altaProveedor",proveedorController::altaProveedor , Router.engine);
+        Spark.get("/altaEntidadJuridica",altaEntidadJuridicaController::mostrarPaginaAltaEntidadJuridica,Router.engine);
 
         // Delete para eliminar un usuario
         Spark.delete("/bajaUsuario/eliminar/:id", bajaUsuarioController::eliminar,Router.engine);
@@ -94,13 +94,12 @@ public class Router {
         Spark.post("/altaUsuario", darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
         Spark.post("/altaUsuario", darAltaUsuarioController::guardarAltaDeUsuario,Router.engine);
         Spark.post("/altaProveedor", proveedorController::guardarProveedor , Router.engine);
-
+        Spark.post("/altaEntidadJuridica",altaEntidadJuridicaController::guardarEntidadJuridica,Router.engine);
 
         //Delete para eliminar un proveedor
         Spark.delete("/bajaProveedor/eliminar/:id",proveedorController::eliminar,Router.engine);
 
-        //Entidad Juridica
-        Spark.get("/altaEntidadJuridica",altaEntidadJuridicaController::mostrarPaginaAltaEntidadJuridica,Router.engine);
+
 
         Spark.get("/*", inicioController::retornarError, Router.engine);
     }

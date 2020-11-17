@@ -24,17 +24,21 @@ function showInModal(unModal, unContenido){
 
 
 function recuperarDatosFormularioAltaNuevaEntidadJuridica(){
-    var datos = {
-        codigoInscripcionDefinitiva       : valorDe("altaEntidadJuridica-codigo"),
-        cuit         : valorDe("altaEntidadJuridica-cuit"),
-       razonSocial : valorDe("altaEntidadJuridica-razonSocial"),
-
-
+    return {
+        nombre : valorDe("altaEntidadJuridica-nombre"),
+        nombreFicticio : valorDe("altaEntidadJuridica-nombreFicticio"),
+        codigoInscripcionDefinitiva: valorDe("altaEntidadJuridica-codigo"),
+        cuit: valorDe("altaEntidadJuridica-cuit"),
+        razonSocial: valorDe("altaEntidadJuridica-razonSocial"),
+        calle: valorDe("alta-calle"),
+        altura: valorDe("alta-altura"),
+        piso: valorDe("alta-piso")
+        // TODO | Falta pais ciudad provincia
     };
-    return datos;
 }
 
-function mostrarModalGuardadoAltaNuevoUsuario() {
+
+function mostrarModalGuardadoAltaEntidadJuridica() {
     var datos = recuperarDatosFormularioAltaNuevaEntidadJuridica();
     var ruta = "/altaEntidadJuridica";
     var metodo = "POST";

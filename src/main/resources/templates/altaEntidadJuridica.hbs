@@ -5,12 +5,19 @@
                 <h2>Nueva Entidad Juridica</h2>
                 <table class= "formulario" border = 0 >
                     <tr>
+                        <td>Nombre:</td>
+                        <td><input type="text" name="codigo" id = "altaEntidadJuridica-nombre" placeholder="Ingrese un codigo" required></td>
+                    </tr>
+                    <tr>
+                        <td>Nombre Ficticio:</td>
+                        <td><input type="text" name="codigo" id = "altaEntidadJuridica-nombreFicticio" placeholder="Ingrese un codigo" required></td>
+                    </tr>
+                    <tr>
                         <td>Codigo Inscripcion Definitiva:</td>
                         <td><input type="text" name="codigo" id = "altaEntidadJuridica-codigo" placeholder="Ingrese un codigo" required></td>
                     </tr>
                     <tr>
                         <td>Cuit:</td>
-
                         <td><input type="text" name="cuit" id = "altaEntidadJuridica-cuit" placeholder="Ingrese un cuit" required></td>
                     </tr>
                     <tr>
@@ -22,6 +29,7 @@
                         <td>
                             <select name = "pais" id="altaProveedor-pais" required >
                                 <option>Seleccionar pais</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -29,6 +37,7 @@
                         <td>
                             <select name = "provincia" id="provincia"required >
                                 <option>Seleccionar provincia</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -36,26 +45,28 @@
                         <td>
                             <select name = "ciudad"  id="ciudad" required >
                                 <option>Seleccionar provincia</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <td>Calle:</td>
-                        <td><input type="text" name="calle" placeholder="Ingrese la calle"  id = "calle" required></td>
+                        <td><input type="text" name="calle" placeholder="Ingrese la calle"  id = "alta-calle" required></td>
                     </tr>
                     <tr>
                         <td>Altura:</td>
-                        <td><input type="number" min="0" name="altura" placeholder="Ingrese la altura"  id = "altura" required></td>
+                        <td><input type="number" min="0" name="altura" placeholder="Ingrese la altura"  id = "alta-altura" required></td>
                     </tr>
                     <tr>
                         <td>Piso:</td>
-                        <td><input type="number"  min="0" name="piso" placeholder="Ingrese la altura" id="piso" required></td>
+                        <td><input type="number"  min="0" name="piso" placeholder="Ingrese la altura" id="alta-piso" required></td>
                     </tr>
                 </table>
-                <button type= "submit" >Guardar</button>
+                <button type= "submit" onclick="mostrarModalGuardadoAltaEntidadJuridica()">Guardar</button>
             </center>
         </form>
     </div>
     <script src="/js/formatoDeTabla.js"></script>
+    <script src="/js/altaEntidadJuridica.js"></script>
     <link rel="stylesheet" href="/css/estiloAltaEntidadJuridica.css" />
 {{/partial}}
 {{>principalAdministrador.hbs}}
