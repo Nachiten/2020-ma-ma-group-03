@@ -1,7 +1,6 @@
 package domain.controllers;
 
-import domain.entities.apiMercadoLibre.Direccion;
-import domain.entities.apiMercadoLibre.DireccionPostal;
+import domain.entities.apiMercadoLibre.*;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.tipoEntidadJuridica.TipoEntidadJuridica;
 import domain.entities.usuarios.Usuario;
@@ -13,6 +12,7 @@ import spark.Request;
 import spark.Response;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AltaEntidadJuridicaController {
@@ -20,19 +20,30 @@ public class AltaEntidadJuridicaController {
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
     private Repositorio<EntidadJuridica> repoEntidadJuridica;
+    private Repositorio<Pais> respoPaises;
+    private Repositorio<Estado> repoProvincias;
+    private Repositorio<Ciudad> repoCiudades;
 
     public AltaEntidadJuridicaController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
         this.modalAndViewController = modalAndViewController;
         this.repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
         this.operadorController = operadorController;
+        this.respoPaises = FactoryRepositorio.get(Pais.class);
+        this.repoProvincias = FactoryRepositorio.get(Estado.class);
+        this.repoCiudades =FactoryRepositorio.get(Ciudad.class);
     }
 
     private ModelAndView modalAndViewAltaEntidadJuridica(){
+        List<Pais> listaPaisesEJ = respoPaises.buscarTodos();
+        List<Estado> listaProvinciasEJ = repoProvincias.buscarTodos();
+        List<Ciudad> listaCiudadesEJ = repoCiudades.buscarTodos();
+        modalAndViewController.getParametros().put("listaPaisesEJ", listaPaisesEJ);
+        modalAndViewController.getParametros().put("listaProvinciasEJ", listaProvinciasEJ);
+        modalAndViewController.getParametros().put("listaCiudadesEJ", listaCiudadesEJ);
         return new ModelAndView(modalAndViewController.getParametros(),"altaEntidadJuridica.hbs");
     }
 
     public ModelAndView mostrarPaginaAltaEntidadJuridica(Request request, Response response) {
-        modalAndViewController.cargarParametrosHashMap();
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewAltaEntidadJuridica);
     }
 

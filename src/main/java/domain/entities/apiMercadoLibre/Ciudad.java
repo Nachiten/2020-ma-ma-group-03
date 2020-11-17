@@ -35,6 +35,10 @@ public class Ciudad {
         return name;
     }
 
+    public Estado getProvinciaAsociada() {
+        return provinciaAsociada;
+    }
+
     //-------------------------------------------------------------------------
                             //SETTERS
     //-------------------------------------------------------------------------

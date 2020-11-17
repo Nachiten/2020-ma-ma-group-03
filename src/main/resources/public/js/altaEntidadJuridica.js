@@ -52,3 +52,31 @@ function mostrarModalGuardadoAltaEntidadJuridica() {
         }
     });
 }
+
+$('#altaProveedor-pais').change(function(){
+    $('#altaProveedor-provincia').removeAttr('disabled');
+    filterSelectOptions($("#altaProveedor-provincia"), "data-attribute", $(this).val());
+    filterSelectOptions($("#altaProveedor-ciudad"), "data-attribute", $(this).val());
+});
+
+$('#altaProveedor-provincia').change(function(){
+    $('#altaProveedor-ciudad').removeAttr('disabled');
+    filterSelectOptions($("#altaProveedor-ciudad"), "data-attribute", $(this).val());
+});
+
+function filterSelectOptions(selectElement, attributeName, attributeValue) {
+    if (selectElement.data("currentFilter") != attributeValue) {
+        selectElement.data("currentFilter", attributeValue);
+        var originalHTML = selectElement.data("originalHTML");
+        if (originalHTML)
+            selectElement.html(originalHTML)
+        else {
+            var clone = selectElement.clone();
+            clone.children("option[selected]").removeAttr("selected");
+            selectElement.data("originalHTML", clone.html());
+        }
+        if (attributeValue) {
+            selectElement.children("option:not([" + attributeName + "='" + attributeValue + "'],:not([" + attributeName + "]))").remove();
+        }
+    }
+}

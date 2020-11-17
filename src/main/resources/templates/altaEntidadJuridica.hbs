@@ -18,6 +18,7 @@
                     </tr>
                     <tr>
                         <td>Cuit:</td>
+
                         <td><input type="text" name="cuit" id = "altaEntidadJuridica-cuit" placeholder="Ingrese un cuit" required></td>
                     </tr>
                     <tr>
@@ -25,27 +26,33 @@
                         <td><input type="text" name="razonSocial" id = "altaEntidadJuridica-razonSocial" placeholder="Ingrese una razon social" required></td>
                     </tr>
                     <tr>
-                        <td>Pais:</td>
+                        <td>País:</td>
                         <td>
-                            <select name = "pais" id="altaProveedor-pais" required >
-                                <option>Seleccionar pais</option>
-                            </select>
+                            <select name="pais" id="altaProveedor-pais" required >
+                                <option hidden selected>Seleccionar país</option>
+                                {{#each listaPaisesEJ}}
+                                    <option value="{{id}}">{{name}}</option>
+                                {{/each}}
                         </td>
                     </tr>
                     <tr>
                         <td>Provincia:</td>
                         <td>
-                            <select name = "provincia" id="provincia"required >
-                                <option>Seleccionar provincia</option>
-                            </select>
+                            <select name="provincia" id="altaProveedor-provincia"required disabled>
+                                <option hidden selected>Seleccionar provincia</option>
+                                {{#each listaProvinciasEJ}}
+                                    <option value="{{id}}" data-attribute="{{paisAsociado.id}}">{{name}}</option>
+                                {{/each}}
                         </td>
                     </tr>
                     <tr>
                         <td>Ciudad:</td>
                         <td>
-                            <select name = "ciudad"  id="ciudad" required >
-                                <option>Seleccionar provincia</option>
-                            </select>
+                            <select name="ciudad"  id="altaProveedor-ciudad" required disabled>
+                                <option hidden selected>Seleccionar Ciudad</option>
+                                {{#each listaCiudadesEJ}}
+                                    <option value="{{id}}" data-attribute="{{provinciaAsociada.id}}">{{name}}</option>
+                                {{/each}}
                         </td>
                     </tr>
                     <tr>
@@ -65,7 +72,6 @@
             </center>
         </form>
     </div>
-    <script src="/js/formatoDeTabla.js"></script>
     <script src="/js/altaEntidadJuridica.js"></script>
     <link rel="stylesheet" href="/css/estiloAltaEntidadJuridica.css" />
 {{/partial}}
