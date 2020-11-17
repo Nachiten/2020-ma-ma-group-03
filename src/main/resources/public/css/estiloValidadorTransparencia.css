@@ -2,6 +2,7 @@
     width: 50%;
     font-weight: 600;
     font-size: 18px;
+    color:#fff;
 }
 .formulario input{
     font-size: 17px;
@@ -17,8 +18,18 @@ button{
     padding:1em 2em;
     font-size: larger;
     cursor:pointer;
+    color:white;
 }
 button:focus,button:hover{
 
     color:#fff;
+}
+
+h2{
+    color:white;
+    margin-block-end: 1.5%;
+}
+
+td{
+    color:white;
 }

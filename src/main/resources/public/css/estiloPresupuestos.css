@@ -39,6 +39,7 @@ button{
     font-size: large;
     cursor:pointer;
     border-radius: 10px 10px;
+    color:white;
 }
 
 .table-wrapper .acciones input{
@@ -54,6 +55,15 @@ button{
     width: 30%;
     font-weight: 600;
     font-size: 20px;
+    color:white;
+}
+
+.presupuestos th{
+    color:white;
+}
+
+.presupuestos td{
+    color:white;
 }
 
 

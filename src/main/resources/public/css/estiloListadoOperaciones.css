@@ -8,6 +8,20 @@ h3{
     margin-block-end: 1.5%;
 }
 
+.table-wrapper tbody th{
+    font-size: 18px;
+    color:white;
+}
+
+.table-wrapper thead th{
+    color:white;
+}
+
 .table-wrapper tbody td{
     font-size: 18px;
+    color:white;
+}
+
+.table-wrapper thead td{
+    color:white;
 }

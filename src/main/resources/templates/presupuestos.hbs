@@ -13,7 +13,7 @@
                     <select name="operacionEgreso" id="alta-operacionEgreso" required >
                         <option hidden selected>-Seleccionar una operación de egreso-</option>
                         {{#each operacionesEgreso}}
-                            <option>ID: {{idOperacion}} | Fecha: {{fecha}}</option>
+                            <option>Fecha: {{fecha}} | Monto: {{montoTotal}}</option>
                         {{/each}}
                     </select>
                 </td>

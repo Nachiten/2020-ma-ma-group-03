@@ -134,8 +134,8 @@ function nuevaFilaEnItems()
 	var itemInputOculto   = '<input type="hidden" class="nombreItem" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + item;
 	var precioInputOculto = '<input type="hidden" class="precioItem" name="precio_I[' + numeroFila + ']" id="precio_I[' + numeroFila + ']" value="' + precio;
 
-	var itemTextoMostrado   = '"> <p name="" class="non-margin" style="color = black">' + item + '</p>';
-	var precioTextoMostrado = '"> <p name="" class="non-margin" style="color = black">' + precio + '</p>';
+	var itemTextoMostrado   = '"> <p name="" class="non-margin" style="color : white">' + item + '</p>';
+	var precioTextoMostrado = '"> <p name="" class="non-margin" style="color : white">' + precio + '</p>';
 
 	// name="nombre_I[' + numeroFila + ']"
 
@@ -143,8 +143,8 @@ function nuevaFilaEnItems()
 	cell2.innerHTML =  precioInputOculto + precioTextoMostrado;
 	//cell3.innerHTML = '<span class="icon fa-edit"></span><span class="icon fa-eraser"></span>';
 	cell3.innerHTML = '<div class="acciones">' +
-		'<i class="fas fa-edit"></i><input type="button" class="editar" value="Editar" name="' + numeroFila + '"/> ' +
-		'<i class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" /></div>' +
+		'<i style="color: yellow" class="fas fa-edit"></i><input type="button" class="editar" value="Editar" style="color: white" name="' + numeroFila + '"/> ' +
+		'<i style="color: red" class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" style="color: white" /></div>' +
 		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">' +
 		'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">';
 
@@ -225,11 +225,11 @@ function nuevaFilaEnCategoria()
 	var cell2 = row.insertCell(1);
 
 	var categoriaInputOculto   = '<input type="hidden" class="categoriaCriterio" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + categoria;
-	var categoriaTextoMostrado = '"> <p name="" class="non-margin" style="color = black">' + categoria + '</p>';
+	var categoriaTextoMostrado = '"> <p name="" class="non-margin" style="color = white">' + categoria + '</p>';
 
 	cell1.innerHTML =  categoriaInputOculto + categoriaTextoMostrado;
 	cell2.innerHTML = '<div class="acciones">' +
-		'<i class="fas fa-edit"></i><input type="button" class="editar" value="Editar" name="' + numeroFila + '"/> ' +
+		'<i class="fas fa-edit" ></i><input type="button" class="editar" value="Editar" name="' + numeroFila + '"/> ' +
 		'<i class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" /></div>' +
 		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">' +
 		'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">';
