@@ -105,6 +105,15 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
+    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal, int operacionDeIngresoId, boolean fueVinculada) {
+        this.idOperacion = idOperacion;
+        this.fecha = fecha;
+        this.montoTotal = montoTotal;
+        this.operacionDeIngreso_id = operacionDeIngresoId;
+        this.fueVinculada = fueVinculada;
+        inicializar();
+    }
+
 
     //-------------------------------------------------------------------------
                                 //METODOS
@@ -202,7 +211,10 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public void setOperacionDeIngreso(OperacionDeIngreso operacionDeIngreso) { this.idOperacion = operacionDeIngreso.getId(); }
 
-    //-------------------------------------------------------------------------
+    public void setFueVinculada(boolean fueVinculada) {
+        this.fueVinculada = fueVinculada;
+    }
+//-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
 
@@ -234,5 +246,13 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public int getEntidadJuridicaAsociada_id(){
         return entidadJuridicaAsociada_id;
+    }
+
+    public Boolean fueVinculada(){
+        return fueVinculada;
+    }
+
+    public int getOperacionDeIngreso_id(){
+        return operacionDeIngreso_id;
     }
 }

@@ -256,7 +256,4 @@ public class PersistenciaOperacionesTest {
         Assert.assertEquals(1, unaoperacionDeEgreso.getCantidadPresupuestosRequerida());
         Assert.assertEquals(5600, unaoperacionDeEgreso.getMontoTotal(), 0.0);
     }
-
-
-
 }

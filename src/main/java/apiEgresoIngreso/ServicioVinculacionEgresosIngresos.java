@@ -8,6 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,12 +34,34 @@ public class ServicioVinculacionEgresosIngresos {
     public List<OperacionDeIngreso> ejecutarVinculacion(List<OperacionDeEgreso> egresos, List<OperacionDeIngreso> ingresos, List<String> criterio) throws IOException {
         apiEgresoIngreso.VinculacionService vinculacionService = this.retrofit.create(apiEgresoIngreso.VinculacionService.class);
         ApiEgresoIngreso.GsonConverter gsonConverter = new ApiEgresoIngreso.GsonConverter();
-        List<String> egresosGson = gsonConverter.convertirEgresosAGson(egresos); //todo no puede convertirlo a gson
-        List<String> ingresosGson = gsonConverter.convertirIngresosAGson(ingresos);
+        List<OperacionDeEgreso> egresosSimples = simplificarEgresos(egresos);
+        List<OperacionDeIngreso> ingresosSimples = simplificarIngresos(ingresos);
+        List<String> egresosGson = gsonConverter.convertirEgresosAGson(egresosSimples);
+        List<String> ingresosGson = gsonConverter.convertirIngresosAGson(ingresosSimples);
         Call<List<String>> operacionesDeIngreso = vinculacionService.ejecutarCriterio(egresosGson, ingresosGson, criterio);
         Response<List<String>> responseOperacionesDeIngreso = operacionesDeIngreso.execute();
         List<String> operacionesDeIngresoFinales = responseOperacionesDeIngreso.body();
         assert operacionesDeIngresoFinales != null;
         return gsonConverter.convertirIngresosGsonAIngresos(operacionesDeIngresoFinales);
+    }
+
+    private List<OperacionDeEgreso> simplificarEgresos(List<OperacionDeEgreso> egresos){
+        List<OperacionDeEgreso> egresosSimples = new ArrayList<>();
+        for(int i = 0; i < egresos.size(); i++){
+            OperacionDeEgreso unEgreso = egresos.get(i);
+            OperacionDeEgreso egresoSimple = new OperacionDeEgreso(unEgreso.getIdOperacion(), unEgreso.getFecha(), unEgreso.getMontoTotal(), unEgreso.getOperacionDeIngreso_id(), unEgreso.fueVinculada());
+            egresosSimples.add(egresoSimple);
+        }
+        return egresosSimples;
+    }
+
+    private List<OperacionDeIngreso> simplificarIngresos(List<OperacionDeIngreso> ingresos){
+        List<OperacionDeIngreso> ingresosSimples = new ArrayList<>();
+        for(int i = 0; i < ingresos.size(); i++){
+            OperacionDeIngreso unIngreso = ingresos.get(i);
+            OperacionDeIngreso ingresoSimple = new OperacionDeIngreso(unIngreso.getDescripcion(), unIngreso.getMontoTotal(), unIngreso.getFecha(), unIngreso.getId(), unIngreso.getPeriodoAceptacion());
+            ingresosSimples.add(ingresoSimple);
+        }
+        return ingresosSimples;
     }
 }

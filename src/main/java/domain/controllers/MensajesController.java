@@ -24,12 +24,12 @@ public class MensajesController {
     private ModelAndView modalAndViewMensajes(){
         List<Mensaje> listaMensajes = this.repoMensajes.buscarTodos();
         Usuario usuarioLogueado = this.modalAndViewController.getUsuario();
-        List<Mensaje> mensajesUsuario = listaMensajes.stream().filter(mensaje -> mensaje.getUsuarioAsociado().equals(usuarioLogueado)).collect(Collectors.toList());
+        List<Mensaje> mensajesUsuario = listaMensajes.stream().filter(mensaje -> mensaje.getNombreUsuarioAsociado().equals(usuarioLogueado.getNombreUsuario())).collect(Collectors.toList());
         modalAndViewController.getParametros().put("bandejaDeMensajes", mensajesUsuario);
         return new ModelAndView(modalAndViewController.getParametros(), "mensaje.hbs");
     }
 
-    public ModelAndView mensajes(Request request, Response response)throws Exception {
+    public ModelAndView mensajes(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMensajes);
     }
 

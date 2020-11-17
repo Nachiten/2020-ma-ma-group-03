@@ -1,6 +1,7 @@
 package domain.controllers;
 
 import domain.entities.apiMercadoLibre.Moneda;
+import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.OperacionDeIngreso;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -18,6 +19,7 @@ public class IngresosController {
 
     private Repositorio<OperacionDeIngreso> repoOperacionIngreso;
     private Repositorio<Moneda> repoMonedas;
+    private Repositorio<EntidadJuridica> repoEntidadJuridica;
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
 
@@ -25,6 +27,7 @@ public class IngresosController {
 
         this.repoOperacionIngreso = FactoryRepositorio.get(OperacionDeIngreso.class);
         this.repoMonedas = FactoryRepositorio.get(Moneda.class);
+        this.repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
     }
@@ -67,7 +70,9 @@ public class IngresosController {
 
         //se instancia una operacion de ingreso a persistir
         OperacionDeIngreso operacionDeIngresoAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
-        operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(modalAndViewController.getUsuario().getEntidadJuridica());
+        int entidadJuridica_id = modalAndViewController.getUsuario().getEntidadJuridica();
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(entidadJuridica_id);
+        operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
         operacionDeIngresoAGuardar.setPeriodoAceptacion(fechaPeriodoAceptacion);
 
         if (operadorController.persistenciaNoValida(repoOperacionIngreso, operacionDeIngresoAGuardar)){

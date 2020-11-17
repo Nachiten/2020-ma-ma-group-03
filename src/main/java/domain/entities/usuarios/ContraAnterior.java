@@ -9,11 +9,12 @@ import java.time.LocalDate;
 @Table(name = "contraAnterior")
 public class ContraAnterior extends EntidadPersistente {
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuarioAsociado;
+    @Column(name = "nombreUsuarioAsociado")
+    private String nombreUsuarioAsociado;
+
     @Column (name = "contraAnterior")
     private String contraAnterior;
+
     @Column (name = "tiempoContrasenia")
     private LocalDate tiempoContrasenia;
 
@@ -22,13 +23,13 @@ public class ContraAnterior extends EntidadPersistente {
     }
 
     public ContraAnterior(Usuario usuarioAsociado, String contraAnterior, LocalDate tiempoContrasenia){
-        this.usuarioAsociado = usuarioAsociado;
+        this.nombreUsuarioAsociado = usuarioAsociado.getNombreUsuario();
         this.contraAnterior = contraAnterior;
         this.tiempoContrasenia = tiempoContrasenia;
     }
 
     public void setUsuarioAsociado(Usuario usuarioAsociado) {
-        this.usuarioAsociado = usuarioAsociado;
+        this.nombreUsuarioAsociado = usuarioAsociado.getNombreUsuario();
     }
 
     public void setContraAnterior(String contraAnterior) {
@@ -39,8 +40,8 @@ public class ContraAnterior extends EntidadPersistente {
         this.tiempoContrasenia = tiempoContrasenia;
     }
 
-    public Usuario getUsuarioAsociado() {
-        return usuarioAsociado;
+    public String getUsuarioAsociadoId() {
+        return nombreUsuarioAsociado;
     }
 
     public LocalDate getTiempoContrasenia() {

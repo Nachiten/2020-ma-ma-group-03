@@ -24,6 +24,7 @@ public class EgresosController {
     private Repositorio<Proveedor> repoProveedor;
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
+    private Repositorio<EntidadJuridica> repoEntidadJuridica;
 
     public EgresosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
 
@@ -32,6 +33,7 @@ public class EgresosController {
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
+        this.repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
     }
@@ -103,7 +105,8 @@ public class EgresosController {
 
         //Usuario miUsuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
         Usuario miUsuario = modalAndViewController.getUsuario();
-        EntidadJuridica entidadJuridica = miUsuario.getEntidadJuridica();
+        int entidadJuridica_id = miUsuario.getEntidadJuridica();
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(entidadJuridica_id);
 
         // Setters necesarios
         operacionAGuardar.setEntidadJuridicaAsociada(entidadJuridica);

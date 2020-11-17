@@ -1,8 +1,7 @@
 package testApiVinculacion;
 
 import ApiEgresoIngreso.ServicioVinculacionEgresosIngresos;
-import domain.entities.operaciones.OperacionDeEgreso;
-import domain.entities.operaciones.OperacionDeIngreso;
+import domain.entities.operaciones.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -49,10 +48,10 @@ public class ApiTest {
     }
 
     public void agregarFechasMinimasYMaximaAIngresos(){
-        operacionDeIngreso1.setFechaMaxima(date3);
-        operacionDeIngreso2.setFechaMaxima(date3);
-        operacionDeIngreso3.setFechaMaxima(date2);
-        operacionDeIngreso4.setFechaMaxima(date3);
+        operacionDeIngreso1.setPeriodoAceptacion(date3);
+        operacionDeIngreso2.setPeriodoAceptacion(date3);
+        operacionDeIngreso3.setPeriodoAceptacion(date2);
+        operacionDeIngreso4.setPeriodoAceptacion(date3);
     }
 
     //ACA TENGO QUE PEDIRLE A LA API QUE ME HAGA LO QUE TIENE QUE HACER.

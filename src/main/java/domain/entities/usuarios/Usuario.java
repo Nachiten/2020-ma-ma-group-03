@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static domain.entities.usuarios.TipoUsuario.ESTANDAR;
-
 @Entity
 @Table(name = "usuario")
 public class Usuario extends EntidadPersistente {
@@ -32,24 +30,24 @@ public class Usuario extends EntidadPersistente {
     @Column(name = "apellido")
     private String apellido;
 
-    @ManyToOne
-    private EntidadJuridica entidadJuridica;
+    @Column (name = "entidadJuridica_id")
+    private int entidadJuridica;
 
-    @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "nombreUsuarioAsociado", cascade = {CascadeType.ALL})
     private List<Mensaje> bandejaDeMensajes;
 
-    @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "nombreUsuarioAsociado", cascade = {CascadeType.ALL})
     private List<ContraAnterior> contraseniasAnteriores;
 
     @Column (name = "tiempoUltimaContrasenia")
     private LocalDate tiempoUltimaContrasenia;
 
     // TODO | Sacar el cascade para correr el server | (cascade=CascadeType.ALL)
-    @ManyToMany (cascade=CascadeType.ALL)
-    private List<OperacionDeEgreso> operacionesRevisadas;
+    @Column (name= "idOperacion")
+    private Integer operacionRevisada_id;
 
     @Column(name="estoyHabilitado")
-    private boolean estoyHabilitado ;
+    private boolean estoyHabilitado;
 
     //-------------------------------------------------------------------------
                     //CONTRUCTOR
@@ -77,7 +75,6 @@ public class Usuario extends EntidadPersistente {
     //-------------------------------------------------------------------------
 
     private void inicializar(){
-        this.operacionesRevisadas = new ArrayList<>();
         this.contraseniasAnteriores = new ArrayList<>();
         this.bandejaDeMensajes = new ArrayList<>();
         this.estoyHabilitado = true;
@@ -112,11 +109,11 @@ public class Usuario extends EntidadPersistente {
     }
 
     public void agregarOperacionDeEgreso(OperacionDeEgreso operacionDeEgreso){
-        operacionesRevisadas.add(operacionDeEgreso);
+        this.operacionRevisada_id = operacionDeEgreso.getIdOperacion(); //todo creo que esto pisa a las operaciones.
     }
 
     public void setEntidadJuridica(EntidadJuridica entidadJuridica) {
-        this.entidadJuridica = entidadJuridica;
+        this.entidadJuridica = entidadJuridica.getId();
     }
 
     public void setApellido(String apellido) {
@@ -168,7 +165,7 @@ public class Usuario extends EntidadPersistente {
         return apellido;
     }
 
-    public EntidadJuridica getEntidadJuridica() {
+    public int getEntidadJuridica() {
         return entidadJuridica;
     }
 
