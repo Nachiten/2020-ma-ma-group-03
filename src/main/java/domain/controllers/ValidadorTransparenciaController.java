@@ -12,10 +12,7 @@ import spark.Response;
 import validadorTransparencia.*;
 import validadoresContrasenia.Validador;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ValidadorTransparenciaController {
 
@@ -40,6 +37,8 @@ public class ValidadorTransparenciaController {
         String minutosEnString = request.queryParams("minutos");
         List<OperacionDeEgreso> operacionesDeEgreso = repoOperacionEgreso.buscarTodos();
 
+        Map<String, Object> model = new HashMap<>();
+
         int minutos = Integer.parseInt(minutosEnString);
 
         ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
@@ -51,7 +50,8 @@ public class ValidadorTransparenciaController {
         ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesDeEgreso, 1);
         Scheduler.ejecutarCadaCiertoTiempo(validadorTransparencia, minutos);
 
-        return new ModelAndView(modalAndViewController.getParametros(), "validadorTransparencia.hbs");
+        model.put("mensaje","Se ejecutó el Validador de Transparencia correctamente.");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
     }
 
 }
