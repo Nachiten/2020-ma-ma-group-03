@@ -16,7 +16,7 @@
 button{
 
     transition:.25s;
-    background:#00afff;
+    background:#00bcc1;
     border:0px solid;
     font:inherit;
     line-height:1;
@@ -25,6 +25,7 @@ button{
     font-size: larger;
     cursor:pointer;
     border-radius: 10px 10px;
+    color:white;
 }
 button:focus,button:hover{
     color:#fff;
@@ -34,6 +35,18 @@ button:focus,button:hover{
     font-size: 30px;
     color: white;
     margin-block-end: 2%;
+}
+
+.altaProveedor td{
+    color:white;
+}
+
+.table-wrapper td{
+    color:white;
+}
+
+.table-wrapper th{
+    color:white;
 }
 
 
