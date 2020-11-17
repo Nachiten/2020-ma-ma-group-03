@@ -144,7 +144,7 @@ function datosDeTablaPorNombreDeClase(nombreClase) {
         }
     }
 
-    console.log("Nombres: " + nombresItemsValores);
+    console.log("Clase: " + nombreClase + ". Valores: " + nombresItemsValores);
 
     return nombresItemsValores;
 }
@@ -188,7 +188,7 @@ function mostrarModalGuardadoEgreso() {
     });
 }
 
-function mostrarModalGuardadoPresupuestos(id) {
+function mostrarModalGuardadoPresupuestos() {
     var datos = recuperarDatosFormularioPresupuesto();
 
     if (datos.preciosItems === 'noHayPrecios'){

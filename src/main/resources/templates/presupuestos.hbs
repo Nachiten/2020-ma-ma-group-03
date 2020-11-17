@@ -4,7 +4,7 @@
     <br>
     <br>
 
-    <form action="" method="post">
+    <form action="javascript:void(0)" method="post">
      <center>
         <table class= "formulario1">
             <tr>
@@ -13,7 +13,7 @@
                     <select name="operacionEgreso" id="alta-operacionEgreso" required >
                         <option hidden selected>-Seleccionar una operación de egreso-</option>
                         {{#each operacionesEgreso}}
-                            <option>Fecha: {{fecha}} | Monto: {{montoTotal}}</option>
+                            <option>ID: {{idOperacion}} | Fecha: {{fecha}} | Monto: {{montoTotal}}</option>
                         {{/each}}
                     </select>
                 </td>
@@ -104,7 +104,7 @@
                      </tbody>
                  </table>
              </div>
-             <button type="submit" onclick="mostrarModalGuardadoPresupuestos({{id}})"> Guardar</button>
+             <button type="submit" onclick="mostrarModalGuardadoPresupuestos()"> Guardar</button>
          </center>
 	</center>
     </form>

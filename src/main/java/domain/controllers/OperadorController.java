@@ -45,8 +45,17 @@ public class OperadorController {
         String preciosItemsString = request.queryParams("preciosItems");
         String nombresItemsString = request.queryParams("nombresItems");
 
-        String[] precios = preciosItemsString.split("=");
-        String[] nombres = nombresItemsString.split("=");
+        String[] precios;
+        String[] nombres;
+
+        try {
+            precios = preciosItemsString.split("=");
+            nombres = nombresItemsString.split("=");
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            return items;
+        }
+
 
         for (int i = 0; i < precios.length; i++){
             String unPrecioString = precios[i];
