@@ -60,8 +60,6 @@ public class EgresosController {
     public ModelAndView guardarOperacionDeEgreso(Request request, Response response) throws Exception {
         // Leo los query params
         String fechaString = request.queryParams("fecha");
-        String montoTotalString = request.queryParams("montoTotal");
-
         String tipoMedioDePagoString = request.queryParams("medioDePago");
         String numeroMedioDePagoString = request.queryParams("numeroMedioDePago");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
@@ -84,7 +82,7 @@ public class EgresosController {
         // Convierto de string a LocalDate
         LocalDate fecha = operadorController.convertirAFecha(fechaString);
         // Convierto de string a float
-        float montoTotal = Float.parseFloat(montoTotalString);
+        float montoTotal = operadorController.calcularMontoTotalDeItems(listaItems);
         // Convierto de string a int
         int presupuestosRequeridos = Integer.parseInt(presupuestosRequeridosString);
         int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
@@ -152,4 +150,6 @@ public class EgresosController {
         }
         return null;
     }
+
+
 }

@@ -61,7 +61,6 @@ function recuperarDatosFormularioIngresos(){
 function recuperarDatosFormularioEgresos(){
     return {
         fecha: valorDe("alta-fecha"),
-        montoTotal: valorDe("alta-montoTotal"),
         medioDePago: valorDe("alta-medioDePago"),
         numeroMedioDePago: valorDe("alta-numeroMedioDePago"),
         documentoComercial: valorDe("alta-documentoComercial"),
@@ -76,7 +75,6 @@ function recuperarDatosFormularioEgresos(){
 
 function recuperarDatosFormularioPresupuesto(){
     return {
-        montoTotal: valorDe("alta-montoTotal"),
         documentoComercial: valorDe("alta-tipoDocumentoComercial"),
         numeroDocumentoComercial: valorDe("alta-numeroDocumentoComercial"),
         operacionEgreso: valorDe("alta-operacionEgreso"),

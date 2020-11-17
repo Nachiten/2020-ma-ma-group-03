@@ -51,7 +51,6 @@ public class PresupuestosController {
 
     public ModelAndView guardarPresupuesto(Request request, Response response){
         // Leo query params
-        String montoTotalString = request.queryParams("montoTotal");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
         String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
         String operacionEgresoString = request.queryParams("operacionEgreso");
@@ -78,7 +77,6 @@ public class PresupuestosController {
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        // TODO | No va comentado
         if (!listasDeItemsIguales(listaItems, operacionEgresoAsociada.getItems())){
             // No se inserto documento comercial
             modalAndViewController.getParametros().put("mensaje", "Los items del presupuesto deben ser iguales a los del egreso.");
@@ -93,7 +91,7 @@ public class PresupuestosController {
         List<CategoriaCriterio> categoriasCriterio = operadorController.obtenerListaCategoriaCriterio(request);
 
         // Convierto los numeros
-        float montoTotal = Float.parseFloat(montoTotalString);
+        float montoTotal = operadorController.calcularMontoTotalDeItems(listaItems);
         int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
 
         // Genero tipoDocComercial

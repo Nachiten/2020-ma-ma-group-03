@@ -124,7 +124,18 @@ public class OperadorController {
         return listaADevolver;
     }
 
-    boolean noEligioDocumentoComercial(String documentoComercialString){
+    public boolean noEligioDocumentoComercial(String documentoComercialString){
         return documentoComercialString.equals("Seleccionar documento comercial");
+    }
+
+    public float calcularMontoTotalDeItems(List<Item> items){
+
+        float montoTotal = 0;
+
+        for (Item unItem : items){
+            montoTotal += unItem.getValor();
+        }
+
+        return montoTotal;
     }
 }
