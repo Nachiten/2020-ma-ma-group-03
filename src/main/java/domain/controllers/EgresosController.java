@@ -27,7 +27,6 @@ public class EgresosController {
     private Repositorio<EntidadJuridica> repoEntidadJuridica;
 
     public EgresosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
-
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
         this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
@@ -53,11 +52,11 @@ public class EgresosController {
         modalAndViewController.getParametros().put("criterios2", criterios2);
         return new ModelAndView(modalAndViewController.getParametros(), "egresos.hbs");
     }
-    public ModelAndView egresos(Request request, Response response)throws Exception {
+    public ModelAndView egresos(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewEgresos);
     }
 
-    public ModelAndView guardarOperacionDeEgreso(Request request, Response response) throws Exception {
+    public ModelAndView guardarOperacionDeEgreso(Request request, Response response) {
         // Leo los query params
         String fechaString = request.queryParams("fecha");
         String tipoMedioDePagoString = request.queryParams("medioDePago");

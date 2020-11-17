@@ -23,6 +23,7 @@ public class PersistenciaOperacionesTest {
 
     static private OperacionDeEgreso operacionEgresoConstruccion;
     static private OperacionDeEgreso operacionDeEgresoRopaA;
+    static private OperacionDeIngreso operacionIngreso;
 
     static private Usuario usuarioA;
     static private Usuario usuarioB;
@@ -149,7 +150,7 @@ public class PersistenciaOperacionesTest {
         operacionDeEgresoRopaA.setProveedorAsociado(miProveedor);
 
         // Creo y asocio operacion de ingreso
-        OperacionDeIngreso operacionIngreso = new OperacionDeIngreso("Venta de algo", 5000, LocalDate.now());
+        operacionIngreso = new OperacionDeIngreso("Venta de algo", 5000, LocalDate.now());
         operacionDeEgresoRopaA.setOperacionDeIngreso(operacionIngreso);
 
         System.out.println("Instancie todo");
@@ -185,6 +186,7 @@ public class PersistenciaOperacionesTest {
     @Test
     public void t2_persistirOperacionDeEgresoConUsuarioA(){
         persistirUnObjeto(operacionDeEgresoRopaA);
+        persistirUnObjeto(operacionIngreso);
     }
 
 
