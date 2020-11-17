@@ -24,3 +24,20 @@
 .table-wrapper button:focus {
     outline:none;
 }
+
+.table-wrapper td{
+    color:white;
+}
+
+.table-wrapper th{
+    color:white;
+}
+
+.table-wrapper tr{
+    color:white;
+}
+
+.table-wrapper thead{
+    color: white;
+}
+
