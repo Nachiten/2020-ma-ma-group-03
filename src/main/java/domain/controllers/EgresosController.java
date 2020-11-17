@@ -87,7 +87,6 @@ public class EgresosController {
         float montoTotal = Float.parseFloat(montoTotalString);
         // Convierto de string a int
         int presupuestosRequeridos = Integer.parseInt(presupuestosRequeridosString);
-        int numeroMedioDePago = Integer.parseInt(numeroMedioDePagoString);
         int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
 
         // Busco proveedor
@@ -97,7 +96,7 @@ public class EgresosController {
         TipoDocumentoComercial tipoDocComercial = operadorController.buscarTipoDocComercial(tipoDocumentoComercialString);
 
         // Genero medio pago y documento comercial
-        MedioDePago medioDePago = new MedioDePago(tipoMedioPago, numeroMedioDePago);
+        MedioDePago medioDePago = new MedioDePago(tipoMedioPago, numeroMedioDePagoString);
         DocumentoComercial documentoComercial = new DocumentoComercial(tipoDocComercial, numeroDocumentoComercial);
 
         // Genero operacion de egreso

@@ -2,7 +2,6 @@ package domain.entities.usuarios;
 
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.OperacionDeEgreso;
-import domain.entities.tipoEntidadJuridica.TipoEntidadJuridica;
 import org.apache.commons.codec.digest.DigestUtils;
 import persistencia.EntidadPersistente;
 
@@ -70,7 +69,7 @@ public class Usuario extends EntidadPersistente {
         this.nombre = nombre;
         this.apellido = apellido;
         this.soyRevisor = soyRevisor;
-        this.entidadJuridica = entidadJuridica;
+        this.entidadJuridica = entidadJuridica.getId();
         inicializar();
     }
 
@@ -83,6 +82,7 @@ public class Usuario extends EntidadPersistente {
         this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
+        inicializar();
     }
 
     public String encriptarContrasenia(String contrasenia) {

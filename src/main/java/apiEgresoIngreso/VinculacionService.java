@@ -12,5 +12,5 @@ public interface VinculacionService {
 
     @Headers({"Accept: application/json"})
     @POST("/vinculacion")
-    Call<List<String>>ejecutarCriterio(@Query("egresos") List<String> egresos, @Query("ingresos") List<String> ingreso, @Query("criterios") List<String> criterio);
+    Call<List<String>>ejecutarCriterio(@Query("egresos") List<String> egreso, @Query("ingresos") List<String> ingreso, @Query("criterios") List<String> criterio);
 }

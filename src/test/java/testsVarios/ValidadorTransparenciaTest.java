@@ -46,15 +46,15 @@ public class ValidadorTransparenciaTest {
 
 
     //Proveedores
-    private final Proveedor indumentariaDeportivaBsAs = new Proveedor("Indumentaria deportiva Bs As",58462146, new DireccionPostal());
-    private final Proveedor proveedor2 = new Proveedor("Constructora Comaf",12762146, new DireccionPostal());
+    private final Proveedor indumentariaDeportivaBsAs = new Proveedor("Indumentaria deportiva Bs As","58462146", new DireccionPostal());
+    private final Proveedor proveedor2 = new Proveedor("Constructora Comaf","12762146", new DireccionPostal());
 
    // TipoMedioDePago
     private final TipoMedioDePago tarjetaDeCredito = new TipoMedioDePago("tarjetaDeCredito");
 
     //Medios de Pago
 
-    private final MedioDePago medioDePagoTarjetaDeCredito = new MedioDePago(tarjetaDeCredito, 9468753);
+    private final MedioDePago medioDePagoTarjetaDeCredito = new MedioDePago(tarjetaDeCredito, "9468753");
 
     //Items Ropa A
 
@@ -116,7 +116,7 @@ public class ValidadorTransparenciaTest {
 
 
     //Instancia de Entidad Juridica
-    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3",  "12-123871328", null, "17");
+    private final EntidadJuridica entidadJuridica = new EntidadJuridica ("Grupo 3","Grupo 3","Grupo 3","12-123871328",  null, null, null);
 
 
     //Instancia criterio seleccion de proveedor

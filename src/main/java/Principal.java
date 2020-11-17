@@ -14,7 +14,7 @@ public class Principal {
     public static void main(String[] args) {
 
         TipoMedioDePago tarjetaDeCredito = new TipoMedioDePago("tarjetaDeCredito");
-        MedioDePago medioDePagoTarjetaDeCredito = new MedioDePago(tarjetaDeCredito, 9468753);
+        MedioDePago medioDePagoTarjetaDeCredito = new MedioDePago(tarjetaDeCredito, "9468753");
 
         TipoDocumentoComercial cheque = new TipoDocumentoComercial("cheque");
         DocumentoComercial documentoCheque = new DocumentoComercial(cheque, 4534784);

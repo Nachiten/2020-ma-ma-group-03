@@ -162,7 +162,7 @@ public class PersistenciaEntidadJuridicaTest {
     public void t2_persistirUnaEntidadJuridica(){
 
         //Instancio una entidad juridica y un tipo de entidad juridica
-        EntidadJuridica constructoraEntidadJuridica = new EntidadJuridica("Constructora Bs.As S.A.", "20345678", null, "ABC-JFK");
+        EntidadJuridica constructoraEntidadJuridica = new EntidadJuridica("ConstructoraBA","ConstructuraBA","Constructora Bs.As S.A.", "20345678", null, "ABC-JFK", null);
         Sector sectorEmpresa = EntityManagerHelper.getEntityManager().find(Sector.class, 1);
         Empresa tipoEntidadJuridicaEmpresa = new Empresa(sectorEmpresa, "Corralon", 115360000,44);
         constructoraEntidadJuridica.setTipoEntidadJuridica(tipoEntidadJuridicaEmpresa);

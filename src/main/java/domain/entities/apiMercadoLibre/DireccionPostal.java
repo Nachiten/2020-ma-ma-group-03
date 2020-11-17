@@ -14,10 +14,6 @@ public class DireccionPostal extends EntidadPersistente {
     @ManyToOne //(cascade = {CascadeType.ALL})
     private Direccion direccion;
 
-    @ManyToOne //(cascade = {CascadeType.ALL})
-    @Column (name = "barrio")
-    private String barrio;
-
     @ManyToOne (cascade = {CascadeType.ALL})
     private Estado provincia;
 
@@ -33,7 +29,6 @@ public class DireccionPostal extends EntidadPersistente {
 
     public DireccionPostal(Direccion direccion,String barrio,Estado provincia ,Pais pais){
         this.direccion = direccion;
-        this.barrio = barrio;
         this.provincia = provincia;
         this.pais = pais;
     }
