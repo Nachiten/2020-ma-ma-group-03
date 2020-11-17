@@ -88,7 +88,7 @@ public class PersistenciaOperacionesTest {
 
         //Instancias de MedioDePago
         tarjetaDeCredito = EntityManagerHelper.getEntityManager().find(TipoMedioDePago.class, 1);
-        medioDePagoTarjetaDeCredito = new MedioDePago(tarjetaDeCredito,9468753);
+        medioDePagoTarjetaDeCredito = new MedioDePago(tarjetaDeCredito,"9468753");
 
         //Instancias de DocumentoComercial
         cheque = EntityManagerHelper.getEntityManager().find(TipoDocumentoComercial.class, 5);

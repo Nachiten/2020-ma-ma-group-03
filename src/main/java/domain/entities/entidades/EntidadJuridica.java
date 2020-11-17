@@ -16,6 +16,12 @@ import java.util.List;
 @Table(name = "entidadJuridica")
 public class EntidadJuridica extends EntidadPersistente {
 
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "nombreFicticio")
+    private String nombreFicticio;
+
     @Column(name = "razonSocial")
     private String razonSocial;
 
@@ -50,11 +56,14 @@ public class EntidadJuridica extends EntidadPersistente {
 
     public EntidadJuridica() { inicializar(); }
 
-    public EntidadJuridica(String razonSocial, String cuit, DireccionPostal direccionPostal, String codigoInscripcionDefinitiva) {
+    public EntidadJuridica(String nombre,String nombreFicticio,String razonSocial, String cuit, DireccionPostal direccionPostal, String codigoInscripcionDefinitiva,TipoEntidadJuridica tipoEntidadJuridica) {
+        this.nombre = nombre;
+        this.nombreFicticio= nombreFicticio;
         this.razonSocial = razonSocial;
         this.cuit = cuit;
         this.direccionPostal = direccionPostal;
         this.codigoInscripcionDefinitiva = codigoInscripcionDefinitiva;
+        this.tipoEntidadJuridica = tipoEntidadJuridica;
 
         inicializar();
     }

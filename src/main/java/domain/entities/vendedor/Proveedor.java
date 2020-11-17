@@ -21,7 +21,7 @@ public class Proveedor extends EntidadPersistente {
     @Column(name = "razonSocial")
     private String razonSocialProveedor;
     @Column(name = "cuit")
-    private int cuit;
+    private String cuit;
     @Column(name="estoyHabilitado")
     private boolean estoyHabilitado ;
 
@@ -39,10 +39,16 @@ public class Proveedor extends EntidadPersistente {
         inicializar();
     }
 
-    public Proveedor(String razonSocialProveedor, int cuit, DireccionPostal direccionPostal) {
+    public Proveedor(String razonSocialProveedor, String cuit, DireccionPostal direccionPostal) {
         this.razonSocialProveedor = razonSocialProveedor;
         this.cuit = cuit;
         this.direccionPostal = direccionPostal;
+        inicializar();
+    }
+
+    public Proveedor(String razonSocialProveedor, String cuit) {
+        this.razonSocialProveedor = razonSocialProveedor;
+        this.cuit = cuit;
         inicializar();
     }
 
@@ -69,7 +75,7 @@ public class Proveedor extends EntidadPersistente {
         return estoyHabilitado;
     }
 
-    public int getCuit() {
+    public String getCuit() {
         return cuit;
     }
 

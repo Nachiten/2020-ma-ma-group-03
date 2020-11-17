@@ -34,6 +34,13 @@ public class Empresa extends TipoEntidadJuridica {
         calcularCategoria();
     }
 
+    public Empresa(Sector sector, int promedioVentasAnuales, int cantidadPersonal) {
+        this.sector = sector;
+        this.promedioVentasAnuales = promedioVentasAnuales;
+        this.cantidadPersonal = cantidadPersonal;
+        calcularCategoria();
+    }
+
     private void calcularCategoria(){
         this.categoria = Afip.clasificacion(this);
     }

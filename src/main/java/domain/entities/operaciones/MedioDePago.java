@@ -12,7 +12,7 @@ public class MedioDePago extends EntidadPersistente {
     @JoinColumn(name = "tipoMedioPago_id", referencedColumnName = "id")
     private TipoMedioDePago tipo;
     @Column (name = "numero")
-    private int numero;
+    private String numero;
 
     //-------------------------------------------------------------------------
                         //CONTRUCTOR
@@ -22,7 +22,7 @@ public class MedioDePago extends EntidadPersistente {
 
     }
 
-    public MedioDePago(TipoMedioDePago tipo, int numero) {
+    public MedioDePago(TipoMedioDePago tipo, String numero) {
         this.tipo = tipo;
         this.numero = numero;
     }

@@ -30,6 +30,10 @@ public class Estado {
     public Estado() {
     }
 
+    public Estado(String provincia){
+        this.name = provincia;
+    }
+
     //-------------------------------------------------------------------------
                     //METODOS
     //-------------------------------------------------------------------------

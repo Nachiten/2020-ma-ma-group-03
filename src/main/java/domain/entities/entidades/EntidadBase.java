@@ -8,8 +8,14 @@ import javax.persistence.*;
 @Table(name = "entidadBase")
 public class EntidadBase extends EntidadPersistente {
 
+    @Column(name = "nombre")
+    private String nombre;
+
     @Column(name = "nombreFicticio")
     private String nombreFicticio;
+
+    @Column(name = "razonSocial")
+    private String razonSocial;
 
     @Column(name = "descripcion")
     private String descripcion;
@@ -21,8 +27,15 @@ public class EntidadBase extends EntidadPersistente {
     public EntidadBase() {
     }
 
+/*
     public EntidadBase(String nombreFicticio, String descripcion) {
         this.nombreFicticio = nombreFicticio;
         this.descripcion = descripcion;
+    }
+*/
+    public EntidadBase(String nombre,String nombreFicticio){
+        this.nombre = nombre;
+        this.nombreFicticio = nombreFicticio;
+
     }
 }

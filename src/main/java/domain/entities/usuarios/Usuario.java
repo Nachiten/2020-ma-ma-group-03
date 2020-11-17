@@ -2,6 +2,7 @@ package domain.entities.usuarios;
 
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.OperacionDeEgreso;
+import domain.entities.tipoEntidadJuridica.TipoEntidadJuridica;
 import org.apache.commons.codec.digest.DigestUtils;
 import persistencia.EntidadPersistente;
 
@@ -51,6 +52,11 @@ public class Usuario extends EntidadPersistente {
     @Column(name="estoyHabilitado")
     private boolean estoyHabilitado ;
 
+    @Column(name="soyRevisor")
+    private boolean soyRevisor ;
+
+
+
     //-------------------------------------------------------------------------
                     //CONTRUCTOR
     //-------------------------------------------------------------------------
@@ -59,13 +65,26 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
+    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido, boolean soyRevisor, EntidadJuridica entidadJuridica) {
+        this.tipo = tipo;
+        this.nombreUsuario = nombreUsuario;
+        this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.soyRevisor = soyRevisor;
+        this.entidadJuridica = entidadJuridica;
+        inicializar();
+    }
+
+
+
+    //para que no me fallen los test de antes
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
         this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
-        inicializar();
     }
 
     public String encriptarContrasenia(String contrasenia) {
@@ -146,6 +165,10 @@ public class Usuario extends EntidadPersistente {
         this.tipo = tipoUsuario;
     }
 
+    public void setSoyRevisor(Boolean soyRevisor){
+        this.soyRevisor = soyRevisor;
+    }
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
@@ -173,4 +196,7 @@ public class Usuario extends EntidadPersistente {
     }
 
     public boolean getEstoyHabilitado(){return estoyHabilitado;}
+
+    public boolean getSoyRevisor(){return soyRevisor;}
+
 }
