@@ -1,7 +1,6 @@
 package domain.controllers;
 
-import domain.entities.apiMercadoLibre.Direccion;
-import domain.entities.apiMercadoLibre.DireccionPostal;
+import domain.entities.apiMercadoLibre.*;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -9,22 +8,27 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProveedorController {
     private Repositorio<Proveedor> repoProveedor;
-    private Map<String, Object> parametros;
+    private Repositorio<Pais> respoPaises;
+    private Repositorio<Estado> repoProvincias;
+    private Repositorio<Ciudad> repoCiudades;
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
+
 
     public ProveedorController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
 
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
+        this.respoPaises = FactoryRepositorio.get(Pais.class);
+        this.repoProvincias = FactoryRepositorio.get(Estado.class);
+        this.repoCiudades =FactoryRepositorio.get(Ciudad.class);
 
     }
 
@@ -51,6 +55,12 @@ public class ProveedorController {
     }
 
     private ModelAndView modelAndViewAltaProveedor(){
+        List<Pais> listaPaises = respoPaises.buscarTodos();
+        List<Estado> listaProvincias = repoProvincias.buscarTodos();
+        List<Ciudad> listaCiudades = repoCiudades.buscarTodos();
+        modalAndViewController.getParametros().put("listaPaises", listaPaises);
+        modalAndViewController.getParametros().put("listaProvincias", listaProvincias);
+        modalAndViewController.getParametros().put("listaCiudades", listaCiudades);
         return new ModelAndView(modalAndViewController.getParametros(),"altaProveedor.hbs");
     }
     public ModelAndView altaProveedor(Request request, Response response) throws Exception {

@@ -21,7 +21,7 @@ public class ApiMercadoLibreInfo {
         try {
             servicioPais = ServicioUbicacionMercadoLibre.instancia();
 
-            //paisesId = generarListaIdDePaises();
+            paisesId = generarListaIdDePaises();
             listadoPaises = generarListaDePaises();
             listadoProvincias = generarListaEstados();
             listadoCiudades = generarListaCiudades();
