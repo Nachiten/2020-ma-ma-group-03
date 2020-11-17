@@ -77,6 +77,7 @@ public class Router {
         Spark.post("/presupuestos", presupuestosController::guardarPresupuesto, Router.engine);
         Spark.post("/criterios", criteriosController::guardarCriterio, Router.engine);
         Spark.post("/asociarOperacion", asociacionOperacionesController::ejecutarVinculacion, Router.engine);
+        Spark.post("/validadorDeTransparencia", validadorTransparenciaController::ejecutarValidadorDeTransparencia, Router.engine);
 
         //Paginas una vez logueado GET para usuario ADMIN
         Spark.get("/altaUsuario",darAltaUsuarioController::tiposDeUsuarios, Router.engine);
