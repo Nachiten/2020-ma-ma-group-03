@@ -98,15 +98,19 @@ public class AsociacionOperacionesController {
     }
 
     private void actualizarIngresoEnBaseDeDatos(OperacionDeIngreso unaOperacion){
-        OperacionDeIngreso operacionDeIngreso = repoOperacionIngreso.buscar(unaOperacion.getId());
+        OperacionDeIngreso operacionDeIngreso = this.repoOperacionIngreso.buscar(unaOperacion.getId());
         operacionDeIngreso.setMontoSinVincular(unaOperacion.getMontoSinVincular());
-        operacionDeIngreso.setOperacionesDeEgresoVinculadas(unaOperacion.getOperacionesDeEgresoVinculadas());
-        repoOperacionIngreso.modificar(operacionDeIngreso);
+        this.repoOperacionIngreso.modificar(operacionDeIngreso);
+        List<OperacionDeEgreso> operacionesAsociadas = unaOperacion.getOperacionesDeEgresoVinculadas();
+/*        operacionDeIngreso.getOperacionesDeEgresoVinculadas().clear();
+        operacionDeIngreso.getOperacionesDeEgresoVinculadas().addAll(operacionesAsociadas);
+        this.repoOperacionIngreso.modificar(operacionDeIngreso);*/
     }
 
-    private void actualizarEgresoEnBaseDeDatos(OperacionDeIngreso operacionDeIngreso,OperacionDeEgreso unEgreso){
+    private void actualizarEgresoEnBaseDeDatos(OperacionDeIngreso unaOperacion,OperacionDeEgreso unEgreso){
         OperacionDeEgreso operacionDeEgreso = repoOperacionEgreso.buscar(unEgreso.getIdOperacion());
-        operacionDeEgreso.setOperacionDeIngreso(operacionDeIngreso);
+//        OperacionDeIngreso operacionDeIngreso = this.repoOperacionIngreso.buscar(unaOperacion.getId());
+//        operacionDeEgreso.setOperacionDeIngreso(operacionDeIngreso);
         operacionDeEgreso.setFueVinculada(true);
         repoOperacionEgreso.modificar(operacionDeEgreso);
     }

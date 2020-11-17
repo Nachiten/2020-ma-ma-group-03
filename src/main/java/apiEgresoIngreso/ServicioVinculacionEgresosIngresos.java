@@ -35,6 +35,8 @@ public class ServicioVinculacionEgresosIngresos {
         apiEgresoIngreso.VinculacionService vinculacionService = this.retrofit.create(apiEgresoIngreso.VinculacionService.class);
         ApiEgresoIngreso.GsonConverter gsonConverter = new ApiEgresoIngreso.GsonConverter();
         List<OperacionDeEgreso> egresosSimples = simplificarEgresos(egresos);
+        OperacionDeEgreso egresoRompeHuevos = egresosSimples.get(0);
+        egresoRompeHuevos.setFueVinculada(true);
         List<OperacionDeIngreso> ingresosSimples = simplificarIngresos(ingresos);
         List<String> egresosGson = gsonConverter.convertirEgresosAGson(egresosSimples);
         List<String> ingresosGson = gsonConverter.convertirIngresosAGson(ingresosSimples);

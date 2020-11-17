@@ -23,10 +23,10 @@ public class ApiTest {
     OperacionDeEgreso operacionDeEgreso4 = new OperacionDeEgreso(4,date4, 109.35f);
     OperacionDeEgreso operacionDeEgreso5 = new OperacionDeEgreso(5, date5, 20.05f);
 
-    OperacionDeIngreso operacionDeIngreso1 = new OperacionDeIngreso("1", 200.50f, date1);
-    OperacionDeIngreso operacionDeIngreso2 = new OperacionDeIngreso("2",20.40f, date2);
-    OperacionDeIngreso operacionDeIngreso3 = new OperacionDeIngreso("3",220.00f, date3);
-    OperacionDeIngreso operacionDeIngreso4 = new OperacionDeIngreso("4",600.35f, date4);
+    OperacionDeIngreso operacionDeIngreso1 = new OperacionDeIngreso("1", 200.50f, date1, 1, date3);
+    OperacionDeIngreso operacionDeIngreso2 = new OperacionDeIngreso("2",20.40f, date2, 2, date3);
+    OperacionDeIngreso operacionDeIngreso3 = new OperacionDeIngreso("3",220.00f, date3, 3, date2);
+    OperacionDeIngreso operacionDeIngreso4 = new OperacionDeIngreso("4",600.35f, date4, 4, date3);
 
     List<OperacionDeEgreso> operacionDeEgresoList = new ArrayList<>();
     List<OperacionDeIngreso> operacionDeIngresoList = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ApiTest {
         operacionDeIngresoList.add(operacionDeIngreso4);
     }
 
-    public void agregarFechasMinimasYMaximaAIngresos(){
+    public void agregarPeriodoAceptacionAIngresos(){
         operacionDeIngreso1.setPeriodoAceptacion(date3);
         operacionDeIngreso2.setPeriodoAceptacion(date3);
         operacionDeIngreso3.setPeriodoAceptacion(date2);
@@ -63,6 +63,13 @@ public class ApiTest {
         agregarOperacionesALista();
         criterios.add("ordenValorPrimeroEgreso");
         List<OperacionDeIngreso> ingresos = servicio.ejecutarVinculacion(operacionDeEgresoList, operacionDeIngresoList, criterios);
+    //RESULTADOS ESPERADOS
+    //EGRESO -> INGRESO
+    // 5 -> 2
+    // 4 -> 1
+    // 1 -> 3
+    // 3 -> 3
+    // 2 -> 4
     }
 
     @Test
@@ -70,24 +77,43 @@ public class ApiTest {
         agregarOperacionesALista();
         criterios.add("ordenValorPrimeroIngreso");
         List<OperacionDeIngreso> ingresos = servicio.ejecutarVinculacion(operacionDeEgresoList, operacionDeIngresoList, criterios);
+        //RESULTADOS ESPERADOS
+        //EGRESO -> INGRESO
+        // 5 -> 2
+        // 4 -> 1
+        // 1 -> 3
+        // 3 -> 3
+        // 2 -> 4
     }
 
     @Test
     public void criterioFecha() throws IOException {
-        agregarFechasMinimasYMaximaAIngresos();
+    //    agregarPeriodoAceptacionAIngresos();
         agregarOperacionesALista();
         criterios.add("fecha");
         List<OperacionDeIngreso> ingresos = servicio.ejecutarVinculacion(operacionDeEgresoList, operacionDeIngresoList, criterios);
+        //RESULTADOS ESPERADOS
+        //EGRESO -> INGRESO
+        // 1 -> 1
+        // 2 -> 4
     }
     @Test
     public void criterioMix() throws IOException {
-        agregarFechasMinimasYMaximaAIngresos();
+        agregarPeriodoAceptacionAIngresos();
         agregarOperacionesALista();
         criterios.add("mix");
         criterios.add("fecha");
         criterios.add("ordenValorPrimeroEgreso");
         List<OperacionDeIngreso> ingresos = servicio.ejecutarVinculacion(operacionDeEgresoList, operacionDeIngresoList, criterios);
     }
+
+    //RESULTADOS ESPERADOS
+    //EGRESO -> INGRESO
+    // 1 -> 1
+    // 2 -> 4
+    // 5 -> 2
+    // 4 -> 3
+    // 3 -> 3
 }
 
 
