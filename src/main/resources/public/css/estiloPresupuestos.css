@@ -29,7 +29,7 @@
 
 button:focus,button:hover{border-color:var(--hover);color:#fff}
 button{
-    background:#00afff;
+    background:#00bcc1;
     border:0px solid;
     font:inherit;
     line-height:1;
