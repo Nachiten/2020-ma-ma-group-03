@@ -71,7 +71,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @Column (name = "entidadJuridica_id")
     private int entidadJuridicaAsociada_id;
 
-    @Column (name = "operacionDeIngreso")
+    @Column (name = "operacionDeIngreso_id")
     private int operacionDeIngreso_id;
 
     @Transient
@@ -209,7 +209,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.proveedorAsociado = proveedorAsociado;
     }
 
-    public void setOperacionDeIngreso(OperacionDeIngreso operacionDeIngreso) { this.idOperacion = operacionDeIngreso.getId(); }
+    public void setOperacionDeIngreso(OperacionDeIngreso operacionDeIngreso) { this.operacionDeIngreso_id = operacionDeIngreso.getId(); }
 
     public void setFueVinculada(boolean fueVinculada) {
         this.fueVinculada = fueVinculada;
