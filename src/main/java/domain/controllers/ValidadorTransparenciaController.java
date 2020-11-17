@@ -47,7 +47,7 @@ public class ValidadorTransparenciaController {
         List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado));
 
         ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesDeEgreso, 1);
-        Scheduler.ejecutarCadaCiertoTiempo(validadorTransparencia, minutos * 60); //lo pase a minutos.
+        Scheduler.ejecutarCadaCiertoTiempo(validadorTransparencia, minutos * 60000); //lo pase a minutos.
 
         model.put("mensaje","Se ejecutó el Validador de Transparencia correctamente.");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
