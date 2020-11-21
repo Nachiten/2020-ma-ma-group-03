@@ -18,7 +18,7 @@ public class MainController {
         if(modalAndViewController.getUsuario().getTipo().equals(TipoUsuario.ESTANDAR)){
             return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> new ModelAndView(modalAndViewController.getParametros(), "inicioEstandar.hbs"));
         }
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> new ModelAndView(modalAndViewController.getParametros(), "inicioEstandar.hbs"));
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> new ModelAndView(modalAndViewController.getParametros(), "inicioAdministrador.hbs"));
 
     }
 }

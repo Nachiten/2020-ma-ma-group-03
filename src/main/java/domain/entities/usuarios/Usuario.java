@@ -73,8 +73,6 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
-
-
     //para que no me fallen los test de antes
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido) {
         this.tipo = tipo;
@@ -97,6 +95,7 @@ public class Usuario extends EntidadPersistente {
         this.contraseniasAnteriores = new ArrayList<>();
         this.bandejaDeMensajes = new ArrayList<>();
         this.estoyHabilitado = true;
+        this.tiempoUltimaContrasenia =LocalDate.now();
     }
 
 
@@ -118,6 +117,14 @@ public class Usuario extends EntidadPersistente {
 
     public void cambiarAInhabilitado(){
         this.setEstoyHabilitado(false);
+    }
+
+    public void CambiarContrasenia(String contrasenia){
+        ContraAnterior contraAnterior = new ContraAnterior(this,this.contraseniaEncriptada, this.tiempoUltimaContrasenia);
+        this.agregarContraAnterior(contraAnterior);
+        this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
+        this.tiempoUltimaContrasenia = LocalDate.now();
+
     }
     //-------------------------------------------------------------------------
                             //SETTERS

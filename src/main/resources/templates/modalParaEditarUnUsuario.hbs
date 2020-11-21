@@ -1,0 +1,85 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                <i class="fas fa-info-circle"></i>
+                ¡Información!
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "altaUsuario">
+                <form action= "javascript:void(0)" method="post">
+                    <center>
+                        <table class= "formulario" border = 0 >
+                            <tr>
+                                <td>Nombre:</td>
+                                <td><input type="text" name="nombre" id = "altaUsuario-nombre" value="{{miNombre}}"></td>
+                            </tr>
+                            <tr>
+                                <td>Apellido:</td>
+                                <td><input type="text" name="apellido" id = "altaUsuario-apellido" value="{{miApellido}}"></td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de usuario:</td>
+                                <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" value="{{miNombreDeUsuario}}" disabled></td>
+                            </tr>
+                            <tr>
+                                <td>Cambiar contraseña:
+                                    <input name="cambioContrasenia" type="radio" value="cambioContrasenia" id = "altaUsuario-cambioContrasenia" />Si
+                                    <input name="cambioContrasenia" type="radio" value="noCambioContrasenia" id = "altaUsuario-noCambioContrasenia" checked="checked"/>No
+                                    <br>
+                                    Contraseña:
+                                </td>
+                                <td><br><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" value="{{miContrasenia}}" disabled></td>
+                            </tr>
+                            <tr>
+                                <td>Entidad jurídica:</td>
+                                <td><input type="text" name="miEntidadJuridica" id = "altaUsuario-miEntidadJuridica" value="{{idEntidadJuridica}}-{{razonSocialEntidadJueridica}}" disabled></td>
+                            </tr>
+                            <tr>
+                                <td>Cambiar entidad jurídica:
+                                    <input name="cambioEntidadJuridica" type="radio" value="cambioEntidadJuridica" id = "altaUsuario-cambioEntidadJuridica" />Si
+                                    <input name="cambioEntidadJuridica" type="radio" value="noCambioEntidadJuridica" id = "altaUsuario-noCambioEntidadJuridica" checked="checked"/>No
+                                    <br>
+                                    Nueva entidad juridica:
+                                </td>
+                                <td><br>
+                                    <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" title="Elija una opción" disabled>
+                                        <option hidden selected>Elegir una entidad jurídica</option>
+                                        {{#each entidadesJuridicas}}
+                                            <option>{{id}}-{{razonSocial}}</option>
+                                        {{/each}}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Soy revisor:</td>
+                                <td>
+                                    {{#if soyRevisor}}
+                                        <input name="soyRevisor" type="radio" value="soyRevisor" id = "altaUsuario-SoyRevisor" checked="checked"/>Si
+                                        <br />
+                                        <input name="soyRevisor" type="radio" value="noSoyRevisor" id = "altaUsuario-SoyRevisor"/>No
+                                    {{else}}
+                                        <input name="soyRevisor" type="radio" value="soyRevisor" id = "altaUsuario-SoyRevisor" />Si
+                                        <br />
+                                        <input name="soyRevisor" type="radio" value="noSoyRevisor" id = "altaUsuario-SoyRevisor" checked="checked"/>No
+                                    {{/if}}
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal" >
+                                Cancelar
+                            </button>
+                            <button type="submit" onclick="mostrarModalConfirmacionCambiosEnUsuario({{miId}})">
+                                Guardar
+                            </button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/accionesUsuarios.js"></script>
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />

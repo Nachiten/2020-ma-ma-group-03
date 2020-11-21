@@ -64,17 +64,20 @@ function mostrarModalGuardadoAltaNuevoProveedor() {
     });
 }
 
+//funcion que habilita un select despues de seleccionar un option en otro select
 $('#altaProveedor-pais').change(function(){
     $('#altaProveedor-provincia').removeAttr('disabled');
     filterSelectOptions($("#altaProveedor-provincia"), "data-attribute", $(this).val());
     filterSelectOptions($("#altaProveedor-ciudad"), "data-attribute", $(this).val());
 });
 
+//funcion que habilita un select despues de seleccionar un option en otro select
 $('#altaProveedor-provincia').change(function(){
     $('#altaProveedor-ciudad').removeAttr('disabled');
     filterSelectOptions($("#altaProveedor-ciudad"), "data-attribute", $(this).val());
 });
 
+//funcion que oculta options del select
 function filterSelectOptions(selectElement, attributeName, attributeValue) {
     if (selectElement.data("currentFilter") != attributeValue) {
         selectElement.data("currentFilter", attributeValue);

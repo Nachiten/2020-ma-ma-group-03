@@ -1,0 +1,79 @@
+.nuevo{
+    float:none;
+    overflow-y: auto;
+    margin-block-end: 5%;
+    cursor: pointer;
+}
+
+.habilitar{
+    float: none;
+    overflow-y: auto;
+    margin-block-start: 5%;
+    margin-block-end: 5%;
+    cursor: pointer;
+}
+
+.editar{
+    float: none;
+    overflow-y: auto;
+    margin-block-start: 5%;
+    margin-block-end: 5%;
+    cursor: pointer;
+}
+
+.imagen img {
+    width: 80%;
+}
+
+.imagen2 img {
+    margin-block-start: 3%;
+    width: 30%;
+}
+
+.imagen3 {
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-left: 57px;
+    float: left;
+    width: 45%;
+    height: auto;
+}
+
+.imagen3 img {
+    margin-block-start: 4%;
+    width: 80%;
+}
+
+.notaNuevo{
+    padding-top: 10%;
+    padding-left: 10px;
+    margin-left: 10px;
+
+    float: left;
+    width: 45%;
+    height: auto;
+    text-align: inherit;
+}
+
+.notaNuevo h2{
+    font-size: 30px;
+    color: white;
+}
+
+.notaNuevo h3{
+    font-size: 20px;
+    color: white;
+    margin-block-start: 5%;
+}
+
+input{
+    font-size: 17px;
+    border-radius: 5px 5px;
+    border: 0;
+}
+
+select{
+    font-size: 17px;
+    border-radius: 5px 5px;
+    border: 0;
+}

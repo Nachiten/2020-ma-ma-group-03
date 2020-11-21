@@ -1,0 +1,71 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                <i class="fas fa-smile-plus"></i>
+                ¡Nuevo usuario!
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "altaUsuario">
+                <form action= "javascript:void(0)" method="post">
+                    <center>
+                        <table class= "formulario" border = 0 >
+                            <tr>
+                                <td>Nombre:</td>
+                                <td><input type="text" name="nombre" id = "altaUsuario-nombre" placeholder="Ingrese un nombre" required></td>
+                            </tr>
+                            <tr>
+                                <td>Apellido:</td>
+                                <td><input type="text" name="apellido" id = "altaUsuario-apellido" placeholder="Ingrese un apellido" required></td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de usuario:</td>
+                                <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" placeholder="Ingrese un usuario" required></td>
+                            </tr>
+                            <tr>
+                                <td>Contraseña:</td>
+                                <td><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" placeholder="Ingrese una contraseña" required></td>
+                            </tr>
+                            <tr>
+                                <td>Entidad Jurídica:</td>
+                                <td>
+                                    <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" required title="Elija una opción">
+                                        <option hidden selected>Elegir una entidad jurídica</option>
+                                        {{#each entidadesJuridicas}}
+                                            <option>{{id}}-{{razonSocial}}</option>
+                                        {{/each}}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tipo de usuario:</td>
+                                <td>
+                                    <select name = "tipoUsuario" id = "altaUsuario-tipoUsuario" required title="Elija una opción">
+                                        <option hidden selected>Elegir tipo de usuario</option>
+                                        {{#each tiposUsuarios}}
+                                            <option>{{this}}</option>
+                                        {{/each}}
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal" >
+                                Cancelar
+                            </button>
+                            <button type="submit" onclick="mostrarModalConfirmacionNuevoUsuario()">
+                                Guardar
+                            </button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
+<script src="/js/accionesUsuarios.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">

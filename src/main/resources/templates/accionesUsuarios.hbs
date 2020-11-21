@@ -1,0 +1,42 @@
+{{#partial "contenido"}}
+    <div class="titulo">
+        <h1>USUARIOS</h1>
+    </div>
+
+    <div class="nuevo" onclick="mostrarModalNuevoUsuario()" title="Haga click para crear un nuevo usuario">
+        <div class="imagen">
+            <img src="/img/nuevoUsuario.jpg" type="image/jpg">
+        </div>
+        <div class="notaNuevo">
+            <article>
+                <h2>NUEVOS USUARIOS</h2>
+                <h3>Sistema para la creación de nuevos usuarios en una entidad jurídica determinada.</h3>
+            </article>
+        </div>
+    </div>
+
+    <div class="habilitar" onclick="mostrarModalHabilitarUsuarios()" title="Haga click para habilitar un usuario">
+        <div class="list">
+            <h2>HABILITAR USUARIOS</h2>
+            <h3>Sistema para dar de alta nuevamente a los usuarios.</h3>
+        </div>
+        <div class="imagen2">
+            <img src="/img/habilitar.jpg" type="image/jpg">
+        </div>
+    </div>
+
+    <div class="editar" onclick="mostrarModalEditarUsuarios()" title="Haga click para editar usuarios">
+        <div class="imagen3">
+            <img src="/img/editar.jpg" type="image/jpg">
+        </div>
+        <div class="articulo">
+            <article>
+                <h2>EDITAR USUARIOS</h2>
+                <h3>Sistema para modificar o eliminar a los usuarios.</h3>
+            </article>
+        </div>
+    </div>
+    <link rel="stylesheet" href="/css/estiloAccionesUsuario.css" />
+    <script src="/js/accionesUsuarios.js"></script>
+{{/partial}}
+{{>principalAdministrador2.hbs}}
