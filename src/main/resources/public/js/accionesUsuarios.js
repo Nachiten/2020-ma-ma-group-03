@@ -61,8 +61,47 @@ function recuperarDatosFormularioNuevoUsuario(){
     return datos;
 }
 
+function esVacio(string){
+    return string === '';
+}
+
+function validarDatos(datos){
+    if (esVacio(datos.nombre)){
+        return 'Se debe insertar un nombre';
+    }
+
+    if (esVacio(datos.apellido)){
+        return 'Se debe insertar un apellido';
+    }
+
+    if (esVacio(datos.nombreDeUsuario)){
+        return 'Se debe insertar un nombre de usuario';
+    }
+
+    if (esVacio(datos.contrasenia)){
+        return 'Se debe insertar una contraseña';
+    }
+    if (datos.tipoUsuario === 'Elegir tipo de usuario'){
+        return 'Se debe seleccionar un tipo de usuario';
+    }
+    if (datos.tipoUsuario !== 'ADMIN' && datos.entidadJuridica === 'Elegir una entidad jurídica'){
+        return 'Se debe seleccionar una entidad juridica asociada';
+    }
+
+    // No falta ningun dato
+    return '';
+}
+
 function mostrarModalConfirmacionNuevoUsuario() {
     var datos = recuperarDatosFormularioNuevoUsuario();
+
+    var mensajeDeError = validarDatos(datos);
+
+    if (mensajeDeError !== ''){
+        alert(mensajeDeError);
+        return;
+    }
+
     var ruta = "/guardarUsuario";
     var metodo = "POST";
     var mensaje = confirm("¿Está seguro que quiere crear a este nuevo usuario?");

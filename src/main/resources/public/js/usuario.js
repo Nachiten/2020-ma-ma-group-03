@@ -48,14 +48,13 @@ function verificarSesion() {
 }
 
 function recuperarDatosFormularioIngresos(){
-    var datos = {
-        fecha               : valorDe("alta-fecha"),
-        periodoDeAceptacion : valorDe("alta-periodoDeAceptacion"),
-        monto               : valorDe("alta-monto"),
-        moneda              : valorDe("alta-moneda"),
-        descripcion         : valorDe("alta-descripcion")
+    return {
+        fecha: valorDe("alta-fecha"),
+        periodoDeAceptacion: valorDe("alta-periodoDeAceptacion"),
+        monto: valorDe("alta-monto"),
+        moneda: valorDe("alta-moneda"),
+        descripcion: valorDe("alta-descripcion")
     };
-    return datos;
 }
 
 function recuperarDatosFormularioEgresos(){
