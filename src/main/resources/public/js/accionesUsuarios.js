@@ -50,15 +50,14 @@ function habilitarUsuario(id) {
 }
 
 function recuperarDatosFormularioNuevoUsuario(){
-    var datos = {
-        nombre            : valorDe("altaUsuario-nombre"),
-        apellido          : valorDe("altaUsuario-apellido"),
-        nombreDeUsuario   : valorDe("altaUsuario-nombreDeUsuario"),
-        contrasenia       : valorDe("altaUsuario-contrasenia"),
-        tipoUsuario       : valorDe("altaUsuario-tipoUsuario"),
-        entidadJuridica   : valorDe("altaUsuario-entidadJuridica")
+    return {
+        nombre: valorDe("altaUsuario-nombre"),
+        apellido: valorDe("altaUsuario-apellido"),
+        nombreDeUsuario: valorDe("altaUsuario-nombreDeUsuario"),
+        contrasenia: valorDe("altaUsuario-contrasenia"),
+        tipoUsuario: valorDe("altaUsuario-tipoUsuario"),
+        entidadJuridica: valorDe("altaUsuario-entidadJuridica")
     };
-    return datos;
 }
 
 function esVacio(string){
@@ -97,7 +96,7 @@ function mostrarModalConfirmacionNuevoUsuario() {
 
     var mensajeDeError = validarDatos(datos);
 
-    if (mensajeDeError !== ''){
+    if (!esVacio(mensajeDeError)){
         alert(mensajeDeError);
         return;
     }

@@ -41,7 +41,7 @@ public class ProveedorController {
 
     }
 
-    public ModelAndView listarProveedores(Request request, Response response) throws Exception {
+    public ModelAndView listarProveedores(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewListarProveedores);
     }
 
@@ -63,7 +63,7 @@ public class ProveedorController {
         modalAndViewController.getParametros().put("listaCiudades", listaCiudades);
         return new ModelAndView(modalAndViewController.getParametros(),"altaProveedor.hbs");
     }
-    public ModelAndView altaProveedor(Request request, Response response) throws Exception {
+    public ModelAndView altaProveedor(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modelAndViewAltaProveedor);
     }
 
@@ -73,17 +73,10 @@ public class ProveedorController {
         String apellido = request.queryParams("apellido");
         String razonSocial = request.queryParams("razonSocial");
         String cuit_cuilString = request.queryParams("cuit_cuil");
-        String calle = request.queryParams("calle");
-        String alturaString = request.queryParams("altura");
-        String pisoString = request.queryParams("piso");
 
         int cuit_cuil = Integer.parseInt(cuit_cuilString);
-        int altura = Integer.parseInt(alturaString);
-        int piso = Integer.parseInt(pisoString);
 
-        Direccion direccion = new Direccion(calle, altura, piso, "A");
-
-        DireccionPostal direccionPostal = new DireccionPostal(direccion);
+        DireccionPostal direccionPostal = operadorController.generarDireccionPostal(request);
 
         // TODO | Guardar datos de pais ciudad, provincia
 

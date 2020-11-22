@@ -14,7 +14,7 @@ public class DireccionPostal extends EntidadPersistente {
     @ManyToOne //(cascade = {CascadeType.ALL})
     private Direccion direccion;
 
-    @ManyToOne (cascade = {CascadeType.ALL})
+    @ManyToOne //(cascade = {CascadeType.ALL})
     private Estado provincia;
 
     @ManyToOne //(cascade = {CascadeType.ALL})
@@ -41,14 +41,14 @@ public class DireccionPostal extends EntidadPersistente {
                         //METODOS
     //-------------------------------------------------------------------------
 
-    public void configurarDireccionPostal(String nombrePais, String nombreProvincia, Direccion unaDireccion) throws IOException, ExcepcionApiMercadoLibre {
+    public void configurarDireccionPostal(String nombrePais, String nombreProvincia, Direccion unaDireccion) {
         //configurarPais(nombrePais);
-        configurarProvincia(nombreProvincia);
+        //configurarProvincia(nombreProvincia);
 
         this.direccion = unaDireccion;
     }
 
-   private void configurarPais(String nombrePais) throws IOException {
+   private void configurarPais(String nombrePais) {
 
         List<Pais> listaDePaises = ApiMercadoLibreInfo.getListadoPaises();
 
@@ -62,7 +62,7 @@ public class DireccionPostal extends EntidadPersistente {
         }
     }
 
-    private void configurarProvincia(String nombreProvincia) throws IOException, ExcepcionApiMercadoLibre {
+    //private void configurarProvincia(String nombreProvincia) throws ExcepcionApiMercadoLibre {
 
         /*Pais infoPaisSeleccionado = ApiMercadoLibreInfo.obtenerProvinciasDePais(pais.getId());
 
@@ -80,7 +80,7 @@ public class DireccionPostal extends EntidadPersistente {
         } else {
             System.out.println("La provincia seleccionada no existe dentro del pais");
         }*/
-    }
+    //}
 
     //-------------------------------------------------------------------------
                         //SETTERS

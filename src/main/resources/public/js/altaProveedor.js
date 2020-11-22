@@ -40,8 +40,10 @@ function recuperarDatosFormularioAltaProveedor(){
         cuit_cuil: valorDe("alta-cuit_cuil"),
         calle: valorDe("alta-calle"),
         altura: valorDe("alta-altura"),
-        piso: valorDe("alta-piso")
-        // TODO | Falta datos de pais ciudad y provincia
+        piso: valorDe("alta-piso"),
+        pais: valorDe("altaProveedor-pais"),
+        provincia: valorDe("altaProveedor-provincia"),
+        ciudad: valorDe("altaProveedor-ciudad")
     }
 }
 
@@ -79,11 +81,11 @@ $('#altaProveedor-provincia').change(function(){
 
 //funcion que oculta options del select
 function filterSelectOptions(selectElement, attributeName, attributeValue) {
-    if (selectElement.data("currentFilter") != attributeValue) {
+    if (selectElement.data("currentFilter") !== attributeValue) {
         selectElement.data("currentFilter", attributeValue);
         var originalHTML = selectElement.data("originalHTML");
         if (originalHTML)
-            selectElement.html(originalHTML)
+            selectElement.html(originalHTML);
         else {
             var clone = selectElement.clone();
             clone.children("option[selected]").removeAttr("selected");

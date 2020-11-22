@@ -54,16 +54,8 @@ public class AltaEntidadJuridicaController {
         String codigoInscripcion = request.queryParams("codigoInscripcionDefinitiva");
         String razonSocial = request.queryParams("razonSocial");
         String cuit_cuil = request.queryParams("cuit");
-        String calle = request.queryParams("calle");
-        String alturaString = request.queryParams("altura");
-        String pisoString = request.queryParams("piso");
 
-        int altura = Integer.parseInt(alturaString);
-        int piso = Integer.parseInt(pisoString);
-
-        Direccion direccion = new Direccion(calle, altura, piso, "A");
-
-        DireccionPostal direccionPostal = new DireccionPostal(direccion);
+        DireccionPostal direccionPostal = operadorController.generarDireccionPostal(request);
 
         EntidadJuridica entidadJuridicaAGuardar = new EntidadJuridica(nombre, nombreFicticio, razonSocial,
                 cuit_cuil, null, codigoInscripcion, null);

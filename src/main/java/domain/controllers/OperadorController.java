@@ -2,6 +2,8 @@ package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
+import domain.entities.apiMercadoLibre.Direccion;
+import domain.entities.apiMercadoLibre.DireccionPostal;
 import domain.entities.operaciones.Item;
 import domain.entities.operaciones.TipoDocumentoComercial;
 import domain.repositories.Repositorio;
@@ -146,5 +148,24 @@ public class OperadorController {
         }
 
         return montoTotal;
+    }
+
+    public DireccionPostal generarDireccionPostal(Request request) {
+        String calle = request.queryParams("calle");
+        String alturaString = request.queryParams("altura");
+        String pisoString = request.queryParams("piso");
+
+        int altura = Integer.parseInt(alturaString);
+        int piso = Integer.parseInt(pisoString);
+
+        String nombrePais = request.queryParams("pais");
+        String nombreProvincia = request.queryParams("provincia");
+        String nombreCiudad = request.queryParams("ciudad");
+
+        Direccion direccion = new Direccion(calle, altura, piso, "A");
+
+        DireccionPostal direccionPostal = new DireccionPostal(direccion);
+
+        return direccionPostal;
     }
 }
