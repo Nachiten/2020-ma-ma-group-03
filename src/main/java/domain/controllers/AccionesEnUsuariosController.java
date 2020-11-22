@@ -151,4 +151,30 @@ public class AccionesEnUsuariosController {
     }
 
 
+    public ModelAndView guardarCambiosDeEdicionDelUsuario(Request request, Response response) {
+        int idUsuario = Integer.parseInt(request.params("id"));
+        Usuario usuarioEditadoAGuardar = this.repoUsuario.buscar(idUsuario);
+        String nombreEditado = request.queryParams("nombre");
+        String apellidoEditado = request.queryParams("apellido");
+        String nombreDeUsuarioEditado = request.queryParams("nombreDeUsuario");
+        String contraseniaEditado = request.queryParams("contrasenia");
+        String entidadJuridicaQueConservo = request.queryParams("miEntidadJuridica");
+        String entidadJuridicaEditado = request.queryParams("entidadJuridica");
+        String soyRevisorEditado = request.queryParams("soyRevisor");
+
+        //obtengo la clase entidad jurídica que se eligió en el select
+        EntidadJuridica nuevaEntidadJuridica = obtenerEntidadJuridica(entidadJuridicaQueConservo);
+        if (!entidadJuridicaEditado.equals("Elegir una entidad jurídica")){
+            nuevaEntidadJuridica = obtenerEntidadJuridica(entidadJuridicaEditado);
+        }
+
+        boolean soyRevisor = soyRevisorEditado.equals("soyRevisor");
+
+        usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado, nuevaEntidadJuridica.getId(), soyRevisor);
+
+        repoUsuario.modificar(usuarioEditadoAGuardar);
+
+        modalAndViewController.getParametros().put("mensaje","Los datos se actualizaron correctamente");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
+    }
 }

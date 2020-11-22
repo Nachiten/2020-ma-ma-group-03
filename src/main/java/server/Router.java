@@ -97,6 +97,7 @@ public class Router {
 
         //Guardar los datos de las pestañas POST de ADMIN
         Spark.post("/guardarUsuario", accionesEnUsuariosController::guardarNuevoUsuario, Router.engine);
+        Spark.post("/editarUsuario/guardar/:id", accionesEnUsuariosController::guardarCambiosDeEdicionDelUsuario, Router.engine);
 
         Spark.post("/altaProveedor", proveedorController::guardarProveedor , Router.engine);
         Spark.post("/altaEntidadJuridica",altaEntidadJuridicaController::guardarEntidadJuridica,Router.engine);
