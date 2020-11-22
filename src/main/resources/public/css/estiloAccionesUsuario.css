@@ -2,7 +2,6 @@
     float:none;
     overflow-y: auto;
     margin-block-end: 5%;
-    cursor: pointer;
 }
 
 .habilitar{
@@ -10,7 +9,6 @@
     overflow-y: auto;
     margin-block-start: 5%;
     margin-block-end: 5%;
-    cursor: pointer;
 }
 
 .editar{
@@ -18,7 +16,6 @@
     overflow-y: auto;
     margin-block-start: 5%;
     margin-block-end: 5%;
-    cursor: pointer;
 }
 
 .imagen img {
@@ -76,4 +73,22 @@ select{
     font-size: 17px;
     border-radius: 5px 5px;
     border: 0;
+}
+
+.botonAcciones button{
+    width: initial;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background: #00bcc1;
+    border: 0px solid;
+    font: inherit;
+    line-height: 1;
+    /* margin: .5em; */
+    padding: 1em 2em;
+    font-weight: 100;
+    font-size: large;
+    cursor: pointer;
+    border-radius: 10px 10px;
+    color: white;
+    margin-block-start: 5%;
 }

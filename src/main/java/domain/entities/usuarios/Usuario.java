@@ -119,13 +119,26 @@ public class Usuario extends EntidadPersistente {
         this.setEstoyHabilitado(false);
     }
 
-    public void CambiarContrasenia(String contrasenia){
-        ContraAnterior contraAnterior = new ContraAnterior(this,this.contraseniaEncriptada, this.tiempoUltimaContrasenia);
+    private void cambiarContrasenia(String contrasenia){
+        ContraAnterior contraAnterior = new ContraAnterior(this, this.contraseniaEncriptada, this.tiempoUltimaContrasenia);
         this.agregarContraAnterior(contraAnterior);
         this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
         this.tiempoUltimaContrasenia = LocalDate.now();
 
     }
+
+    public void guardarCambiosEfectuadosEnMisAtributos(String nombreEditado, String apellidoEditado, String nombreDeUsuarioEditado, String contraseniaEditado, int entidadJuridicaEditado, boolean soyRevisorEditado) {
+
+        this.nombre = nombreEditado;
+        this.apellido = apellidoEditado;
+        this.nombreUsuario = nombreDeUsuarioEditado;
+        if(!(contraseniaEditado.equals(this.contraseniaEncriptada) && this.contraseniaEncriptada.equals(encriptarContrasenia(contraseniaEditado)))){
+            cambiarContrasenia(contraseniaEditado);
+        }
+        this.entidadJuridica = entidadJuridicaEditado;
+        this.soyRevisor = soyRevisorEditado;
+    }
+
     //-------------------------------------------------------------------------
                             //SETTERS
     //-------------------------------------------------------------------------

@@ -43,7 +43,8 @@ function habilitarUsuario(id) {
             url: ruta,
             dataType: "html",
             success: function (result) {
-                showInModal("modal", result);
+                showInModal("modal2", result);
+                mostrarModalHabilitarUsuarios();
             }
         });
     }
@@ -111,7 +112,8 @@ function mostrarModalConfirmacionNuevoUsuario() {
             datatype: "html",
             data: datos,
             success: function (result) {
-                showInModal("modal", result);
+                showInModal("modal2", result);
+                mostrarModalNuevoUsuario();
             }
         });
     }
@@ -153,7 +155,8 @@ function darDeBajaUsuario(id){
             url: ruta,
             dataType: "html",
             success : function(result){
-                showInModal("modal",result);
+                showInModal("modal2",result);
+                mostrarModalEditarUsuarios();
             }
         });
     }
@@ -169,7 +172,38 @@ function mostrarModalParaEditarUnUsuario(id) {
             url: ruta,
             dataType: "html",
             success : function(result){
-                showInModal("modal",result);
+                showInModal("modal2",result);//verificar si funciona con modal2
+            }
+        });
+    }
+}
+
+function recuperarDatosFormularioUsuarioEditado(){
+    var datos = {
+        nombre            : valorDe("altaUsuario-nombre"),
+        apellido          : valorDe("altaUsuario-apellido"),
+        nombreDeUsuario   : valorDe("altaUsuario-nombreDeUsuario"),
+        contrasenia       : valorDe("altaUsuario-contrasenia"),
+        miEntidadJuridica : valorDe("altaUsuario-miEntidadJuridica"),
+        entidadJuridica   : valorDe("altaUsuario-entidadJuridica"),
+        soyRevisor        : $('input:radio[name=soyRevisor]:checked').val()
+    };
+    return datos;
+}
+
+function mostrarModalConfirmacionCambiosEnUsuario(id) {
+    var datos = recuperarDatosFormularioUsuarioEditado();
+    var ruta = "/editarUsuario/guardar/" + id;
+    var metodo = "POST";
+    var mensaje = confirm("¿Está seguro de guardar los cambios de éste usuario?");
+    if (mensaje) {
+        $.ajax({
+            type: metodo,
+            url: ruta,
+            dataType: "html",
+            data: datos,
+            success : function(result){
+                showInModal("modal3",result);
             }
         });
     }

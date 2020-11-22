@@ -2,8 +2,8 @@
     <div class="modal-content">
         <div class="modal-header">
             <h1 id="tituloModal" class="modal-title">
-                <i class="fas fa-info-circle"></i>
-                ¡Información!
+                <a class="fas fa-edit"></a>
+                ¡Editar!
             </h1>
         </div>
         <div class="modal-body">
@@ -21,7 +21,7 @@
                             </tr>
                             <tr>
                                 <td>Nombre de usuario:</td>
-                                <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" value="{{miNombreDeUsuario}}" disabled></td>
+                                <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" value="{{miNombreDeUsuario}}"></td>
                             </tr>
                             <tr>
                                 <td>Cambiar contraseña:
@@ -71,7 +71,7 @@
                             <button type="button" class="btn" data-dismiss="modal" >
                                 Cancelar
                             </button>
-                            <button type="submit" onclick="mostrarModalConfirmacionCambiosEnUsuario({{miId}})">
+                            <button type="submit" data-dismiss="modal" onclick="mostrarModalConfirmacionCambiosEnUsuario({{miId}})">
                                 Guardar
                             </button>
                         </div>
