@@ -3,9 +3,10 @@
         <br>
         <br>
 
-        <form action="javascript:void(0)" method="post" >
+        <form action="javascript:void(0)" method="post">
             <center>
 
+                <h3>AGREGAR OPERACION DE EGRESO</h3>
                 <table class="formulario" border="0">
                     <tr>
                         <td>Fecha:</td>
@@ -15,7 +16,7 @@
                         <td>Tipo de Medio De Pago:</td>
                         <td>
                             <select name="medioDePago" id="alta-medioDePago" required >
-                                <option hidden selected>-Seleccionar medio de pago-</option>
+                                <option hidden selected> Seleccionar medio de pago </option>
                                 {{#each tiposMediosDePago}}
                                     <option>{{tipoPago}}</option>
                                 {{/each}}
@@ -30,7 +31,7 @@
                         <td>Tipo de Documento Comercial:</td>
                         <td>
                             <select name = "documentoComercial" id="alta-documentoComercial" required>
-                                <option hidden selected>-Seleccionar documento comercial-</option>
+                                <option hidden selected> Seleccionar documento comercial </option>
                                 {{#each tiposDocumentoComercial}}
                                     <option>{{nombre}}</option>
                                 {{/each}}
@@ -40,45 +41,44 @@
                     <tr>
                         <td>Número Documento Comercial:</td>
                         <td><input type="number" name="numeroDocumentoComercial" id="alta-numeroDocumentoComercial" placeholder="Ej: 123456789" required></td>
+                        <td>
+                            <button type="submit" onclick="">Detalle</button>
+                        </td>
                     </tr>
                     <tr>
                         <td>Proveedor:</td>
                         <td>
                             <select name = "proveedor" id="alta-proveedor" required>
-                                <option hidden selected> -Seleccionar proveedor-</option>
+                                <option hidden selected> Seleccionar proveedor </option>
                                 {{#each proveedores}}
                                     <option>{{razonSocialProveedor}}</option>
                                 {{/each}}
                             </select>
                         </td>
+                        <td>
+                            <button type="submit" onclick="">Detalle</button>
+                        </td>
                     </tr>
+                    <tr>
+                        <td> Asociar categorías: </td>
+                    </tr>
+                        {{#each criterios}}
+                        <tr>
+                            <td> Criterios Asociados a {{nombre}}: </td>
+                            <td>
+                                {{#each listaCategoriaCriterio}}
+                                    <input id="seleccion-Criterios" type="checkbox" name="{{nombreCategoria}}" value="1" class="categoria" data-attribute="{{nombreCategoria}}"> {{nombreCategoria}}
+                                {{/each}}
+                            </td>
+                        </tr>
+                        {{/each}}
+
                 </table>
             </center>
             <center>
             <table class= "formulario3" border = "0">
-                <td>Asociar categorias:</td>
-                <!-- TR = Fila | TD = Columna-->
-                <tr>
-                    <td>
-                        {{#each criterios}}
-                            <p>Criterio {{nombre}}:</p>
-                            {{#each listaCategoriaCriterio}}
-                                <input type="checkbox" name="{{nombreCategoria}}" value="1" class="categoria"> {{nombreCategoria}}<br>
-                            {{/each}}
-                            <br>
-                        {{/each}}
-                    </td>
 
-                    <td>
-                        {{#each criterios2}}
-                            <p>Criterio {{nombre}}:</p>
-                            {{#each listaCategoriaCriterio}}
-                                <input type="checkbox" name="{{nombreCategoria}}" value="1" class="categoria"> {{nombreCategoria}}<br>
-                            {{/each}}
-                            <br>
-                        {{/each}}
-                    </td>
-                </tr>
+                <!-- TR = Fila | TD = Columna-->
 
             </table>
             </center>
@@ -87,21 +87,20 @@
                 <table class="formulario3" border="0">
                     <tr>
                         <td>Presupuestos requeridos:</td>
-                        <td><input name="presupuestosRequeridos" id="alta-presupuestosRequeridos" min="0" max="1000" type="number" placeholder="Ej: 1" required><br/></td>
+                        <td><input name="presupuestosRequeridos" id="alta-presupuestosRequeridos" min="0" max="1000" type="number" placeholder="Ej: 1" required></td>
                     </tr>
                 </table>
 
             </center>
 
             <center>
-                <table class="formulario2" border="0">
-                    <tr style="background-color: white">
+                <table class="formulario2">
+                    <tr> <!--yo quiero que en esta fila esten estas columnas-- la fila arranca y termina en tr.-->
                         <td>Item:</td>
                         <td><input type="text" placeholder="Ej: Papel" id="item"></td>
                         <td rowspan="2">
                             <button type="button" onclick="nuevaFilaEnItems()">Agregar</button>
                         </td>
-                        <td rowspan="2"></td>
                     </tr>
                     <tr>
                         <td>Precio:</td>
@@ -116,9 +115,9 @@
                     <table id="tabla_items">
                         <thead>
                         <tr>
-                            <th>ITEMS</th>
-                            <th>PRECIO</th>
-                            <td>ACCIONES</td>
+                            <td>Items</td>
+                            <td>Precio</td>
+                            <td>Acciones</td>
                         </tr>
                         </thead>
                         <tbody id = "content_table">

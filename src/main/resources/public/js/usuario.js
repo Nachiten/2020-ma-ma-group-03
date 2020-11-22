@@ -110,27 +110,6 @@ function datosNombresCategorias(){
     return cadenaADevolver;
 }
 
-/*
-function datosPreciosItems(){
-    var precios = document.querySelectorAll(".precioItem");
-
-    if (precios.length === 0){
-        return 'noHayPrecios';
-    }
-
-    var preciosItemsValores = '';
-    for (var x = 0; x < precios.length; x++) {
-        preciosItemsValores += precios[x].value;
-        if (x !== precios.length - 1){
-            preciosItemsValores += '=';
-        }
-    }
-
-    console.log("Precios: " + preciosItemsValores);
-
-    return preciosItemsValores;
-}*/
-
 function datosDeTablaPorNombreDeClase(nombreClase) {
 
     var nombres = document.querySelectorAll(nombreClase);
@@ -240,18 +219,3 @@ function mostrarModalEjecucionValidador() {
         }
     });
 }
-
-
-/*
-$(document).ready(function(){
-    var $form = $('form');
-    $form.submit(function(){
-        $.post($(this).attr('action'),
-            $(this).serialize(),
-            function(response){
-            // do something here on success
-            },'json');
-        return false;
-    });
-});
-*/

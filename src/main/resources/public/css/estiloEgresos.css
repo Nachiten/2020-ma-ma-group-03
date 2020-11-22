@@ -49,13 +49,10 @@ button{
     color:white;
 }
 
-.textoItems{
-    color: rgb(204, 28, 28);
-}
-
 .table-wrapper .acciones{
     display: flex;
 }
+
 .table-wrapper .acciones input{
     margin-right: 10px;
     margin-left: 5px;
@@ -74,10 +71,9 @@ button{
 .egresos th{
     color: white;
 }
-.egresos fas fa-edit{
-    color: yellow;
-}
 
-.egresos fas fa-trash{
-    color: red;
+h3{
+    color: white;
+    font-size: 20px;
+    margin-block-end: 1.5%;
 }
