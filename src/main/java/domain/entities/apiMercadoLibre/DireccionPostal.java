@@ -15,10 +15,13 @@ public class DireccionPostal extends EntidadPersistente {
     private Direccion direccion;
 
     @ManyToOne //(cascade = {CascadeType.ALL})
+    private Pais pais;
+
+    @ManyToOne //(cascade = {CascadeType.ALL})
     private Estado provincia;
 
     @ManyToOne //(cascade = {CascadeType.ALL})
-    private Pais pais;
+    private Ciudad ciudad;
 
     //-------------------------------------------------------------------------
                         //CONTRUCTOR
@@ -27,7 +30,7 @@ public class DireccionPostal extends EntidadPersistente {
     public DireccionPostal(){
     }
 
-    public DireccionPostal(Direccion direccion,String barrio,Estado provincia ,Pais pais){
+    public DireccionPostal(Direccion direccion, String barrio, Estado provincia, Pais pais){
         this.direccion = direccion;
         this.provincia = provincia;
         this.pais = pais;
@@ -41,6 +44,7 @@ public class DireccionPostal extends EntidadPersistente {
                         //METODOS
     //-------------------------------------------------------------------------
 
+    /*
     public void configurarDireccionPostal(String nombrePais, String nombreProvincia, Direccion unaDireccion) {
         //configurarPais(nombrePais);
         //configurarProvincia(nombreProvincia);
@@ -60,7 +64,7 @@ public class DireccionPostal extends EntidadPersistente {
         } else {
             System.out.println("El pais solicitado no existe");
         }
-    }
+    }*/
 
     //private void configurarProvincia(String nombreProvincia) throws ExcepcionApiMercadoLibre {
 
@@ -98,6 +102,10 @@ public class DireccionPostal extends EntidadPersistente {
         this.direccion = direccion;
     }
 
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
+
     //-------------------------------------------------------------------------
                         //GETTERS
     //-------------------------------------------------------------------------
@@ -112,5 +120,9 @@ public class DireccionPostal extends EntidadPersistente {
 
     public Direccion getDireccion() {
         return direccion;
+    }
+
+    public Ciudad getCiudad() {
+        return ciudad;
     }
 }

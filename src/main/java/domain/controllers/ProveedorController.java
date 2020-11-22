@@ -78,8 +78,6 @@ public class ProveedorController {
 
         DireccionPostal direccionPostal = operadorController.generarDireccionPostal(request);
 
-        // TODO | Guardar datos de pais ciudad, provincia
-
         Proveedor proveedorAGuardar = new Proveedor(nombre, apellido, cuit_cuil, direccionPostal, razonSocial);
 
         if (operadorController.persistenciaNoValida(repoProveedor, proveedorAGuardar)){

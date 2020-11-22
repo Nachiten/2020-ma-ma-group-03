@@ -24,6 +24,11 @@ public class DAOHibernate<T> implements DAO<T> {
     }
 
     @Override
+    public T buscar(String id) {
+        return EntityManagerHelper.getEntityManager().find(type, id);
+    }
+
+    @Override
     public T buscar(int id) {
         return EntityManagerHelper.getEntityManager().find(type, id);
     }

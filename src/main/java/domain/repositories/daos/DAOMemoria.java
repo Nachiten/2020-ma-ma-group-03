@@ -18,6 +18,11 @@ public class DAOMemoria<T> implements DAO<T> {
     }
 
     @Override
+    public T buscar(String id) {
+        return null;
+    }
+
+    @Override
     public T buscar(int id) {
         return (T) this.entidades
                 .stream()

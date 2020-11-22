@@ -2,8 +2,7 @@ package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
-import domain.entities.apiMercadoLibre.Direccion;
-import domain.entities.apiMercadoLibre.DireccionPostal;
+import domain.entities.apiMercadoLibre.*;
 import domain.entities.operaciones.Item;
 import domain.entities.operaciones.TipoDocumentoComercial;
 import domain.repositories.Repositorio;
@@ -19,10 +18,17 @@ public class OperadorController {
 
     private Repositorio<TipoDocumentoComercial> repoTipoDocComercial;
     private Repositorio<CategoriaCriterio> repoCategoriaCriterio;
+    private Repositorio<Pais> repoPais;
+    private Repositorio<Estado> repoEstado;
+    private Repositorio<Ciudad> repoCiudad;
+
 
     public OperadorController(){
         this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
         this.repoCategoriaCriterio = FactoryRepositorio.get(CategoriaCriterio.class);
+        this.repoPais = FactoryRepositorio.get(Pais.class);
+        this.repoEstado = FactoryRepositorio.get(Estado.class);
+        this.repoCiudad = FactoryRepositorio.get(Ciudad.class);
     }
 
     boolean persistenciaNoValida(Repositorio<?> objetoFactory, Object objetoClase){
@@ -154,17 +160,25 @@ public class OperadorController {
         String calle = request.queryParams("calle");
         String alturaString = request.queryParams("altura");
         String pisoString = request.queryParams("piso");
+        String departamento = request.queryParams("departamento");
 
         int altura = Integer.parseInt(alturaString);
         int piso = Integer.parseInt(pisoString);
 
-        String nombrePais = request.queryParams("pais");
-        String nombreProvincia = request.queryParams("provincia");
-        String nombreCiudad = request.queryParams("ciudad");
+        String idPais = request.queryParams("pais");
+        String idProvincia = request.queryParams("provincia");
+        String idCiudad = request.queryParams("ciudad");
 
-        Direccion direccion = new Direccion(calle, altura, piso, "A");
+        Pais paisElegido = repoPais.buscar(idPais);
+        Estado provinciaElegida = repoEstado.buscar(idProvincia);
+        Ciudad ciudadElegida = repoCiudad.buscar(idCiudad);
+
+        Direccion direccion = new Direccion(calle, altura, piso, departamento);
 
         DireccionPostal direccionPostal = new DireccionPostal(direccion);
+        direccionPostal.setPais(paisElegido);
+        direccionPostal.setProvincia(provinciaElegida);
+        direccionPostal.setCiudad(ciudadElegida);
 
         return direccionPostal;
     }

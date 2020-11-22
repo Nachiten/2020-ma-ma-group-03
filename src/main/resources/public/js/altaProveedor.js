@@ -38,9 +38,12 @@ function recuperarDatosFormularioAltaProveedor(){
         apellido: valorDe("alta-apellido"),
         razonSocial: valorDe("alta-razonSocial"),
         cuit_cuil: valorDe("alta-cuit_cuil"),
-        calle: valorDe("alta-calle"),
-        altura: valorDe("alta-altura"),
-        piso: valorDe("alta-piso"),
+        // Direccion
+        calle: valorDe("altaProveedor-calle"),
+        altura: valorDe("altaProveedor-altura"),
+        departamento: valorDe("altaProveedor-departamento"),
+        piso: valorDe("altaProveedor-piso"),
+        // Datos api
         pais: valorDe("altaProveedor-pais"),
         provincia: valorDe("altaProveedor-provincia"),
         ciudad: valorDe("altaProveedor-ciudad")

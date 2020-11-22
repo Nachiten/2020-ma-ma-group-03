@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface DAO<T> {
     List<T> buscarTodos();
+    T buscar(String id);
     T buscar(int id);
     T buscar(BusquedaCondicional condicional);
     void agregar(Object unObjeto);
