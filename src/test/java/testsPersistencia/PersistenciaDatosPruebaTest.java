@@ -192,8 +192,8 @@ public class PersistenciaDatosPruebaTest {
 
         //INSTANCIAS DE USUARIOS
         //me falta agregar la entidad juridica
-        usuarioA = new Usuario(TipoUsuario.ESTANDAR, "aroco", "*_aroco20!-?", "Alejandro", "Roco", true, entidadJuridicaEAAFBA);
-        usuarioB = new Usuario(TipoUsuario.ESTANDAR,"rrojas","*-_rrojas!?", "Rocio", "Rojas",false, entidadJuridicaEAAFBA);
+        usuarioA = new Usuario(TipoUsuario.ESTANDAR, "aroco", "*_aroco20!-?", "Alejandro", "Roco", entidadJuridicaEAAFBA);
+        usuarioB = new Usuario(TipoUsuario.ESTANDAR,"rrojas","*-_rrojas!?", "Rocio", "Rojas", entidadJuridicaEAAFBA);
         // usuarioC = new Usuario(TipoUsuario.ESTANDAR,"jazul","!-*jazul_!?","Julieta","Azul",1,);
         usuarioAdmin = new Usuario(TipoUsuario.ADMIN, "Admin", "admin", "Admin", "Root");
 

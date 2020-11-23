@@ -31,8 +31,8 @@ public class OperacionDeIngreso  {
     @Column (name = "periodoAceptacion")
     private LocalDate periodoAceptacion;
 
-    @Column (name = "entidadJuridica_id")
-    private int entidadJuridicaAsociada;
+    @ManyToOne
+    private EntidadJuridica entidadJuridicaAsociada;
 
     @OneToMany (cascade = CascadeType.ALL)
     private List<OperacionDeEgreso> operacionesDeEgresoVinculadas;
@@ -83,7 +83,7 @@ public class OperacionDeIngreso  {
     //-------------------------------------------------------------------------
 
     public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) {
-        this.entidadJuridicaAsociada = entidadJuridicaAsociada.getId();
+        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
         entidadJuridicaAsociada.agregarOperacionDeIngresoAsociada(this);
     }
 
@@ -115,7 +115,7 @@ public class OperacionDeIngreso  {
         return id;
     }
 
-    public int getEntidadJuridicaAsociada_id() {
+    public EntidadJuridica getEntidadJuridicaAsociada() {
         return entidadJuridicaAsociada;
     }
 

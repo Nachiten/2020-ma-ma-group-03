@@ -105,6 +105,4 @@ public class Proveedor extends EntidadPersistente {
     public void setEstoyHabilitado(Boolean estoyHabilitado){
         this.estoyHabilitado= estoyHabilitado;
     }
-
-
 }

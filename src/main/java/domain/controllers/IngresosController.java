@@ -70,7 +70,7 @@ public class IngresosController {
 
         //se instancia una operacion de ingreso a persistir
         OperacionDeIngreso operacionDeIngresoAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
-        int entidadJuridica_id = modalAndViewController.getUsuario().getEntidadJuridica();
+        int entidadJuridica_id = modalAndViewController.getUsuario().getEntidadJuridica().getId();
         EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(entidadJuridica_id);
         operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
         operacionDeIngresoAGuardar.setPeriodoAceptacion(fechaPeriodoAceptacion);
