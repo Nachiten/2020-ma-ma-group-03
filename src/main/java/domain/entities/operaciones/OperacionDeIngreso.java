@@ -55,6 +55,13 @@ public class OperacionDeIngreso  {
         this.moneda = moneda;
         inicializar();
     }
+    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha,LocalDate periodoDeAceptacion) {
+        this.descripcion = descripcion;
+        this.montoTotal = montoTotal;
+        this.fecha = fecha;
+        this.periodoAceptacion = periodoDeAceptacion;
+        inicializar();
+    }
 
     public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha) {
         this.descripcion = descripcion;

@@ -51,7 +51,7 @@ public class ServicioVinculacionEgresosIngresos {
         List<OperacionDeEgreso> egresosSimples = new ArrayList<>();
         for(int i = 0; i < egresos.size(); i++){
             OperacionDeEgreso unEgreso = egresos.get(i);
-            OperacionDeEgreso egresoSimple = new OperacionDeEgreso(unEgreso.getIdOperacion(), unEgreso.getFecha(), unEgreso.getMontoTotal(), unEgreso.getOperacionDeIngreso_id(), unEgreso.fueVinculada());
+            OperacionDeEgreso egresoSimple = new OperacionDeEgreso(unEgreso.getIdOperacion(), unEgreso.getFecha(), unEgreso.getMontoTotal(), unEgreso.getOperacionDeIngreso(), unEgreso.fueVinculada());
             egresosSimples.add(egresoSimple);
         }
         return egresosSimples;

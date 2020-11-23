@@ -20,6 +20,8 @@ public class Direccion extends EntidadPersistente {
     @Column (name = "dpto")
     private String dpto;
 
+    @Column (name="barrio")
+    private String barrio;
     //-------------------------------------------------------------------------
                             //CONTRUCTOR
     //-------------------------------------------------------------------------
@@ -28,11 +30,20 @@ public class Direccion extends EntidadPersistente {
 
     }
 
+    public Direccion(String calle, int numero, int piso, String dpto, String barrio){
+        this.calle = calle;
+        this.numero = numero;
+        this.piso = piso;
+        this.dpto = dpto;
+        this.barrio = barrio;
+    }
+
     public Direccion(String calle, int numero, int piso, String dpto){
         this.calle = calle;
         this.numero = numero;
         this.piso = piso;
         this.dpto = dpto;
+
     }
 
     public Direccion(String calle, int numero) {

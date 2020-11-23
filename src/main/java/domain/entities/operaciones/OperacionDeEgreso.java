@@ -109,12 +109,24 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
-    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal, int operacionDeIngresoId, boolean fueVinculada) {
+    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal, OperacionDeIngreso operacionDeIngreso, boolean fueVinculada) {
         this.idOperacion = idOperacion;
         this.fecha = fecha;
         this.montoTotal = montoTotal;
-        this.operacionDeIngresoId = operacionDeIngresoId;
+        this.operacionDeIngreso = operacionDeIngreso;
+        this.operacionDeIngresoId = operacionDeIngreso.getId();
         this.fueVinculada = fueVinculada;
+        inicializar();
+    }
+
+    public OperacionDeEgreso(LocalDate fecha, MedioDePago medio ,List<Item> items,int cantidadPresupuestos,float montoTotal, List<CategoriaCriterio> listaDeCategorias,EntidadJuridica entidadJuridicaAsociada) {
+        this.fecha = fecha;
+        this.medioDePago = medio;
+        this.items = items;
+        this.cantidadPresupuestosRequerida = cantidadPresupuestos;
+        this.montoTotal = montoTotal;
+        this.listaCategoriaCriterio = listaDeCategorias;
+        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
         inicializar();
     }
 
@@ -258,5 +270,9 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public int getOperacionDeIngreso_id(){
         return operacionDeIngresoId;
+    }
+
+    public OperacionDeIngreso getOperacionDeIngreso() {
+        return operacionDeIngreso;
     }
 }
