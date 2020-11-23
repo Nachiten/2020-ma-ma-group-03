@@ -82,7 +82,6 @@ public class PersistenciaDatosPruebaTest {
 
 
     //LISTA DE CATEGORIAS PARA LOS CRITERIOS
-
     static private List<CategoriaCriterio> categoriasDeGastoMantenimiento;
     static private List<CategoriaCriterio> categoriasDeCausante;
     static private List<CategoriaCriterio> categoriasDeLugarDeAplicacion;
@@ -110,16 +109,16 @@ public class PersistenciaDatosPruebaTest {
 
     // LISTA DE CATEGORIAS  PARA LOS EGRESOS
 
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso1 ;
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso2 ;
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso3 ;
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso4 ;
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso5 ;
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso6 ;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso1;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso2;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso3;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso4;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso5;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso6;
     static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso7;
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso8 ;
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso9 ;
-    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso10 ;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso8;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso9;
+    static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso10;
 
 
 
