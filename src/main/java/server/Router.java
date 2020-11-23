@@ -40,6 +40,7 @@ public class Router {
         CriteriosController criteriosController = new CriteriosController(modalAndViewController, operadorController);
         AsociacionOperacionesController asociacionOperacionesController = new AsociacionOperacionesController(modalAndViewController);
         MensajesController mensajesController = new MensajesController(modalAndViewController);
+        PerfilUsuarioEstandarController perfilUsuarioEstandarController = new PerfilUsuarioEstandarController(modalAndViewController);
 
         AccionesEnUsuariosController accionesEnUsuariosController = new AccionesEnUsuariosController(modalAndViewController, operadorController);
 
@@ -67,8 +68,13 @@ public class Router {
         Spark.get("/mensajes", mensajesController::mensajes, Router.engine);
         Spark.get("/mensajes/:id",mensajesController::mostrarContenidoMensaje,Router.engine);
 
+        //Perfil de usuario estandar
+        Spark.get("/editarPerfil",perfilUsuarioEstandarController::mostrarPaginaPerfilUsuarioEstandar,Router.engine);
+        Spark.post("/actualizarDatosPerfil",perfilUsuarioEstandarController::actualizarDatosPerfilUsuarioEstandar,Router.engine);
+        Spark.post("/actualizarContrasenia",perfilUsuarioEstandarController::actualizarContraseniaPerfilUsuarioEstandar,Router.engine);
         //muestra página inicio dependiendo del tipo de usuario logueado
         Spark.get("/inicio", mainController::principal, Router.engine);
+
 
         // Guardar los datos de las ventanas POST
         Spark.post("/egresos", egresosController::guardarOperacionDeEgreso, Router.engine);

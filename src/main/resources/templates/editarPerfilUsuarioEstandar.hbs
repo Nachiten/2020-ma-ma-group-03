@@ -1,0 +1,58 @@
+{{#partial "contenido"}}
+
+         <div>
+             </h1>Editar mi perfil </h1>
+
+
+                <div class = "editarUsuario">
+                    <form action= "javascript:void(0)" >
+                        <center>
+                            <table class= "formulario" border = 0 >
+                                <tr>
+                                    <td>Nombre:</td>
+                                    <td><input type="text" name="nombre" id = "altaUsuarioPerfil-nombre" value="{{miNombre}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Apellido:</td>
+                                    <td><input type="text" name="apellido" id = "altaUsuarioPerfil-apellido" value="{{miApellido}}"></td>
+                                </tr>
+
+                            </table>
+
+
+                                <button type="submit" data-dismiss="modal" onclick="mostrarModalConfirmacionActualizacionDeDatos()">
+                                    Actualizar datos
+                                </button>
+                            </div>
+                        </center>
+                    </form>
+             <form action= "javascript:void(0)"  >
+
+                 <center>
+                     <table class= "formulario2" border = 0 >
+                 <tr>
+                     <td>Cambiar contraseña:
+                         <input name="cambioContrasenia" type="radio" value="cambioContrasenia" id = "altaUsuarioPerfil-cambioContrasenia" />Si
+                         <input name="cambioContrasenia" type="radio" value="noCambioContrasenia" id = "altaUsuarioPerfil-noCambioContrasenia" checked="checked"/>No
+                         <br>
+                         Contraseña:
+                     </td>
+                     <td><br><input type="password" name="contrasenia"   id = "altaUsuarioPerfil-contrasenia" value="{{miContrasenia}}" disabled></td>
+                 </tr>
+                     </table>
+                     <button type="submit" data-dismiss="modal" onclick="mostrarModalConfirmacionCambioDeContrasenia()">
+                         Cambiar contraseña
+                     </button>
+                 </center>
+
+             </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="/js/usuario.js"></script>
+    <link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
+
+{{/partial}}
+{{>principalStandar.hbs}}

@@ -49,8 +49,6 @@ public class Usuario extends EntidadPersistente {
     @Column(name="estoyHabilitado")
     private boolean estoyHabilitado;
 
-    @Column(name="soyRevisor")
-    private boolean soyRevisor ;
 
 
 
@@ -62,16 +60,17 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
-    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido, boolean soyRevisor, EntidadJuridica entidadJuridica) {
+    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido, EntidadJuridica entidadJuridica) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
         this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
-        this.soyRevisor = soyRevisor;
         this.entidadJuridica = entidadJuridica.getId();
         inicializar();
     }
+
+
 
     //para que no me fallen los test de antes
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido) {
@@ -127,16 +126,26 @@ public class Usuario extends EntidadPersistente {
 
     }
 
-    public void guardarCambiosEfectuadosEnMisAtributos(String nombreEditado, String apellidoEditado, String nombreDeUsuarioEditado, String contraseniaEditado, int entidadJuridicaEditado, boolean soyRevisorEditado) {
+    public void guardarCambiosEfectuadosEnMisAtributos(String nombreEditado, String apellidoEditado, String nombreDeUsuarioEditado, String contraseniaEditada, int entidadJuridicaEditado) {
 
         this.nombre = nombreEditado;
         this.apellido = apellidoEditado;
         this.nombreUsuario = nombreDeUsuarioEditado;
-        if(!(contraseniaEditado.equals(this.contraseniaEncriptada) && this.contraseniaEncriptada.equals(encriptarContrasenia(contraseniaEditado)))){
-            cambiarContrasenia(contraseniaEditado);
-        }
+       verificarSiLaContraseniaFueActualizada(contraseniaEditada);
         this.entidadJuridica = entidadJuridicaEditado;
-        this.soyRevisor = soyRevisorEditado;
+
+    }
+
+    public void verificarSiLaContraseniaFueActualizada(String contraseniaEditada){
+        if(!(contraseniaEditada.equals(this.contraseniaEncriptada) && this.contraseniaEncriptada.equals(encriptarContrasenia(contraseniaEditada)))){
+            cambiarContrasenia(contraseniaEditada);
+        }
+
+    }
+
+    public void actualizarDatosPerfil(String nombreEditado, String apellidoEditado) {
+        this.nombre = nombreEditado;
+        this.apellido = apellidoEditado;
     }
 
     //-------------------------------------------------------------------------
@@ -182,9 +191,7 @@ public class Usuario extends EntidadPersistente {
         this.tipo = tipoUsuario;
     }
 
-    public void setSoyRevisor(Boolean soyRevisor){
-        this.soyRevisor = soyRevisor;
-    }
+
 
     //-------------------------------------------------------------------------
                             //GETTERS
@@ -214,6 +221,7 @@ public class Usuario extends EntidadPersistente {
 
     public boolean getEstoyHabilitado(){return estoyHabilitado;}
 
-    public boolean getSoyRevisor(){return soyRevisor;}
+
+
 
 }
