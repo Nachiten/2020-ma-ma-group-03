@@ -54,24 +54,28 @@ public class PersistenciaEntidadJuridicaTest {
         agropecuario = new Sector("Agropecuario");
 
         microConstruccion = new Categoria("Micro", 19450000, 12);
+        pequeniaConstruccion = new Categoria("Pequeña", 115370000, 45);
+        medianaTramo1Construccion = new Categoria("MedianaTramo1", 643710000, 200);
+        medianaTramo2Construccion = new Categoria("MedianaTramo2", 965460000, 590);
+
         microServicios = new Categoria("Micro",9900000, 7);
         microComercio = new Categoria("Micro", 36320000, 7);
         microIndustriaYMineria = new Categoria("Micro", 33920000, 15);
         microAgropecuario = new Categoria("Micro", 17260000, 5);
 
-        pequeniaConstruccion = new Categoria("Pequeña", 115370000, 45);
+
         pequeniaServicios = new Categoria("Pequeña", 59710000, 30);
         pequeniaComercio = new Categoria("Pequeña", 247200000, 35);
         pequeniaIndustriaYMineria = new Categoria("Pequeña", 243290000, 60);
         pequeniaAgropecuario = new Categoria("Pequeña", 71960000, 10);
 
-        medianaTramo1Construccion = new Categoria("MedianaTramo1", 643710000, 200);
+
         medianaTramo1Servicios = new Categoria("MedianaTramo1", 494200000, 165);
         medianaTramo1Comercio = new Categoria("MedianaTramo1", 1821760000, 125);
         medianaTramo1IndustriaYMineria = new Categoria("MedianaTramo1", 1651750000, 235);
         medianaTramo1Agropecuario = new Categoria("MedianaTramo1", 426720000, 50);
 
-        medianaTramo2Construccion = new Categoria("MedianaTramo2", 965460000, 590);
+
         medianaTramo2Servicios = new Categoria("MedianaTramo2", 705790000, 535);
         medianaTramo2Comercio = new Categoria("MedianaTramo2", 2602540000L, 345);
         medianaTramo2IndustriaYMineria = new Categoria("MedianaTramo2", 2540380000L, 655);
@@ -79,31 +83,37 @@ public class PersistenciaEntidadJuridicaTest {
 
         //Asociar sector a categoria
         microConstruccion.setSectorAsociado(construccion);
+        pequeniaConstruccion.setSectorAsociado(construccion);
+        medianaTramo1Construccion.setSectorAsociado(construccion);
+        medianaTramo2Construccion.setSectorAsociado(construccion);
+
+        construccion.addCategorias(microConstruccion, pequeniaConstruccion, medianaTramo1Construccion, medianaTramo2Construccion);
+
         microServicios.setSectorAsociado(servicios);
         microComercio.setSectorAsociado(comercio);
         microIndustriaYMineria.setSectorAsociado(industriaYMineria);
         microAgropecuario.setSectorAsociado(agropecuario);
 
-        pequeniaConstruccion.setSectorAsociado(construccion);
+
         pequeniaServicios.setSectorAsociado(servicios);
         pequeniaComercio.setSectorAsociado(comercio);
         pequeniaIndustriaYMineria.setSectorAsociado(industriaYMineria);
         pequeniaAgropecuario.setSectorAsociado(agropecuario);
 
-        medianaTramo1Construccion.setSectorAsociado(construccion);
+
         medianaTramo1Servicios.setSectorAsociado(servicios);
         medianaTramo1Comercio.setSectorAsociado(comercio);
         medianaTramo1IndustriaYMineria.setSectorAsociado(industriaYMineria);
         medianaTramo1Agropecuario.setSectorAsociado(agropecuario);
 
-        medianaTramo2Construccion.setSectorAsociado(construccion);
+
         medianaTramo2Servicios.setSectorAsociado(servicios);
         medianaTramo2Comercio.setSectorAsociado(comercio);
         medianaTramo2IndustriaYMineria.setSectorAsociado(industriaYMineria);
         medianaTramo2Agropecuario.setSectorAsociado(agropecuario);
 
         //agregar categorias a sector
-        construccion.addCategorias(microConstruccion, pequeniaConstruccion, medianaTramo1Construccion, medianaTramo2Construccion);
+
         servicios.addCategorias(microServicios, pequeniaServicios, medianaTramo1Servicios, medianaTramo2Servicios);
         comercio.addCategorias(microComercio, pequeniaComercio, medianaTramo1Comercio, medianaTramo2Comercio);
         industriaYMineria.addCategorias(microIndustriaYMineria, pequeniaIndustriaYMineria, medianaTramo1IndustriaYMineria, medianaTramo2IndustriaYMineria);

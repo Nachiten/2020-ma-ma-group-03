@@ -9,6 +9,7 @@ import domain.entities.apiMercadoLibre.Pais;
 import domain.entities.entidades.EntidadBase;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
+import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.tipoEntidadJuridica.Empresa;
 import domain.entities.tipoEntidadJuridica.Sector;
 import domain.entities.tipoEntidadJuridica.TipoEntidadJuridica;
@@ -35,7 +36,7 @@ public class PersistenciaDatosPruebaTest {
     static private Pais mexico;
 
     //ESTADO
-     static private Estado estado1;
+    static private Estado estado1;
     static private Estado estado2;
     static private Estado estado3;
 
@@ -75,7 +76,7 @@ public class PersistenciaDatosPruebaTest {
     static private CategoriaCriterio categoriaElectronicos;
     static private CategoriaCriterio categoriaServiciosDeLuz;
     static private CategoriaCriterio categoriaServiciosDeGas;
-    static private CategoriaCriterio categoriaNecesario;
+    //static private CategoriaCriterio categoriaNecesario; TODO completar
     static private CategoriaCriterio categoriaGrande;
     static private CategoriaCriterio categoriaExterior;
 
@@ -90,7 +91,7 @@ public class PersistenciaDatosPruebaTest {
     static private List<CategoriaCriterio> categoriasDeMomentoDeUtilizacion;
     static private List<CategoriaCriterio> categoriasDeTipoProducto;
     static private List<CategoriaCriterio> categoriasDeTamanioDelGasto;
-    static private List<CategoriaCriterio> categoriasDeElementosDeUsoInterno;
+    //static private List<CategoriaCriterio> categoriasDeElementosDeUsoInterno; TODO completar
     static private List<CategoriaCriterio> categoriasDeServicios;
 
 
@@ -103,7 +104,7 @@ public class PersistenciaDatosPruebaTest {
     static private Criterio criterioMomentoDeUtilizacion;
     static private Criterio criterioTipoDeProducto;
     static private Criterio criterioTamanioDelGasto;
-    static private Criterio criterioElementosDeUsoInterno;
+    //static private Criterio criterioElementosDeUsoInterno; TODO completar
     static private Criterio criterioServicios;
 
 
@@ -289,6 +290,20 @@ public class PersistenciaDatosPruebaTest {
         sectorConstruccion = new Sector("Construccion");
         sectorAlojamiento = new Sector("Alojamiento");
 
+        Categoria microConstruccion = new Categoria("Micro", 19450000, 12);
+        Categoria pequeniaConstruccion = new Categoria("Pequeña", 115370000, 45);
+        Categoria medianaTramo1Construccion = new Categoria("MedianaTramo1", 643710000, 200);
+        Categoria medianaTramo2Construccion = new Categoria("MedianaTramo2", 965460000, 590);
+
+
+        //Asociar sector a categoria
+        microConstruccion.setSectorAsociado(sectorConstruccion);
+        pequeniaConstruccion.setSectorAsociado(sectorConstruccion);
+        medianaTramo1Construccion.setSectorAsociado(sectorConstruccion);
+        medianaTramo2Construccion.setSectorAsociado(sectorConstruccion);
+
+        sectorConstruccion.addCategorias(microConstruccion, pequeniaConstruccion, medianaTramo1Construccion, medianaTramo2Construccion);
+
 
         // TIPOENTIDAD JURIDICA EMPRESA
         tipoEntidadJuridica1 = new Empresa(sectorConstruccion,600000000,150);
@@ -468,7 +483,7 @@ public class PersistenciaDatosPruebaTest {
         listaCategoriaOperacionDeEgreso7 = new ArrayList<>(Arrays.asList(categoriaFachada));
         listaCategoriaOperacionDeEgreso8 = new ArrayList<>(Arrays.asList(categoriaServiciosDeLuz));
         listaCategoriaOperacionDeEgreso9 = new ArrayList<>(Arrays.asList(categoriaServiciosDeGas));
-        listaCategoriaOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(categoriaNecesario));
+        //listaCategoriaOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(categoriaNecesario));
 
 
 
@@ -530,7 +545,7 @@ public class PersistenciaDatosPruebaTest {
        persistirUnObjeto(categoriaElectronicos);
        persistirUnObjeto(categoriaServiciosDeLuz);
        persistirUnObjeto(categoriaServiciosDeGas);
-       persistirUnObjeto(categoriaNecesario);
+       //persistirUnObjeto(categoriaNecesario);
        persistirUnObjeto(categoriaGrande);
        persistirUnObjeto(categoriaExterior);
 
