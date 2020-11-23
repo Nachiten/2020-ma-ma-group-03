@@ -157,13 +157,16 @@ public class OperadorController {
     }
 
     public DireccionPostal generarDireccionPostal(Request request) {
+        String barrio = request.queryParams("barrio");
         String calle = request.queryParams("calle");
         String alturaString = request.queryParams("altura");
         String pisoString = request.queryParams("piso");
         String departamento = request.queryParams("departamento");
 
         int altura = Integer.parseInt(alturaString);
-        int piso = Integer.parseInt(pisoString);
+        int piso = -1;//Integer.parseInt(null);
+
+
 
         String idPais = request.queryParams("pais");
         String idProvincia = request.queryParams("provincia");
@@ -173,8 +176,16 @@ public class OperadorController {
         Estado provinciaElegida = repoEstado.buscar(idProvincia);
         Ciudad ciudadElegida = repoCiudad.buscar(idCiudad);
 
-        Direccion direccion = new Direccion(calle, altura, piso, departamento);
+        Direccion direccion = new Direccion(calle, altura);
 
+        if (!pisoString.equals("")){
+            piso = Integer.parseInt(pisoString);
+            direccion.setPiso(piso);
+        }
+
+        if (!departamento.equals("")){
+            direccion.setDpto(departamento);
+        }
         DireccionPostal direccionPostal = new DireccionPostal(direccion);
         direccionPostal.setPais(paisElegido);
         direccionPostal.setProvincia(provinciaElegida);

@@ -18,7 +18,7 @@ public class Usuario extends EntidadPersistente {
     @Enumerated(value = EnumType.STRING)
     private TipoUsuario tipo;
 
-    @Column (name = "nombreUsuario")
+    @Column (unique = true, name = "nombreUsuario")
     private String nombreUsuario;
 
     @Column (name = "contraseniaEncriptada")
@@ -50,8 +50,6 @@ public class Usuario extends EntidadPersistente {
     private boolean estoyHabilitado;
 
 
-
-
     //-------------------------------------------------------------------------
                     //CONTRUCTOR
     //-------------------------------------------------------------------------
@@ -70,8 +68,6 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
-
-
     //para que no me fallen los test de antes
     public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido) {
         this.tipo = tipo;
@@ -82,9 +78,7 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
-    public String encriptarContrasenia(String contrasenia) {
-        return DigestUtils.md5Hex(contrasenia);
-    }
+
 
     //-------------------------------------------------------------------------
                         //METODOS
@@ -97,6 +91,9 @@ public class Usuario extends EntidadPersistente {
         this.tiempoUltimaContrasenia =LocalDate.now();
     }
 
+    public String encriptarContrasenia(String contrasenia) {
+        return DigestUtils.md5Hex(contrasenia);
+    }
 
     public void publicarMensajeEnBandejaDeMensajes(String identificacion, Boolean resultadoValidacion){
         new Publicador().publicarMensaje(resultadoValidacion, identificacion, this);

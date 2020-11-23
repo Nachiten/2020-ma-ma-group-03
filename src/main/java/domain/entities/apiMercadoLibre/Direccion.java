@@ -35,6 +35,11 @@ public class Direccion extends EntidadPersistente {
         this.dpto = dpto;
     }
 
+    public Direccion(String calle, int numero) {
+        this.calle = calle;
+        this.numero = numero;
+    }
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
