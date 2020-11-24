@@ -76,7 +76,7 @@ public class PersistenciaDatosPruebaTest {
     static private CategoriaCriterio categoriaElectronicos;
     static private CategoriaCriterio categoriaServiciosDeLuz;
     static private CategoriaCriterio categoriaServiciosDeGas;
-    //static private CategoriaCriterio categoriaNecesario; TODO completar
+    static private CategoriaCriterio categoriaNecesario;
     static private CategoriaCriterio categoriaGrande;
     static private CategoriaCriterio categoriaExterior;
 
@@ -90,7 +90,7 @@ public class PersistenciaDatosPruebaTest {
     static private List<CategoriaCriterio> categoriasDeMomentoDeUtilizacion;
     static private List<CategoriaCriterio> categoriasDeTipoProducto;
     static private List<CategoriaCriterio> categoriasDeTamanioDelGasto;
-    //static private List<CategoriaCriterio> categoriasDeElementosDeUsoInterno; TODO completar
+    static private List<CategoriaCriterio> categoriasDeElementosDeUsoInterno;
     static private List<CategoriaCriterio> categoriasDeServicios;
 
 
@@ -103,7 +103,7 @@ public class PersistenciaDatosPruebaTest {
     static private Criterio criterioMomentoDeUtilizacion;
     static private Criterio criterioTipoDeProducto;
     static private Criterio criterioTamanioDelGasto;
-    //static private Criterio criterioElementosDeUsoInterno; TODO completar
+    static private Criterio criterioElementosDeUsoInterno;
     static private Criterio criterioServicios;
 
 
@@ -332,7 +332,7 @@ public class PersistenciaDatosPruebaTest {
         tarjetaDeDebito = EntityManagerHelper.getEntityManager().find(TipoMedioDePago.class, 2);
         medioDePagoTarjetaDebito = new MedioDePago(tarjetaDeDebito,"5031 7557 3453 0604");
 
-        efectivo = EntityManagerHelper.getEntityManager().find(TipoMedioDePago.class, 3);
+        efectivo = EntityManagerHelper.getEntityManager().find(TipoMedioDePago.class, 5);
         medioDePagoEfectivo = new MedioDePago(efectivo);
 
         //PROVEEDORES
@@ -403,6 +403,7 @@ public class PersistenciaDatosPruebaTest {
         categoriaInterior = new CategoriaCriterio("Interior");
         categoriaServiciosDeGas= new CategoriaCriterio("Servicio de Gas");
         categoriaServiciosDeLuz = new CategoriaCriterio("Servicio de Luz");
+        categoriaNecesario = new CategoriaCriterio("Necesario");
 
         //CATEGORIAS DE LOS CRITERIOS
 
@@ -415,6 +416,7 @@ public class PersistenciaDatosPruebaTest {
         categoriasDeTamanioDelGasto =  new ArrayList<>(Arrays.asList(categoriaGrande));
         categoriasDeLugarDeAplicacion = new ArrayList<>(Arrays.asList(categoriaExterior,categoriaInterior));
         categoriasDeServicios =  new ArrayList<>(Arrays.asList(categoriaServiciosDeLuz, categoriaServiciosDeGas));
+        categoriasDeElementosDeUsoInterno = new ArrayList<>(Arrays.asList(categoriaNecesario));
 
         //CRITERIOS
         criterioGastosDeMantenimiento = new Criterio("Gastos de mantenimiento",categoriasDeGastoMantenimiento);
@@ -426,6 +428,7 @@ public class PersistenciaDatosPruebaTest {
         criterioTipoDeProducto = new Criterio("Tipo de producto",categoriasDeTipoProducto);
         criterioTamanioDelGasto = new Criterio("Tipo tamanio",categoriasDeTamanioDelGasto);
         criterioServicios = new Criterio("Servicios",categoriasDeServicios);
+        criterioElementosDeUsoInterno = new Criterio("Elementos de uso interno",categoriasDeElementosDeUsoInterno);
 
 
          //LISTA DE ITEMS DE PRESUPUESTOS
@@ -465,13 +468,12 @@ public class PersistenciaDatosPruebaTest {
 
 
 
-          /*
-        //INGRESOS    //como agrego lo de la entidad que es un id?  //AGREGAR LO DE LA MONEDA DE ML
-        ingresoDonacionDeTerceros = new OperacionDeIngreso("Donacion de terceros",20000, LocalDate.of(2020,02,25),LocalDate.of(2020,03,20));
-        ingresoDonacionDeRimoliSA = new OperacionDeIngreso("Donacion de Rimoli SA",10000,LocalDate.of(2020,05,02),LocalDate.of(2020,08,03));
-        ingresoDonacionGranImperio = new OperacionDeIngreso("Donacion de Gran Imperio",980000,LocalDate.of(2020,08,03),LocalDate.of(2020,10,01));
-        ingresoDonacionGabinoSRL = new OperacionDeIngreso("Donacion Gabino SRL",10000,LocalDate.of(2020,05,01),LocalDate.of(2020,10,01));
-*/
+
+        ingresoDonacionDeTerceros = new OperacionDeIngreso("Donacion de terceros",20000, LocalDate.of(2020,2,25),LocalDate.of(2020,3,20),entidadJuridicaEAAFBA);
+        ingresoDonacionDeRimoliSA = new OperacionDeIngreso("Donacion de Rimoli SA",10000,LocalDate.of(2020,5,2),LocalDate.of(2020,8,3),entidadJuridicaEAAFBA);
+        ingresoDonacionGranImperio = new OperacionDeIngreso("Donacion de Gran Imperio",980000,LocalDate.of(2020,8,3),LocalDate.of(2020,10,1),entidadJuridicaEAAFBA);
+        ingresoDonacionGabinoSRL = new OperacionDeIngreso("Donacion Gabino SRL",10000,LocalDate.of(2020,5,1),LocalDate.of(2020,10,1),entidadJuridicaSurcosCS);
+
           //CATEGORIAS PARA OPERACIONES DE EGRESO
         listaCategoriaOperacionDeEgreso1 = new ArrayList<>(Arrays.asList(categoriaFachada,categoriaInterior,categoriaHumedad));
         listaCategoriaOperacionDeEgreso2 = new ArrayList<>(Arrays.asList(categoriaServiciosGenerales));
@@ -482,23 +484,22 @@ public class PersistenciaDatosPruebaTest {
         listaCategoriaOperacionDeEgreso7 = new ArrayList<>(Arrays.asList(categoriaFachada));
         listaCategoriaOperacionDeEgreso8 = new ArrayList<>(Arrays.asList(categoriaServiciosDeLuz));
         listaCategoriaOperacionDeEgreso9 = new ArrayList<>(Arrays.asList(categoriaServiciosDeGas));
-        //listaCategoriaOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(categoriaNecesario));
+        listaCategoriaOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(categoriaNecesario));
 
 
 
           //OPERACIONES DE EGRESO
 
-        // public OperacionDeEgreso(LocalDate fecha, MedioDePago medio ,List<Item> items,int cantidadPresupuestos,float montoTotal, List<CategoriaCriterio> listaDeCategorias) {
-   operacionDeEgreso1 = new OperacionDeEgreso(LocalDate.of(2020,3,10),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso1,3,19952.69f,listaCategoriaOperacionDeEgreso1,entidadJuridicaEAAFBA);
-   operacionDeEgreso2 = new OperacionDeEgreso(LocalDate.of(2020,7,8),medioDePagoEfectivo,listaItemsOperacionDeEgreso2,0,2100,listaCategoriaOperacionDeEgreso2,entidadJuridicaEAAFBA);
-   operacionDeEgreso3 = new OperacionDeEgreso(LocalDate.of(2020,7,9),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso3,0,3500,listaCategoriaOperacionDeEgreso3,entidadJuridicaEAAFBA);
-   operacionDeEgreso4 = new OperacionDeEgreso(LocalDate.of(2020,8,3),medioDePagoTarjetaDebito,listaItemsOperacionDeEgreso4,0,26100,listaCategoriaOperacionDeEgreso4,entidadJuridicaEAAFBA);
-   operacionDeEgreso5 = new OperacionDeEgreso(LocalDate.of(2020,9,27),medioDePagoEfectivo,listaItemsOperacionDeEgreso5,6,17000,listaCategoriaOperacionDeEgreso5,entidadJuridicaEAAFBA);
-   operacionDeEgreso6 = new OperacionDeEgreso(LocalDate.of(2020,10,1),medioDePagoEfectivo,listaItemsOperacionDeEgreso6,4,207708,listaCategoriaOperacionDeEgreso6,entidadJuridicaEAAFBA);
-   operacionDeEgreso7 = new OperacionDeEgreso(LocalDate.of(2020,10,5),medioDePagoEfectivo,listaItemsOperacionDeEgreso7,0,200000,listaCategoriaOperacionDeEgreso7,entidadJuridicaEAAFBA);
-   operacionDeEgreso8 = new OperacionDeEgreso(LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8,entidadJuridicaSurcosCS);
-   operacionDeEgreso9 = new OperacionDeEgreso(LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS);
-   operacionDeEgreso10 = new OperacionDeEgreso(LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS);
+   operacionDeEgreso1 = new OperacionDeEgreso(LocalDate.of(2020,3,10),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso1,3,19952.69f,listaCategoriaOperacionDeEgreso1,entidadJuridicaEAAFBA,proveedorPintureriaSerrentino);
+   operacionDeEgreso2 = new OperacionDeEgreso(LocalDate.of(2020,7,8),medioDePagoEfectivo,listaItemsOperacionDeEgreso2,0,2100,listaCategoriaOperacionDeEgreso2,entidadJuridicaEAAFBA,proveedorEdesur);
+   operacionDeEgreso3 = new OperacionDeEgreso(LocalDate.of(2020,7,9),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso3,0,3500,listaCategoriaOperacionDeEgreso3,entidadJuridicaEAAFBA,proveedorMetrogas);
+   operacionDeEgreso4 = new OperacionDeEgreso(LocalDate.of(2020,8,3),medioDePagoTarjetaDebito,listaItemsOperacionDeEgreso4,0,26100,listaCategoriaOperacionDeEgreso4,entidadJuridicaEAAFBA,proveedorMitoas);
+   operacionDeEgreso5 = new OperacionDeEgreso(LocalDate.of(2020,9,27),medioDePagoEfectivo,listaItemsOperacionDeEgreso5,6,17000,listaCategoriaOperacionDeEgreso5,entidadJuridicaEAAFBA,proveedorIngenieriaComercial);
+   operacionDeEgreso6 = new OperacionDeEgreso(LocalDate.of(2020,10,1),medioDePagoEfectivo,listaItemsOperacionDeEgreso6,4,207708,listaCategoriaOperacionDeEgreso6,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
+   operacionDeEgreso7 = new OperacionDeEgreso(LocalDate.of(2020,10,5),medioDePagoEfectivo,listaItemsOperacionDeEgreso7,0,200000,listaCategoriaOperacionDeEgreso7,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
+   operacionDeEgreso8 = new OperacionDeEgreso(LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8,entidadJuridicaSurcosCS,proveedorEdesur);
+   operacionDeEgreso9 = new OperacionDeEgreso(LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS,proveedorMetrogas);
+   operacionDeEgreso10 = new OperacionDeEgreso(LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS,proveedorTelasZN);
 
 
     }
@@ -544,7 +545,7 @@ public class PersistenciaDatosPruebaTest {
        persistirUnObjeto(categoriaElectronicos);
        persistirUnObjeto(categoriaServiciosDeLuz);
        persistirUnObjeto(categoriaServiciosDeGas);
-       //persistirUnObjeto(categoriaNecesario);
+       persistirUnObjeto(categoriaNecesario);
        persistirUnObjeto(categoriaGrande);
        persistirUnObjeto(categoriaExterior);
 
@@ -563,12 +564,13 @@ public class PersistenciaDatosPruebaTest {
         persistirUnObjeto(criterioTipoDeProducto);
         persistirUnObjeto(criterioTamanioDelGasto);
         persistirUnObjeto(criterioServicios);
+        persistirUnObjeto(criterioElementosDeUsoInterno);
     }
 
-
+/*
         @Test
     public void verificarUsuarioAPersistidoA(){
-
+//
         Usuario unUsuario = EntityManagerHelper.getEntityManager().find(Usuario.class, 1);
         TipoUsuario tipo = TipoUsuario.ESTANDAR;
 
@@ -609,6 +611,8 @@ public class PersistenciaDatosPruebaTest {
         Assert.assertEquals(tipo,unUsuario.getTipo());
 
     }
+
+ */
 
 }
 

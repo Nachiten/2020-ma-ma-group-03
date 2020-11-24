@@ -79,6 +79,15 @@ public class OperacionDeIngreso  {
         inicializar();
     }
 
+    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha, LocalDate periodoAceptable,EntidadJuridica entidadJuridica) {
+        this.descripcion = descripcion;
+        this.montoTotal = montoTotal;
+        this.fecha = fecha;
+        this.periodoAceptacion = periodoAceptable;
+        this.entidadJuridicaAsociada = entidadJuridica;
+        inicializar();
+    }
+
     private void inicializar(){
         this.montoSinVincular = montoTotal;
         this.operacionesDeEgresoVinculadas = new ArrayList<>();

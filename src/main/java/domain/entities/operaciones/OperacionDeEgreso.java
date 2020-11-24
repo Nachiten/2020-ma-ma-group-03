@@ -20,46 +20,46 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @GeneratedValue
     private int idOperacion;
 
-    @ManyToOne (optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Usuario usuario;
 
-    @Column (name = "fecha")
+    @Column(name = "fecha")
     private LocalDate fecha;
 
-    @Column (name = "montoTotal")
+    @Column(name = "montoTotal")
     private float montoTotal;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "medioDePago_id")
     private MedioDePago medioDePago;
 
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "documentoComercial_id")
     private DocumentoComercial documentoComercial;
 
-    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items;
 
     // Error | Genera una tabla intermedia como si fuera many to many
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Presupuesto> presupuestos;
 
     @Transient // No se persiste
     private ValidadorTransparencia validadorTransparencia;
 
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Usuario> revisores;
 
     @Transient // No se persiste
     private CriterioSeleccionProveedor criterioSeleccionProveedor;
 
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<CategoriaCriterio> listaCategoriaCriterio;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private OperacionDeIngreso operacionDeIngreso;
 
-    @Column (name = "cantidadPresupuestosRequerida")
+    @Column(name = "cantidadPresupuestosRequerida")
     private int cantidadPresupuestosRequerida;
 
     @Transient // No se persiste
@@ -71,7 +71,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToOne(cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
-    @ManyToOne (optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "entidadJuridicaAsociada_id")
     private EntidadJuridica entidadJuridicaAsociada;
 
@@ -82,10 +82,12 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     private boolean fueVinculada;
 
     //-------------------------------------------------------------------------
-                            //CONTRUCTOR
+    //CONTRUCTOR
     //-------------------------------------------------------------------------
 
-    public OperacionDeEgreso() { inicializar();}
+    public OperacionDeEgreso() {
+        inicializar();
+    }
 
     public OperacionDeEgreso(LocalDate fecha, float montoTotal, MedioDePago medioDePago, List<Item> items) {
         this.fecha = fecha;
@@ -119,7 +121,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
-    public OperacionDeEgreso(LocalDate fecha, MedioDePago medio ,List<Item> items,int cantidadPresupuestos,float montoTotal, List<CategoriaCriterio> listaDeCategorias,EntidadJuridica entidadJuridicaAsociada) {
+    public OperacionDeEgreso(LocalDate fecha, MedioDePago medio, List<Item> items, int cantidadPresupuestos, float montoTotal, List<CategoriaCriterio> listaDeCategorias, EntidadJuridica entidadJuridicaAsociada) {
         this.fecha = fecha;
         this.medioDePago = medio;
         this.items = items;
@@ -130,6 +132,17 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
+    public OperacionDeEgreso(LocalDate fecha, MedioDePago medio ,List<Item> items,int cantidadPresupuestos,float montoTotal, List<CategoriaCriterio> listaDeCategorias,EntidadJuridica entidadJuridicaAsociada,Proveedor proveedor) {
+        this.fecha = fecha;
+        this.medioDePago = medio;
+        this.items = items;
+        this.cantidadPresupuestosRequerida = cantidadPresupuestos;
+        this.montoTotal = montoTotal;
+        this.listaCategoriaCriterio = listaDeCategorias;
+        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
+        this.proveedorAsociado = proveedor;
+        inicializar();
+    }
 
     //-------------------------------------------------------------------------
                                 //METODOS
