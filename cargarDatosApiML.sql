@@ -1,22 +1,4 @@
---
--- Table structure for table `paises`
---
-
-DROP TABLE IF EXISTS `paises`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `paises` (
-  `id` varchar(255) NOT NULL,
-  `currency_id` varchar(255) DEFAULT NULL,
-  `locale` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `paises`
---
+use persistenciatp;
 
 LOCK TABLES `paises` WRITE;
 /*!40000 ALTER TABLE `paises` DISABLE KEYS */;
@@ -24,53 +6,11 @@ INSERT INTO `paises` VALUES ('AR','ARS','es_AR','Argentina'),('BO','BOB','es_BO'
 /*!40000 ALTER TABLE `paises` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `provincias`
---
-
-DROP TABLE IF EXISTS `provincias`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `provincias` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `paisAsociado_id` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_m97fitxp7pcq7bcurvfb9lypx` (`paisAsociado_id`),
-  CONSTRAINT `FK_m97fitxp7pcq7bcurvfb9lypx` FOREIGN KEY (`paisAsociado_id`) REFERENCES `paises` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `provincias`
---
-
 LOCK TABLES `provincias` WRITE;
 /*!40000 ALTER TABLE `provincias` DISABLE KEYS */;
 INSERT INTO `provincias` VALUES ('BS_AS','Buenos Aires','COL'),('CBT-PRT','Portugal','CBT'),('CHN','China','CN'),('HK','Hong Kong','CN'),('RU','Reino Unido','GB'),('TU5JUE1OSU1hbmhXTA','Managua','NI'),('TU5JUE1OSU1hc25BRg','Masaya','NI'),('TU5JUE1OSU1hdFdpaQ','Matagalpa','NI'),('TU5JUE1OSU1hZEhKcQ','Madriz','NI'),('TU5JUE1OSU51ZUh2Yg','Nueva Segovia','NI'),('TU5JUE1OSUdyYWxUWg','Granada','NI'),('TU5JUE1OSUF0bER3Yg','Atlántico Sur','NI'),('TU5JUE1OSUF0bFBDVA','Atlántico Norte','NI'),('TU5JUE1OSUJvYU9DaQ','Boaco','NI'),('TU5JUE1OSUNhclNsVw','Carazo','NI'),('TU5JUE1OSUNoaUV3cg','Chinandega','NI'),('TU5JUE1OSUNob1psWA','Chontales','NI'),('TU5JUE1OSUppbktOaw','Jinotega','NI'),('TU5JUE1OSUVzdHZabQ','Estelí','NI'),('TU5JUE1OSUxl82JxSQ','León','NI'),('TU5JUE1OSVJpdnRhbQ','Rivas','NI'),('TU5JUE1OSVLtb0JWRA','Río San Juan','NI'),('TUdUUE1HVEd1YXh1UA','Guatemala','GT'),('TUdUUE1HVEFsdHlWaQ','Alta Verapaz','GT'),('TUdUUE1HVEh1ZW5ZVA','Huehuetenango','GT'),('TUdUUE1HVEJhalBzeg','Baja Verapaz','GT'),('TUdUUE1HVEl6YWdzeg','Izabal','GT'),('TUdUUE1HVENoaWdYdQ','Chiquimula','GT'),('TUdUUE1HVENoaXh6Rg','Chimaltenango','GT'),('TUdUUE1HVEp1dEJuag','Jutiapa','GT'),('TUdUUE1HVEphbHBBeQ','Jalapa','GT'),('TUdUUE1HVEVsUHBMbw','El Progreso','GT'),('TUdUUE1HVEVzY09QYg','Escuintla','GT'),('TUdUUE1HVFBldEpBRw','Petén','GT'),('TUdUUE1HVFF1aWRrVg','Quiché','GT'),('TUdUUE1HVFF1ZWZYYQ','Quetzaltenango','GT'),('TUdUUE1HVFJldEJMUg','Retalhuleu','GT'),('TUdUUE1HVFN1Y0tJSA','Suchitepéquez','GT'),('TUdUUE1HVFNhblhaYw','Santa Rosa','GT'),('TUdUUE1HVFNhbm1ORQ','San Marcos','GT'),('TUdUUE1HVFNhY2pWeQ','Sacatepéquez','GT'),('TUdUUE1HVFNvbFRPbg','Sololá','GT'),('TUdUUE1HVFphY0JpYg','Zacapa','GT'),('TUdUUE1HVFRvdExybw','Totonicapán','GT'),('TUhOUE1ITk9jb0x1Tw','Ocotepeque','HN'),('TUhOUE1ITk9sYVJyRQ','Olancho','HN'),('TUhOUE1ITkdyYWp0eQ','Gracias a Dios','HN'),('TUhOUE1ITkF0bFJWRw','Atlántida','HN'),('TUhOUE1ITkludGF5dA','Intibucá','HN'),('TUhOUE1ITklzbHFNbQ','Islas de la Bahía','HN'),('TUhOUE1ITkNob29KdA','Choluteca','HN'),('TUhOUE1ITkNvbG5FSA','Colón','HN'),('TUhOUE1ITkNvbVVHeA','Comayagua','HN'),('TUhOUE1ITkNvcE5Teg','Copán','HN'),('TUhOUE1ITkNvckNYVA','Cortés','HN'),('TUhOUE1ITkVsUExyUw','El Paraíso','HN'),('TUhOUE1ITkxhUEFJRQ','La Paz','HN'),('TUhOUE1ITkxlbXl4bw','Lempira','HN'),('TUhOUE1ITkZyYWtJTg','Francisco Morazán','HN'),('TUhOUE1ITllvcmNxWQ','Yoro','HN'),('TUhOUE1ITlNhbkhCRw','Santa Bárbara','HN'),('TUhOUE1ITlZhbFhkdg','Valle','HN'),('TUJPUE1CT09ydVRWYQ','Oruro','BO'),('TUJPUE1CT0Jlblh4Rg','Beni','BO'),('TUJPUE1CT0NodUpKSw','Chuquisaca','BO'),('TUJPUE1CT0NvY0RJZg','Cochabamba','BO'),('TUJPUE1CT0xhUGVNdA','La Paz','BO'),('TUJPUE1CT1BhbnBlcA','Pando','BO'),('TUJPUE1CT1BvdGpNVw','Potosí','BO'),('TUJPUE1CT1NhbnZxdA','Santa Cruz','BO'),('TUJPUE1CT1Rhck9lWg','Tarija','BO'),('TUNPUE1BR2FiZjQ0','Magdalena','CO'),('TUNPUE1FVGExNzFjNQ','Meta','CO'),('TUNPUE5BUm8xYzk4','Nariño','CO'),('TUNPUE5PUnIxNDkyZg','Norte De Santander','CO'),('TUNPUE9UUjU3NjY2OA','Otros Paises','CO'),('TUNPUEdVQWExNGQ0Yw','Guainía','CO'),('TUNPUEdVQWExOTYx','Guajira','CO'),('TUNPUEdVQWVhMjEy','Guaviare','CO'),('TUNPUEFNQXMxMzQ2YQ','Amazonas','CO'),('TUNPUEFOVGFiZWI3','Antioquia','CO'),('TUNPUEFSQ2E4Zjc3','San Andres y Providencia','CO'),('TUNPUEFSQWExM2U4Mw','Arauca','CO'),('TUNPUEFUTG9mNDk5','Atlántico','CO'),('TUNPUEhVSWExNDVkMQ','Huila','CO'),('TUNPUEJPR1gxMDljZA','Bogotá D.C.','CO'),('TUNPUEJPTHI1Mzlk','Bolívar','CO'),('TUNPUEJPWWE4YzMz','Boyaca','CO'),('TUNPUENBTHNjODY4','Caldas','CO'),('TUNPUENBU2U2OWIy','Casanare','CO'),('TUNPUENBUWExNjM3MA','Caqueta','CO'),('TUNPUENBVWExM2Q1NQ','Cauca','CO'),('TUNPUENFU3IxODA4Mg','Cesar','CO'),('TUNPUENIT28xNDgzNg','Choco','CO'),('TUNPUENPUmFkZGIw','Córdoba','CO'),('TUNPUENVTmE3NmQ4','Cundinamarca','CO'),('TUNPUFBVVG8xODQzMA','Putumayo','CO'),('TUNPUFFVSW9kYmZm','Quindio','CO'),('TUNPUFJJU2ExMWIyYg','Risaralda','CO'),('TUNPUFNBTnJlMjMw','Santander','CO'),('TUNPUFNVQ2U4ZWQ0','Sucre','CO'),('TUNPUFRPTGExNGZkNA','Tolima','CO'),('TUNPUFZBTGExNmNjNg','Valle Del Cauca','CO'),('TUNPUFZBVXMxNDFhYw','Vaupes','CO'),('TUNPUFZJQ2ExNWQwNg','Vichada','CO'),('TUNSUE1DUkdVQTY','Guanacaste','CR'),('TUNSUE1DUkFMQTM','Alajuela','CR'),('TUNSUE1DUkhFUjU','Heredia','CR'),('TUNSUE1DUkNBUjQ','Cartago','CR'),('TUNSUE1DUkxJTTg','Limón','CR'),('TUNSUE1DUlBVTjc','Puntarenas','CR'),('TUNSUE1DUlNBTjI','San José','CR'),('TUVDUE1BTmkxMDgyZQ','Manabí','EC'),('TUVDUE1PUm8xNmJjMg','Morona Santiago','EC'),('TUVDUE5BUG81MDEy','Napo','EC'),('TUVDUE9SRWExMDI5Mg','Orellana','EC'),('TUVDUEdBTHMxN2VjYg','Galápagos','EC'),('TUVDUEdVQXM3ODU4','Guayas','EC'),('TUVDUEFaVXkxMzQ1NA','Azuay','EC'),('TUVDUEJPTHJkMjM5','Bolívar','EC'),('TUVDUElNQmE5MGRi','Imbabura','EC'),('TUVDUENB0XIxNjQ','Cañar','EC'),('TUVDUENBUmk3Mjcw','Carchi','EC'),('TUVDUENISW8xMjY','Chimborazo','EC'),('TUVDUENPVGkxM2Q3','Cotopaxi','EC'),('TUVDUEVMWm8xNGE1Mw','El Oro','EC'),('TUVDUEVTTXMxNDIxZg','Esmeraldas','EC'),('TUVDUExPSmExMjFiYQ','Loja','EC'),('TUVDUExPU3MxMjNkMQ','Los Ríos','EC'),('TUVDUFBBU2E4YzE2','Pastaza','EC'),('TUVDUFBJQ2FjNTc5','Pichincha ( Quito )','EC'),('TUVDUFNBTmRvbWluZw','Santo Domingo de los Tsáchilas','EC'),('TUVDUFNBTmVsZW5h','Santa Elena','EC'),('TUVDUFNVQ3M4ZTVj','Sucumbíos','EC'),('TUVDUFpBTWExMjI4','Zamora Chinchipe','EC'),('TUVDUFRVTmFiOGI2','Tungurahua','EC'),('TUxBUE1FTmE5OWQ4','Mendoza','AR'),('TUxBUE1JU3MzNjIx','Misiones','AR'),('TUxBUE5FVW4xMzMzNQ','Neuquén','AR'),('TUxBUEdSQWU4ZDkz','Bs.As. G.B.A. Norte','AR'),('TUxBUEdSQWVmNTVm','Bs.As. G.B.A. Oeste','AR'),('TUxBUEdSQXJlMDNm','Bs.As. G.B.A. Sur','AR'),('TUxBUEJSQWwyMzA1','Brasil','AR'),('TUxBUENBUGw3M2E1','Capital Federal','AR'),('TUxBUENBVGFiY2Fm','Catamarca','AR'),('TUxBUENIQW8xMTNhOA','Chaco','AR'),('TUxBUENIVXQxNDM1MQ','Chubut','AR'),('TUxBUENPU2ExMmFkMw','Bs.As. Costa Atlántica','AR'),('TUxBUENPUmFkZGIw','Córdoba','AR'),('TUxBUENPUnM5MjI0','Corrientes','AR'),('TUxBUEpVSnk3YmUz','Jujuy','AR'),('TUxBUEVOVHMzNTdm','Entre Ríos','AR'),('TUxBUExBWmE1OWMy','La Pampa','AR'),('TUxBUExBWmEyNzY0','La Rioja','AR'),('TUxBUEZPUmE1OTk5','Formosa','AR'),('TUxBUFJFUDQyMjQ4Ng','República Dominicana','AR'),('TUxBUFLNT29iZmZm','Río Negro','AR'),('TUxBUFNBTGFjMTJi','Salta','AR'),('TUxBUFNBTm5lYjU4','San Juan','AR'),('TUxBUFNBTm9lOTlk','Santiago del Estero','AR'),('TUxBUFNBTmU5Nzk2','Santa Fe','AR'),('TUxBUFNBTnM0ZTcz','San Luis','AR'),('TUxBUFNBTno3ZmY5','Santa Cruz','AR'),('TUxBUFpPTmFpbnRl','Buenos Aires Interior','AR'),('TUxBUFRJRVoxM2M5YQ','Tierra del Fuego','AR'),('TUxBUFRVQ244NmM3','Tucumán','AR'),('TUxBUFVSVXllZDVl','Uruguay','AR'),('TUxBUFVTQWl1cXdlMg','USA','AR'),('TUxCUE1BUk81MWVi','Maranhão','BR'),('TUxCUE1BVE9jZDY0','Mato Grosso','BR'),('TUxCUE1BVEw4ZTc','Mato Grosso do Sul','BR'),('TUxCUE1JTlMxNTAyZA','Minas Gerais','BR'),('TUxCUEdPSVMxNzVmMw','Goiás','BR'),('TUxCUEFDUkVkNTU','Acre','BR'),('TUxCUEFMQVNmZjUw','Alagoas','BR'),('TUxCUEFNQUExNTZlNg','Amapá','BR'),('TUxCUEFNQVMxNzgwYQ','Amazonas','BR'),('TUxCUEJBSEFlYmEx','Bahia','BR'),('TUxCUENFQUExNzkyZQ','Ceará','BR'),('TUxCUERJU0wxMWJhYg','Distrito Federal','BR'),('TUxCUEVTUE8xN2Y3NA','Espírito Santo','BR'),('TUxCUFBBUkE0M2I4','Paraíba','BR'),('TUxCUFBBUkExODBlZA','Paraná','BR'),('TUxCUFBBUkFiY2Uw','Pará','BR'),('TUxCUFBFUk8xZmZj','Pernambuco','BR'),('TUxCUFBJQUk1NDVj','Piauí','BR'),('TUxCUFJJT08xODM5Zg','Rio de Janeiro','BR'),('TUxCUFJJT0VkMmNj','Rio Grande do Norte','BR'),('TUxCUFJJT0xkYzM0','Rio Grande do Sul','BR'),('TUxCUFJPTkExMmU4YQ','Rondônia','BR'),('TUxCUFJPUkExODBiMQ','Roraima','BR'),('TUxCUFNBT085N2E4','São Paulo','BR'),('TUxCUFNBTkE5Nzc4','Santa Catarina','BR'),('TUxCUFNFUkUxMmZlOQ','Sergipe','BR'),('TUxCUFRPQ1NjZDBm','Tocantins','BR'),('TUxDUE1BR1MxN2UxNw','Magallanes','CL'),('TUxDUE1FVEExM2JlYg','RM (Metropolitana)','CL'),('TUxDUE9IUzFjODg','Libertador B. O\'Higgins','CL'),('TUxDUEFJU04xNGU1NA','Aysén','CL'),('TUxDUEFOVEE3NWZk','Antofagasta','CL'),('TUxDUEFSQUE3YzVk','La Araucanía','CL'),('TUxDUEFUQUE4YjAw','Atacama','CL'),('TUxDUEFZUEE3NWZk','Arica y Parinacota','CL'),('TUxDUElORzI1Y2hpMg','Inglaterra','CL'),('TUxDUENISTI1Y2hpMg','China','CL'),('TUxDUENPUU84MzQx','Coquimbo','CL'),('TUxDUERFTE9lODZj','Biobío','CL'),('TUxDUERFTEVkN2Yy','Maule','CL'),('TUxDUERFTExNUBLE','Ñuble','CL'),('TUxDUExPU1NmYjk5','Los Lagos','CL'),('TUxDUExTUkE3NWZk','Los Ríos','CL'),('TUxDUFRBUkFhZDJi','Tarapacá','CL'),('TUxDUFVTQTI1Y2hpMg','USA','CL'),('TUxDUFZBTE84MDVj','Valparaíso','CL'),('TUxNUE1JQzg2Nzc','Michoacán','MX'),('TUxNUE1PUjI4Njk','Morelos','MX'),('TUxNUE5BWTMzOTg','Nayarit','MX'),('TUxNUE5VRTEzNTU','Nuevo León','MX'),('TUxNUE9BWDUzNzE','Oaxaca','MX'),('TUxNUEdVQTgzNzk','Guanajuato','MX'),('TUxNUEdVRTM0NTA','Guerrero','MX'),('TUxNUEFHVTMwNjE','Aguascalientes','MX'),('TUxNUEhJRDM3MzU','Hidalgo','MX'),('TUxNUEJBSjc0NzU','Baja California','MX'),('TUxNUEJBSjI3NTY','Baja California Sur','MX'),('TUxNUENBTTY3NjU','Campeche','MX'),('TUxNUENISTgwNDc','Chihuahua','MX'),('TUxNUENISTM5NjI','Chiapas','MX'),('TUxNUENPQTgwMzE','Coahuila','MX'),('TUxNUENPTDQzNTc','Colima','MX'),('TUxNUEpBTDM3MTg','Jalisco','MX'),('TUxNUERJUzYwOTQ','Distrito Federal','MX'),('TUxNUERVUjc3MDc','Durango','MX'),('TUxNUEVTVDMzMzc','Estado De México','MX'),('TUxNUFBVRTQ4ODM','Puebla','MX'),('TUxNUFFVRTc3ODg','Querétaro','MX'),('TUxNUFFVSTcyNjE','Quintana Roo','MX'),('TUxNUFlVQzc1OTk','Yucatán','MX'),('TUxNUFNBTjk2ODI','San Luis Potosí','MX'),('TUxNUFNJTjU3NzY','Sinaloa','MX'),('TUxNUFNPTjgwMjI','Sonora','MX'),('TUxNUFpBQzYxMTk','Zacatecas','MX'),('TUxNUFRBQjQwNTc','Tabasco','MX'),('TUxNUFRBTTYwMjc','Tamaulipas','MX'),('TUxNUFRMQTY5ODY','Tlaxcala','MX'),('TUxNUFZFUjk2Mjg','Veracruz','MX'),('TUxVUE1BTFo5OWMx','Maldonado','UY'),('TUxVUE1PTlo2MDIy','Montevideo','UY'),('TUxVUEFSVHMxMzQ1Mw','Artigas','UY'),('TUxVUENBTnMxNzliYw','Canelones','UY'),('TUxVUENFUm9mOTJl','Cerro Largo','UY'),('TUxVUENPTGExMTUwOQ','Colonia','UY'),('TUxVUERVUm9kZDA1','Durazno','UY'),('TUxVUExBVlpkNTI0','Lavalleja','UY'),('TUxVUEZMT1o4MWUz','Florida','UY'),('TUxVUEZMT3MxYjc','Flores','UY'),('TUxVUFBBWVo0YzEy','Paysandú','UY'),('TUxVUFJJVlpjOWQ1','Rivera','UY'),('TUxVUFJPQ1ozNWRm','Rocha','UY'),('TUxVUFLNT1oxNTQ4MQ','Río Negro','UY'),('TUxVUFNBTG9jMTM5','Salto','UY'),('TUxVUFNBTloxMDk2NQ','San José','UY'),('TUxVUFNPUm9mOTcx','Soriano','UY'),('TUxVUFRBQ280MGE5','Tacuarembó','UY'),('TUxVUFRSRXNiY2Zh','Treinta y Tres','UY'),('TUxWUE1FUmFhNDEw','Mérida','VE'),('TUxWUE1JUmE0ZDAw','Miranda','VE'),('TUxWUE1PTnNiMjdj','Monagas','VE'),('TUxWUE5VRWExNjg5','Nueva Esparta','VE'),('TUxWUE9UUjcxNTA1Nw','Otros Paises','VE'),('TUxWUEdVQW8yZmNh','Guárico','VE'),('TUxWUEFNQXMxMzQ2YQ','Amazonas','VE'),('TUxWUEFOWmkxNDJmNQ','Anzoátegui','VE'),('TUxWUEFQVWUxM2U3OQ','Apure','VE'),('TUxWUEFSQWExMGMyMw','Aragua','VE'),('TUxWUEJBUnNiNjhh','Barinas','VE'),('TUxWUEJPTHJkMjM5','Bolívar','VE'),('TUxWUENBUm9kMDg3','Carabobo','VE'),('TUxWUENPSnM2M2Y1','Cojedes','VE'),('TUxWUERFTG8xM2FmNA','Delta Amacuro','VE'),('TUxWUERFUDc5MTYyNA','Depend. Federales','VE'),('TUxWUERJU2wxMzkxMA','Distrito Capital','VE'),('TUxWUExBUmFlZTI0','Lara','VE'),('TUxWUEZBTG5hNTRk','Falcón','VE'),('TUxWUFBPUmEzNzhm','Portuguesa','VE'),('TUxWUFlBUnliNjMw','Yaracuy','VE'),('TUxWUFNVQ2U4ZWQ0','Sucre','VE'),('TUxWUFpVTGEyNTY5','Zulia','VE'),('TUxWUFRBQ2ExMzRkYQ','Táchira','VE'),('TUxWUFRSVW81Y2Y5','Trujillo','VE'),('TUxWUFZBUnMxM2E2ZQ','Vargas','VE'),('TVBBUE1QQUhFUjE','Herrera','PA'),('TVBBUE1QQUJPQzE','Bocas del Toro','PA'),('TVBBUE1QQUNISTE','Chiriquí','PA'),('TVBBUE1QQUNPQzE','Coclé','PA'),('TVBBUE1QQUNPTDE','Colón','PA'),('TVBBUE1QQURBUjE','Darién','PA'),('TVBBUE1QQUxPUzE','Los Santos','PA'),('TVBBUE1QQVBBTjE','Panamá','PA'),('TVBBUE1QQVNBTkJMQQ','San Blas','PA'),('TVBBUE1QQVZFUjE','Veraguas','PA'),('TVBFUE1BRHMxMGQxNQ','Madre De Dios','PE'),('TVBFUE1PUWE5OTZj','Moquegua','PE'),('TVBFUEFNQXMxMzQ2YQ','Amazonas','PE'),('TVBFUEFOQ2g2ZWEw','Ancash','PE'),('TVBFUEFQVWNiODcy','Apurimac','PE'),('TVBFUEFSRWFiZDll','Arequipa','PE'),('TVBFUEFZQW9lMmFm','Ayacucho','PE'),('TVBFUEhVQW82OGY5','Huanuco','PE'),('TVBFUEhVQWEzN2Zl','Huancavelica','PE'),('TVBFUElDQWExMWU2Nw','Ica','PE'),('TVBFUENBSmFjNTU5','Cajamarca','PE'),('TVBFUENBTG9lNjZj','Callao','PE'),('TVBFUENVU28xMjU4ZA','Cusco','PE'),('TVBFUEpVTm44OTY4','Junin','PE'),('TVBFUExBTWU5ZGEy','Lambayeque','PE'),('TVBFUExBWmQyNzkw','La Libertad','PE'),('TVBFUExJTWExMGI5MQ','Lima','PE'),('TVBFUExPUm9hYzBm','Loreto','PE'),('TVBFUFBBU28xNGM2ZQ','Pasco','PE'),('TVBFUFBJVWE2NGNi','Piura','PE'),('TVBFUFBVTm8xODNhNg','Puno','PE'),('TVBFUFNBTm40MjFi','San Martin','PE'),('TVBFUFRBQ2FmYTg5','Tacna','PE'),('TVBFUFRVTXM1NWZj','Tumbes','PE'),('TVBFUFVDQWkxMTMxOA','Ucayali','PE'),('TVBUUEdVQTUxNjk2NQ','Guarda','PT'),('TVBUUEFWRTMxNjU5NQ','Aveiro','PT'),('TVBUUEJFSjY5MDA5MA','Beja','PT'),('TVBUUEJSQTgwMDg5Mg','Bragança','PT'),('TVBUUEJSQTY1OTE1Ng','Braga','PT'),('TVBUUElMSDg3MDU3Mw','Ilhas dos Açores','PT'),('TVBUUElMSDI0NjAwMQ','Ilha da Madeira','PT'),('TVBUUENBUzUzMzgzMQ','Castelo Branco','PT'),('TVBUUENPSTc1MTUyNQ','Coimbra','PT'),('TVBUUEVWTzQ3OTYxOQ','Évora','PT'),('TVBUUExFSTI0MTM4Nw','Leiria','PT'),('TVBUUExJUzU1NjY4Nw','Lisboa','PT'),('TVBUUEZBUjEwNTAyNQ','Faro','PT'),('TVBUUFBPUjk3NTc2MA','Portalegre','PT'),('TVBUUFBPUjkzNzA4OA','Porto','PT'),('TVBUUFNBTjg0MTgwMA','Santarém','PT'),('TVBUUFNFVDcwMjU2NA','Setúbal','PT'),('TVBUUFZJQTMzMDQ0Mg','Viana do Castelo','PT'),('TVBUUFZJTDcyMjcwOA','Vila Real','PT'),('TVBUUFZJUzU5ODMzMQ','Viseu','PT'),('TVBZUE1QWdFlZUdLdQ','Ñeembucú','PY'),('TVBZUE1QWU1pc29tTA','Misiones','PY'),('TVBZUE1QWUd1YXBtSQ','Guairá','PY'),('TVBZUE1QWUFsdExtZw','Alto Paraguay','PY'),('TVBZUE1QWUFsdHBicQ','Alto Paraná','PY'),('TVBZUE1QWUFtYU1ESw','Amambay','PY'),('TVBZUE1QWUFzdUpKQg','Asunción D.C.','PY'),('TVBZUE1QWUJvcW1BRg','Boquerón','PY'),('TVBZUE1QWUl0YUl4Vw','Itapúa','PY'),('TVBZUE1QWUNhblhMSA','Canindeyú','PY'),('TVBZUE1QWUNhYUJIeg','Caazapá','PY'),('TVBZUE1QWUNhYXhsTg','Caaguazú','PY'),('TVBZUE1QWUNlblRwdg','Central','PY'),('TVBZUE1QWUNvbkNxeg','Concepción','PY'),('TVBZUE1QWUNvcktCTg','Cordillera','PY'),('TVBZUE1QWVBhck1JRw','Paraguarí','PY'),('TVBZUE1QWVByZVVYYw','Presidente Hayes','PY'),('TVBZUE1QWVNhbk5IVQ','San Pedro','PY'),('TVJEUE1SRE1BUs1B','María Trinidad Sánchez','DO'),('TVJEUE1SRE1PTlNF0Q','Monseñor Nouel','DO'),('TVJEUE1SRE1PTlRF','Monte Plata','DO'),('TVJEUE1SRE1PTlRFQw','Montecristi','DO'),('TVJEUE1SREFaVUE','Azua','DO'),('TVJEUE1SREhBVE9N','Hato Mayor','DO'),('TVJEUE1SREJBT1JVQw','Baoruco','DO'),('TVJEUE1SREJBUkFITw','Barahona','DO'),('TVJEUE1SRElOREVQRQ','Independencia','DO'),('TVJEUE1SRERBSkFC0w','Dajabón','DO'),('TVJEUE1SRERJU1RSSQ','Distrito Nacional','DO'),('TVJEUE1SRERVQVJURQ','Duarte','DO'),('TVJEUE1SREVMU0VJ','El Seibo','DO'),('TVJEUE1SREVMzUFT','Elías Piña','DO'),('TVJEUE1SREVTUEFJTA','Espaillat','DO'),('TVJEUE1SRExBQUxU','La Altagracia','DO'),('TVJEUE1SRExBUk9N','La Romana','DO'),('TVJEUE1SRExBVkVH','La Vega','DO'),('TVJEUE1SRFBFREVSTg','Pedernales','DO'),('TVJEUE1SRFBFUkFWSQ','Peravia','DO'),('TVJEUE1SRFBVRVJUTw','Puerto Plata','DO'),('TVJEUE1SRFNBTENFRA','Salcedo','DO'),('TVJEUE1SRFNBTkNS','San Cristóbal','DO'),('TVJEUE1SRFNBTkpP','San José de Ocoa','DO'),('TVJEUE1SRFNBTkpV','San Juan','DO'),('TVJEUE1SRFNBTlBF','San Pedro de Macorís','DO'),('TVJEUE1SRFNBTlRJMg','Santiago Rodríguez','DO'),('TVJEUE1SRFNBTlRJQQ','Santiago','DO'),('TVJEUE1SRFNBTlRP','Santo Domingo','DO'),('TVJEUE1SRFNBTUFOwQ','Samaná','DO'),('TVJEUE1SRFPBTkNIRQ','Sánchez Ramírez','DO'),('TVJEUE1SRFZBTFZFUg','Valverde','DO'),('TVNWUE1TVk1vclNidg','Morazán','SV'),('TVNWUE1TVkFodVNyeg','Ahuachapán','SV'),('TVNWUE1TVkN1c1J0Rw','Cuscatlán','SV'),('TVNWUE1TVkNhYnZGag','Cabañas','SV'),('TVNWUE1TVkNoYXNUaQ','Chalatenango','SV'),('TVNWUE1TVkxhTERuZA','La Libertad','SV'),('TVNWUE1TVkxhUEZZag','La Paz','SV'),('TVNWUE1TVkxhVUFobw','La Unión','SV'),('TVNWUE1TVlNhbk12cA','Santa Ana','SV'),('TVNWUE1TVlNhbkZmQw','San Miguel','SV'),('TVNWUE1TVlNhbm9KTQ','San Vicente','SV'),('TVNWUE1TVlNhbmVOWA','San Salvador','SV'),('TVNWUE1TVlNvbkZCSQ','Sonsonate','SV'),('TVNWUE1TVlVzdWltUg','Usulután','SV');
 /*!40000 ALTER TABLE `provincias` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `ciudades`
---
-
-DROP TABLE IF EXISTS `ciudades`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ciudades` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `provinciaAsociada_id` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_hcyx09ed7osvudqstqmrsyh4s` (`provinciaAsociada_id`),
-  CONSTRAINT `FK_hcyx09ed7osvudqstqmrsyh4s` FOREIGN KEY (`provinciaAsociada_id`) REFERENCES `provincias` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ciudades`
---
 
 LOCK TABLES `ciudades` WRITE;
 /*!40000 ALTER TABLE `ciudades` DISABLE KEYS */;
@@ -79,29 +19,8 @@ INSERT INTO `ciudades` VALUES ('TVJEQ01SRFZJTExBNg14020','Villa Altagracia','TVJ
 /*!40000 ALTER TABLE `ciudades` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `monedas`
---
-
-DROP TABLE IF EXISTS `monedas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `monedas` (
-  `id` varchar(255) NOT NULL,
-  `decimales` varchar(255) DEFAULT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  `simbolo` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `monedas`
---
-
 LOCK TABLES `monedas` WRITE;
 /*!40000 ALTER TABLE `monedas` DISABLE KEYS */;
 INSERT INTO `monedas` VALUES ('ARS','2','Peso argentino','$'),('BOB','2','Boliviano','Bs'),('BRL','2','Real','R$'),('CLF','2','Unidad de Fomento','UF'),('CLP','0','Peso Chileno','$'),('COP','0','Peso colombiano','$'),('CRC','2','Colones','¢'),('CUC','2','Peso Cubano Convertible','CUC'),('CUP','2','Peso Cubano','$'),('DOP','2','Peso Dominicano','$'),('EUR','2','Euro','€'),('GTQ','2','Quetzal Guatemalteco','Q'),('HNL','0','Lempira','L'),('MXN','2','Peso Mexicano','$'),('NIO','0','Córdoba','C$'),('PAB','2','Balboa','B/.'),('PEN','2','Soles','S/'),('PYG','0','Guaraní','?'),('USD','2','Dólar','U$S'),('UYU','2','Peso Uruguayo','$'),('VEF','2','Bolivar fuerte','Bs.'),('VES','2','Bolivar Soberano','Bs.');
 /*!40000 ALTER TABLE `monedas` ENABLE KEYS */;
 UNLOCK TABLES;
-
