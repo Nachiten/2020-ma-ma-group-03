@@ -56,6 +56,9 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToMany (cascade = CascadeType.ALL)
     private List<CategoriaCriterio> listaCategoriaCriterio;
 
+    @ManyToOne (cascade = CascadeType.ALL)
+    private OperacionDeIngreso operacionDeIngreso;
+
     @Column (name = "cantidadPresupuestosRequerida")
     private int cantidadPresupuestosRequerida;
 
@@ -68,11 +71,12 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToOne(cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
-    @Column (name = "entidadJuridica_id")
-    private int entidadJuridicaAsociada_id;
+    @ManyToOne (optional = false)
+    @JoinColumn(name = "entidadJuridicaAsociada_id")
+    private EntidadJuridica entidadJuridicaAsociada;
 
-    @Column (name = "operacionDeIngreso_id")
-    private int operacionDeIngreso_id;
+    @Transient
+    private int operacionDeIngresoId;
 
     @Transient
     private boolean fueVinculada;
@@ -105,12 +109,24 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
-    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal, int operacionDeIngresoId, boolean fueVinculada) {
+    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal, OperacionDeIngreso operacionDeIngreso, boolean fueVinculada) {
         this.idOperacion = idOperacion;
         this.fecha = fecha;
         this.montoTotal = montoTotal;
-        this.operacionDeIngreso_id = operacionDeIngresoId;
+        this.operacionDeIngreso = operacionDeIngreso;
+        this.operacionDeIngresoId = operacionDeIngreso.getId();
         this.fueVinculada = fueVinculada;
+        inicializar();
+    }
+
+    public OperacionDeEgreso(LocalDate fecha, MedioDePago medio ,List<Item> items,int cantidadPresupuestos,float montoTotal, List<CategoriaCriterio> listaDeCategorias,EntidadJuridica entidadJuridicaAsociada) {
+        this.fecha = fecha;
+        this.medioDePago = medio;
+        this.items = items;
+        this.cantidadPresupuestosRequerida = cantidadPresupuestos;
+        this.montoTotal = montoTotal;
+        this.listaCategoriaCriterio = listaDeCategorias;
+        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
         inicializar();
     }
 
@@ -203,13 +219,13 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.presupuestos = presupuestos;
     }
 
-    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) { this.entidadJuridicaAsociada_id = entidadJuridicaAsociada.getId(); }
+    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) { this.entidadJuridicaAsociada = entidadJuridicaAsociada; }
 
     public void setProveedorAsociado(Proveedor proveedorAsociado) {
         this.proveedorAsociado = proveedorAsociado;
     }
 
-    public void setOperacionDeIngreso(OperacionDeIngreso operacionDeIngreso) { this.operacionDeIngreso_id = operacionDeIngreso.getId(); }
+    public void setOperacionDeIngresoId(OperacionDeIngreso operacionDeIngreso) { this.operacionDeIngresoId = operacionDeIngreso.getId(); }
 
     public void setFueVinculada(boolean fueVinculada) {
         this.fueVinculada = fueVinculada;
@@ -245,7 +261,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     public int getCantidadDeVecesValidada() { return cantidadDeVecesValidada; }
 
     public int getEntidadJuridicaAsociada_id(){
-        return entidadJuridicaAsociada_id;
+        return entidadJuridicaAsociada.getId();
     }
 
     public Boolean fueVinculada(){
@@ -253,6 +269,10 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     }
 
     public int getOperacionDeIngreso_id(){
-        return operacionDeIngreso_id;
+        return operacionDeIngresoId;
+    }
+
+    public OperacionDeIngreso getOperacionDeIngreso() {
+        return operacionDeIngreso;
     }
 }

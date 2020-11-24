@@ -151,7 +151,7 @@ public class PersistenciaOperacionesTest {
 
         // Creo y asocio operacion de ingreso
         operacionIngreso = new OperacionDeIngreso("Venta de algo", 5000, LocalDate.now());
-        operacionDeEgresoRopaA.setOperacionDeIngreso(operacionIngreso);
+        operacionDeEgresoRopaA.setOperacionDeIngresoId(operacionIngreso);
 
         System.out.println("Instancie todo");
 

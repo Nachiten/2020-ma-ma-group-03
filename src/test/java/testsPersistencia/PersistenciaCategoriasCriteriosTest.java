@@ -19,7 +19,7 @@ public class PersistenciaCategoriasCriteriosTest {
     }
 
     @Test
-    public void persistirCategoriasYCriterios(){
+    public void persistirCriterio1(){
         CategoriaCriterio categoria1 = new CategoriaCriterio("Oficina", "Articulos de oficina");
         CategoriaCriterio categoria2 = new CategoriaCriterio("Limpieza", "Articulos de limpieza");
         CategoriaCriterio categoria3 = new CategoriaCriterio("Seguridad", "Articulos de seguridad");
@@ -31,7 +31,11 @@ public class PersistenciaCategoriasCriteriosTest {
 
         Criterio miCriterio1 = new Criterio("Insumos", categoriasCriterioInsumos);
 
+        persistirUnObjeto(miCriterio1);
+    }
 
+    @Test
+    public void persistirCriterio2() {
         CategoriaCriterio categoria4 = new CategoriaCriterio("Edilicio", "Cosas edilicias");
         CategoriaCriterio categoria5 = new CategoriaCriterio("Tecnico", "Reparacion");
         CategoriaCriterio categoria6 = new CategoriaCriterio("Software", "Computadoras");
@@ -43,7 +47,11 @@ public class PersistenciaCategoriasCriteriosTest {
 
         Criterio miCriterio2 = new Criterio("Mantenimiento", categoriasCriterioMantenimiento);
 
+        persistirUnObjeto(miCriterio2);
+    }
 
+    @Test
+    public void persistirCriterio3() {
         CategoriaCriterio categoria7 = new CategoriaCriterio("Nacional", "Dentro del pais");
         CategoriaCriterio categoria8 = new CategoriaCriterio("Internacional", "Fuera del pais");
         CategoriaCriterio categoria9 = new CategoriaCriterio("Ambos", "Los dos anteriores");
@@ -55,7 +63,11 @@ public class PersistenciaCategoriasCriteriosTest {
 
         Criterio miCriterio3 = new Criterio("Alcance", categoriasCriterioAlcance);
 
+        persistirUnObjeto(miCriterio3);
+    }
 
+    @Test
+    public void persistirCriterio4() {
         CategoriaCriterio categoria10 = new CategoriaCriterio("Caro", "Mayor a 1M");
         CategoriaCriterio categoria11 = new CategoriaCriterio("Intermedio", "Entre 100k y 1M");
         CategoriaCriterio categoria12 = new CategoriaCriterio("Barato", "Menor a 100k");
@@ -67,7 +79,11 @@ public class PersistenciaCategoriasCriteriosTest {
 
         Criterio miCriterio4 = new Criterio("Valor", categoriasCriterioValor);
 
+        persistirUnObjeto(miCriterio4);
+    }
 
+    @Test
+    public void persistirCriterio5() {
         CategoriaCriterio categoria13 = new CategoriaCriterio("Interno", "Dentro de la empresa");
         CategoriaCriterio categoria14 = new CategoriaCriterio("Externo", "Fuera de la empresa");
         List<CategoriaCriterio> categoriasCriterioCliente = new ArrayList<>();
@@ -77,11 +93,6 @@ public class PersistenciaCategoriasCriteriosTest {
 
         Criterio miCriterio5 = new Criterio("Cliente", categoriasCriterioCliente);
 
-        persistirUnObjeto(miCriterio1);
-        persistirUnObjeto(miCriterio2);
-        persistirUnObjeto(miCriterio3);
-        persistirUnObjeto(miCriterio4);
         persistirUnObjeto(miCriterio5);
-
     }
 }

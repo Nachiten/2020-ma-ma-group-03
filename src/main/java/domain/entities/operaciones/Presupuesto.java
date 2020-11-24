@@ -5,20 +5,24 @@ import persistencia.EntidadPersistente;
 import domain.entities.vendedor.Proveedor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table (name = "presupuesto")
 public class    Presupuesto extends EntidadPersistente {
 
-    @Column (name = "operacionDeEgreso_id")
-    private int operacionDeEgreso_id;
+    @ManyToOne
+    private OperacionDeEgreso operacionAsociada;
 
     @Column (name = "montoTotal")
     private float montoTotal;
 
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items;
+
+    @Column (name = "fecha")
+    private LocalDate fecha;
 
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn (name = "documentoComercial_id", referencedColumnName = "id")
@@ -40,7 +44,15 @@ public class    Presupuesto extends EntidadPersistente {
     public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada) {
         this.montoTotal = montoTotal;
         this.items = items;
-        this.operacionDeEgreso_id = operacionAsociada.getIdOperacion();
+        this.operacionAsociada = operacionAsociada;
+    }
+
+    public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada,LocalDate fecha,Proveedor proveedorAsociado) {
+        this.montoTotal = montoTotal;
+        this.items = items;
+        this.fecha = fecha;
+        this.proveedorAsociado = proveedorAsociado;
+        this.operacionAsociada = operacionAsociada;
     }
 
     //-------------------------------------------------------------------------
@@ -71,7 +83,7 @@ public class    Presupuesto extends EntidadPersistente {
 
 
     public void setOperacionAsociada(OperacionDeEgreso operacionAsociada) {
-        this.operacionDeEgreso_id = operacionAsociada.getIdOperacion();
+        this.operacionAsociada = operacionAsociada;
     }
 
     public void setDocumentoComercial(DocumentoComercial documentoComercial) {

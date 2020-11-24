@@ -101,8 +101,8 @@ public class EgresosController {
 
         //Usuario miUsuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
         Usuario miUsuario = modalAndViewController.getUsuario();
-        int entidadJuridica_id = miUsuario.getEntidadJuridica();
-        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(entidadJuridica_id);
+        EntidadJuridica entidadJuridicaDeUsuario = miUsuario.getEntidadJuridica();
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(entidadJuridicaDeUsuario.getId());
 
         // Setters necesarios
         operacionAGuardar.setEntidadJuridicaAsociada(entidadJuridica);

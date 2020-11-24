@@ -137,11 +137,11 @@ public class AccionesEnUsuariosController {
         modalAndViewController.getParametros().put("miContrasenia", usuarioAEditar.getContrasenia());
 
         Repositorio<EntidadJuridica> repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
-        EntidadJuridica miEntidadJueridica = repoEntidadJuridica.buscar(usuarioAEditar.getEntidadJuridica());
+        EntidadJuridica miEntidadJueridica = repoEntidadJuridica.buscar(usuarioAEditar.getEntidadJuridica().getId());
         modalAndViewController.getParametros().put("idEntidadJuridica", miEntidadJueridica.getId());
         modalAndViewController.getParametros().put("razonSocialEntidadJueridica", miEntidadJueridica.getRazonSocial());
 
-        modalAndViewController.getParametros().put("soyRevisor", usuarioAEditar.getSoyRevisor());
+       // modalAndViewController.getParametros().put("soyRevisor", usuarioAEditar.getSoyRevisor());
 
         Repositorio<EntidadJuridica> repoEntidadesJuridicas = FactoryRepositorio.get(EntidadJuridica.class);
         List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
@@ -170,7 +170,7 @@ public class AccionesEnUsuariosController {
 
         boolean soyRevisor = soyRevisorEditado.equals("soyRevisor");
 
-        usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado, nuevaEntidadJuridica.getId(), soyRevisor);
+        usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado, nuevaEntidadJuridica);
 
         repoUsuario.modificar(usuarioEditadoAGuardar);
 

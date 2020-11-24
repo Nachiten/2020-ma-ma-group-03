@@ -1,0 +1,102 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                <a class="fas fa-smile-plus"></a>
+                ¡Nuevo Proveedor!
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "altaProveedor">
+                <center>
+                    <form action="javascript:void(0)" method="post">
+                        <table class= "formulario" border = 0 >
+                            <tr>
+                                <td>Nombre:</td>
+                                <td><input type="text" name="nombre" id="altaProveedor-nombre" placeholder="Ingrese su nombre"  id=" altaProveedor-nombre" required></td>
+                            </tr>
+                            <tr>
+                                <td>Apellido:</td>
+                                <td><input type="text" name="apellido" id="altaProveedor-apellido" placeholder="Ingrese su apellido" id="altaProveedor-apellido" required></td>
+                            </tr>
+                            <tr>
+                                <td>Razón Social:</td>
+                                <td><input type="text" name="razonSocial" id="altaProveedor-razonSocial" placeholder="Ingrese su razon social"  id = "altaProveedor-razonSocial" required></td>
+                            </tr>
+                            <tr>
+                                <td>CUIT/CUIL:</td>
+                                <td><input type="number" min="0" name="cuit_cuil" id="altaProveedor-cuit_cuil" placeholder="Ingrese su CUIT/CUIL" id="altaProveedor-cuit_cuil" required></td>
+                            </tr>
+                            <tr>
+                                <td>País:</td>
+                                <td>
+                                    <select name="pais" id="altaProveedor-pais" required >
+                                        <option hidden selected>Seleccionar país</option>
+                                        {{#each listaPaises}}
+                                            <option value="{{id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Provincia:</td>
+                                <td>
+                                    <select name="provincia" id="altaProveedor-provincia"required disabled>
+                                        <option hidden selected>Seleccionar provincia</option>
+                                        {{#each listaProvincias}}
+                                            <option value="{{id}}" data-attribute="{{paisAsociado.id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ciudad:</td>
+                                <td>
+                                    <select name="ciudad"  id="altaProveedor-ciudad" required disabled>
+                                        <option hidden selected>Seleccionar Ciudad</option>
+                                        {{#each listaCiudades}}
+                                            <option value="{{id}}" data-attribute="{{provinciaAsociada.id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Barrio:</td>
+                                <td><input type="text" name="barrio" id="altaProveedor-barrio" placeholder="Ingrese su barrio" ></td>
+                            </tr>
+                            <tr>
+                                <td>Calle:</td>
+                                <td><input type="text" name="calle" id="altaProveedor-calle" placeholder="Ingrese el nombre calle" required></td>
+                            </tr>
+                            <tr>
+                                <td>Altura:</td>
+                                <td><input type="number" min="0" name="altura" id="altaProveedor-altura" placeholder="Ingrese la altura" required></td>
+                            </tr>
+                            <tr>
+                                <td>Departamento:</td>
+                                <td><input type="text" name="departamento" id="altaProveedor-departamento" placeholder="Ingrese su departamento" ></td>
+                            </tr>
+                            <tr>
+                                <td>Piso:</td>
+                                <td><input type="number"  min="0" name="piso" id="altaProveedor-piso" placeholder="Ingrese su número de piso" ></td>
+                            </tr>
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal" onClick="location.reload();">
+                                Cancelar
+                            </button>
+                            <button type="submit" onclick="mostrarModalConfirmacionNuevoProveedor()">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
+<script src="/js/accionesProveedores.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">

@@ -19,13 +19,15 @@
 }
 
 .imagen img {
-    width: 80%;
+    width: 90%;
+    margin-block-start: 8%;
 }
 
 .imagen2 img {
-    margin-block-start: 3%;
-    width: 30%;
-    margin-left: 3%;
+    margin-block-start: 4%;
+    width: 40%;
+    float: right;
+    margin-right: 5%;
 }
 
 .imagen3 {
@@ -39,7 +41,7 @@
 
 .imagen3 img {
     margin-block-start: 4%;
-    width: 80%;
+    width: 90%;
 }
 
 .notaNuevo{

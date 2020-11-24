@@ -28,6 +28,12 @@ public class Criterio extends EntidadPersistente {
         this.nombre = nombre;
         this.listaCategoriaCriterio = categorias;
     }
+    public Criterio(String nombre, List<CategoriaCriterio> categorias,Criterio criterioPadre ){
+        listaCategoriaCriterio = new ArrayList<>();
+        this.nombre = nombre;
+        this.criterioPadre = criterioPadre;
+        this.listaCategoriaCriterio = categorias;
+    }
 
     public void agregarCategoria(CategoriaCriterio categoriaCriterio){
         listaCategoriaCriterio.add(categoriaCriterio);

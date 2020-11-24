@@ -10,8 +10,9 @@ import java.util.Date;
 @Table(name = "mensaje")
 public class Mensaje extends EntidadPersistente {
 
-    @Column(name = "nombreUsuarioAsociado")
-    private String nombreUsuarioAsociado;
+    @ManyToOne (optional = false)
+    @JoinColumn(name = "usuarioAsociado_id")
+    private Usuario usuarioAsociado;
 
     @Column(name = "fechaCreacion")
     private Date fechaCreado;
@@ -36,7 +37,7 @@ public class Mensaje extends EntidadPersistente {
     public Mensaje(Boolean resultado, String identificacion, Usuario usuario){
         this.fechaCreado = new Date();
         this.contenido = "La operacion de egreso: " + identificacion + " tiene resultado " + resultado.toString();
-        this.nombreUsuarioAsociado = usuario.getNombre();
+        this.usuarioAsociado = usuario;
         inicializar();
     }
 
@@ -57,7 +58,7 @@ public class Mensaje extends EntidadPersistente {
                             //GETTERS
     //-------------------------------------------------------------------------
 
-    public String getNombreUsuarioAsociado() { return nombreUsuarioAsociado; }
+    public Usuario getNombreUsuarioAsociado() { return usuarioAsociado; }
 
     public String getContenido() {
         return contenido;

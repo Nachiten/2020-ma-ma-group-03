@@ -15,7 +15,7 @@ public class Proveedor extends EntidadPersistente {
     private String apellidoProveedor;
     @Column(name = "dni")
     private int dniProveedor;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccionPostal_id", referencedColumnName = "id")
     private DireccionPostal direccionPostal;
     @Column(name = "razonSocial")
@@ -25,7 +25,14 @@ public class Proveedor extends EntidadPersistente {
     @Column(name="estoyHabilitado")
     private boolean estoyHabilitado ;
 
-    public Proveedor(){
+    public Proveedor(){inicializar();}
+
+    public Proveedor(String nombreIngresado, String apellidoIngresado, String cuit_cuilIngresado, DireccionPostal direccionPostal, String razonSocialIngresado){
+        this.nombreProveedor = nombreIngresado;
+        this.apellidoProveedor = apellidoIngresado;
+        this.direccionPostal = direccionPostal;
+        this.razonSocialProveedor = razonSocialIngresado;
+        this.cuit = cuit_cuilIngresado;
         inicializar();
 
     }
@@ -98,6 +105,4 @@ public class Proveedor extends EntidadPersistente {
     public void setEstoyHabilitado(Boolean estoyHabilitado){
         this.estoyHabilitado= estoyHabilitado;
     }
-
-
 }

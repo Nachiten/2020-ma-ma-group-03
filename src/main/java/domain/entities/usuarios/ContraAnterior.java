@@ -9,8 +9,9 @@ import java.time.LocalDate;
 @Table(name = "contraAnterior")
 public class ContraAnterior extends EntidadPersistente {
 
-    @Column(name = "nombreUsuarioAsociado")
-    private String nombreUsuarioAsociado;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuarioAsociado;
 
     @Column (name = "contraAnterior")
     private String contraAnterior;
@@ -23,13 +24,13 @@ public class ContraAnterior extends EntidadPersistente {
     }
 
     public ContraAnterior(Usuario usuarioAsociado, String contraAnterior, LocalDate tiempoContrasenia){
-        this.nombreUsuarioAsociado = usuarioAsociado.getNombreUsuario();
+        this.usuarioAsociado = usuarioAsociado;
         this.contraAnterior = contraAnterior;
         this.tiempoContrasenia = tiempoContrasenia;
     }
 
     public void setUsuarioAsociado(Usuario usuarioAsociado) {
-        this.nombreUsuarioAsociado = usuarioAsociado.getNombreUsuario();
+        this.usuarioAsociado = usuarioAsociado;
     }
 
     public void setContraAnterior(String contraAnterior) {
@@ -40,8 +41,8 @@ public class ContraAnterior extends EntidadPersistente {
         this.tiempoContrasenia = tiempoContrasenia;
     }
 
-    public String getUsuarioAsociadoId() {
-        return nombreUsuarioAsociado;
+    public Usuario getUsuarioAsociado() {
+        return usuarioAsociado;
     }
 
     public LocalDate getTiempoContrasenia() {

@@ -1,0 +1,35 @@
+h2{
+    color:white;
+}
+
+table {
+    margin: 0 0 0.6em 0;
+    border-collapse: collapse;
+    width: auto;
+}
+
+table td {
+    padding: 1em 1em;
+    background-color: rgb(88 156 234);
+    font-weight: 600;
+    font-size: 25px;
+}
+
+button {
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #080808;
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #00afff;
+    cursor: pointer;
+    margin-right: 2%;
+}
+
+button:hover {
+    color: #0374ce;
+    background-color: #ffffff;
+}
+

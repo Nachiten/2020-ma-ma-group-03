@@ -18,7 +18,7 @@ public class Usuario extends EntidadPersistente {
     @Enumerated(value = EnumType.STRING)
     private TipoUsuario tipo;
 
-    @Column (name = "nombreUsuario")
+    @Column (unique = true, name = "nombreUsuario")
     private String nombreUsuario;
 
     @Column (name = "contraseniaEncriptada")
@@ -30,28 +30,24 @@ public class Usuario extends EntidadPersistente {
     @Column(name = "apellido")
     private String apellido;
 
-    @Column (name = "entidadJuridica_id")
-    private int entidadJuridica;
+    @ManyToOne
+    private EntidadJuridica entidadJuridica;
 
-    @OneToMany(mappedBy = "nombreUsuarioAsociado", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
     private List<Mensaje> bandejaDeMensajes;
 
-    @OneToMany(mappedBy = "nombreUsuarioAsociado", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
     private List<ContraAnterior> contraseniasAnteriores;
 
     @Column (name = "tiempoUltimaContrasenia")
     private LocalDate tiempoUltimaContrasenia;
 
     // TODO | Sacar el cascade para correr el server | (cascade=CascadeType.ALL)
-    @Column (name= "idOperacion")
-    private Integer operacionRevisada_id;
+    @ManyToMany (cascade=CascadeType.ALL)
+    private List<OperacionDeEgreso> operacionesRevisadas;
 
     @Column(name="estoyHabilitado")
     private boolean estoyHabilitado;
-
-    @Column(name="soyRevisor")
-    private boolean soyRevisor ;
-
 
 
     //-------------------------------------------------------------------------
@@ -62,14 +58,13 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
-    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido, boolean soyRevisor, EntidadJuridica entidadJuridica) {
+    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido, EntidadJuridica entidadJuridica) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
         this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
-        this.soyRevisor = soyRevisor;
-        this.entidadJuridica = entidadJuridica.getId();
+        this.entidadJuridica = entidadJuridica;
         inicializar();
     }
 
@@ -83,9 +78,7 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
-    public String encriptarContrasenia(String contrasenia) {
-        return DigestUtils.md5Hex(contrasenia);
-    }
+
 
     //-------------------------------------------------------------------------
                         //METODOS
@@ -94,10 +87,14 @@ public class Usuario extends EntidadPersistente {
     private void inicializar(){
         this.contraseniasAnteriores = new ArrayList<>();
         this.bandejaDeMensajes = new ArrayList<>();
+        this.operacionesRevisadas = new ArrayList<>();
         this.estoyHabilitado = true;
         this.tiempoUltimaContrasenia =LocalDate.now();
     }
 
+    public String encriptarContrasenia(String contrasenia) {
+        return DigestUtils.md5Hex(contrasenia);
+    }
 
     public void publicarMensajeEnBandejaDeMensajes(String identificacion, Boolean resultadoValidacion){
         new Publicador().publicarMensaje(resultadoValidacion, identificacion, this);
@@ -127,16 +124,26 @@ public class Usuario extends EntidadPersistente {
 
     }
 
-    public void guardarCambiosEfectuadosEnMisAtributos(String nombreEditado, String apellidoEditado, String nombreDeUsuarioEditado, String contraseniaEditado, int entidadJuridicaEditado, boolean soyRevisorEditado) {
+    public void guardarCambiosEfectuadosEnMisAtributos(String nombreEditado, String apellidoEditado, String nombreDeUsuarioEditado, String contraseniaEditada, EntidadJuridica entidadJuridicaEditado) {
 
         this.nombre = nombreEditado;
         this.apellido = apellidoEditado;
         this.nombreUsuario = nombreDeUsuarioEditado;
-        if(!(contraseniaEditado.equals(this.contraseniaEncriptada) && this.contraseniaEncriptada.equals(encriptarContrasenia(contraseniaEditado)))){
-            cambiarContrasenia(contraseniaEditado);
-        }
+       verificarSiLaContraseniaFueActualizada(contraseniaEditada);
         this.entidadJuridica = entidadJuridicaEditado;
-        this.soyRevisor = soyRevisorEditado;
+
+    }
+
+    public void verificarSiLaContraseniaFueActualizada(String contraseniaEditada){
+        if(!(contraseniaEditada.equals(this.contraseniaEncriptada) && this.contraseniaEncriptada.equals(encriptarContrasenia(contraseniaEditada)))){
+            cambiarContrasenia(contraseniaEditada);
+        }
+
+    }
+
+    public void actualizarDatosPerfil(String nombreEditado, String apellidoEditado) {
+        this.nombre = nombreEditado;
+        this.apellido = apellidoEditado;
     }
 
     //-------------------------------------------------------------------------
@@ -148,11 +155,11 @@ public class Usuario extends EntidadPersistente {
     }
 
     public void agregarOperacionDeEgreso(OperacionDeEgreso operacionDeEgreso){
-        this.operacionRevisada_id = operacionDeEgreso.getIdOperacion(); //todo creo que esto pisa a las operaciones.
+        operacionesRevisadas.add(operacionDeEgreso);
     }
 
     public void setEntidadJuridica(EntidadJuridica entidadJuridica) {
-        this.entidadJuridica = entidadJuridica.getId();
+        this.entidadJuridica = entidadJuridica;
     }
 
     public void setApellido(String apellido) {
@@ -182,10 +189,6 @@ public class Usuario extends EntidadPersistente {
         this.tipo = tipoUsuario;
     }
 
-    public void setSoyRevisor(Boolean soyRevisor){
-        this.soyRevisor = soyRevisor;
-    }
-
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
@@ -208,12 +211,9 @@ public class Usuario extends EntidadPersistente {
         return apellido;
     }
 
-    public int getEntidadJuridica() {
+    public EntidadJuridica getEntidadJuridica() {
         return entidadJuridica;
     }
 
     public boolean getEstoyHabilitado(){return estoyHabilitado;}
-
-    public boolean getSoyRevisor(){return soyRevisor;}
-
 }

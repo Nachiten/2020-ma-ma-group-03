@@ -52,12 +52,12 @@ function habilitarUsuario(id) {
 
 function recuperarDatosFormularioNuevoUsuario(){
     return {
-        nombre: valorDe("altaUsuario-nombre"),
-        apellido: valorDe("altaUsuario-apellido"),
-        nombreDeUsuario: valorDe("altaUsuario-nombreDeUsuario"),
-        contrasenia: valorDe("altaUsuario-contrasenia"),
-        tipoUsuario: valorDe("altaUsuario-tipoUsuario"),
-        entidadJuridica: valorDe("altaUsuario-entidadJuridica")
+        nombre              : valorDe("altaUsuario-nombre"),
+        apellido            : valorDe("altaUsuario-apellido"),
+        nombreDeUsuario     : valorDe("altaUsuario-nombreDeUsuario"),
+        contrasenia         : valorDe("altaUsuario-contrasenia"),
+        tipoUsuario         : valorDe("altaUsuario-tipoUsuario"),
+        entidadJuridica     : valorDe("altaUsuario-entidadJuridica")
     };
 }
 

@@ -22,6 +22,10 @@ public class CategoriaCriterio extends EntidadPersistente {
         this.nombreCategoria = nombre;
         this.descripcion = descrpcion;
     }
+    public CategoriaCriterio(String nombre){
+        this.nombreCategoria = nombre;
+
+    }
 
     public String getNombreCategoria() {
         return nombreCategoria;

@@ -12,16 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProveedorController {
+public class AccionesEnProveedoresController {
     private Repositorio<Proveedor> repoProveedor;
     private Repositorio<Pais> respoPaises;
     private Repositorio<Estado> repoProvincias;
     private Repositorio<Ciudad> repoCiudades;
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
+    private List<Pais> listaPaises;
+    private List<Estado> listaProvincias;
+    private List<Ciudad> listaCiudades;
 
-
-    public ProveedorController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
+    public AccionesEnProveedoresController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
 
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.modalAndViewController = modalAndViewController;
@@ -29,8 +31,55 @@ public class ProveedorController {
         this.respoPaises = FactoryRepositorio.get(Pais.class);
         this.repoProvincias = FactoryRepositorio.get(Estado.class);
         this.repoCiudades =FactoryRepositorio.get(Ciudad.class);
-
+        this.listaPaises = new ArrayList<>();
+        this.listaProvincias = new ArrayList<>();
+        this.listaCiudades = new ArrayList<>();
     }
+
+    private ModelAndView modalAndViewAccionesProveedores() {
+        return new ModelAndView(modalAndViewController.getParametros(), "accionesProveedores.hbs");
+    }
+
+    public ModelAndView mostrarPaginaAccionesPRoveedores(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewAccionesProveedores);
+    }
+
+    private ModelAndView modelAndViewNuevoProveedor(){
+        listaPaises = respoPaises.buscarTodos();
+        listaProvincias = repoProvincias.buscarTodos();
+        listaCiudades = repoCiudades.buscarTodos();
+        modalAndViewController.getParametros().put("listaPaises", listaPaises);
+        modalAndViewController.getParametros().put("listaProvincias", listaProvincias);
+        modalAndViewController.getParametros().put("listaCiudades", listaCiudades);
+        return new ModelAndView(modalAndViewController.getParametros(),"modalNuevoProveedor.hbs");
+    }
+    public ModelAndView mostrarModalNuevoPRoveedor(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modelAndViewNuevoProveedor);
+    }
+
+    public ModelAndView guardarNuevoProveedor(Request request, Response response) {
+        String nombreIngresado = request.queryParams("nombre");
+        String apellidoIngresado = request.queryParams("apellido");
+        String razonSocialIngresado = request.queryParams("razonSocial");
+        String cuit_cuilIngresado = request.queryParams("cuit_cuil");
+
+        DireccionPostal direccionPostal = operadorController.generarDireccionPostal(request);
+        Proveedor proveedorAGuardar = new Proveedor(nombreIngresado, apellidoIngresado, cuit_cuilIngresado, direccionPostal, razonSocialIngresado);
+
+        if (operadorController.persistenciaNoValida(repoProveedor, proveedorAGuardar)){
+            modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        modalAndViewController.getParametros().put("mensaje", "Se se creó exitosamente el nuevo proveedor.");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+
+
+
+
+
 
     private ModelAndView modalAndViewListarProveedores(){
 
@@ -54,25 +103,10 @@ public class ProveedorController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
     }
 
-    private ModelAndView modelAndViewAltaProveedor(){
-        List<Pais> listaPaises = respoPaises.buscarTodos();
-        List<Estado> listaProvincias = repoProvincias.buscarTodos();
-        List<Ciudad> listaCiudades = repoCiudades.buscarTodos();
-        modalAndViewController.getParametros().put("listaPaises", listaPaises);
-        modalAndViewController.getParametros().put("listaProvincias", listaProvincias);
-        modalAndViewController.getParametros().put("listaCiudades", listaCiudades);
-        return new ModelAndView(modalAndViewController.getParametros(),"altaProveedor.hbs");
-    }
-    public ModelAndView altaProveedor(Request request, Response response) {
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modelAndViewAltaProveedor);
-    }
-
+/*
     public ModelAndView guardarProveedor(Request request, Response response){
 
-        String nombre = request.queryParams("nombre");
-        String apellido = request.queryParams("apellido");
-        String razonSocial = request.queryParams("razonSocial");
-        String cuit_cuilString = request.queryParams("cuit_cuil");
+
 
         int cuit_cuil = Integer.parseInt(cuit_cuilString);
 
@@ -87,6 +121,7 @@ public class ProveedorController {
 
         modalAndViewController.getParametros().put("mensaje", "Se persistio correctamente el proveedor.");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
-    }
+    }*/
+
 
 }
