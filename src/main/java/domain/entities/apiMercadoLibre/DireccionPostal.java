@@ -36,6 +36,13 @@ public class DireccionPostal extends EntidadPersistente {
         this.pais = pais;
     }
 
+    public DireccionPostal(Direccion direccion, String barrio, Estado provincia, Pais pais,Ciudad ciudad){
+        this.direccion = direccion;
+        this.provincia = provincia;
+        this.pais = pais;
+        this.ciudad = ciudad;
+    }
+
     public DireccionPostal(Direccion direccion){
         this.direccion = direccion;
     }

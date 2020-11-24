@@ -2,10 +2,7 @@ package testsPersistencia;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
-import domain.entities.apiMercadoLibre.Direccion;
-import domain.entities.apiMercadoLibre.DireccionPostal;
-import domain.entities.apiMercadoLibre.Estado;
-import domain.entities.apiMercadoLibre.Pais;
+import domain.entities.apiMercadoLibre.*;
 import domain.entities.entidades.EntidadBase;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
@@ -16,6 +13,8 @@ import domain.entities.tipoEntidadJuridica.TipoEntidadJuridica;
 import domain.entities.usuarios.TipoUsuario;
 import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
+import domain.repositories.Repositorio;
+import domain.repositories.factories.FactoryRepositorio;
 import org.junit.runners.MethodSorters;
 import persistencia.db.EntityManagerHelper;
 import org.junit.*;
@@ -32,11 +31,11 @@ public class PersistenciaDatosPruebaTest {
 
     //PAIS
     static private Pais argentina;
-    static private Pais estadosUnidos;
+    static private Pais reinoUnido;
     static private Pais mexico;
 
     //ESTADO
-    static private Estado estado1;
+    static private Estado buenosAires;
     static private Estado estado2;
     static private Estado estado3;
 
@@ -48,10 +47,10 @@ public class PersistenciaDatosPruebaTest {
 
     //DIRECCION POSTAL
 
-    static private DireccionPostal direccionPostal1;
-    static private DireccionPostal direccionPostal2;
-    static private DireccionPostal direccionPostal3;
-    static private DireccionPostal direccionPostal4;
+    static private DireccionPostal direccionPostalAlmagro;
+    static private DireccionPostal direccionPostalReinoUnido;
+    static private DireccionPostal direccionPostalMexico;
+    static private DireccionPostal direccionPostalPalermo;
 
     //ENTIDAD JURIDICA
     static private EntidadJuridica entidadJuridicaEAAFBA;
@@ -253,6 +252,15 @@ public class PersistenciaDatosPruebaTest {
     static private Presupuesto presupuestoCorralonLaprida;
 
 
+    static private Repositorio<Pais> repoPaises;
+    static private Repositorio<Estado> repoProvincias ;
+    static private Repositorio<Ciudad> repoCiudades ;
+
+    static  private Ciudad ciudadAutonomaBSAS;
+
+
+    static private Estado londres;
+    static private Estado ciudadDeMexico;
 
 
 
@@ -262,28 +270,36 @@ public class PersistenciaDatosPruebaTest {
         // PAIS
 
         //ESTO UNA VEZ QUE CARGO LO DE ML TRAERME LOS DATOS Y USAR ENTITY MANAGER , PAIS, ESTADO Y CIUDAD
-       /* argentina ;
-        estadosUnidos;
-        mexico = new Pais("Mexico");
-        // ESTADO
-        estado1 = new Estado("BA");
-        estado2 = new Estado("Nueva York");
-        estado3 = new Estado("Ciudad de Mexico");
+        repoPaises = FactoryRepositorio.get(Pais.class);
+        repoProvincias = FactoryRepositorio.get(Estado.class);
+        repoCiudades = FactoryRepositorio.get(Ciudad.class);
 
-*/
-       /*
+        //PAISES
+        argentina = repoPaises.buscar("AR");
+        mexico = repoPaises.buscar("MX");
+        //Estados Unidos no esta en ML , le ponemos en su lugar Reino Unido
+        reinoUnido = repoPaises.buscar("GB");
+
+        //PROVINCIAS-ESTADOS
+        buenosAires = repoProvincias.buscar("BS_AS");
+        ciudadDeMexico = repoProvincias.buscar("TUxNUEVTVDMzMzc");
+        londres = repoProvincias.buscar("TG9uZHJlc0dC13906");
+
+        //CIUDADES
+        ciudadAutonomaBSAS = repoCiudades.buscar("TUxCQ0JVRTcyNTA04300");
+
+
         //DIRECCION
         direccion1 = new Direccion("Av Medrano",51,0,"0");
         direccion2 = new Direccion("Liberty Ave",720,0,"0");
         direccion3 = new Direccion("Roberto Gayol",55,0,"0");
         direccion4 = new Direccion("Jeronimo Salguero",51,0,"0");
 
-        //DIRECCION POSTAL  //ARREGLAR
-        direccionPostal1 = new DireccionPostal(direccion1,ciudad1,estado1, argentina);
-        direccionPostal2 = new DireccionPostal(direccion2, ciudad2,estado2, estadosUnidos);
-        direccionPostal3 = new DireccionPostal(direccion3, ciudad3,estado3, mexico);
-        direccionPostal4 = new DireccionPostal(direccion4,ciudad4,estado1, argentina);
-*/
+        //DIRECCION POSTAL
+        direccionPostalAlmagro = new DireccionPostal(direccion1,"Almagro", buenosAires, argentina,ciudadAutonomaBSAS);
+        direccionPostalReinoUnido = new DireccionPostal(direccion2, "Brooklyn",londres, reinoUnido);
+        direccionPostalMexico = new DireccionPostal(direccion3, "",ciudadDeMexico, mexico);
+        direccionPostalPalermo = new DireccionPostal(direccion4,"Palermo", buenosAires, argentina,ciudadAutonomaBSAS);
         //SECTOR
 
         sectorConstruccion = new Sector("Construccion");
@@ -311,10 +327,10 @@ public class PersistenciaDatosPruebaTest {
         tipoEntidadJuridica4 = new Empresa(sectorConstruccion,8000000,8);
         //ENTIDADES JURIDICAS
 
-        entidadJuridicaEAAFBA = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Buenos Aires" ,"EAAF BA","30-15269857-2",direccionPostal1,"ABCD-LO",tipoEntidadJuridica1);
-        entidadJuridicaEAAFNY = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Nueva York" ,"EAAF NY","30-15789655-7",direccionPostal2,"AKPQ-LO",tipoEntidadJuridica2);
-        entidadJuridicaEAAFM = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Mexico" ,"EAAF M","30-77896583-9",direccionPostal3,"DDN-TP",tipoEntidadJuridica3);
-        entidadJuridicaSurcosCS = new EntidadJuridica("Colectivo de Derechos de Infancia y Adolescencia - CDIA","Surcos " ,"Surcos CS","30-25888897-8",direccionPostal4,"ABK-LO",tipoEntidadJuridica4);
+        entidadJuridicaEAAFBA = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Buenos Aires" ,"EAAF BA","30-15269857-2", direccionPostalAlmagro,"ABCD-LO",tipoEntidadJuridica1);
+        entidadJuridicaEAAFNY = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Nueva York" ,"EAAF NY","30-15789655-7", direccionPostalReinoUnido,"AKPQ-LO",tipoEntidadJuridica2);
+        entidadJuridicaEAAFM = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Mexico" ,"EAAF M","30-77896583-9", direccionPostalMexico,"DDN-TP",tipoEntidadJuridica3);
+        entidadJuridicaSurcosCS = new EntidadJuridica("Colectivo de Derechos de Infancia y Adolescencia - CDIA","Surcos " ,"Surcos CS","30-25888897-8", direccionPostalPalermo,"ABK-LO",tipoEntidadJuridica4);
         //ENTIDADES BASE
         entidadBaseAndhes = new EntidadBase("Colectivo de Derechos de Infancia y Adolescencia - CDIA","Andhes");
 
@@ -457,16 +473,14 @@ public class PersistenciaDatosPruebaTest {
 
 
         //PRESUPUESTOS
-        presupuestoPintureriasRex = new Presupuesto(21451.6f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020,2,25),proveedorPintureriasRex);
-        presupuestoPintureriasSanJorge = new Presupuesto(20300.8f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020, 2,25),proveedorPintureriasRex);
-        presupuestoPintureriasSerrentino = new Presupuesto(19952.69f,listaDeItemsDePintureriasSerrentino,null, LocalDate.of(2020, 2,27),proveedorPintureriaSerrentino);
-        presupuestoLaCasaDelAudio = new Presupuesto(17900,listaDeItemsDeLaCasaDelAudio,null,LocalDate.of(2020,9,10),proveedorLaCasaDelAudio);
-        presupuestoGarbarino = new Presupuesto(17660,  listaDeItemsDeGarbarino,null,LocalDate.of(2020,9,11),proveedorGarbarino);
-        presupuestoIngenieriaComercial = new Presupuesto(17000, listaDeItemsDeIngenieriaComercial,null , LocalDate.of(2020,9,12),proveedorIngenieriaComercial);
-        presupuestoCorralonSanJuan = new Presupuesto(214420,listaDeItemsDeCorralonSanJuan,null,LocalDate.of(2020,9,15),proveedorCorralonSanJuan);
-        presupuestoCorralonLaprida = new Presupuesto(207708,listaDeItemsDeCorralonLaprida,null,LocalDate.of(2020,9,15),proveedorCorralonLaprida);
-
-
+        presupuestoPintureriasRex = new Presupuesto(21451.6f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020,2,25),proveedorPintureriasRex,entidadJuridicaEAAFBA);
+        presupuestoPintureriasSanJorge = new Presupuesto(20300.8f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020, 2,25),proveedorPintureriasRex,entidadJuridicaEAAFBA);
+        presupuestoPintureriasSerrentino = new Presupuesto(19952.69f,listaDeItemsDePintureriasSerrentino,null, LocalDate.of(2020, 2,27),proveedorPintureriaSerrentino,entidadJuridicaEAAFBA);
+        presupuestoLaCasaDelAudio = new Presupuesto(17900,listaDeItemsDeLaCasaDelAudio,null,LocalDate.of(2020,9,10),proveedorLaCasaDelAudio,entidadJuridicaEAAFBA);
+        presupuestoGarbarino = new Presupuesto(17660,  listaDeItemsDeGarbarino,null,LocalDate.of(2020,9,11),proveedorGarbarino,entidadJuridicaEAAFBA);
+        presupuestoIngenieriaComercial = new Presupuesto(17000, listaDeItemsDeIngenieriaComercial,null , LocalDate.of(2020,9,12),proveedorIngenieriaComercial,entidadJuridicaEAAFBA);
+        presupuestoCorralonSanJuan = new Presupuesto(214420,listaDeItemsDeCorralonSanJuan,null,LocalDate.of(2020,9,15),proveedorCorralonSanJuan,entidadJuridicaEAAFBA);
+        presupuestoCorralonLaprida = new Presupuesto(207708,listaDeItemsDeCorralonLaprida,null,LocalDate.of(2020,9,15),proveedorCorralonLaprida,entidadJuridicaEAAFBA);
 
 
         ingresoDonacionDeTerceros = new OperacionDeIngreso("Donacion de terceros",20000, LocalDate.of(2020,2,25),LocalDate.of(2020,3,20),entidadJuridicaEAAFBA);
@@ -512,28 +526,54 @@ public class PersistenciaDatosPruebaTest {
         EntityManagerHelper.commit();
     }
 
-    //PERSISTENCIA DE USUARIOS
+
+
     @Test
-    public void t1_persistirUsuarioA(){
+    public void t1_persistirOperacionesDeIngreso(){
+        //NO FUNCIONA TIRA ERROR :/
+      persistirUnObjeto(ingresoDonacionDeRimoliSA);
+      persistirUnObjeto(ingresoDonacionDeTerceros);
+      persistirUnObjeto(ingresoDonacionGabinoSRL);
+      persistirUnObjeto(ingresoDonacionGranImperio);
+
+    }
+    @Test
+    public void t2_persistirOperacionesDeEgreso(){
+  //NO FUNCIONA
+        persistirUnObjeto(operacionDeEgreso1);
+        persistirUnObjeto(operacionDeEgreso2);
+        persistirUnObjeto(operacionDeEgreso3);
+        persistirUnObjeto(operacionDeEgreso4);
+        persistirUnObjeto(operacionDeEgreso5);
+        persistirUnObjeto(operacionDeEgreso6);
+        persistirUnObjeto(operacionDeEgreso7);
+        persistirUnObjeto(operacionDeEgreso8);
+        persistirUnObjeto(operacionDeEgreso9);
+        persistirUnObjeto(operacionDeEgreso10);
+    }
+
+    //FUNCIONA
+    @Test
+    public void t3_persitirPresupuestos(){
+        persistirUnObjeto(presupuestoCorralonLaprida);
+        persistirUnObjeto(presupuestoCorralonSanJuan);
+        persistirUnObjeto(presupuestoGarbarino);
+        persistirUnObjeto(presupuestoIngenieriaComercial);
+        persistirUnObjeto(presupuestoPintureriasRex);
+        persistirUnObjeto(presupuestoPintureriasSanJorge);
+        persistirUnObjeto(presupuestoPintureriasSerrentino);
+        persistirUnObjeto(proveedorEdesur);
+    }
+
+    //NO FUNCIONA
+    @Test
+    public void t4_persistirUsuariosEstandar(){
         persistirUnObjeto(usuarioA);
-    }
-
-    @Test
-    public void t2_persistirUsuarioB(){
         persistirUnObjeto(usuarioB);
-    }
-
-    //NO PROBAR ESTE
-    @Test
-    public void t3_persistirUsuarioC(){
         persistirUnObjeto(usuarioC);
     }
 
-    @Test
-    public void t4_persistirUsuarioAdmin(){
-        persistirUnObjeto(usuarioAdmin);
-    }
-
+//FUNCIONA
    @Test
     public void t5_persistirCategorias() {
         persistirUnObjeto(categoriaFachada);
@@ -552,6 +592,7 @@ public class PersistenciaDatosPruebaTest {
 
     }
 
+    //FUNCIONA
 
     @Test
     public void t6_persistirCriterios() {

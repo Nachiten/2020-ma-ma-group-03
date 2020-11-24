@@ -1,6 +1,7 @@
 package domain.entities.operaciones;
 
 import criterioOperacion.CategoriaCriterio;
+import domain.entities.entidades.EntidadJuridica;
 import persistencia.EntidadPersistente;
 import domain.entities.vendedor.Proveedor;
 
@@ -34,6 +35,8 @@ public class    Presupuesto extends EntidadPersistente {
     @ManyToOne (cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private EntidadJuridica entidadJuridica;
     //-------------------------------------------------------------------------
                                     //CONTRUCTOR
     //-------------------------------------------------------------------------
@@ -47,12 +50,13 @@ public class    Presupuesto extends EntidadPersistente {
         this.operacionAsociada = operacionAsociada;
     }
 
-    public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada,LocalDate fecha,Proveedor proveedorAsociado) {
+    public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada, LocalDate fecha, Proveedor proveedorAsociado, EntidadJuridica entidadJuridica) {
         this.montoTotal = montoTotal;
         this.items = items;
         this.fecha = fecha;
         this.proveedorAsociado = proveedorAsociado;
         this.operacionAsociada = operacionAsociada;
+        this.entidadJuridica = entidadJuridica;
     }
 
     //-------------------------------------------------------------------------

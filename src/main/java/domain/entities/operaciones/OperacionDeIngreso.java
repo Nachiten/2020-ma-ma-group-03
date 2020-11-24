@@ -22,7 +22,7 @@ public class OperacionDeIngreso  {
     @Column (name = "montoTotal")
     private float montoTotal;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne //(cascade = CascadeType.ALL)
     private Moneda moneda;
 
     @Column(name = "fecha")
@@ -34,7 +34,7 @@ public class OperacionDeIngreso  {
     @ManyToOne
     private EntidadJuridica entidadJuridicaAsociada;
 
-    @OneToMany (cascade = CascadeType.ALL)
+    @OneToMany // (cascade = CascadeType.ALL)
     private List<OperacionDeEgreso> operacionesDeEgresoVinculadas;
 
     @Column (name = "montoSinVincular")
