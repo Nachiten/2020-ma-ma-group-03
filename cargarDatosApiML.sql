@@ -79,3 +79,29 @@ INSERT INTO `ciudades` VALUES ('TVJEQ01SRFZJTExBNg14020','Villa Altagracia','TVJ
 /*!40000 ALTER TABLE `ciudades` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `monedas`
+--
+
+DROP TABLE IF EXISTS `monedas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `monedas` (
+  `id` varchar(255) NOT NULL,
+  `decimales` varchar(255) DEFAULT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `simbolo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `monedas`
+--
+
+LOCK TABLES `monedas` WRITE;
+/*!40000 ALTER TABLE `monedas` DISABLE KEYS */;
+INSERT INTO `monedas` VALUES ('ARS','2','Peso argentino','$'),('BOB','2','Boliviano','Bs'),('BRL','2','Real','R$'),('CLF','2','Unidad de Fomento','UF'),('CLP','0','Peso Chileno','$'),('COP','0','Peso colombiano','$'),('CRC','2','Colones','¢'),('CUC','2','Peso Cubano Convertible','CUC'),('CUP','2','Peso Cubano','$'),('DOP','2','Peso Dominicano','$'),('EUR','2','Euro','€'),('GTQ','2','Quetzal Guatemalteco','Q'),('HNL','0','Lempira','L'),('MXN','2','Peso Mexicano','$'),('NIO','0','Córdoba','C$'),('PAB','2','Balboa','B/.'),('PEN','2','Soles','S/'),('PYG','0','Guaraní','?'),('USD','2','Dólar','U$S'),('UYU','2','Peso Uruguayo','$'),('VEF','2','Bolivar fuerte','Bs.'),('VES','2','Bolivar Soberano','Bs.');
+/*!40000 ALTER TABLE `monedas` ENABLE KEYS */;
+UNLOCK TABLES;
+
