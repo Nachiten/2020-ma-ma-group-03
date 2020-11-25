@@ -275,4 +275,12 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     public OperacionDeIngreso getOperacionDeIngreso() {
         return operacionDeIngreso;
     }
+
+    public List<CategoriaCriterio> getListaCategoriaCriterio() {
+        return listaCategoriaCriterio;
+    }
+
+    public Proveedor getProveedorAsociado() {
+        return proveedorAsociado;
+    }
 }

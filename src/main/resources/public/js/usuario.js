@@ -313,7 +313,7 @@ function mostrarCategoriasCriterio() {
     var datos = recuperarCriterio();
 
     //acá yo le digo che loco, hace un post sobre tal ruta!
-    var ruta = "/egresos/criterios";
+    var ruta = "/egresos/criterio";
     var metodo = "POST";
     $.ajax({
         type     : metodo,
@@ -332,3 +332,18 @@ function recuperarCriterio(){
     };
 }
 
+
+function mostrarDetallesEgreso(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/egresos/detalle/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}

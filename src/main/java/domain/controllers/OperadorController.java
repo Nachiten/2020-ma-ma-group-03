@@ -7,11 +7,13 @@ import domain.entities.operaciones.Item;
 import domain.entities.operaciones.TipoDocumentoComercial;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
+import spark.ModelAndView;
 import spark.Request;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class OperadorController {
@@ -56,11 +58,17 @@ public class OperadorController {
         String[] precios;
         String[] nombres;
 
+
+
         try {
             precios = preciosItemsString.split("=");
             nombres = nombresItemsString.split("=");
         } catch(Exception e) {
             System.out.println(e.getMessage());
+            return items;
+        }
+
+        if(precios[0].equals("")){
             return items;
         }
 

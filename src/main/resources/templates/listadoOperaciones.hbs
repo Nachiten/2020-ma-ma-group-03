@@ -35,26 +35,30 @@
 
 <h3>LISTADO DE OPERACIONES DE EGRESO</h3>
      <div class="table-wrapper">
-        <table id="tabla_operaciones_ingreso">
+        <table id="tabla_operaciones_egreso">
             <thead>
                 <tr>
-                    <th>NÚMERO OPERACIÓN</th>
-                    <th>USUARIO</th>
-                    <th>MEDIO DE PAGO</th>
-                    <th>DOCUMENTO COMERCIAL</th>
-                    <td>MONTO</td>
-                    <td>FECHA</td>
+                    <th>Número de operación</th>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <td>Detalle</td>
+                    <td>Editar</td>
                 </tr>
             </thead>
         <tbody id="content_table">
                 {{#each operacionesEgreso}}
                 <tr>
-                    <td>{{idOperacion}}</td>
+                    <td> {{idOperacion}} </td>
                     <td>{{usuario.nombreUsuario}}</td>
-                    <td>{{medioDePago.tipo.tipoPago}}</td>
-                    <td>{{documentoComercial.tipo.nombre}}</td>
-                    <td>{{montoTotal}}</td>
                     <td>{{fecha}}</td>
+                    <td>{{montoTotal}}</td>
+                    <td>
+                        <button type="button" onclick="mostrarDetallesEgreso({{idOperacion}})" > Detalle</button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="editarEgreso()" > Editar</button>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>
