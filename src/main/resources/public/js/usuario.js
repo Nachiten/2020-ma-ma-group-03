@@ -66,6 +66,7 @@ function recuperarDatosFormularioEgresos(){
         numeroDocumentoComercial: valorDe("alta-numeroDocumentoComercial"),
         presupuestosRequeridos: valorDe("alta-presupuestosRequeridos"),
         proveedor: valorDe("alta-proveedor"),
+        revisor: valorDe("alta-revisor"),
         preciosItems: datosDeTablaPorNombreDeClase(".precioItem"),
         nombresItems: datosDeTablaPorNombreDeClase(".nombreItem"),
         nombresCategorias: datosNombresCategorias()
@@ -306,3 +307,28 @@ function recuperarProveedor(){
         proveedor: valorDe("alta-proveedor")
     };
 }
+
+
+function mostrarCategoriasCriterio() {
+    var datos = recuperarCriterio();
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/egresos/criterios";
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        data     : datos,
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function recuperarCriterio(){
+    return {
+        criteriosCategoria: valorDe("seleccionar-criterio")
+    };
+}
+

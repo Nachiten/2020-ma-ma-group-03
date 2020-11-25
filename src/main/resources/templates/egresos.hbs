@@ -59,18 +59,30 @@
                     <tr>
                         <td> Asociar categorías: </td>
                         <td>
-                            <select name = "criterios" id="seleccionar-criterios">
+                            <select name = "criteriosCategoria" id="seleccionar-criterio">
                             <option hidden selected> Seleccionar Criterio </option>
-                            {{#each criterios}} <!-- este se alimenta del put de controller -->
+                            {{#each criteriosCategoria}} <!-- este se alimenta del put de controller -->
                                 <option>{{nombre}}</option>
                             {{/each}}
                             </select>
                         </td>
+                        <td>
+                            <button type="button" onclick="mostrarCategoriasCriterio()" > Seleccionar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{#each categorias}}
+                                <input type="checkbox" name="{{nombreCategoria}}" value="1" class="categoria"> {{nombreCategoria}}<br>
+                            {{/each}}
+                            <br>
+                        </td>
+
                     </tr>
                     <tr>
                         <td>Ser Revisor: </td>
                         <td>
-                            <select name = "revisor" id="elegir-revisor" required>
+                            <select name = "revisor" id="alta-revisor" required>
                                 <option hidden selected> Seleccionar opción </option>
                                 <option>Si</option>
                                 <option>No</option>
