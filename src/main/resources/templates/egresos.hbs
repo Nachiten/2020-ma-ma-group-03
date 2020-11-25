@@ -41,9 +41,6 @@
                     <tr>
                         <td>Número Documento Comercial:</td>
                         <td><input type="number" name="numeroDocumentoComercial" id="alta-numeroDocumentoComercial" placeholder="Ej: 123456789" required></td>
-                        <td>
-                            <button type="button" onclick="">Detalle</button>
-                        </td>
                     </tr>
                     <tr>
                         <td>Proveedor:</td>
@@ -61,18 +58,25 @@
                     </tr>
                     <tr>
                         <td> Asociar categorías: </td>
+                        <td>
+                            <select name = "criterios" id="seleccionar-criterios">
+                            <option hidden selected> Seleccionar Criterio </option>
+                            {{#each criterios}} <!-- este se alimenta del put de controller -->
+                                <option>{{nombre}}</option>
+                            {{/each}}
+                            </select>
+                        </td>
                     </tr>
-                        {{#each criterios}}
-                        <tr>
-                            <td> Criterios Asociados a {{nombre}}: </td>
-                            <td>
-                                {{#each listaCategoriaCriterio}}
-                                    <input id="seleccion-Criterios" type="checkbox" name="{{nombreCategoria}}" value="1" class="categoria" data-attribute="{{nombreCategoria}}"> {{nombreCategoria}}
-                                {{/each}}
-                            </td>
-                        </tr>
-                        {{/each}}
-
+                    <tr>
+                        <td>Ser Revisor: </td>
+                        <td>
+                            <select name = "revisor" id="elegir-revisor" required>
+                                <option hidden selected> Seleccionar opción </option>
+                                <option>Si</option>
+                                <option>No</option>
+                            </select>
+                        </td>
+                    </tr>
                 </table>
             </center>
             <center>

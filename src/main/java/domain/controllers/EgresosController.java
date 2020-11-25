@@ -90,7 +90,7 @@ public class EgresosController {
         String numeroMedioDePagoString = request.queryParams("numeroMedioDePago");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
         String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
-
+        String esRevisor = request.queryParams("revisor");
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
         String razonSocialProveedor = request.queryParams("proveedor");
 
