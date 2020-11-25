@@ -56,6 +56,33 @@ public class EgresosController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewEgresos);
     }
 
+    public ModelAndView verDetalleProveedor(Request request, Response response){
+
+        String proveedorString = request.queryParams("proveedor");
+
+        if(proveedorString.equals("Seleccionar proveedor")){
+            modalAndViewController.getParametros().put("mensaje", "Seleccione un proveedor.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        Proveedor proveedor = buscarProveedor(proveedorString);
+
+        modalAndViewController.getParametros().put("nombre", proveedor.getNombreProveedor());
+        modalAndViewController.getParametros().put("apellido", proveedor.getApellidoProveedor());
+        modalAndViewController.getParametros().put("dni", proveedor.getDniProveedor());
+        modalAndViewController.getParametros().put("cuit", proveedor.getCuit());
+        modalAndViewController.getParametros().put("razonSocial", proveedor.getRazonSocialProveedor());
+
+        if(proveedor.getDireccionPostal() == null){
+            return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleProveedor.hbs");
+        }
+
+        modalAndViewController.getParametros().put("pais", proveedor.getDireccionPostal().getPais());
+        modalAndViewController.getParametros().put("provincia", proveedor.getDireccionPostal().getProvincia());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleProveedor.hbs");
+    }
+
     public ModelAndView guardarOperacionDeEgreso(Request request, Response response) {
         // Leo los query params
         String fechaString = request.queryParams("fecha");
@@ -115,12 +142,12 @@ public class EgresosController {
         operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
         if (operadorController.persistenciaNoValida(repoOperacionEgreso, operacionAGuardar)){
-            modalAndViewController.getParametros().put("mensaje", "Se produjo un erroe al gradar los datos.");
+            modalAndViewController.getParametros().put("mensaje", "Se produjo un error al guardar la operación de egreso.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
 
         // Se persistio correctamente
-        modalAndViewController.getParametros().put("mensaje", "Se guardaron los datos correctamente");
+        modalAndViewController.getParametros().put("mensaje", "La operación de egreso se guardó correctamente");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 

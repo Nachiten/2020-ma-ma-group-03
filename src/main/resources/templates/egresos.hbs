@@ -42,7 +42,7 @@
                         <td>Número Documento Comercial:</td>
                         <td><input type="number" name="numeroDocumentoComercial" id="alta-numeroDocumentoComercial" placeholder="Ej: 123456789" required></td>
                         <td>
-                            <button type="submit" onclick="">Detalle</button>
+                            <button type="button" onclick="">Detalle</button>
                         </td>
                     </tr>
                     <tr>
@@ -50,13 +50,13 @@
                         <td>
                             <select name = "proveedor" id="alta-proveedor" required>
                                 <option hidden selected> Seleccionar proveedor </option>
-                                {{#each proveedores}}
+                                {{#each proveedores}} <!-- este se alimenta del put de controller -->
                                     <option>{{razonSocialProveedor}}</option>
                                 {{/each}}
                             </select>
                         </td>
                         <td>
-                            <button type="submit" onclick="">Detalle</button>
+                            <button type="button" onclick="mostrarDetallesProveedor()" > Detalle</button>
                         </td>
                     </tr>
                     <tr>
