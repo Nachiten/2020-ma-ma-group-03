@@ -82,11 +82,19 @@ public class Router {
         Spark.post("/egresos", egresosController::guardarOperacionDeEgreso, Router.engine);
         Spark.post("/egresos/proveedor", egresosController::verDetalleProveedor, Router.engine);
         Spark.post("/egresos/detalle/:id", egresosController::verDetalleEgreso, Router.engine);
+        Spark.post("/egresos/items/:id", egresosController::verItemsEgreso, Router.engine);
+        Spark.post("/egresos/categorias/:id", egresosController::verCategoriasEgreso, Router.engine);
+        Spark.post("/egresos/revisores/:id", egresosController::verRevisores, Router.engine);
+
         Spark.post("/ingresos", ingresosController::guardarOperacionDeIngreso, Router.engine);
         Spark.post("/ingresos/detalle/:id", ingresosController::verDetalleIngreso, Router.engine);
+
         Spark.post("/presupuestos", presupuestosController::guardarPresupuesto, Router.engine);
+
         Spark.post("/criterios", criteriosController::guardarCriterio, Router.engine);
+
         Spark.post("/asociarOperacion", asociacionOperacionesController::ejecutarVinculacion, Router.engine);
+
         Spark.post("/validadorDeTransparencia", validadorTransparenciaController::ejecutarValidadorDeTransparencia, Router.engine);
 
         //Paginas una vez logueado GET para usuario ADMIN

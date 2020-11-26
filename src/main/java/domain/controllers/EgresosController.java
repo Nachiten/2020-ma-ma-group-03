@@ -25,7 +25,6 @@ public class EgresosController {
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
     private Repositorio<EntidadJuridica> repoEntidadJuridica;
-    private ModelAndView paginaEgresos;
 
     public EgresosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
@@ -43,14 +42,15 @@ public class EgresosController {
         List<TipoMedioDePago> tiposMediosPago = this.repoTipoMedioPago.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
         List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
-        List<Criterio> criteriosCategoria = this.repoCriterio.buscarTodos();
+        List<Criterio> criterios = this.repoCriterio.buscarTodos();
+        List<Criterio> criterios2 = operadorController.quitarMitad(criterios);
 
         modalAndViewController.getParametros().put("tiposMediosDePago", tiposMediosPago);
         modalAndViewController.getParametros().put("tiposDocumentoComercial", tiposDocumentoComercial);
         modalAndViewController.getParametros().put("proveedores", proveedores);
-        modalAndViewController.getParametros().put("criteriosCategoria", criteriosCategoria);
-
-        return paginaEgresos = new ModelAndView(modalAndViewController.getParametros(), "egresos.hbs");
+        modalAndViewController.getParametros().put("criterios", criterios);
+        modalAndViewController.getParametros().put("criterios2", criterios2);
+        return new ModelAndView(modalAndViewController.getParametros(), "egresos.hbs");
     }
     public ModelAndView egresos(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewEgresos);
@@ -122,6 +122,50 @@ public class EgresosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleEgreso.hbs");
     }
 
+    public ModelAndView verItemsEgreso(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        OperacionDeEgreso operacionDeEgreso = buscarOperacionDeEgreso(idOperacion);
+
+        modalAndViewController.getParametros().put("items", operacionDeEgreso.getItems());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalItemsEgreso.hbs");
+    }
+
+    public ModelAndView verCategoriasEgreso(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        OperacionDeEgreso operacionDeEgreso = buscarOperacionDeEgreso(idOperacion);
+
+        modalAndViewController.getParametros().put("categorias", operacionDeEgreso.getListaCategoriaCriterio());
+
+        if(operacionDeEgreso.getListaCategoriaCriterio().isEmpty()){
+            modalAndViewController.getParametros().put("mensaje", "El egreso no tiene categorías asociadas.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalCategoriasEgreso.hbs");
+    }
+
+    public ModelAndView verRevisores(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        OperacionDeEgreso operacionDeEgreso = buscarOperacionDeEgreso(idOperacion);
+
+        modalAndViewController.getParametros().put("revisores", operacionDeEgreso.getRevisores());
+
+        if(operacionDeEgreso.getRevisores().isEmpty()){
+            modalAndViewController.getParametros().put("mensaje", "El egreso no tiene revisores asociados.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalRevisoresEgreso.hbs");
+    }
+
+
     public ModelAndView guardarOperacionDeEgreso(Request request, Response response) {
         // Leo los query params
         String fechaString = request.queryParams("fecha");
@@ -186,6 +230,7 @@ public class EgresosController {
         operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
         if(revisor.equals("Si")){
+            operacionAGuardar.agregarRevisor(miUsuario);
             miUsuario.agregarOperacionDeEgreso(operacionAGuardar);
         }
 

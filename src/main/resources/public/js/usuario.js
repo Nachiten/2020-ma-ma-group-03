@@ -348,6 +348,21 @@ function mostrarDetallesEgreso(id) {
     });
 }
 
+function mostrarItemsEgreso(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/egresos/items/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
 function mostrarDetallesIngreso(id) {
 
     //acá yo le digo che loco, hace un post sobre tal ruta!
@@ -362,5 +377,42 @@ function mostrarDetallesIngreso(id) {
         }
     });
 }
+
+function mostrarCategoriasEgreso(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/egresos/categorias/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function mostrarRevisoresEgreso(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/egresos/revisores/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+
+
+
+
+
+
 
 

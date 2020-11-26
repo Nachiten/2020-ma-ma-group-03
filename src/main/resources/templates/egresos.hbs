@@ -56,29 +56,34 @@
                             <button type="button" onclick="mostrarDetallesProveedor()" > Detalle</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td> Asociar categorías: </td>
-                        <td>
-                            <select name = "criteriosCategoria" id="seleccionar-criterio">
-                            <option hidden selected> Seleccionar Criterio </option>
-                            {{#each criteriosCategoria}} <!-- este se alimenta del put de controller -->
-                                <option>{{nombre}}</option>
-                            {{/each}}
-                            </select>
-                        </td>
-                        <td>
-                            <button type="button" onclick="mostrarCategoriasCriterio()" > Seleccionar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{#each categorias}}
-                                <input type="checkbox" name="{{nombreCategoria}}" value="1" class="categoria"> {{nombreCategoria}}<br>
-                            {{/each}}
-                            <br>
-                        </td>
 
-                    </tr>
+                    <table class= "formulario3" border = "0">
+                        <td>Asociar categorias:</td>
+                        <!-- TR = Fila | TD = Columna-->
+                        <tr>
+                            <td>
+                                {{#each criterios}}
+                                    <p>Criterio {{nombre}}:</p>
+                                    {{#each listaCategoriaCriterio}}
+                                        <input type="checkbox" name="{{nombreCategoria}}" class="categoria" value="1"> {{nombreCategoria}}<br>
+                                    {{/each}}
+                                    <br>
+                                {{/each}}
+                            </td>
+
+                            <td>
+                                {{#each criterios2}}
+                                    <p>Criterio {{nombre}}:</p>
+                                    {{#each listaCategoriaCriterio}}
+                                        <input type="checkbox" name="{{nombreCategoria}}" value="1"> {{nombreCategoria}}<br>
+                                    {{/each}}
+                                    <br>
+                                {{/each}}
+                            </td>
+                        </tr>
+                    </table>
+
+                <table class="formulario3" border="0">
                     <tr>
                         <td>Ser Revisor: </td>
                         <td>
@@ -89,18 +94,6 @@
                             </select>
                         </td>
                     </tr>
-                </table>
-            </center>
-            <center>
-            <table class= "formulario3" border = "0">
-
-                <!-- TR = Fila | TD = Columna-->
-
-            </table>
-            </center>
-
-            <center>
-                <table class="formulario3" border="0">
                     <tr>
                         <td>Presupuestos requeridos:</td>
                         <td><input name="presupuestosRequeridos" id="alta-presupuestosRequeridos" min="0" max="1000" type="number" placeholder="Ej: 1" required></td>
