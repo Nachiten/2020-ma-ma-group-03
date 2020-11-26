@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table (name = "presupuesto")
-public class    Presupuesto extends EntidadPersistente {
+public class Presupuesto extends EntidadPersistente {
 
     @ManyToOne
     private OperacionDeEgreso operacionAsociada;
@@ -81,7 +81,14 @@ public class    Presupuesto extends EntidadPersistente {
         return documentoComercial;
     }
 
-    //-------------------------------------------------------------------------
+    public Proveedor getProveedorAsociado() {
+        return proveedorAsociado;
+    }
+
+    public List<CategoriaCriterio> getListaCategoriaCriterio() {
+        return listaCategoriaCriterio;
+    }
+//-------------------------------------------------------------------------
                                     //SETTERS
     //-------------------------------------------------------------------------
 

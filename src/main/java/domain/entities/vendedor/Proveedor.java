@@ -98,11 +98,17 @@ public class Proveedor extends EntidadPersistente {
         return apellidoProveedor;
     }
 
-    //-------------------------------------------------------------------------
+    public DireccionPostal getDireccionPostal() {
+        return direccionPostal;
+    }
+
+//-------------------------------------------------------------------------
                                   //SETTERS
     //-------------------------------------------------------------------------
 
     public void setEstoyHabilitado(Boolean estoyHabilitado){
         this.estoyHabilitado= estoyHabilitado;
     }
+
+
 }

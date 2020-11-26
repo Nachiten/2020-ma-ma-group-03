@@ -1,0 +1,85 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                Detalles Ingreso
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "detalleIngreso">
+                <form action= "javascript:void(0)" method="post">
+                    <center>
+                        <table class= "formulario" border = 0 >
+                            <tr> <!--{miNombre} viene desde modalAndView.put() -->
+                                <td>Número de operación:</td>
+                                {{#if id}}
+                                    <td> {{id}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Descripción:</td>
+                                {{#if descripcion}}
+                                    <td> {{descripcion}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Fecha:</td>
+                                {{#if fecha}}
+                                    <td> {{fecha}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Monto total:</td>
+                                {{#if montoTotal}}
+                                    <td> $ {{montoTotal}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Moneda:</td>
+                                {{#if moneda}}
+                                <td> $ {{moneda.description}} </td>
+                            {{else}}
+                                <td>No hay datos </td>
+                            {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Operaciones vinculadas:</td>
+                                <td><button type="button" onclick="mostrarOperacionesVinculadas({{id}})" > Ver Lista</button></td>
+                            </tr>
+                            <tr>
+                                <td>Monto sin vincular:</td>
+                                {{#if montoSinVincular}}
+                                    <td> {{montoSinVincular}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Período de aceptación:</td>
+                                {{#if periodoAceptacion}}
+                                    <td> {{periodoAceptacion}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button"  onclick="" class="btn" data-dismiss="modal" > Aceptar </button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/accionesUsuarios.js"></script>
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />

@@ -1,0 +1,114 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                Detalles Egreso
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "detalleEgreso">
+                <form action= "javascript:void(0)" method="post">
+                    <center>
+                        <table class= "formulario" border = 0 >
+                            <tr> <!--{miNombre} viene desde modalAndView.put() -->
+                                <td>Número de operación:</td>
+                                {{#if id}}
+                                    <td> {{id}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Usuario:</td>
+                                {{#if usuario}}
+                                    <td> {{usuario}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Fecha:</td>
+                                {{#if fecha}}
+                                    <td> {{fecha}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Monto total:</td>
+                                {{#if montoTotal}}
+                                    <td> $ {{montoTotal}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Items:</td>
+                                <td><button type="button" onclick="mostrarItemsEgreso({{id}})" > Ver Lista</button></td>
+                            </tr>
+                            <tr>
+                                <td>Documento comercial:</td>
+                                {{#if documentoComercial}}
+                                    <td> {{documentoComercial}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Medio de pago:</td>
+                                {{#if medioDePago}}
+                                    <td> {{medioDePago}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Proveedor:</td>
+                                {{#if proveedor}}
+                                    <td> {{proveedor}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Operación de ingreso:</td>
+                                {{#if operacionDeIngreso}}
+                                    <td> {{operacionDeIngreso.id}} </td>
+                                    <td><button type="button" onclick="mostrarDetallesIngreso({{operacionDeIngreso.id}})" > Detalle </button></td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Cantidad de presupuestos:</td>
+                                {{#if cantidadPresupuestos}}
+                                    <td> {{cantidadPresupuestos}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Presupuestos</td>
+                                <td><button type="button" onclick="mostrarPresupuestosEgreso({{id}})" > Ver Lista</button></td>
+                            </tr>
+                            <tr>
+                                <td>Categorías</td>
+                                <td><button type="button" onclick="mostrarCategoriasEgreso({{id}})" > Ver Lista</button></td>
+                            </tr>
+                            <tr>
+                                <td>Revisores:</td>
+                                <td><button type="button" onclick="mostrarRevisoresEgreso({{id}})" > Ver Lista</button></td>
+                            </tr>
+
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button"  onclick="" class="btn" data-dismiss="modal" > Aceptar </button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/accionesUsuarios.js"></script>
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />

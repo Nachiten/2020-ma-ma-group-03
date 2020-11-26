@@ -1,0 +1,60 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                Listado de Presupuestos</h1>
+        </div>
+        <div class="modal-body">
+            <div class="table-wrapper">
+                <table id="tabla_operaciones_egreso">
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Documento Comercial</th>
+                        <th>Proveedor</th>
+                        <th>Categorias</th>
+                        <th>Items</th>
+                        <th>Monto</th>
+                    </tr>
+                    </thead>
+                    <tbody id="content_table">
+                    {{#each presupuestos}}
+                        <tr>
+                            {{#if fecha}}
+                                <td> {{fecha}} </td>
+                            {{else}}
+                                <td>No hay datos </td>
+                            {{/if}}
+                            {{#if documentoComercial}}
+                            <td> {{documentoComercial.tipo.nombre}} </td>
+                        {{else}}
+                            <td>No hay datos </td>
+                        {{/if}}
+                            {{#if proveedor}}
+                                <td> <button type="button" onclick="mostrarDetallesProveedorPresupuesto({{id}})" > Detalle</button> </td>
+                            {{else}}
+                                <td>No tiene proveedor </td>
+                            {{/if}}
+                            {{#if listaCategoriaCriterio}}
+                                <td><button type="button" onclick="mostrarCategoriaPresupuesto({{id}})" > Ver Lista</button></td>
+                            {{else}}
+                                <td>No tiene categorias </td>
+                            {{/if}}
+                                <td><button type="button" onclick="mostrarItemsPresupuesto({{id}})" > Ver Lista</button></td>
+                            {{#if montoTotal}}
+                                <td> {{montoTotal}} </td>
+                            {{else}}
+                                <td>No hay datos </td>
+                            {{/if}}
+                        </tr>
+                    {{/each}}
+                    </tbody>
+
+                </table>
+                <div class="modal-footer">
+                    <button type="button"  onclick="" class="btn" data-dismiss="modal" > Aceptar </button>
+                </div>
+            </div>
+        </div>
+        <script src="/js/accionesUsuarios.js"></script>
+        <link rel="stylesheet" href="/css/modalAccionesUsuarios.css"/>
