@@ -133,7 +133,6 @@ public class PresupuestosController {
 
         modalAndViewController.getParametros().put("nombre", proveedor.getNombreProveedor());
         modalAndViewController.getParametros().put("apellido", proveedor.getApellidoProveedor());
-        modalAndViewController.getParametros().put("dni", proveedor.getDniProveedor());
         modalAndViewController.getParametros().put("cuit", proveedor.getCuit());
         modalAndViewController.getParametros().put("razonSocial", proveedor.getRazonSocialProveedor());
 
