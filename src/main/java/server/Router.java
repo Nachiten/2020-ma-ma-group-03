@@ -86,12 +86,17 @@ public class Router {
         Spark.post("/egresos/categorias/:id", egresosController::verCategoriasEgreso, Router.engine);
         Spark.post("/egresos/revisores/:id", egresosController::verRevisores, Router.engine);
         Spark.post("/egresos/nombreCategoria", egresosController::verEgresosPorCategoria, Router.engine);
+        Spark.post("/egresos/presupuestos/:id", egresosController::verPresupuestosAsociados, Router.engine);
 
         Spark.post("/ingresos", ingresosController::guardarOperacionDeIngreso, Router.engine);
         Spark.post("/ingresos/detalle/:id", ingresosController::verDetalleIngreso, Router.engine);
         Spark.post("/ingresos/egresos/:id", ingresosController::verOperacionesVinculadas, Router.engine);
 
         Spark.post("/presupuestos", presupuestosController::guardarPresupuesto, Router.engine);
+        Spark.post("/presupuestos/proveedor/:id", presupuestosController::verDetalleProveedor, Router.engine);
+        Spark.post("/presupuestos/categorias/:id", presupuestosController::verCategoriasPresupuesto, Router.engine);
+        Spark.post("/presupuestos/items/:id", presupuestosController::verItemsPresupuesto, Router.engine);
+        Spark.post("/presupuestos/egreso", presupuestosController::verEgresoElegido, Router.engine);
 
         Spark.post("/criterios", criteriosController::guardarCriterio, Router.engine);
 

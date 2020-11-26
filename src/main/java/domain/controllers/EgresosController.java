@@ -180,6 +180,23 @@ public class EgresosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalEgresosPorCategoria.hbs");
     }
 
+    public ModelAndView verPresupuestosAsociados(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        OperacionDeEgreso operacionDeEgreso = buscarOperacionDeEgreso(idOperacion);
+
+        modalAndViewController.getParametros().put("presupuestos", operacionDeEgreso.getPresupuestos());
+
+
+        if(operacionDeEgreso.getPresupuestos().isEmpty()){
+            modalAndViewController.getParametros().put("mensaje", "El egreso no tiene presupuestos asociados.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalPresupuestosEgreso.hbs");
+    }
+
     public ModelAndView verRevisores(Request request, Response response){
 
         int idOperacion = Integer.parseInt(request.params("id"));

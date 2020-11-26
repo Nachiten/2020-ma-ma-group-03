@@ -332,6 +332,29 @@ function recuperarCategoria(){
 }
 
 
+function mostrarDetallesEgresoEnPresupuesto() {
+    var datos = recuperarEgreso();
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/presupuestos/egreso";
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        data     : datos,
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function recuperarEgreso(){
+    return {
+        operacionEgreso: valorDe("alta-operacionEgreso")
+    };
+}
+
 function mostrarDetallesEgreso(id) {
 
     //acá yo le digo che loco, hace un post sobre tal ruta!
@@ -363,10 +386,70 @@ function mostrarItemsEgreso(id) {
 }
 
 
+function mostrarItemsPresupuesto(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/presupuestos/items/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
 function mostrarCategoriasEgreso(id) {
 
     //acá yo le digo che loco, hace un post sobre tal ruta!
     var ruta = "/egresos/categorias/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function mostrarCategoriaPresupuesto(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/presupuestos/categorias/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function mostrarPresupuestosEgreso(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/egresos/presupuestos/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function mostrarDetallesProveedorPresupuesto(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/presupuestos/proveedor/" + id;
     var metodo = "POST";
     $.ajax({
         type     : metodo,
