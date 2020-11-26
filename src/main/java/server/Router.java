@@ -85,6 +85,7 @@ public class Router {
         Spark.post("/egresos/items/:id", egresosController::verItemsEgreso, Router.engine);
         Spark.post("/egresos/categorias/:id", egresosController::verCategoriasEgreso, Router.engine);
         Spark.post("/egresos/revisores/:id", egresosController::verRevisores, Router.engine);
+        Spark.post("/egresos/nombreCategoria", egresosController::verEgresosPorCategoria, Router.engine);
 
         Spark.post("/ingresos", ingresosController::guardarOperacionDeIngreso, Router.engine);
         Spark.post("/ingresos/detalle/:id", ingresosController::verDetalleIngreso, Router.engine);

@@ -1,39 +1,21 @@
 {{#partial "contenido"}}
  
 <div class = "listadoOperaciones">
-    
-  <form>
-    <center class="operaciones">
 
-        <table class= "criterio">
-<!--  Tabla de egresos  -->
-    <!--<tr>
+    <form>
+        <center class="operaciones">
 
-     <td>CRITERIO:</td>
-      <td> <select name = "criterio" >
-         <option> Seleccionar Criterio</option><br>
-       </select>
-        
+    <h2>LISTADO DE OPERACIONES DE EGRESO</h2>
 
-     <td>CATEGORIA:</td>
-      <td> 
-            // Deben aparecer varias categorias
-          
-            <input type="checkbox" name="categoria" value="1">categoria1<br>
-          
-      <td>
-      <td rowspan="2">
-         <div class="buttons">
-            <button type="button" >Filtrar</button>
-         </div>
-       </td>
-       
-     </tr>-->
-     
+    <h3>Filtrar por Categoría: <select name="nombreCategoria" id="alta-nombreCategoria">
+        <option hidden selected> Seleccionar categoría </option>
+        {{#each categorias}} <!-- este se alimenta del put de controller -->
+            <option>{{nombreCategoria}}</option>
+        {{/each}}
+    </select>
+        <button type="button" onclick="mostrarFiltradoEgresos()" > Filtrar </button>
+    </h3>
 
-        </table>
-
-<h3>LISTADO DE OPERACIONES DE EGRESO</h3>
      <div class="table-wrapper">
         <table id="tabla_operaciones_egreso">
             <thead>

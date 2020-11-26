@@ -4,6 +4,7 @@ import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
+import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
@@ -13,6 +14,7 @@ import spark.Request;
 import spark.Response;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EgresosController {
@@ -25,6 +27,7 @@ public class EgresosController {
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
     private Repositorio<EntidadJuridica> repoEntidadJuridica;
+    private Repositorio<CategoriaCriterio> repoCategorias;
 
     public EgresosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
@@ -33,6 +36,7 @@ public class EgresosController {
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
         this.repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
+        this.repoCategorias = FactoryRepositorio.get(CategoriaCriterio.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
     }
@@ -149,6 +153,33 @@ public class EgresosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalCategoriasEgreso.hbs");
     }
 
+    public ModelAndView verEgresosPorCategoria(Request request, Response response){
+
+        String nombreCategoria = request.params("nombreCategoria");
+
+        CategoriaCriterio categoriaCriterio = buscarCategoria(nombreCategoria);
+
+        List<OperacionDeEgreso> operacionesDeEgresosPorCategoria = new ArrayList<>();
+
+        List<OperacionDeEgreso> operacionDeEgresos = this.repoOperacionEgreso.buscarTodos();
+
+        for ( OperacionDeEgreso unaOperacion : operacionDeEgresos ) {
+            if (unaOperacion.getListaCategoriaCriterio().contains(categoriaCriterio)){
+                operacionesDeEgresosPorCategoria.add(unaOperacion);
+            }
+        }
+
+        modalAndViewController.getParametros().put("egresosPorCategoria", operacionesDeEgresosPorCategoria);
+        modalAndViewController.getParametros().put("nombreCategoria", nombreCategoria);
+
+        if(operacionesDeEgresosPorCategoria.isEmpty()){
+            modalAndViewController.getParametros().put("mensaje", "No hay egresos asociados a la categoría seleccionada.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalEgresosPorCategoria.hbs");
+    }
+
     public ModelAndView verRevisores(Request request, Response response){
 
         int idOperacion = Integer.parseInt(request.params("id"));
@@ -164,7 +195,6 @@ public class EgresosController {
 
         return new ModelAndView(modalAndViewController.getParametros(),"modalRevisoresEgreso.hbs");
     }
-
 
     public ModelAndView guardarOperacionDeEgreso(Request request, Response response) {
         // Leo los query params
@@ -276,6 +306,17 @@ public class EgresosController {
         for(Criterio unCriterio : criterios){
             if(unCriterio.getNombre().equals(criterio)){
                 return unCriterio;
+            }
+        }
+        return null;
+    }
+
+    private CategoriaCriterio buscarCategoria(String categoria){
+        List<CategoriaCriterio> categorias = this.repoCategorias.buscarTodos();
+
+        for(CategoriaCriterio unaCategoria : categorias){
+            if(unaCategoria.getNombreCategoria().equals(categoria)){
+                return unaCategoria;
             }
         }
         return null;

@@ -308,12 +308,11 @@ function recuperarProveedor(){
     };
 }
 
-
-function mostrarCategoriasCriterio() {
-    var datos = recuperarCriterio();
+function mostrarFiltradoEgresos() {
+    var datos = recuperarCategoria();
 
     //acá yo le digo che loco, hace un post sobre tal ruta!
-    var ruta = "/egresos/criterio";
+    var ruta = "/egresos/nombreCategoria";
     var metodo = "POST";
     $.ajax({
         type     : metodo,
@@ -326,9 +325,9 @@ function mostrarCategoriasCriterio() {
     });
 }
 
-function recuperarCriterio(){
+function recuperarCategoria(){
     return {
-        criteriosCategoria: valorDe("seleccionar-criterio")
+        nombreCategoria: valorDe("alta-nombreCategoria")
     };
 }
 
@@ -423,7 +422,6 @@ function mostrarOperacionesVinculadas(id) {
         }
     });
 }
-
 
 
 
