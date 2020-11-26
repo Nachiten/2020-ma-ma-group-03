@@ -28,7 +28,6 @@ import java.util.List;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PersistenciaDatosPruebaTest {
 
-
     //PAIS
     static private Pais argentina;
     static private Pais reinoUnido;
@@ -525,8 +524,6 @@ public class PersistenciaDatosPruebaTest {
         EntityManagerHelper.getEntityManager().persist(unObjeto);
         EntityManagerHelper.commit();
     }
-
-
 
     @Test
     public void t1_persistirOperacionesDeIngreso(){

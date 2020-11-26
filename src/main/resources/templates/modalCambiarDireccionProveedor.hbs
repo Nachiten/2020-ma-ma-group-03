@@ -2,8 +2,8 @@
     <div class="modal-content">
         <div class="modal-header">
             <h1 id="tituloModal" class="modal-title">
-                <a class="fas fa-smile-plus"></a>
-                ¡Nuevo Proveedor!
+                <i class="fas fa-globe-americas"></i>
+                ¡Actualizar dirección del Proveedor!
             </h1>
         </div>
         <div class="modal-body">
@@ -12,27 +12,11 @@
                     <form action="javascript:void(0)" method="post">
                         <table class= "formulario" border = 0 >
                             <tr>
-                                <td>Nombre:</td>
-                                <td><input type="text" name="nombre" id="altaProveedor-nombre" placeholder="Ingrese su nombre" required></td>
-                            </tr>
-                            <tr>
-                                <td>Apellido:</td>
-                                <td><input type="text" name="apellido" id="altaProveedor-apellido" placeholder="Ingrese su apellido"  required></td>
-                            </tr>
-                            <tr>
-                                <td>Razón Social:</td>
-                                <td><input type="text" name="razonSocial" id="altaProveedor-razonSocial" placeholder="Ingrese su razon social" required></td>
-                            </tr>
-                            <tr>
-                                <td>CUIT/CUIL:</td>
-                                <td><input type="number" min="0" name="cuit_cuil" id="altaProveedor-cuit_cuil" placeholder="Ingrese su CUIT/CUIL" required></td>
-                            </tr>
-                            <tr>
                                 <td>País:</td>
                                 <td>
                                     <select name="pais" id="altaProveedor-pais" required >
                                         <option hidden selected>Seleccionar país</option>
-                                        {{#each listaPaises}}
+                                        {{#each listaPaisesApi}}
                                             <option value="{{id}}">{{name}}</option>
                                         {{/each}}
                                     </select>
@@ -43,7 +27,7 @@
                                 <td>
                                     <select name="provincia" id="altaProveedor-provincia"required disabled>
                                         <option hidden selected>Seleccionar provincia</option>
-                                        {{#each listaProvincias}}
+                                        {{#each listaProvinciasApi}}
                                             <option value="{{id}}" data-attribute="{{paisAsociado.id}}">{{name}}</option>
                                         {{/each}}
                                     </select>
@@ -54,7 +38,7 @@
                                 <td>
                                     <select name="ciudad"  id="altaProveedor-ciudad" required disabled>
                                         <option hidden selected>Seleccionar Ciudad</option>
-                                        {{#each listaCiudades}}
+                                        {{#each listaCiudadesApi}}
                                             <option value="{{id}}" data-attribute="{{provinciaAsociada.id}}">{{name}}</option>
                                         {{/each}}
                                     </select>
@@ -82,11 +66,11 @@
                             </tr>
                         </table>
                         <div class="modal-footer">
-                            <button type="button" class="btn" data-dismiss="modal" onClick="location.reload();">
+                            <button type="button" class="btn" data-dismiss="modal" >
                                 Cancelar
                             </button>
-                            <button type="submit" onclick="mostrarModalConfirmacionNuevoProveedor()">
-                                Guardar
+                            <button type="submit" onclick="mostrarModalConfirmacionCambioDireccionProveedor({{idProveedor}})">
+                                Actualizar
                             </button>
                         </div>
                     </form>

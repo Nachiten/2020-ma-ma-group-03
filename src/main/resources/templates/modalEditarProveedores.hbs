@@ -1,0 +1,59 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                <a class="fas fa-edit"></a>
+                ¡Editar proveedores!
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "listadoDeUsuarios">
+                <center>
+                    <div class="table-wrapper">
+                        <table id="proveedores">
+                            <thead>
+                                <tr>
+                                    <th>NOMBRE</th>
+                                    <th>APELLIDO</th>
+                                    <th>RAZÓN SOCIAL</th>
+                                    <th>CUIT/CUIL</th>
+                                    <td>EDITAR</td>
+                                    <td>DAR DE BAJA</td>
+                                </tr>
+                            </thead>
+                            <tbody id="content_table">
+                                {{#each listadoProveedoresHabilitados}}
+                                    <tr>
+                                        <td>{{nombreProveedor}}</td>
+                                        <td>{{apellidoProveedor}}</td>
+                                        <td>{{razonSocialProveedor}}</td>
+                                        <td>{{cuit}}</td>
+                                        <td>
+                                            <div>
+                                                <a class="fas fa-edit" onclick="mostrarModalParaEditarUnProveedor('{{id}}')" style="cursor: pointer"></a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <a class="fas fa-trash" onclick="darDeBajaProveedor('{{id}}')" style="cursor: pointer"></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal" >
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/accionesProveedores.js"></script>
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">

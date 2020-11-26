@@ -11,6 +11,8 @@ SELECT * FROM usuario;
 SELECT * FROM mensaje;
 SELECT * FROM contraanterior;
 SELECT * FROM operaciondeegreso;
+SELECT * FROM operaciondeingreso;
+SELECT * FROM proveedor;
 SELECT * FROM mediodepago;
 SELECT * FROM tipomediodepago;
 SELECT * FROM presupuesto;

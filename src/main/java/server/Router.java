@@ -101,11 +101,16 @@ public class Router {
         //Acciones proveedor
         Spark.get("/nuevoProveedor", accionesEnProveedoresController::mostrarModalNuevoPRoveedor, Router.engine);
         Spark.post("/guardarNuevoProveedor", accionesEnProveedoresController::guardarNuevoProveedor, Router.engine);
-
+        Spark.get("/habilitarProveedor", accionesEnProveedoresController::mostrarModalHabilitarProveedor, Router.engine);
+        Spark.post("/habilitarProveedor/:id", accionesEnProveedoresController::mostrarConfirmacionHabilitarProveedor, Router.engine);
+        Spark.get("/editarProveedor", accionesEnProveedoresController::mostrarModalEditarProveedores, Router.engine);
+        Spark.get("/editarProveedor/modificar/:id", accionesEnProveedoresController::mostrarModalParaEditarUnProveedor, Router.engine);
+        Spark.get("/editarProveedor/actualizarDireccion/:id", accionesEnProveedoresController::mostrarModalActualizarDireccionProveedor, Router.engine);
+        Spark.delete("/editarproveedor/darDeBaja/:id", accionesEnProveedoresController::mostrarModalConfirmacionBajaPRoveedor, Router.engine);
 
 
         Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);
-        Spark.get("/bajaProveedor", accionesEnProveedoresController::listarProveedores , Router.engine);
+        //Spark.get("/bajaProveedor", accionesEnProveedoresController::listarProveedores , Router.engine);
         //Spark.get("/altaProveedor", accionesEnProveedoresController::altaProveedor , Router.engine);
         Spark.get("/altaEntidadJuridica",altaEntidadJuridicaController::mostrarPaginaAltaEntidadJuridica,Router.engine);
 
@@ -118,7 +123,7 @@ public class Router {
         Spark.post("/altaEntidadJuridica",altaEntidadJuridicaController::guardarEntidadJuridica,Router.engine);
 
         //Delete para eliminar un proveedor
-        Spark.delete("/bajaProveedor/eliminar/:id", accionesEnProveedoresController::eliminar,Router.engine);
+        //Spark.delete("/bajaProveedor/eliminar/:id", accionesEnProveedoresController::eliminar,Router.engine);
 
         Spark.get("/*", inicioController::retornarError, Router.engine);
     }

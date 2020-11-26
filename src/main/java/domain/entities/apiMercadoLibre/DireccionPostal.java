@@ -11,6 +11,7 @@ import java.util.Optional;
 @Entity
 @Table (name = "direccionPostal")
 public class DireccionPostal extends EntidadPersistente {
+
     @ManyToOne (cascade = {CascadeType.ALL})
     private Direccion direccion;
 
@@ -51,6 +52,9 @@ public class DireccionPostal extends EntidadPersistente {
                         //METODOS
     //-------------------------------------------------------------------------
 
+    public void asociarDireccion(Direccion direccionProveedor) {
+        this.direccion = direccionProveedor;
+    }
     /*
     public void configurarDireccionPostal(String nombrePais, String nombreProvincia, Direccion unaDireccion) {
         //configurarPais(nombrePais);
@@ -132,4 +136,6 @@ public class DireccionPostal extends EntidadPersistente {
     public Ciudad getCiudad() {
         return ciudad;
     }
+
+
 }

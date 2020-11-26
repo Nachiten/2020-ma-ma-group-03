@@ -146,7 +146,7 @@ public class PersistenciaOperacionesTest {
         operacionDeEgresoRopaA.agregarRevisor(usuarioB);
 
         // Seteo proveedor
-        Proveedor miProveedor = new Proveedor("Roberto", "Fernandez", 42374333, null, "RopaLinda S.A.");
+        Proveedor miProveedor = new Proveedor("Roberto", "Fernandez", "42374333", null, "RopaLinda S.A.");
         operacionDeEgresoRopaA.setProveedorAsociado(miProveedor);
 
         // Creo y asocio operacion de ingreso
@@ -195,13 +195,13 @@ public class PersistenciaOperacionesTest {
 
     @Test
     public void t4_persistirProveedores(){
-        Proveedor miProveedor1 = new Proveedor("Ramirez", "Carla", 41374383, null, "Contruccion SRL");
+        Proveedor miProveedor1 = new Proveedor("Ramirez", "Carla", "41374383", null, "Contruccion SRL");
         persistirUnObjeto(miProveedor1);
 
-        Proveedor miProveedor2 = new Proveedor("Baptista", "Fernando", 42954333, null, "Cosas SA");
+        Proveedor miProveedor2 = new Proveedor("Baptista", "Fernando", "42954333", null, "Cosas SA");
         persistirUnObjeto(miProveedor2);
 
-        Proveedor miProveedor3 = new Proveedor("Martinez", "Julian", 36374333, null, "Alimentos SA");
+        Proveedor miProveedor3 = new Proveedor("Martinez", "Julian", "36374333", null, "Alimentos SA");
         persistirUnObjeto(miProveedor3);
     }
     @Test

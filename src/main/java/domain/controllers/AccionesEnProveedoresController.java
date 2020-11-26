@@ -2,6 +2,7 @@ package domain.controllers;
 
 import domain.entities.apiMercadoLibre.*;
 import domain.entities.vendedor.Proveedor;
+import domain.repositories.RepoProveedores;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -10,6 +11,7 @@ import spark.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AccionesEnProveedoresController {
@@ -19,9 +21,7 @@ public class AccionesEnProveedoresController {
     private Repositorio<Ciudad> repoCiudades;
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
-    private List<Pais> listaPaises;
-    private List<Estado> listaProvincias;
-    private List<Ciudad> listaCiudades;
+
 
     public AccionesEnProveedoresController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
 
@@ -31,9 +31,7 @@ public class AccionesEnProveedoresController {
         this.respoPaises = FactoryRepositorio.get(Pais.class);
         this.repoProvincias = FactoryRepositorio.get(Estado.class);
         this.repoCiudades =FactoryRepositorio.get(Ciudad.class);
-        this.listaPaises = new ArrayList<>();
-        this.listaProvincias = new ArrayList<>();
-        this.listaCiudades = new ArrayList<>();
+
     }
 
     private ModelAndView modalAndViewAccionesProveedores() {
@@ -45,9 +43,9 @@ public class AccionesEnProveedoresController {
     }
 
     private ModelAndView modelAndViewNuevoProveedor(){
-        listaPaises = respoPaises.buscarTodos();
-        listaProvincias = repoProvincias.buscarTodos();
-        listaCiudades = repoCiudades.buscarTodos();
+        List<Pais> listaPaises = respoPaises.buscarTodos();
+        List<Estado> listaProvincias = repoProvincias.buscarTodos();
+        List<Ciudad> listaCiudades = repoCiudades.buscarTodos();
         modalAndViewController.getParametros().put("listaPaises", listaPaises);
         modalAndViewController.getParametros().put("listaProvincias", listaProvincias);
         modalAndViewController.getParametros().put("listaCiudades", listaCiudades);
@@ -75,53 +73,117 @@ public class AccionesEnProveedoresController {
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
     }
 
-
-
-
-
-
-
-    private ModelAndView modalAndViewListarProveedores(){
+    private ModelAndView modalAndViewListarProveedoresInhabilitados(){
 
         List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
-        List<Proveedor> proveedoresHabilitados = proveedores.stream().filter(Proveedor::getEstoyHabilitado).collect(Collectors.toList());
-        modalAndViewController.getParametros().put("listadoProveedores", proveedoresHabilitados);
-        return new ModelAndView(modalAndViewController.getParametros(), "bajaProveedor.hbs");
-
+        List<Proveedor> proveedoresInhabilitados = proveedores.stream().filter(proveedor -> !proveedor.getEstoyHabilitado()).collect(Collectors.toList());
+        modalAndViewController.getParametros().put("listadoProveedoresInhabilitados", proveedoresInhabilitados);
+        return new ModelAndView(modalAndViewController.getParametros(), "modalHabilitarProveedores.hbs");
     }
 
-    public ModelAndView listarProveedores(Request request, Response response) {
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewListarProveedores);
+    public ModelAndView mostrarModalHabilitarProveedor(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewListarProveedoresInhabilitados);
     }
 
-    public ModelAndView eliminar(Request request, Response response) {
-        int idBuscado = Integer.parseInt(request.params("id"));
-        Proveedor proveedorBuscado = this.repoProveedor.buscar(idBuscado);
-        proveedorBuscado.cambiarAInhabilitado();
-        this.repoProveedor.modificar(proveedorBuscado);
-        modalAndViewController.getParametros().put("mensaje","El proveedor se dio de baja correctamente");
-        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
-    }
-
-/*
-    public ModelAndView guardarProveedor(Request request, Response response){
-
-
-
-        int cuit_cuil = Integer.parseInt(cuit_cuilString);
-
-        DireccionPostal direccionPostal = operadorController.generarDireccionPostal(request);
-
-        Proveedor proveedorAGuardar = new Proveedor(nombre, apellido, cuit_cuil, direccionPostal, razonSocial);
-
-        if (operadorController.persistenciaNoValida(repoProveedor, proveedorAGuardar)){
-            modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
-            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
-        }
-
-        modalAndViewController.getParametros().put("mensaje", "Se persistio correctamente el proveedor.");
+    private ModelAndView modalAndViewHabilitarProveedor(Request request) {
+        int idProveedor = Integer.parseInt(request.params("id"));
+        Proveedor proveedorAEditar = this.repoProveedor.buscar(idProveedor);
+        proveedorAEditar.cambiarAHabilitado();
+        this.repoProveedor.modificar(proveedorAEditar);
+        modalAndViewController.getParametros().put("mensaje", "El proveedor "+proveedorAEditar.getRazonSocialProveedor()+" se habilitó correctamente");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
-    }*/
+    }
 
+    public ModelAndView mostrarConfirmacionHabilitarProveedor(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewHabilitarProveedor(request));
+    }
+
+
+
+    private ModelAndView modalAndViewListarProveedoresHabilitados() {
+        List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
+        List<Proveedor> proveedoresInhabilitados = proveedores.stream().filter(Proveedor::getEstoyHabilitado).collect(Collectors.toList());
+        modalAndViewController.getParametros().put("listadoProveedoresHabilitados", proveedoresInhabilitados);
+        return new ModelAndView(modalAndViewController.getParametros(), "modalEditarProveedores.hbs");
+    }
+
+    public ModelAndView mostrarModalEditarProveedores(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewListarProveedoresHabilitados);
+    }
+
+    private ModelAndView modalAndViewEditarUnProveedor(Request request) {
+        int idProveedor = Integer.parseInt(request.params("id"));
+        Proveedor proveedorAEditar = this.repoProveedor.buscar(idProveedor);
+
+        modalAndViewController.getParametros().put("idProveedor", proveedorAEditar.getId());
+        modalAndViewController.getParametros().put("nombreProveedor", proveedorAEditar.getNombreProveedor());
+        modalAndViewController.getParametros().put("apellidoproveedor", proveedorAEditar.getApellidoProveedor());
+        modalAndViewController.getParametros().put("razonSocial", proveedorAEditar.getRazonSocialProveedor());
+        modalAndViewController.getParametros().put("cuil", proveedorAEditar.getCuit());
+
+        DireccionPostal direccionPostalproveedor = proveedorAEditar.getDireccionPostal();
+        if (Objects.equals(direccionPostalproveedor, null)){
+            direccionPostalproveedor = new DireccionPostal();
+            proveedorAEditar.asociarDireccionPostal(direccionPostalproveedor);
+        }
+        Pais paisProveedor = direccionPostalproveedor.getPais();
+        Estado provinciaProveedor = direccionPostalproveedor.getProvincia();
+        Ciudad ciudadProveedor = direccionPostalproveedor.getCiudad();
+        modalAndViewController.getParametros().put("ciudadProveedor", ciudadProveedor.getName());
+        modalAndViewController.getParametros().put("provinciaProveedor", provinciaProveedor.getName());
+        modalAndViewController.getParametros().put("paisProveedor", paisProveedor.getName());
+
+        Direccion direccionProveedor = direccionPostalproveedor.getDireccion();
+        if (Objects.equals(direccionProveedor, null)){
+            direccionProveedor = new Direccion();
+            direccionPostalproveedor.asociarDireccion(direccionProveedor);
+        }
+        modalAndViewController.getParametros().put("barrio", direccionProveedor.getBarrio());
+        modalAndViewController.getParametros().put("calle",direccionProveedor.getCalle());
+        modalAndViewController.getParametros().put("numeroCalle", direccionProveedor.getNumero());
+
+        int piso = direccionProveedor.getPiso();
+        if (piso!=0) modalAndViewController.getParametros().put("pisoDepartamento", direccionProveedor.getPiso());
+
+        modalAndViewController.getParametros().put("departamento", direccionProveedor.getDpto());
+
+        return new ModelAndView(modalAndViewController.getParametros(), "modalDatosAEditarDeUnProveedor.hbs");
+    }
+
+    public ModelAndView mostrarModalParaEditarUnProveedor(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewEditarUnProveedor(request));
+    }
+
+    private ModelAndView modalAndViewActualizarDireccionDeProveedor(Request request) {
+        int idProveedor = Integer.parseInt(request.params("id"));
+        Proveedor proveedorAEditar = this.repoProveedor.buscar(idProveedor);
+
+        modalAndViewController.getParametros().put("idProveedor", proveedorAEditar.getId());
+
+        List<Pais> listaPaisesApi = respoPaises.buscarTodos();
+        List<Estado> listaProvinciasApi = repoProvincias.buscarTodos();
+        List<Ciudad> listaCiudadesApi = repoCiudades.buscarTodos();
+        modalAndViewController.getParametros().put("listaPaisesApi", listaPaisesApi);
+        modalAndViewController.getParametros().put("listaProvinciasApi", listaProvinciasApi);
+        modalAndViewController.getParametros().put("listaCiudadesApi", listaCiudadesApi);
+        return new ModelAndView(modalAndViewController.getParametros(), "modalCambiarDireccionProveedor.hbs");
+    }
+
+    public ModelAndView mostrarModalActualizarDireccionProveedor(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewActualizarDireccionDeProveedor(request));
+    }
+
+    private ModelAndView modalAndViewDarDeBajaProveedor(Request request) {
+        int idProveedor = Integer.parseInt(request.params("id"));
+        Proveedor proveedorAEditar = this.repoProveedor.buscar(idProveedor);
+        proveedorAEditar.cambiarAInhabilitado();
+        this.repoProveedor.modificar(proveedorAEditar);
+        modalAndViewController.getParametros().put("mensaje", "Se dio de baja correctamente al proveedor "+proveedorAEditar.getRazonSocialProveedor());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionBajaPRoveedor(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewDarDeBajaProveedor(request));
+    }
 
 }

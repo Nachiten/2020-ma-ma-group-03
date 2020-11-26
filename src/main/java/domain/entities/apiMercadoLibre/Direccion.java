@@ -13,10 +13,13 @@ public class Direccion extends EntidadPersistente {
 
     @Column (name = "calle")
     private String calle;
+
     @Column (name = "numero")
     private int numero;
+
     @Column (name = "piso")
     private int piso;
+
     @Column (name = "dpto")
     private String dpto;
 
@@ -69,6 +72,10 @@ public class Direccion extends EntidadPersistente {
 
     public String getDpto() {
         return dpto;
+    }
+
+    public String getBarrio() {
+        return barrio;
     }
 
     //-------------------------------------------------------------------------

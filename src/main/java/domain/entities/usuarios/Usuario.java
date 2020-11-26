@@ -49,7 +49,6 @@ public class Usuario extends EntidadPersistente {
     @Column(name="estoyHabilitado")
     private boolean estoyHabilitado;
 
-
     //-------------------------------------------------------------------------
                     //CONTRUCTOR
     //-------------------------------------------------------------------------
@@ -77,8 +76,6 @@ public class Usuario extends EntidadPersistente {
         this.apellido = apellido;
         inicializar();
     }
-
-
 
     //-------------------------------------------------------------------------
                         //METODOS
@@ -216,4 +213,5 @@ public class Usuario extends EntidadPersistente {
     }
 
     public boolean getEstoyHabilitado(){return estoyHabilitado;}
+
 }

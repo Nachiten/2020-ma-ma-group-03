@@ -52,7 +52,6 @@ function recuperarDatosFormularioNuevoProveedor(){
     }
 }
 
-
 function esVacio(string){
     return string === '';
 }
@@ -117,47 +116,112 @@ function mostrarModalConfirmacionNuevoProveedor() {
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function recuperarDatosFormularioAltaNuevoUsuario(){
-    return {
-        nombre: valorDe("altaUsuario-nombre"),
-        apellido: valorDe("altaUsuario-apellido"),
-        nombreDeUsuario: valorDe("altaUsuario-nombreDeUsuario"),
-        contrasenia: valorDe("altaUsuario-contrasenia"),
-        tipoUsuario: valorDe("altaUsuario-tipoUsuario"),
-        entidadJuridica: valorDe("altaUsuario-entidadJuridica")
-    };
+function mostrarModalHabilitarProveedores(){
+    var ruta = "/habilitarProveedor";
+    var metodo = "GET";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
 }
 
-
-
-function mostrarModalGuardadoAltaNuevoProveedor() {
-
-    console.log("Entre a la funcion de guardar proveedor");
-
-    var datos = recuperarDatosFormularioAltaProveedor();
-    var ruta = "/altaProveedor";
+function habilitarProveedor(id) {
+    var ruta = "/habilitarProveedor/"+id;
     var metodo = "POST";
     $.ajax({
         type     : metodo,
         url      : ruta,
         datatype : "html",
-        data     : datos,
+        success  : function (result) {
+            showInModal("modal2", result);
+            mostrarModalHabilitarProveedores();
+        }
+    });
+}
+
+function mostrarModalEditarProveedores(){
+    var ruta = "/editarProveedor";
+    var metodo = "GET";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
         success  : function (result) {
             showInModal("modal", result);
+        }
+    });
+}
+
+function mostrarModalParaEditarUnProveedor(id) {
+    var ruta = "/editarProveedor/modificar/" + id;
+    var metodo = "GET";
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success : function(result){
+            showInModal("modal2",result);//verificar si funciona con modal2
+        }
+    });
+}
+
+function mostrarModalCambiarDireccionDelProveedor(id) {
+    var ruta = "/editarProveedor/actualizarDireccion/" + id;
+    var metodo = "GET";
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success : function(result){
+            showInModal("modal3",result);//verificar si funciona con modal2
+        }
+    });
+}
+
+function recuperarDatosDireccion() {
+    return{
+        // Direccion
+        barrio          : valorDe("altaProveedor-barrio"),
+        calle           : valorDe("altaProveedor-calle"),
+        altura          : valorDe("altaProveedor-altura"),
+        departamento    : valorDe("altaProveedor-departamento"),
+        piso            : valorDe("altaProveedor-piso"),
+        // Datos api
+        pais            : $("#altaProveedor-pais option:selected").val(),
+        provincia       : $("#altaProveedor-provincia option:selected").val(),
+        ciudad          : $("#altaProveedor-ciudad option:selected").val()
+    }
+}
+function mostrarModalConfirmacionCambioDireccionProveedor(id) {
+    var datosDireccion = recuperarDatosDireccion();
+    var ruta = "/editarProveedor/actualizarDireccion/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        data     : datosDireccion,
+        success : function(result){
+            showInModal("modal3",result);//verificar si funciona con modal2
+            mostrarModalCambiarDireccionDelProveedor(id);
+        }
+    });
+}
+
+function darDeBajaProveedor(id) {
+    var ruta = "/editarproveedor/darDeBaja/"+id;
+    var metodo = "DELETE";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+            mostrarModalEditarProveedores();
         }
     });
 }
@@ -190,23 +254,6 @@ function filterSelectOptions(selectElement, attributeName, attributeValue) {
         if (attributeValue) {
             selectElement.children("option:not([" + attributeName + "='" + attributeValue + "'],:not([" + attributeName + "]))").remove();
         }
-    }
-}
-
-function eliminarProveedor(id){
-    console.log("Tengo que borrar el proveedor con id " + id);
-    //var id = document.getElementById("userId").value;
-    var mensaje = confirm("¿Está seguro que quiere dar de baja a éste proveedor?");
-    if (mensaje) {
-        $.ajax({
-            type: "DELETE",
-            url: "/bajaProveedor/eliminar/" + id,
-            dataType: "html",
-            success : function(result){
-                showInModal("modal",result);
-
-            }
-        });
     }
 }
 

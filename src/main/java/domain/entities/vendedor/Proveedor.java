@@ -11,17 +11,20 @@ public class Proveedor extends EntidadPersistente {
 
     @Column(name = "nombre")
     private String nombreProveedor;
+
     @Column (name = "apellido")
     private String apellidoProveedor;
-    @Column(name = "dni")
-    private int dniProveedor;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccionPostal_id", referencedColumnName = "id")
     private DireccionPostal direccionPostal;
+
     @Column(name = "razonSocial")
     private String razonSocialProveedor;
+
     @Column(name = "cuit")
     private String cuit;
+
     @Column(name="estoyHabilitado")
     private boolean estoyHabilitado ;
 
@@ -37,10 +40,9 @@ public class Proveedor extends EntidadPersistente {
 
     }
 
-    public Proveedor(String nombreProveedor, String apellidoProveedor, int dniProveedor, DireccionPostal direccionPostal, String razonSocialProveedor) {
+    public Proveedor(String nombreProveedor, String apellidoProveedor, DireccionPostal direccionPostal, String razonSocialProveedor) {
         this.nombreProveedor = nombreProveedor;
         this.apellidoProveedor = apellidoProveedor;
-        this.dniProveedor = dniProveedor;
         this.direccionPostal = direccionPostal;
         this.razonSocialProveedor = razonSocialProveedor;
         inicializar();
@@ -62,14 +64,18 @@ public class Proveedor extends EntidadPersistente {
     private void inicializar(){
         this.estoyHabilitado = true;
     }
+
     public void cambiarAHabilitado(){
-        this.setEstoyHabilitado(true);
+        this.estoyHabilitado = true;
     }
 
     public void cambiarAInhabilitado(){
-        this.setEstoyHabilitado(false);
+        this.estoyHabilitado = false;
     }
 
+    public void asociarDireccionPostal(DireccionPostal direccionPostalproveedor) {
+        this.direccionPostal = direccionPostalproveedor;
+    }
     //-------------------------------------------------------------------------
                                     //GETTERS
     //-------------------------------------------------------------------------
@@ -90,12 +96,12 @@ public class Proveedor extends EntidadPersistente {
         return nombreProveedor;
     }
 
-    public int getDniProveedor() {
-        return dniProveedor;
-    }
-
     public String getApellidoProveedor() {
         return apellidoProveedor;
+    }
+
+    public DireccionPostal getDireccionPostal() {
+        return direccionPostal;
     }
 
     //-------------------------------------------------------------------------
@@ -105,4 +111,6 @@ public class Proveedor extends EntidadPersistente {
     public void setEstoyHabilitado(Boolean estoyHabilitado){
         this.estoyHabilitado= estoyHabilitado;
     }
+
+
 }

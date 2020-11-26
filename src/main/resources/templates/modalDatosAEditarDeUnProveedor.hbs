@@ -1,0 +1,69 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                <a class="fas fa-edit"></a>
+                ¡Editar Proveedor!
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "altaProveedor">
+                <center>
+                    <form action="javascript:void(0)" method="post">
+                        <table class= "formulario" border = 0 >
+                            <tr>
+                                <td>Nombre:</td>
+                                <td><input type="text" name="nombre" id="altaProveedor-nombre" placeholder="Ingrese su nombre"  id=" altaProveedor-nombre" value="{{nombreProveedor}}" required></td>
+                            </tr>
+                            <tr>
+                                <td>Apellido:</td>
+                                <td><input type="text" name="apellido" id="altaProveedor-apellido" placeholder="Ingrese su apellido" id="altaProveedor-apellido" value="{{apellidoproveedor}}" required></td>
+                            </tr>
+                            <tr>
+                                <td>Razón Social:</td>
+                                <td><input type="text" name="razonSocial" id="altaProveedor-razonSocial" placeholder="Ingrese su razon social"  id = "altaProveedor-razonSocial" value="{{razonSocial}}" required></td>
+                            </tr>
+                            <tr>
+                                <td>CUIT/CUIL:</td>
+                                <td><input type="number" min="0" name="cuit_cuil" id="altaProveedor-cuit_cuil" placeholder="Ingrese su CUIT/CUIL" id="altaProveedor-cuit_cuil" value="{{cuil}}" required></td>
+                            </tr>
+                            <tr>
+                                <td>Actualizar dirección:</td>
+                                <td>
+                                    <button type="submit" onclick="mostrarModalCambiarDireccionDelProveedor({{idProveedor}})">
+                                        Actualizar
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>País:</td>
+                                <td><input type="text"  name="miPais" id="altaProveedor-miPais"  value="{{paisProveedor}}" disabled></td>
+                            </tr>
+                            <tr>
+                                <td>Provincia:</td>
+                                <td><input type="text"  name="miProvincia" id="altaProveedor-miProvincia"  value="{{provinciaProveedor}}" disabled></td>
+                            </tr>
+                            <tr>
+                                <td>Ciudad:</td>
+                                <td><input type="text"  name="miCiudad" id="altaProveedor-miCiudad"  value="{{ciudadProveedor}}" disabled></td>
+                            </tr>
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal" >
+                                Cancelar
+                            </button>
+                            <button type="submit" onclick="mostrarModalConfirmacionDeEdicionDelProveedor()">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
+<script src="/js/accionesProveedores.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">

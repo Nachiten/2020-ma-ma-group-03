@@ -3,7 +3,7 @@
         <div class="modal-header">
             <h1 id="tituloModal" class="modal-title">
                 <i class="fas fa-trash-restore"></i>
-                ¡Habilitar usuarios!
+                ¡Habilitar Proveedores!
             </h1>
         </div>
         <div class="modal-body">
@@ -11,28 +11,28 @@
                 <div class="table-wrapper">
                     <table id="usuariosNoHabilitados">
                         <thead>
-                        <tr>
-                            <th>NOMBRE</th>
-                            <th>APELLIDO</th>
-                            <th>USUARIO</th>
-                            <th>TIPO DE USUARIO</th>
-                            <td>HABILITAR</td>
-                        </tr>
+                            <tr>
+                                <th>NOMBRE</th>
+                                <th>APELLIDO</th>
+                                <th>RAZÓN SOCIAL</th>
+                                <th>CUIT/CUIL</th>
+                                <td>HABILITAR</td>
+                            </tr>
                         </thead>
                         <tbody id="content_table">
-                        {{#each usuariosInhabilitados}}
-                            <tr>
-                                <td>{{nombre}}</td>
-                                <td>{{apellido}}</td>
-                                <td>{{nombreUsuario}}</td>
-                                <td>{{tipo}}</td>
-                                <td>
-                                    <div>
-                                        <a class="fas fa-edit" onclick="habilitarUsuario('{{id}}')" style="cursor: pointer"></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        {{/each}}
+                            {{#each listadoProveedoresInhabilitados}}
+                                <tr>
+                                    <td>{{nombreProveedor}}</td>
+                                    <td>{{apellidoProveedor}}</td>
+                                    <td>{{razonSocialProveedor}}</td>
+                                    <td>{{cuit}}</td>
+                                    <td>
+                                        <div>
+                                            <a class="fas fa-edit" onclick="habilitarProveedor('{{id}}')" style="cursor: pointer"></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/each}}
                         </tbody>
                     </table>
                 </div>
@@ -45,7 +45,7 @@
         </div>
     </div>
 </div>
-<script src="/js/accionesUsuarios.js"></script>
+<script src="/js/accionesProveedores.js"></script>
 <link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
