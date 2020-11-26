@@ -1,6 +1,5 @@
 package domain.entities.operaciones;
 
-import domain.entities.usuarios.TipoUsuario;
 import persistencia.EntidadPersistente;
 
 import javax.persistence.*;
@@ -49,5 +48,13 @@ public class Item extends EntidadPersistente {
     public boolean soyIgualA(Item unItem){
         return this.getDescripcion().equals(unItem.getDescripcion()) &&
                this.getValor() == unItem.getValor();
+    }
+
+    public TipoItem getTipo() {
+        return tipo;
+    }
+
+    public float getCantidad() {
+        return cantidad;
     }
 }

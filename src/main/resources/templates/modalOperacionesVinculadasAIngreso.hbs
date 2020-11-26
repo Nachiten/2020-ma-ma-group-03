@@ -1,0 +1,45 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                Listado de Operaciones</h1>
+        </div>
+        <div class="modal-body">
+            <div class="table-wrapper">
+                <table id="tabla_operaciones_egreso">
+                    <thead>
+                    <tr>
+                        <th>Número de Operación</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Detalle</th>
+                        <th>Archivo</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="content_table">
+                    {{#each operacionesVinculadas}}
+                    <tr>
+                        <td> {{idOperacion}} </td>
+                        <td>{{usuario.nombreUsuario}}</td>
+                        <td>{{fecha}}</td>
+                        <td>{{montoTotal}}</td>
+                        <td>
+                            <button type="button" onclick="mostrarDetallesEgreso({{idOperacion}})" > Detalle</button>
+                        </td>
+                        <td>
+                            <button type="button" onclick="adjuntarArchivoAEgreso()" > Adjuntar</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+
+                </table>
+                <div class="modal-footer">
+                    <button type="button"  onclick="" class="btn" data-dismiss="modal" > Aceptar </button>
+                </div>
+            </div>
+        </div>
+        <script src="/js/accionesUsuarios.js"></script>
+        <link rel="stylesheet" href="/css/modalAccionesUsuarios.css"/>

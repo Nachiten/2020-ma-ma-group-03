@@ -34,3 +34,9 @@ button:focus,button:hover{
     border-radius: 5px 5px;
     border: 0;
 }
+
+h3{
+    color: white;
+    font-size: 20px;
+    margin-block-end: 1.5%;
+}

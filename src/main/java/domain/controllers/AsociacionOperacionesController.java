@@ -1,5 +1,6 @@
 package domain.controllers;
 
+import criterioOperacion.CategoriaCriterio;
 import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.OperacionDeIngreso;
 import domain.repositories.Repositorio;
@@ -16,10 +17,12 @@ public class AsociacionOperacionesController {
     private ModalAndViewController modalAndViewController;
     private Repositorio<OperacionDeEgreso> repoOperacionEgreso;
     private Repositorio<OperacionDeIngreso> repoOperacionIngreso;
+    private Repositorio<CategoriaCriterio> repoCategoriaCriterio;
 
     public AsociacionOperacionesController(ModalAndViewController modalAndViewController){
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
         this.repoOperacionIngreso = FactoryRepositorio.get(OperacionDeIngreso.class);
+        this.repoCategoriaCriterio = FactoryRepositorio.get(CategoriaCriterio.class);
         this.modalAndViewController = modalAndViewController;
     }
 
@@ -27,9 +30,11 @@ public class AsociacionOperacionesController {
 
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
         List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
+        List<CategoriaCriterio> categoriaCriterios = this.repoCategoriaCriterio.buscarTodos();
 
         modalAndViewController.getParametros().put("operacionesEgreso", operacionesEgreso);
         modalAndViewController.getParametros().put("operacionesIngreso", operacionesIngreso);
+        modalAndViewController.getParametros().put("categorias", categoriaCriterios);
 
         return new ModelAndView(modalAndViewController.getParametros(), "listadoOperaciones.hbs");
     }

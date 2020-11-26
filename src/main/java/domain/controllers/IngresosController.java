@@ -2,6 +2,7 @@ package domain.controllers;
 
 import domain.entities.apiMercadoLibre.Moneda;
 import domain.entities.entidades.EntidadJuridica;
+import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.OperacionDeIngreso;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -102,4 +103,45 @@ public class IngresosController {
         return StringUtils.isEmpty(cadena);
     }
 
+    public ModelAndView verDetalleIngreso(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        OperacionDeIngreso operacionDeIngreso = buscarOperacionDeIngreso(idOperacion);
+
+        modalAndViewController.getParametros().put("id", operacionDeIngreso.getId());
+        modalAndViewController.getParametros().put("descripcion", operacionDeIngreso.getDescripcion());
+        modalAndViewController.getParametros().put("fecha", operacionDeIngreso.getFecha());
+        modalAndViewController.getParametros().put("montoTotal", operacionDeIngreso.getMontoTotal());
+        modalAndViewController.getParametros().put("moneda", operacionDeIngreso.getMoneda());
+        modalAndViewController.getParametros().put("operacionesVinculadas", operacionDeIngreso.getOperacionesDeEgresoVinculadas());
+        modalAndViewController.getParametros().put("montoSinVincular", operacionDeIngreso.getMontoSinVincular());
+        modalAndViewController.getParametros().put("periodoAceptacion", operacionDeIngreso.getPeriodoAceptacion());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleIngreso.hbs");
+    }
+
+    public ModelAndView verOperacionesVinculadas(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        OperacionDeIngreso operacionDeIngreso = buscarOperacionDeIngreso(idOperacion);
+
+        modalAndViewController.getParametros().put("operacionesVinculadas", operacionDeIngreso.getOperacionesDeEgresoVinculadas());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalOperacionesVinculadasAIngreso.hbs");
+    }
+
+
+    private OperacionDeIngreso buscarOperacionDeIngreso(int id){
+        List<OperacionDeIngreso> operacionDeIngresos = this.repoOperacionIngreso.buscarTodos();
+
+        for(OperacionDeIngreso unaOperacion : operacionDeIngresos){
+            if(unaOperacion.getId() == id){
+                return unaOperacion;
+            }
+        }
+        return null;
+    }
 }
+

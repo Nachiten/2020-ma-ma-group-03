@@ -36,54 +36,7 @@ $(function () {
 function funcMain()
 {
 	$("add_row").on('click',nuevaFilaEnItems);
-
-	//$("loans_table").on('click','.borrar', borrar);
-	//$("loans_table").on('click','.editar', editProduct);
-
-	//$("body").on('click',".borrar", deleteProduct);
-	//$("body").on('click',".editar", editProduct);
 }
-
-/*
-function funcEliminarProductosso(){
-	//Obteniendo la fila que se esta eliminando
-	var a=this.parentNode.parentNode;
-	//Obteniendo el array de todos loe elementos columna en esa fila
-	//var b=a.getElementsByTagName("td");
-	var cantidad=a.getElementsByTagName("td")
-	console.log(a);
-
-	$(this).parent().parent().fadeOut("slow",function(){$(this).remove();});
-}
-
-function deleteProduct(){
-	//Guardando la referencia del objeto presionado
-	var _this = this;
-	//Obtener las filas los datos de la fila que se va a eliminar
-	var array_fila=getRowSelected(_this);
-
-	$(this).parent().parent().fadeOut("slow",function(){$(this).remove();});
-}
-
-function editProduct(){
-	var _this = this;
-	var array_fila = getRowSelected(_this);
-	console.log(array_fila[0]+" - "+array_fila[1] );
-	//Codigo de editar una fila lo pueden agregar aqui
-}
-
-function getRowSelected(objectPressed){
-	//Obteniendo la linea que se esta eliminando
-	var a=objectPressed.parentNode.parentNode;
-	//b=(fila).(obtener elementos de clase columna y traer la posicion 0).(obtener los elementos de tipo parrafo y traer la posicion0).(contenido en el nodo)
-	
-	var item = a.getElementsByTagName("td")[0].getElementsByTagName("p")[0].innerHTML;
-    var precio=a.getElementsByTagName("td")[1].getElementsByTagName("p")[0].innerHTML;
-
-	return [item, precio];
-	//console.log(item + ' ' + precio);
-}
-*/
 
 // Se incrementa por cada fila nueva agregada
 var numeroFila = 0;
@@ -129,19 +82,15 @@ function nuevaFilaEnItems()
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
 
-	// name="nombre_I[3]" 7 14
-
 	var itemInputOculto   = '<input type="hidden" class="nombreItem" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + item;
 	var precioInputOculto = '<input type="hidden" class="precioItem" name="precio_I[' + numeroFila + ']" id="precio_I[' + numeroFila + ']" value="' + precio;
 
 	var itemTextoMostrado   = '"> <p name="" class="non-margin" style="color : white">' + item + '</p>';
 	var precioTextoMostrado = '"> <p name="" class="non-margin" style="color : white">' + precio + '</p>';
 
-	// name="nombre_I[' + numeroFila + ']"
 
-	cell1.innerHTML =  itemInputOculto + itemTextoMostrado;
+	cell1.innerHTML = itemInputOculto + itemTextoMostrado;
 	cell2.innerHTML =  precioInputOculto + precioTextoMostrado;
-	//cell3.innerHTML = '<span class="icon fa-edit"></span><span class="icon fa-eraser"></span>';
 	cell3.innerHTML = '<div class="acciones">' +
 		'<i style="color: yellow" class="fas fa-edit"></i><input type="button" class="editar" value="Editar" style="color: white" name="' + numeroFila + '"/> ' +
 		'<i style="color: red" class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" style="color: white" /></div>' +
@@ -149,53 +98,11 @@ function nuevaFilaEnItems()
 		'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">';
 
 	numeroFila++;
+
+	document.getElementById("item").value = "";
+	document.getElementById("precio").value = "";
+
 }
-
-
-
-/*
-function nuevaFilaEnCriterio()
-{
-	console.log("Entre en nuevaFilaCriterio");
-
-	var criterio = document.getElementById("criterio").value;
-
-	console.log("Criterio: [" + criterio + "]");
-
-	if (criterio === ""){
-		console.log("No hay criterio");
-	} else {
-		console.log("Si hay criterio");
-	}
-
-	if (criterio === "") {
-		//textoItems.innerHTML = 'El nombre de item no puede estar vacio';
-		alert("El nombre de un criterio no puede estar vacio");
-		return
-	}
-
-	var name_table = document.getElementById("tabla_criterios");
-
-	var row = name_table.insertRow(1);
-
-	var cell1 = row.insertCell(0);
-	var cell2 = row.insertCell(1);
-
-	var criterioInputOculto   = '<input type="hidden" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + criterio;
-
-	console.log(criterioInputOculto);
-
-	var criterioTextoMostrado = '"> <p name="" class="non-margin" style="color = black">' + criterio + '</p>';
-
-	cell1.innerHTML =  criterioInputOculto + criterioTextoMostrado;
-	cell2.innerHTML = '<div class="acciones">' +
-		'<i class="fas fa-edit"></i><input type="button" class="editar" value="Editar" /> ' +
-		'<i class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" /></div>' +
-		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">' +
-		'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">';
-
-	numeroFila++;
-}*/
 
 function nuevaFilaEnCategoria()
 {
@@ -237,6 +144,16 @@ function nuevaFilaEnCategoria()
 	numeroFila++;
 }
 
+
+function seleccionarCategoria(){
+	console.log("Entre en seleccionarCategoria");
+
+	var categoria = document.getElementById("categoria").value;
+
+	var name_table = document.getElementById("tabla_items");
+
+
+}
 
   
 function format(input){

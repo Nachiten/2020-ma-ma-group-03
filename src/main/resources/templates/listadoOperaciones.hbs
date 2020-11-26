@@ -1,60 +1,46 @@
 {{#partial "contenido"}}
  
 <div class = "listadoOperaciones">
-    
-  <form>
-    <center class="operaciones">
 
-        <table class= "criterio">
-<!--  Tabla de egresos  -->
-    <!--<tr>
+    <form>
+        <center class="operaciones">
 
-     <td>CRITERIO:</td>
-      <td> <select name = "criterio" >
-         <option> Seleccionar Criterio</option><br>
-       </select>
-        
+    <h2>LISTADO DE OPERACIONES DE EGRESO</h2>
 
-     <td>CATEGORIA:</td>
-      <td> 
-            // Deben aparecer varias categorias
-          
-            <input type="checkbox" name="categoria" value="1">categoria1<br>
-          
-      <td>
-      <td rowspan="2">
-         <div class="buttons">
-            <button type="button" >Filtrar</button>
-         </div>
-       </td>
-       
-     </tr>-->
-     
+    <h3>Filtrar por Categoría: <select name="nombreCategoria" id="alta-nombreCategoria">
+        <option hidden selected> Seleccionar categoría </option>
+        {{#each categorias}} <!-- este se alimenta del put de controller -->
+            <option>{{nombreCategoria}}</option>
+        {{/each}}
+    </select>
+        <button type="button" onclick="mostrarFiltradoEgresos()" > Filtrar </button>
+    </h3>
 
-        </table>
-
-<h3>LISTADO DE OPERACIONES DE EGRESO</h3>
      <div class="table-wrapper">
-        <table id="tabla_operaciones_ingreso">
+        <table id="tabla_operaciones_egreso">
             <thead>
                 <tr>
-                    <th>NÚMERO OPERACIÓN</th>
-                    <th>USUARIO</th>
-                    <th>MEDIO DE PAGO</th>
-                    <th>DOCUMENTO COMERCIAL</th>
-                    <td>MONTO</td>
-                    <td>FECHA</td>
+                    <th>Número de operación</th>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                    <td>Detalle</td>
+                    <td>Archivo</td>
                 </tr>
             </thead>
         <tbody id="content_table">
                 {{#each operacionesEgreso}}
                 <tr>
-                    <td>{{idOperacion}}</td>
+                    <td> {{idOperacion}} </td>
                     <td>{{usuario.nombreUsuario}}</td>
-                    <td>{{medioDePago.tipo.tipoPago}}</td>
-                    <td>{{documentoComercial.tipo.nombre}}</td>
-                    <td>{{montoTotal}}</td>
                     <td>{{fecha}}</td>
+                    <td>{{montoTotal}}</td>
+                    <td>
+                        <button type="button" onclick="mostrarDetallesEgreso({{idOperacion}})" > Detalle</button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="adjuntarArchivoAEgreso()" > Adjuntar</button>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>
@@ -70,10 +56,11 @@
         <table id="tabla_operaciones_ingreso">
             <thead>
                 <tr>
-                    <th>NÚMERO OPERACIÓN</th>
-                    <th>DESCRIPCIÓN</th>
-                    <td>MONTO</td>
-                    <td>FECHA</td>
+                    <th>Número operación</th>
+                    <th>Descripción</th>
+                    <td>Fecha</td>
+                    <td>Monto</td>
+                    <td>Detalle</td>
                 </tr>
             </thead>
         <tbody id="content_table">
@@ -81,8 +68,11 @@
                 <tr>
                     <td>{{id}}</td>
                     <td>{{descripcion}}</td>
-                    <td>{{montoTotal}}</td>
                     <td>{{fecha}}</td>
+                    <td>{{montoTotal}}</td>
+                    <td>
+                        <button type="button" onclick="mostrarDetallesIngreso({{id}})"> Detalle</button>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>

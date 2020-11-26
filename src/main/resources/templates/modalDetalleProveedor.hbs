@@ -1,0 +1,89 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                Detalles Proveedor
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "detalleProveedor">
+                <form action= "javascript:void(0)" method="post">
+                    <center>
+                        <table class= "formulario" border = 0 >
+                            <tr> <!--{miNombre} viene desde modalAndView.put() -->
+                                <td>Nombre:</td>
+                                {{#if nombre}}
+                                    <td> {{nombre}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Apellido:</td>
+                                {{#if apellido}}
+                                    <td> {{apellido}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                            <td>Razón Social:</td>
+                                {{#if razonSocial}}
+                                    <td> {{razonSocial}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>CUIT/CUIL:</td>
+                                {{#if cuit}}
+                                    <td> {{cuit}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>DNI:</td>
+                                {{#if dni}}
+                                    <td> {{dni}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>País:</td>
+                                {{#if pais}}
+                                    <td> {{pais}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Provincia:</td>
+                                {{#if provincia}}
+                                    <td> {{provincia}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+                            <tr>
+                                <td>Ciudad:</td>
+                                {{#if ciudad}}
+                                    <td> {{ciudad}} </td>
+                                {{else}}
+                                    <td>No hay datos </td>
+                                {{/if}}
+                            </tr>
+
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button"  onclick="" class="btn" data-dismiss="modal" > Aceptar </button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/accionesUsuarios.js"></script>
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />

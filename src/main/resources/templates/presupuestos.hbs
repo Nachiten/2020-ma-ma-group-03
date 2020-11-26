@@ -11,11 +11,14 @@
                 <td>Operación de Egreso asociada:</td>
                 <td>
                     <select name="operacionEgreso" id="alta-operacionEgreso" required >
-                        <option hidden selected>-Seleccionar una operación de egreso-</option>
+                        <option hidden selected> Seleccionar una operación de egreso </option>
                         {{#each operacionesEgreso}}
                             <option>ID: {{idOperacion}} | Fecha: {{fecha}} | Monto: {{montoTotal}}</option>
                         {{/each}}
                     </select>
+                </td>
+                <td>
+                    <button type="button" onclick="mostrarDetallesEgresoEnPresupuesto()" > Detalle</button>
                 </td>
             </tr>
             <tr>
@@ -37,7 +40,7 @@
         </table>
               
         <table class= "formulario3" border = "0">
-          <td>Asociar categorias:</td>
+          <td>Asociar categorías:</td>
             <!-- TR = Fila | TD = Columna-->
             <tr>
                 <td>
@@ -90,9 +93,9 @@
                  <table id="tabla_items">
                      <thead>
                      <tr>
-                         <th>ITEMS</th>
-                         <th>PRECIO</th>
-                         <td>ACCIONES</td>
+                         <th>Items</th>
+                         <th>Precio</th>
+                         <td>Acciones</td>
                      </tr>
                      </thead>
                      <tbody id = "content_table">

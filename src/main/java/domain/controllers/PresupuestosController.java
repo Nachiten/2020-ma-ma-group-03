@@ -3,6 +3,7 @@ package domain.controllers;
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
 import domain.entities.operaciones.*;
+import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -117,6 +118,89 @@ public class PresupuestosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 
+    public ModelAndView verDetalleProveedor(Request request, Response response){
+
+        int idPresupuesto = Integer.parseInt(request.params("id"));
+
+        Presupuesto presupuesto = buscarPresupuesto(idPresupuesto);
+
+        Proveedor proveedor = presupuesto.getProveedorAsociado();
+
+        if(proveedor == null){
+            modalAndViewController.getParametros().put("mensaje","El presupuesto no tiene proveedor");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        modalAndViewController.getParametros().put("nombre", proveedor.getNombreProveedor());
+        modalAndViewController.getParametros().put("apellido", proveedor.getApellidoProveedor());
+        modalAndViewController.getParametros().put("dni", proveedor.getDniProveedor());
+        modalAndViewController.getParametros().put("cuit", proveedor.getCuit());
+        modalAndViewController.getParametros().put("razonSocial", proveedor.getRazonSocialProveedor());
+
+        if(proveedor.getDireccionPostal() == null){
+            return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleProveedor.hbs");
+        }
+
+        modalAndViewController.getParametros().put("pais", proveedor.getDireccionPostal().getPais());
+        modalAndViewController.getParametros().put("provincia", proveedor.getDireccionPostal().getProvincia());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleProveedor.hbs");
+    }
+
+    public ModelAndView verCategoriasPresupuesto(Request request, Response response){
+
+        int idPresupuesto = Integer.parseInt(request.params("id"));
+
+        Presupuesto presupuesto = buscarPresupuesto(idPresupuesto);
+
+        modalAndViewController.getParametros().put("categorias", presupuesto.getListaCategoriaCriterio());
+
+        if(presupuesto.getListaCategoriaCriterio().isEmpty()){
+            modalAndViewController.getParametros().put("mensaje", "El egreso no tiene categorías asociadas.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalCategoriasEgreso.hbs");
+    }
+
+    public ModelAndView verItemsPresupuesto(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        Presupuesto presupuesto = buscarPresupuesto(idOperacion);
+
+        modalAndViewController.getParametros().put("items", presupuesto.getItems());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalItemsEgreso.hbs");
+    }
+
+    public ModelAndView verEgresoElegido(Request request, Response response){
+
+        String operacionEgreso = request.queryParams("operacionEgreso");
+
+        OperacionDeEgreso operacionDeEgreso = buscarOperacionEgreso(operacionEgreso);
+
+        modalAndViewController.getParametros().put("id", operacionDeEgreso.getIdOperacion());
+        modalAndViewController.getParametros().put("usuario", operacionDeEgreso.getUsuario().getNombreUsuario());
+        modalAndViewController.getParametros().put("fecha", operacionDeEgreso.getFecha());
+        modalAndViewController.getParametros().put("montoTotal", operacionDeEgreso.getMontoTotal());
+        modalAndViewController.getParametros().put("items", operacionDeEgreso.getItems());
+        modalAndViewController.getParametros().put("documentoComercial", operacionDeEgreso.getDocumentoComercial().getTipo().getNombre());
+        modalAndViewController.getParametros().put("medioDePago", operacionDeEgreso.getMedioDePago().getTipo().getTipoPago());
+
+        if(operacionDeEgreso.getProveedorAsociado().getRazonSocialProveedor() == null){
+            modalAndViewController.getParametros().put("proveedor", operacionDeEgreso.getProveedorAsociado().getNombreProveedor());
+        } else {
+            modalAndViewController.getParametros().put("proveedor", operacionDeEgreso.getProveedorAsociado().getRazonSocialProveedor());
+        }
+        modalAndViewController.getParametros().put("operacionDeIngreso", operacionDeEgreso.getOperacionDeIngreso());
+        modalAndViewController.getParametros().put("cantidadPresupuestos", operacionDeEgreso.getCantidadPresupuestosRequerida());
+        modalAndViewController.getParametros().put("categorias", operacionDeEgreso.getListaCategoriaCriterio());
+        modalAndViewController.getParametros().put("revisores", operacionDeEgreso.getRevisores());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleEgreso.hbs");
+    }
+
     private boolean noEligioOperacionEgreso(String operacionEgresoString){
         return operacionEgresoString.equals("-Seleccionar una operacion de egreso-");
     }
@@ -164,6 +248,18 @@ public class PresupuestosController {
             }
         }
 
+        return null;
+    }
+
+    private Presupuesto buscarPresupuesto(int id){
+
+        List<Presupuesto> presupuestos = this.repoPresupuesto.buscarTodos();
+
+        for ( Presupuesto unPresupuesto : presupuestos ) {
+            if (unPresupuesto.getId() == id){
+                return unPresupuesto;
+            }
+        }
         return null;
     }
 
