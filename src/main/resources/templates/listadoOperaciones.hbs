@@ -74,10 +74,11 @@
         <table id="tabla_operaciones_ingreso">
             <thead>
                 <tr>
-                    <th>NÚMERO OPERACIÓN</th>
-                    <th>DESCRIPCIÓN</th>
-                    <td>MONTO</td>
-                    <td>FECHA</td>
+                    <th>Número operación</th>
+                    <th>Descripción</th>
+                    <td>Fecha</td>
+                    <td>Monto</td>
+                    <td>Detalle</td>
                 </tr>
             </thead>
         <tbody id="content_table">
@@ -85,8 +86,11 @@
                 <tr>
                     <td>{{id}}</td>
                     <td>{{descripcion}}</td>
-                    <td>{{montoTotal}}</td>
                     <td>{{fecha}}</td>
+                    <td>{{montoTotal}}</td>
+                    <td>
+                        <button type="button" onclick="mostrarDetallesIngreso({{id}})"> Detalle</button>
+                    </td>
                 </tr>
                 {{/each}}
             </tbody>

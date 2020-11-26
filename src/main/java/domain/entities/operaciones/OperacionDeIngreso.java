@@ -141,4 +141,8 @@ public class OperacionDeIngreso  {
     public List<OperacionDeEgreso> getOperacionesDeEgresoVinculadas() {
         return operacionesDeEgresoVinculadas;
     }
+
+    public Moneda getMoneda() {
+        return moneda;
+    }
 }
