@@ -363,20 +363,6 @@ function mostrarItemsEgreso(id) {
     });
 }
 
-function mostrarDetallesIngreso(id) {
-
-    //acá yo le digo che loco, hace un post sobre tal ruta!
-    var ruta = "/ingresos/detalle/" + id;
-    var metodo = "POST";
-    $.ajax({
-        type     : metodo,
-        url      : ruta,
-        datatype : "html",
-        success  : function (result) {
-            showInModal("modal", result);
-        }
-    });
-}
 
 function mostrarCategoriasEgreso(id) {
 
@@ -408,7 +394,35 @@ function mostrarRevisoresEgreso(id) {
     });
 }
 
+function mostrarDetallesIngreso(id) {
 
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/ingresos/detalle/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function mostrarOperacionesVinculadas(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/ingresos/egresos/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
 
 
 

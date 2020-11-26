@@ -88,6 +88,7 @@ public class Router {
 
         Spark.post("/ingresos", ingresosController::guardarOperacionDeIngreso, Router.engine);
         Spark.post("/ingresos/detalle/:id", ingresosController::verDetalleIngreso, Router.engine);
+        Spark.post("/ingresos/egresos/:id", ingresosController::verOperacionesVinculadas, Router.engine);
 
         Spark.post("/presupuestos", presupuestosController::guardarPresupuesto, Router.engine);
 

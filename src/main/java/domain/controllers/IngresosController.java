@@ -121,6 +121,18 @@ public class IngresosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleIngreso.hbs");
     }
 
+    public ModelAndView verOperacionesVinculadas(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        OperacionDeIngreso operacionDeIngreso = buscarOperacionDeIngreso(idOperacion);
+
+        modalAndViewController.getParametros().put("operacionesVinculadas", operacionDeIngreso.getOperacionesDeEgresoVinculadas());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalOperacionesVinculadasAIngreso.hbs");
+    }
+
+
     private OperacionDeIngreso buscarOperacionDeIngreso(int id){
         List<OperacionDeIngreso> operacionDeIngresos = this.repoOperacionIngreso.buscarTodos();
 
