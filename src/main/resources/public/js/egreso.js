@@ -33,6 +33,7 @@ function recuperarDatosFormularioEgresos(){
         revisor: valorDe("alta-revisor"),
         preciosItems: datosDeTablaPorNombreDeClase(".precioItem"),
         nombresItems: datosDeTablaPorNombreDeClase(".nombreItem"),
+        cantidadesItems: datosDeTablaPorNombreDeClase(".cantidadItem"),
         nombresCategorias: datosNombresCategorias()
     };
 }

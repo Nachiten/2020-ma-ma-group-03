@@ -5,6 +5,7 @@ import criterioOperacion.Criterio;
 import domain.entities.apiMercadoLibre.*;
 import domain.entities.operaciones.Item;
 import domain.entities.operaciones.TipoDocumentoComercial;
+import domain.entities.operaciones.TipoItem;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -54,15 +55,16 @@ public class OperadorController {
 
         String preciosItemsString = request.queryParams("preciosItems");
         String nombresItemsString = request.queryParams("nombresItems");
+        String cantidadesItemsString = request.queryParams("cantidadesItems");
 
         String[] precios;
         String[] nombres;
-
-
+        String[] cantidades;
 
         try {
             precios = preciosItemsString.split("=");
             nombres = nombresItemsString.split("=");
+            cantidades = cantidadesItemsString.split("=");
         } catch(Exception e) {
             System.out.println(e.getMessage());
             return items;
@@ -72,14 +74,15 @@ public class OperadorController {
             return items;
         }
 
-
         for (int i = 0; i < precios.length; i++){
             String unPrecioString = precios[i];
             String unNombre = nombres[i];
+            String unaCantidadString = cantidades[i];
 
             float unPrecio = Float.parseFloat(unPrecioString);
+            int cantidad = Integer.parseInt(unaCantidadString);
 
-            Item miItem = new Item(unNombre, unPrecio);
+            Item miItem = new Item(TipoItem.PRODUCTO, unNombre, unPrecio, cantidad);
 
             items.add(miItem);
         }

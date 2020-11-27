@@ -47,30 +47,24 @@ function nuevaFilaEnItems()
 	console.log("Entre en nuevaFilaItems");
 
 	var item = document.getElementById("item").value;
-	var precio = document.getElementById("precio").value;
+	var precioUnitario = document.getElementById("precio").value;
+	var cantidad = document.getElementById("cantidad").value;
 
 	console.log("Item: [" + item + "]");
-	console.log("Precio: [" + precio + "]");
-
-	if (item === ""){
-		console.log("No hay item");
-	} else {
-		console.log("Si hay item");
-	}
-
-	if (precio === ""){
-		console.log("No hay precio");
-	} else {
-		console.log("Si hay precio");
-	}
+	console.log("Precio: [" + precioUnitario + "]");
 
 	if (item === "") {
-		alert("El nombre de un item no puede estar vacio");
+		alert("El nombre de un item no puede estar vacio.");
 		return
 	}
 
-	if (precio === "") {
-		alert("El precio de un item no puede estar vacio");
+	if (precioUnitario === "") {
+		alert("El precio unitario de un item no puede estar vacio.");
+		return
+	}
+
+	if (cantidad === "") {
+		alert("La cantidad de un item no puede estar vacia.");
 		return
 	}
 
@@ -81,17 +75,24 @@ function nuevaFilaEnItems()
     var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
 	var cell3 = row.insertCell(2);
+	var cell4 = row.insertCell(3);
+	var cell5 = row.insertCell(4);
 
 	var itemInputOculto   = '<input type="hidden" class="nombreItem" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + item;
-	var precioInputOculto = '<input type="hidden" class="precioItem" name="precio_I[' + numeroFila + ']" id="precio_I[' + numeroFila + ']" value="' + precio;
+	var precioInputOculto = '<input type="hidden" class="precioItem" name="precio_I[' + numeroFila + ']" id="precio_I[' + numeroFila + ']" value="' + precioUnitario;
+	var cantidadInputOculto = '<input type="hidden" class="cantidadItem" name="cantidad_I[' + numeroFila + ']" id="cantidad_I[' + numeroFila + ']" value="' + cantidad;
 
 	var itemTextoMostrado   = '"> <p name="" class="non-margin" style="color : white">' + item + '</p>';
-	var precioTextoMostrado = '"> <p name="" class="non-margin" style="color : white">' + precio + '</p>';
+	var precioTextoMostrado = '"> <p name="" class="non-margin" style="color : white">' + precioUnitario + '</p>';
+	var cantidadTextoMostrado = '"> <p name="" class="non-margin" style="color : white">' + cantidad + '</p>';
 
+	var precioTotalMostrado = '<p name="" class="non-margin" style="color : white">' + cantidad * precioUnitario + '</p>';
 
 	cell1.innerHTML = itemInputOculto + itemTextoMostrado;
-	cell2.innerHTML =  precioInputOculto + precioTextoMostrado;
-	cell3.innerHTML = '<div class="acciones">' +
+	cell2.innerHTML = precioInputOculto + precioTextoMostrado;
+	cell3.innerHTML = cantidadInputOculto + cantidadTextoMostrado;
+	cell4.innerHTML = precioTotalMostrado;
+	cell5.innerHTML = '<div class="acciones">' +
 		'<i style="color: yellow" class="fas fa-edit"></i><input type="button" class="editar" value="Editar" style="color: white" name="' + numeroFila + '"/> ' +
 		'<i style="color: red" class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" style="color: white" /></div>' +
 		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">' +
@@ -100,7 +101,7 @@ function nuevaFilaEnItems()
 	numeroFila++;
 
 	document.getElementById("item").value = "";
-	document.getElementById("precio").value = "";
+	document.getElementById("precioUnitario").value = "";
 
 }
 
