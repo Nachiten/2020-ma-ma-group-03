@@ -1,13 +1,23 @@
+function esVacio(string){
+    return string === '';
+}
+
 function mostrarModalGuardadoEgreso() {
     var datos = recuperarDatosFormularioEgresos();
 
-    if (datos.preciosItems === 'noHayPrecios'){
-        alert("Se debe insertar al menos un item");
-        console.log("No habia items, cancelo post");
+    if (esVacio(datos.fecha) || esVacio(datos.numeroMedioDePago) ||
+        esVacio(datos.numeroDocumentoComercial) || esVacio(datos.presupuestosRequeridos)){
+        console.log("Falta completar algun campo");
         return;
     }
 
-    //acá yo le digo che loco, hace un post sobre tal ruta!
+    /*if (datos.nombresItems === ''){
+        alert("Se debe insertar al menos un item.");
+        console.log("No habia items, cancelo post");
+        return;
+    }*/
+
+    // Hago el post hacia la ruta de egresos
     var ruta = "/egresos";
     var metodo = "POST";
     $.ajax({

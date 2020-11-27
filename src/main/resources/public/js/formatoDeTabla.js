@@ -24,6 +24,11 @@ $(function () {
 			document.getElementById("precio").value = elementoPrecioFila.value;
 		}
 
+		var elementoCantidadFila;
+		if ( (elementoCantidadFila = document.getElementById("cantidad_I[" + idColumna + "]") ) != null){
+			document.getElementById("cantidad").value = elementoCantidadFila.value;
+		}
+
 		// Copiar los datos del item actual para editarlos
 		document.getElementById("item").value = itemFilaActual;
 
@@ -55,17 +60,17 @@ function nuevaFilaEnItems()
 
 	if (item === "") {
 		alert("El nombre de un item no puede estar vacio.");
-		return
+		return;
 	}
 
 	if (precioUnitario === "") {
 		alert("El precio unitario de un item no puede estar vacio.");
-		return
+		return;
 	}
 
 	if (cantidad === "") {
 		alert("La cantidad de un item no puede estar vacia.");
-		return
+		return;
 	}
 
 	var name_table = document.getElementById("tabla_items");
@@ -101,7 +106,8 @@ function nuevaFilaEnItems()
 	numeroFila++;
 
 	document.getElementById("item").value = "";
-	document.getElementById("precioUnitario").value = "";
+	document.getElementById("precio").value = "";
+	document.getElementById("cantidad").value = "";
 
 }
 

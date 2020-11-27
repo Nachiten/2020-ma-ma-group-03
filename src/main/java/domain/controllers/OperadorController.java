@@ -8,13 +8,11 @@ import domain.entities.operaciones.TipoDocumentoComercial;
 import domain.entities.operaciones.TipoItem;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
-import spark.ModelAndView;
 import spark.Request;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class OperadorController {
@@ -161,7 +159,7 @@ public class OperadorController {
         float montoTotal = 0;
 
         for (Item unItem : items){
-            montoTotal += unItem.getValor();
+            montoTotal += unItem.getPrecioTotal();
         }
 
         return montoTotal;

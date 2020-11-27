@@ -1,5 +1,6 @@
 package domain.entities.operaciones;
 
+import org.hibernate.engine.transaction.synchronization.internal.SynchronizationCallbackCoordinatorNonTrackingImpl;
 import persistencia.EntidadPersistente;
 
 import javax.persistence.*;
@@ -13,10 +14,15 @@ public class Item extends EntidadPersistente {
     private TipoItem tipo;
     @Column (name = "descripcion")
     private String descripcion;
-    @Column (name = "valor")
-    private float valor;
+    @Column (name = "precioUnitario")
+    private float precioUnitario;
+
+    @Column (name = "precioTotal")
+    private float precioTotal;
     @Column (name = "cantidad")
-    private float cantidad;
+    private int cantidad;
+
+
 
     //-------------------------------------------------------------------------
                                     //CONTRUCTOR
@@ -24,30 +30,31 @@ public class Item extends EntidadPersistente {
 
     public Item() { }
 
-    public Item(TipoItem tipo,String descripcion, float valor, int cantidad) {
+    public Item(TipoItem tipo,String descripcion, float precioUnitario, int cantidad) {
         this.tipo = tipo;
         this.descripcion = descripcion;
-        this.valor = valor;
+        this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
+        this.precioTotal = cantidad * precioUnitario;
     }
 
     //para mantener antiguos tests
     public Item(String descripcion, float valor) {
         this.descripcion = descripcion;
-        this.valor = valor;
+        this.precioUnitario = valor;
     }
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public float getValor() {
-        return valor;
+    public float getPrecioUnitario() {
+        return precioUnitario;
     }
 
     public boolean soyIgualA(Item unItem){
         return this.getDescripcion().equals(unItem.getDescripcion()) &&
-               this.getValor() == unItem.getValor();
+               this.getPrecioUnitario() == unItem.getPrecioUnitario();
     }
 
     public TipoItem getTipo() {
@@ -56,5 +63,9 @@ public class Item extends EntidadPersistente {
 
     public float getCantidad() {
         return cantidad;
+    }
+
+    public float getPrecioTotal() {
+        return precioTotal;
     }
 }

@@ -229,21 +229,46 @@ public class EgresosController {
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
         String razonSocialProveedor = request.queryParams("proveedor");
 
-        if (noEligioMedioPago(tipoMedioDePagoString) || operadorController.noEligioDocumentoComercial(tipoDocumentoComercialString)){
-            // No se inserto metodo de pago o documento comercial
-            modalAndViewController.getParametros().put("mensaje","No se inserto metodo de pago o documento comercial");
+        // Estos checkeos se hacen en javascript
+        /*if (fechaString.equals("") || numeroMedioDePagoString.equals("")
+                || numeroDocumentoComercialString.equals("") || presupuestosRequeridosString.equals("")){
+            modalAndViewController.getParametros().put("mensaje","Se deben completar todos los campos.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }*/
+
+        if (noEligioRevisor(revisor)){
+            modalAndViewController.getParametros().put("mensaje","Se debe elegir si es revisor o no.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        if (noEligioMedioPago(tipoMedioDePagoString)){
+            // No se inserto metodo de pago
+            modalAndViewController.getParametros().put("mensaje","No se seleccionó un metodo de pago.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        if (operadorController.noEligioDocumentoComercial(tipoDocumentoComercialString)){
+            // No se inserto documento comercial
+            modalAndViewController.getParametros().put("mensaje","No se seleccionó un documento comercial.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        if (noEligioProveedor(razonSocialProveedor)){
+            // No se eligio un proveedor
+            modalAndViewController.getParametros().put("mensaje","No se seleccionó un proveedor.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        // Leo todos los items
+        List<Item> listaItems = operadorController.obtenerListaItems(request);
+
+        if(listaItems.size() == 0){
+            modalAndViewController.getParametros().put("mensaje","Se debe ingresar al menos un item.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
 
         // Leo lista de categorias
         List<CategoriaCriterio> categoriasCriterio = operadorController.obtenerListaCategoriaCriterio(request);
-        // Leo todos los items
-        List<Item> listaItems = operadorController.obtenerListaItems(request);
-
-        if(listaItems.size() == 0){
-            modalAndViewController.getParametros().put("mensaje","No se ingresaron items.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
-        }
 
         // Convierto de string a LocalDate
         LocalDate fecha = operadorController.convertirAFecha(fechaString);
@@ -298,6 +323,14 @@ public class EgresosController {
 
     private boolean noEligioMedioPago(String medioPagoString){
         return medioPagoString.equals("Seleccionar medio de pago");
+    }
+
+    private boolean noEligioRevisor(String revisor){
+        return revisor.equals("Seleccionar opción");
+    }
+
+    private boolean noEligioProveedor(String razonSocialProveedor){
+        return razonSocialProveedor.equals("Seleccionar proveedor");
     }
 
     private TipoMedioDePago buscarTipoMedioPago(String nombre){
