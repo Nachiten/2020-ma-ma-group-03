@@ -160,7 +160,7 @@ public class EgresosController {
 
     public ModelAndView verEgresosPorCategoria(Request request, Response response){
 
-        String nombreCategoria = request.params("nombreCategoria");
+        String nombreCategoria = request.queryParams("nombreCategoria");
 
         CategoriaCriterio categoriaCriterio = buscarCategoria(nombreCategoria);
 

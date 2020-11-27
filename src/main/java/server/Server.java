@@ -6,10 +6,11 @@ import spark.debug.DebugScreen;
 
 public class Server {
     public static void main(String[] args) {
-        Spark.port(getHerokuAssignedPort());
+        int puerto = getHerokuAssignedPort();
+        Spark.port(puerto);
         Router.init();
         DebugScreen.enableDebugScreen();
-        System.out.println("Estas en el puerto [" + getHerokuAssignedPort() + "]");
+        System.out.println("Estas en el puerto [" + puerto + "]");
     }
 
     static int getHerokuAssignedPort() {
