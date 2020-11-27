@@ -26,11 +26,11 @@ import java.util.List;
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
-/*RECOMENDACIONES EN CASO DE QUE SE BORRÓ Y SE CREÓ NUEVAMENTE LA BASE:
-1.- CORRER EL TEST "ContextTest" PARA QUE SE GENEREN TODAS LAS TABLAS.
-2.- CORRER EL TEST "TestPersistenciaRestaurar" PARA QUE SE CARGUEN LAS TABLAS PAIS, PROVINCIA Y CIUDAD.
-3.- CORRER EL TEST "PersistenciaTipoTest" PARA QUE SE CARGUEN LOS TIPOS Y NO ROMPA EL SIGUIENTE TEST.
-4.- CORRER EL TEST "PersistenciaDatosPruebaTest" PARA CARGAR TODOS LOS DATOS QUE PIDE LA CÁTEDRA.
+/* ORDEN EN CASO DE BORRAR Y CREAR NUEVAMENTE LA BASE:
+1 - CORRER EL TEST "ContextTest" PARA QUE SE GENEREN TODAS LAS TABLAS.
+2 - CORRER EL TEST "TestPersistenciaRestaurar" PARA QUE SE CARGUEN LAS TABLAS PAIS, PROVINCIA Y CIUDAD.
+3 - CORRER EL TEST "PersistenciaTipoTest" PARA QUE SE CARGUEN LOS TIPOS Y NO ROMPA EL SIGUIENTE TEST.
+4 - CORRER EL TEST "PersistenciaDatosPruebaTest" PARA CARGAR TODOS LOS DATOS QUE PIDE LA CÁTEDRA.
 */
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////

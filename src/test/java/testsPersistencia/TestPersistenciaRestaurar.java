@@ -6,7 +6,7 @@ import persistenciaMySQL.Persistencia;
 public class TestPersistenciaRestaurar {
 
 	@Test
-	public void test() {
+	public void restoreDB() {
 		Persistencia.restaurar();
 	}
 
