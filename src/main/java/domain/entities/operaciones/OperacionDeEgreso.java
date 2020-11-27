@@ -121,6 +121,23 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
+    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal, int idOperacionDeIngreso, boolean fueVinculada) {
+        this.idOperacion = idOperacion;
+        this.fecha = fecha;
+        this.montoTotal = montoTotal;
+        this.operacionDeIngresoId = idOperacionDeIngreso;
+        this.fueVinculada = fueVinculada;
+        inicializar();
+    }
+
+    public OperacionDeEgreso(int idOperacion, LocalDate fecha, float montoTotal, boolean fueVinculada) {
+        this.idOperacion = idOperacion;
+        this.fecha = fecha;
+        this.montoTotal = montoTotal;
+        this.fueVinculada = fueVinculada;
+        inicializar();
+    }
+
     public OperacionDeEgreso(LocalDate fecha, MedioDePago medio, List<Item> items, int cantidadPresupuestos, float montoTotal, List<CategoriaCriterio> listaDeCategorias, EntidadJuridica entidadJuridicaAsociada) {
         this.fecha = fecha;
         this.medioDePago = medio;
@@ -239,10 +256,14 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.proveedorAsociado = proveedorAsociado;
     }
 
-    public void setOperacionDeIngresoId(OperacionDeIngreso operacionDeIngreso) { this.operacionDeIngresoId = operacionDeIngreso.getId(); }
+    public void setOperacionDeIngresoId(int operacionDeIngresoId) { this.operacionDeIngresoId = operacionDeIngresoId; }
 
     public void setFueVinculada(boolean fueVinculada) {
         this.fueVinculada = fueVinculada;
+    }
+
+    public void setOperacionDeIngreso(OperacionDeIngreso operacionDeIngreso) {
+        this.operacionDeIngreso = operacionDeIngreso;
     }
 //-------------------------------------------------------------------------
                             //GETTERS
@@ -296,5 +317,9 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public Proveedor getProveedorAsociado() {
         return proveedorAsociado;
+    }
+
+    public boolean getFueVinculada() {
+        return fueVinculada;
     }
 }
