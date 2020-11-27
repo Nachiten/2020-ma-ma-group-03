@@ -15,26 +15,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `categoriacriterio`
---
-
---
--- Dumping data for table `categoriacriterio`
---
-
---
--- Table structure for table `categoriaempresa`
---
-
---
--- Dumping data for table `categoriaempresa`
---
-
---
--- Table structure for table `ciudades`
---
-
 DROP TABLE IF EXISTS `ciudades`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -60,85 +40,6 @@ INSERT INTO `ciudades` VALUES ('TVJEQ01SRFZJTExBNA14010','Villa Tapia','TVJEUE1S
 UNLOCK TABLES;
 
 --
--- Table structure for table `contraanterior`
---
-
---
--- Dumping data for table `contraanterior`
---
-
---
--- Table structure for table `criterio`
---
---
--- Dumping data for table `criterio`
---
-
---
--- Table structure for table `criterio_categoriacriterio`
---
-
---
--- Dumping data for table `criterio_categoriacriterio`
---
-
---
--- Table structure for table `direccion`
---
-
---
--- Dumping data for table `direccion`
---
-
---
--- Table structure for table `direccionpostal`
---
-
---
--- Dumping data for table `direccionpostal`
---
-
---
--- Table structure for table `documentocomercial`
---
-
---
--- Dumping data for table `documentocomercial`
---
-
---
--- Table structure for table `entidadbase`
---
-
---
--- Dumping data for table `entidadbase`
---
-
---
--- Table structure for table `entidadjuridica`
---
-
---
--- Dumping data for table `entidadjuridica`
---
-
---
--- Table structure for table `entidadjuridica_operaciondeegreso`
---
-
---
--- Dumping data for table `entidadjuridica_operaciondeegreso`
---
-
---
--- Table structure for table `entidadjuridica_operaciondeingreso`
---
-
---
--- Dumping data for table `entidadjuridica_operaciondeingreso`
---
-
---
 -- Table structure for table `hibernate_sequences`
 --
 
@@ -160,28 +61,6 @@ LOCK TABLES `hibernate_sequences` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequences` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `item`
---
---
--- Dumping data for table `item`
---
-
---
--- Table structure for table `mediodepago`
---
-
---
--- Dumping data for table `mediodepago`
---
-
---
--- Table structure for table `mensaje`
---
-
---
--- Dumping data for table `mensaje`
---
 
 --
 -- Table structure for table `monedas`
@@ -209,61 +88,7 @@ INSERT INTO `monedas` VALUES ('ARS','2','Peso argentino','$'),('BOB','2','Bolivi
 /*!40000 ALTER TABLE `monedas` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `operaciondeegreso`
---
 
---
--- Dumping data for table `operaciondeegreso`
---
-
---
--- Table structure for table `operaciondeegreso_categoriacriterio`
---
-
---
--- Dumping data for table `operaciondeegreso_categoriacriterio`
---
-
---
--- Table structure for table `operaciondeegreso_item`
---
-
---
--- Dumping data for table `operaciondeegreso_item`
---
-
---
--- Table structure for table `operaciondeegreso_presupuesto`
---
-
---
--- Dumping data for table `operaciondeegreso_presupuesto`
---
-
---
--- Table structure for table `operaciondeegreso_usuario`
---
-
---
--- Dumping data for table `operaciondeegreso_usuario`
---
-
---
--- Table structure for table `operaciondeingreso`
---
-
---
--- Dumping data for table `operaciondeingreso`
---
-
---
--- Table structure for table `operaciondeingreso_operaciondeegreso`
---
-
---
--- Dumping data for table `operaciondeingreso_operaciondeegreso`
---
 
 --
 -- Table structure for table `paises`
@@ -291,37 +116,7 @@ INSERT INTO `paises` VALUES ('AR','ARS','es_AR','Argentina'),('BO','BOB','es_BO'
 /*!40000 ALTER TABLE `paises` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `presupuesto`
---
 
---
--- Dumping data for table `presupuesto`
---
-
---
--- Table structure for table `presupuesto_categoriacriterio`
---
-
---
--- Dumping data for table `presupuesto_categoriacriterio`
---
-
---
--- Table structure for table `presupuesto_item`
---
-
---
--- Dumping data for table `presupuesto_item`
---
-
---
--- Table structure for table `proveedor`
---
-
---
--- Dumping data for table `proveedor`
---
 
 --
 -- Table structure for table `provincias`
@@ -350,53 +145,6 @@ INSERT INTO `provincias` VALUES ('BS_AS','Buenos Aires','COL'),('CBT-PRT','Portu
 /*!40000 ALTER TABLE `provincias` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `sector`
---
-
---
--- Dumping data for table `sector`
---
-
---
--- Table structure for table `tipodocumentocomercial`
---
-
---
--- Dumping data for table `tipodocumentocomercial`
---
-
---
--- Table structure for table `tipoentidadjuridicaempresa`
---
-
---
--- Dumping data for table `tipoentidadjuridicaempresa`
---
-
---
--- Table structure for table `tipoentidadjuridicaorganizacionsectorsocial`
---
-
---
--- Dumping data for table `tipoentidadjuridicaorganizacionsectorsocial`
---
-
---
--- Table structure for table `tipomediodepago`
---
-
---
--- Dumping data for table `tipomediodepago`
---
-
---
--- Table structure for table `usuario`
---
-
---
--- Dumping data for table `usuario`
---
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

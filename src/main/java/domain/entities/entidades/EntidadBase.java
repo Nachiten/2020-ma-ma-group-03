@@ -20,22 +20,20 @@ public class EntidadBase extends EntidadPersistente {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "entidadJuridicaAsociada_id")
     private EntidadJuridica entidadJuridicaAsociada;
 
     public EntidadBase() {
     }
 
-/*
-    public EntidadBase(String nombreFicticio, String descripcion) {
-        this.nombreFicticio = nombreFicticio;
-        this.descripcion = descripcion;
-    }
-*/
     public EntidadBase(String nombre,String nombreFicticio){
         this.nombre = nombre;
         this.nombreFicticio = nombreFicticio;
 
+    }
+
+    public void asociarEntidadJuridica(EntidadJuridica entidadJuridica){
+        this.entidadJuridicaAsociada = entidadJuridica;
     }
 }

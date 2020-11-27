@@ -37,7 +37,7 @@ public class Persistencia {
 		            .exec("mysql -u root -p0147852. persistenciatp");
 
 		      OutputStream os = p.getOutputStream();
-		      FileInputStream fis = new FileInputStream("gesoc2.sql");//No olvidar quitar el número 2 para restaurar sólo la api de ML
+		      FileInputStream fis = new FileInputStream("gesoc.sql");//No olvidar quitar el número 2 para restaurar sólo la api de ML
 		      byte[] buffer = new byte[1000];
 
 		      int leido = fis.read(buffer);

@@ -20,7 +20,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @GeneratedValue
     private int idOperacion;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    //@ManyToOne(optional = false, fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @Transient
     private Usuario usuario;
 
     @Column(name = "fecha")
@@ -71,7 +72,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToOne(cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "entidadJuridicaAsociada_id")
     private EntidadJuridica entidadJuridicaAsociada;
 

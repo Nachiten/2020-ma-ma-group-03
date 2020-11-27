@@ -24,6 +24,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/*RECOMENDACIONES EN CASO DE QUE SE BORRÓ Y SE CREÓ NUEVAMENTE LA BASE:
+1.- CORRER EL TEST "ContextTest" PARA QUE SE GENEREN TODAS LAS TABLAS.
+2.- CORRER EL TEST "TestPersistenciaRestaurar" PARA QUE SE CARGUEN LAS TABLAS PAIS, PROVINCIA Y CIUDAD.
+3.- CORRER EL TEST "PersistenciaTipoTest" PARA QUE SE CARGUEN LOS TIPOS Y NO ROMPA EL SIGUIENTE TEST.
+4.- CORRER EL TEST "PersistenciaDatosPruebaTest" PARA CARGAR TODOS LOS DATOS QUE PIDE LA CÁTEDRA.
+*/
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PersistenciaDatosPruebaTest {
@@ -39,10 +49,10 @@ public class PersistenciaDatosPruebaTest {
     static private Estado estado3;
 
     //DIRECCION
-    static private Direccion direccion1;
-    static private Direccion direccion2;
-    static private Direccion direccion3;
-    static private Direccion direccion4;
+    static private Direccion direccionAvMedrano;
+    static private Direccion direccionLibertyAve;
+    static private Direccion direccionRobertoGayol;
+    static private Direccion direccionJeronimoSalguero;
 
     //DIRECCION POSTAL
 
@@ -78,7 +88,6 @@ public class PersistenciaDatosPruebaTest {
     static private CategoriaCriterio categoriaGrande;
     static private CategoriaCriterio categoriaExterior;
 
-
     //LISTA DE CATEGORIAS PARA LOS CRITERIOS
     static private List<CategoriaCriterio> categoriasDeGastoMantenimiento;
     static private List<CategoriaCriterio> categoriasDeCausante;
@@ -90,7 +99,6 @@ public class PersistenciaDatosPruebaTest {
     static private List<CategoriaCriterio> categoriasDeTamanioDelGasto;
     static private List<CategoriaCriterio> categoriasDeElementosDeUsoInterno;
     static private List<CategoriaCriterio> categoriasDeServicios;
-
 
     //CRITERIOS
     static private Criterio criterioGastosDeMantenimiento;
@@ -104,9 +112,7 @@ public class PersistenciaDatosPruebaTest {
     static private Criterio criterioElementosDeUsoInterno;
     static private Criterio criterioServicios;
 
-
     // LISTA DE CATEGORIAS  PARA LOS EGRESOS
-
     static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso1;
     static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso2;
     static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso3;
@@ -117,8 +123,6 @@ public class PersistenciaDatosPruebaTest {
     static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso8;
     static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso9;
     static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso10;
-
-
 
     //EMPRESAS
     static  private TipoEntidadJuridica tipoEntidadJuridica1;
@@ -196,7 +200,6 @@ public class PersistenciaDatosPruebaTest {
     static private Item item19Presupuesto;
     static private Item item20Presupuesto;
 
-
     //OPERACIONES DE INGRESO
     static private OperacionDeIngreso ingresoDonacionDeTerceros;
     static private OperacionDeIngreso ingresoDonacionDeRimoliSA;
@@ -204,7 +207,6 @@ public class PersistenciaDatosPruebaTest {
     static private OperacionDeIngreso ingresoDonacionGabinoSRL;
 
     //OPERACION DE EGRESO
-
     private static OperacionDeEgreso operacionDeEgreso1 ;
     private static OperacionDeEgreso  operacionDeEgreso2;
     private static OperacionDeEgreso operacionDeEgreso3;
@@ -237,8 +239,6 @@ public class PersistenciaDatosPruebaTest {
     static private List<Item> listaDeItemsDeIngenieriaComercial ;
     static private List<Item> listaDeItemsDeCorralonSanJuan ;
     static private List<Item> listaDeItemsDeCorralonLaprida ;
-
-
 
     //PRESUPUESTOS
     static private Presupuesto presupuestoPintureriasRex;
@@ -289,18 +289,18 @@ public class PersistenciaDatosPruebaTest {
 
 
         //DIRECCION
-        direccion1 = new Direccion("Av Medrano",51,0,"0");
-        direccion2 = new Direccion("Liberty Ave",720,0,"0");
-        direccion3 = new Direccion("Roberto Gayol",55,0,"0");
-        direccion4 = new Direccion("Jeronimo Salguero",51,0,"0");
+        direccionAvMedrano = new Direccion("Av Medrano",51,0,"0");
+        direccionLibertyAve = new Direccion("Liberty Ave",720,0,"0");
+        direccionRobertoGayol = new Direccion("Roberto Gayol",55,0,"0");
+        direccionJeronimoSalguero = new Direccion("Jeronimo Salguero",51,0,"0");
 
         //DIRECCION POSTAL
-        direccionPostalAlmagro = new DireccionPostal(direccion1,"Almagro", buenosAires, argentina,ciudadAutonomaBSAS);
-        direccionPostalReinoUnido = new DireccionPostal(direccion2, "Brooklyn",londres, reinoUnido);
-        direccionPostalMexico = new DireccionPostal(direccion3, "",ciudadDeMexico, mexico);
-        direccionPostalPalermo = new DireccionPostal(direccion4,"Palermo", buenosAires, argentina,ciudadAutonomaBSAS);
-        //SECTOR
+        direccionPostalAlmagro = new DireccionPostal(direccionAvMedrano,"Almagro", buenosAires, argentina,ciudadAutonomaBSAS);
+        direccionPostalReinoUnido = new DireccionPostal(direccionLibertyAve, "Brooklyn",londres, reinoUnido);
+        direccionPostalMexico = new DireccionPostal(direccionRobertoGayol, "",ciudadDeMexico, mexico);
+        direccionPostalPalermo = new DireccionPostal(direccionJeronimoSalguero,"Palermo", buenosAires, argentina,ciudadAutonomaBSAS);
 
+        //SECTOR
         sectorConstruccion = new Sector("Construccion");
         sectorAlojamiento = new Sector("Alojamiento");
 
@@ -332,7 +332,7 @@ public class PersistenciaDatosPruebaTest {
         entidadJuridicaSurcosCS = new EntidadJuridica("Colectivo de Derechos de Infancia y Adolescencia - CDIA","Surcos " ,"Surcos CS","30-25888897-8", direccionPostalPalermo,"ABK-LO",tipoEntidadJuridica4);
         //ENTIDADES BASE
         entidadBaseAndhes = new EntidadBase("Colectivo de Derechos de Infancia y Adolescencia - CDIA","Andhes");
-
+        entidadBaseAndhes.asociarEntidadJuridica(entidadJuridicaSurcosCS);
         //INSTANCIAS DE USUARIOS
 
         usuarioA = new Usuario(TipoUsuario.ESTANDAR, "aroco", "*_aroco20!-?", "Alejandro", "Roco", entidadJuridicaEAAFBA);
@@ -421,7 +421,6 @@ public class PersistenciaDatosPruebaTest {
         categoriaNecesario = new CategoriaCriterio("Necesario");
 
         //CATEGORIAS DE LOS CRITERIOS
-
         categoriasDeGastoMantenimiento = new ArrayList<>(Arrays.asList(categoriaFachada));
         categoriasDeCausante = new ArrayList<>(Arrays.asList(categoriaHumedad));
         categoriasDeGastosGenerales =  new ArrayList<>(Arrays.asList(categoriaServiciosGenerales));
@@ -445,8 +444,7 @@ public class PersistenciaDatosPruebaTest {
         criterioServicios = new Criterio("Servicios",categoriasDeServicios);
         criterioElementosDeUsoInterno = new Criterio("Elementos de uso interno",categoriasDeElementosDeUsoInterno);
 
-
-         //LISTA DE ITEMS DE PRESUPUESTOS
+        //LISTA DE ITEMS DE PRESUPUESTOS
         listaDeItemsDePintureriasRex = new ArrayList<>(Arrays.asList(item1Presupuesto, item2Presupuesto, item3Presupuesto));
         listaDeItemsDePintureriasSanJorge = new ArrayList<>(Arrays.asList(item4Presupuesto, item5Presupuesto, item6Presupuesto));
         listaDeItemsDePintureriasSerrentino = new ArrayList<>(Arrays.asList(item7Presupuesto, item8Presupuesto, item9Presupuesto));
@@ -487,7 +485,7 @@ public class PersistenciaDatosPruebaTest {
         ingresoDonacionGranImperio = new OperacionDeIngreso("Donacion de Gran Imperio",980000,LocalDate.of(2020,8,3),LocalDate.of(2020,10,1),entidadJuridicaEAAFBA);
         ingresoDonacionGabinoSRL = new OperacionDeIngreso("Donacion Gabino SRL",10000,LocalDate.of(2020,5,1),LocalDate.of(2020,10,1),entidadJuridicaSurcosCS);
 
-          //CATEGORIAS PARA OPERACIONES DE EGRESO
+        //CATEGORIAS PARA OPERACIONES DE EGRESO
         listaCategoriaOperacionDeEgreso1 = new ArrayList<>(Arrays.asList(categoriaFachada,categoriaInterior,categoriaHumedad));
         listaCategoriaOperacionDeEgreso2 = new ArrayList<>(Arrays.asList(categoriaServiciosGenerales));
         listaCategoriaOperacionDeEgreso3 = new ArrayList<>(Arrays.asList(categoriaServiciosGenerales));
@@ -499,25 +497,19 @@ public class PersistenciaDatosPruebaTest {
         listaCategoriaOperacionDeEgreso9 = new ArrayList<>(Arrays.asList(categoriaServiciosDeGas));
         listaCategoriaOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(categoriaNecesario));
 
-
-
-          //OPERACIONES DE EGRESO
-
-   operacionDeEgreso1 = new OperacionDeEgreso(LocalDate.of(2020,3,10),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso1,3,19952.69f,listaCategoriaOperacionDeEgreso1,entidadJuridicaEAAFBA,proveedorPintureriaSerrentino);
-   operacionDeEgreso2 = new OperacionDeEgreso(LocalDate.of(2020,7,8),medioDePagoEfectivo,listaItemsOperacionDeEgreso2,0,2100,listaCategoriaOperacionDeEgreso2,entidadJuridicaEAAFBA,proveedorEdesur);
-   operacionDeEgreso3 = new OperacionDeEgreso(LocalDate.of(2020,7,9),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso3,0,3500,listaCategoriaOperacionDeEgreso3,entidadJuridicaEAAFBA,proveedorMetrogas);
-   operacionDeEgreso4 = new OperacionDeEgreso(LocalDate.of(2020,8,3),medioDePagoTarjetaDebito,listaItemsOperacionDeEgreso4,0,26100,listaCategoriaOperacionDeEgreso4,entidadJuridicaEAAFBA,proveedorMitoas);
-   operacionDeEgreso5 = new OperacionDeEgreso(LocalDate.of(2020,9,27),medioDePagoEfectivo,listaItemsOperacionDeEgreso5,6,17000,listaCategoriaOperacionDeEgreso5,entidadJuridicaEAAFBA,proveedorIngenieriaComercial);
-   operacionDeEgreso6 = new OperacionDeEgreso(LocalDate.of(2020,10,1),medioDePagoEfectivo,listaItemsOperacionDeEgreso6,4,207708,listaCategoriaOperacionDeEgreso6,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
-   operacionDeEgreso7 = new OperacionDeEgreso(LocalDate.of(2020,10,5),medioDePagoEfectivo,listaItemsOperacionDeEgreso7,0,200000,listaCategoriaOperacionDeEgreso7,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
-   operacionDeEgreso8 = new OperacionDeEgreso(LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8,entidadJuridicaSurcosCS,proveedorEdesur);
-   operacionDeEgreso9 = new OperacionDeEgreso(LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS,proveedorMetrogas);
-   operacionDeEgreso10 = new OperacionDeEgreso(LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS,proveedorTelasZN);
-
+       //OPERACIONES DE EGRESO
+       operacionDeEgreso1 = new OperacionDeEgreso(LocalDate.of(2020,3,10),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso1,3,19952.69f,listaCategoriaOperacionDeEgreso1,entidadJuridicaEAAFBA,proveedorPintureriaSerrentino);
+       operacionDeEgreso2 = new OperacionDeEgreso(LocalDate.of(2020,7,8),medioDePagoEfectivo,listaItemsOperacionDeEgreso2,0,2100,listaCategoriaOperacionDeEgreso2,entidadJuridicaEAAFBA,proveedorEdesur);
+       operacionDeEgreso3 = new OperacionDeEgreso(LocalDate.of(2020,7,9),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso3,0,3500,listaCategoriaOperacionDeEgreso3,entidadJuridicaEAAFBA,proveedorMetrogas);
+       operacionDeEgreso4 = new OperacionDeEgreso(LocalDate.of(2020,8,3),medioDePagoTarjetaDebito,listaItemsOperacionDeEgreso4,0,26100,listaCategoriaOperacionDeEgreso4,entidadJuridicaEAAFBA,proveedorMitoas);
+       operacionDeEgreso5 = new OperacionDeEgreso(LocalDate.of(2020,9,27),medioDePagoEfectivo,listaItemsOperacionDeEgreso5,6,17000,listaCategoriaOperacionDeEgreso5,entidadJuridicaEAAFBA,proveedorIngenieriaComercial);
+       operacionDeEgreso6 = new OperacionDeEgreso(LocalDate.of(2020,10,1),medioDePagoEfectivo,listaItemsOperacionDeEgreso6,4,207708,listaCategoriaOperacionDeEgreso6,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
+       operacionDeEgreso7 = new OperacionDeEgreso(LocalDate.of(2020,10,5),medioDePagoEfectivo,listaItemsOperacionDeEgreso7,0,200000,listaCategoriaOperacionDeEgreso7,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
+       operacionDeEgreso8 = new OperacionDeEgreso(LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8,entidadJuridicaSurcosCS,proveedorEdesur);
+       operacionDeEgreso9 = new OperacionDeEgreso(LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS,proveedorMetrogas);
+       operacionDeEgreso10 = new OperacionDeEgreso(LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS,proveedorTelasZN);
 
     }
-
-
 
     private void persistirUnObjeto(Object unObjeto){
         EntityManagerHelper.beginTransaction();
@@ -526,17 +518,74 @@ public class PersistenciaDatosPruebaTest {
     }
 
     @Test
-    public void t1_persistirOperacionesDeIngreso(){
-        //NO FUNCIONA TIRA ERROR :/
+    public void t1_persistirCriterios() {
+        persistirUnObjeto(criterioGastosDeMantenimiento);
+        persistirUnObjeto(criterioLugarDeAplicacion);
+        persistirUnObjeto(criterioCausante);
+        persistirUnObjeto(criterioGastosGenerales);
+        persistirUnObjeto(criterioElementosDeOficina);
+        persistirUnObjeto(criterioMomentoDeUtilizacion);
+        persistirUnObjeto(criterioTipoDeProducto);
+        persistirUnObjeto(criterioTamanioDelGasto);
+        persistirUnObjeto(criterioServicios);
+        persistirUnObjeto(criterioElementosDeUsoInterno);
+    }
+
+    @Test
+    public void t2_persistirCategorias() {
+        persistirUnObjeto(categoriaFachada);
+        persistirUnObjeto(categoriaInterior);
+        persistirUnObjeto(categoriaHumedad);
+        persistirUnObjeto(categoriaServiciosGenerales);
+        persistirUnObjeto(categoriaMueblesYUtiles);
+        persistirUnObjeto(categoriaCoffeBreak);
+        persistirUnObjeto(categoriaElectronicos);
+        persistirUnObjeto(categoriaServiciosDeLuz);
+        persistirUnObjeto(categoriaServiciosDeGas);
+        persistirUnObjeto(categoriaNecesario);
+        persistirUnObjeto(categoriaGrande);
+        persistirUnObjeto(categoriaExterior);
+    }
+
+    @Test
+    public void t3_persitirPresupuestos(){
+        persistirUnObjeto(presupuestoCorralonLaprida);
+        persistirUnObjeto(presupuestoCorralonSanJuan);
+        persistirUnObjeto(presupuestoGarbarino);
+        persistirUnObjeto(presupuestoIngenieriaComercial);
+        persistirUnObjeto(presupuestoPintureriasRex);
+        persistirUnObjeto(presupuestoPintureriasSanJorge);
+        persistirUnObjeto(presupuestoPintureriasSerrentino);
+    }
+
+    @Test
+    public void t4_persistirUsuariosEstandar(){
+        persistirUnObjeto(usuarioA);
+        persistirUnObjeto(usuarioB);
+        persistirUnObjeto(usuarioC);
+        persistirUnObjeto(usuarioAdmin);
+    }
+
+    @Test
+    public void t5_persistirEntidadesJuridicas(){
+        persistirUnObjeto(entidadJuridicaEAAFBA);
+        persistirUnObjeto(entidadJuridicaEAAFM);
+        persistirUnObjeto(entidadJuridicaEAAFNY);
+        persistirUnObjeto(entidadJuridicaSurcosCS);
+        persistirUnObjeto(entidadBaseAndhes);
+    }
+
+    @Test
+    public void t6_persistirOperacionesDeIngreso(){
       persistirUnObjeto(ingresoDonacionDeRimoliSA);
       persistirUnObjeto(ingresoDonacionDeTerceros);
       persistirUnObjeto(ingresoDonacionGabinoSRL);
       persistirUnObjeto(ingresoDonacionGranImperio);
 
     }
+
     @Test
-    public void t2_persistirOperacionesDeEgreso(){
-  //NO FUNCIONA
+    public void t7_persistirOperacionesDeEgreso(){
         persistirUnObjeto(operacionDeEgreso1);
         persistirUnObjeto(operacionDeEgreso2);
         persistirUnObjeto(operacionDeEgreso3);
@@ -549,61 +598,14 @@ public class PersistenciaDatosPruebaTest {
         persistirUnObjeto(operacionDeEgreso10);
     }
 
-    //FUNCIONA
-    @Test
-    public void t3_persitirPresupuestos(){
-        persistirUnObjeto(presupuestoCorralonLaprida);
-        persistirUnObjeto(presupuestoCorralonSanJuan);
-        persistirUnObjeto(presupuestoGarbarino);
-        persistirUnObjeto(presupuestoIngenieriaComercial);
-        persistirUnObjeto(presupuestoPintureriasRex);
-        persistirUnObjeto(presupuestoPintureriasSanJorge);
-        persistirUnObjeto(presupuestoPintureriasSerrentino);
-        persistirUnObjeto(proveedorEdesur);
-    }
-
-    //NO FUNCIONA
-    @Test
-    public void t4_persistirUsuariosEstandar(){
-        persistirUnObjeto(usuarioA);
-        persistirUnObjeto(usuarioB);
-        persistirUnObjeto(usuarioC);
-    }
-
-//FUNCIONA
-   @Test
-    public void t5_persistirCategorias() {
-        persistirUnObjeto(categoriaFachada);
-       persistirUnObjeto(categoriaInterior);
-       persistirUnObjeto(categoriaHumedad);
-       persistirUnObjeto(categoriaServiciosGenerales);
-       persistirUnObjeto(categoriaMueblesYUtiles);
-       persistirUnObjeto(categoriaCoffeBreak);
-       persistirUnObjeto(categoriaElectronicos);
-       persistirUnObjeto(categoriaServiciosDeLuz);
-       persistirUnObjeto(categoriaServiciosDeGas);
-       persistirUnObjeto(categoriaNecesario);
-       persistirUnObjeto(categoriaGrande);
-       persistirUnObjeto(categoriaExterior);
 
 
-    }
 
-    //FUNCIONA
 
-    @Test
-    public void t6_persistirCriterios() {
-        persistirUnObjeto(criterioGastosDeMantenimiento);
-        persistirUnObjeto(criterioLugarDeAplicacion);
-        persistirUnObjeto(criterioCausante);
-        persistirUnObjeto(criterioGastosGenerales);
-        persistirUnObjeto(criterioElementosDeOficina);
-        persistirUnObjeto(criterioMomentoDeUtilizacion);
-        persistirUnObjeto(criterioTipoDeProducto);
-        persistirUnObjeto(criterioTamanioDelGasto);
-        persistirUnObjeto(criterioServicios);
-        persistirUnObjeto(criterioElementosDeUsoInterno);
-    }
+
+
+
+
 
 /*
         @Test
