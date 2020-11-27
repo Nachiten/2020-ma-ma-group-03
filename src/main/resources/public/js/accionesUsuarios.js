@@ -1,26 +1,3 @@
-
-function valorDe(unaVariableDelDocumento){
-    return $("#"+unaVariableDelDocumento+"").val();
-}
-
-function modal_show(unModal){
-    $("#"+unModal+"").modal('show');
-}
-
-function agregarA(unaVariableDelDocumento, unValor){
-    $("#"+unaVariableDelDocumento+"").append(unValor);
-}
-
-function vaciar(unaVariableDelDocumento){
-    $("#"+unaVariableDelDocumento+"").empty();
-}
-
-function showInModal(unModal, unContenido){
-    vaciar(unModal);
-    agregarA(unModal,unContenido);
-    modal_show(unModal);
-}
-
 function mostrarModalHabilitarUsuarios() {
     var ruta = "/habilitarUsuario";
     var metodo = "GET";
@@ -48,17 +25,6 @@ function habilitarUsuario(id) {
             }
         });
     }
-}
-
-function recuperarDatosFormularioNuevoUsuario(){
-    return {
-        nombre              : valorDe("altaUsuario-nombre"),
-        apellido            : valorDe("altaUsuario-apellido"),
-        nombreDeUsuario     : valorDe("altaUsuario-nombreDeUsuario"),
-        contrasenia         : valorDe("altaUsuario-contrasenia"),
-        tipoUsuario         : valorDe("altaUsuario-tipoUsuario"),
-        entidadJuridica     : valorDe("altaUsuario-entidadJuridica")
-    };
 }
 
 function esVacio(string){
@@ -117,6 +83,17 @@ function mostrarModalConfirmacionNuevoUsuario() {
             }
         });
     }
+}
+
+function recuperarDatosFormularioNuevoUsuario(){
+    return {
+        nombre              : valorDe("altaUsuario-nombre"),
+        apellido            : valorDe("altaUsuario-apellido"),
+        nombreDeUsuario     : valorDe("altaUsuario-nombreDeUsuario"),
+        contrasenia         : valorDe("altaUsuario-contrasenia"),
+        tipoUsuario         : valorDe("altaUsuario-tipoUsuario"),
+        entidadJuridica     : valorDe("altaUsuario-entidadJuridica")
+    };
 }
 
 function mostrarModalNuevoUsuario(){
@@ -178,19 +155,6 @@ function mostrarModalParaEditarUnUsuario(id) {
     }
 }
 
-function recuperarDatosFormularioUsuarioEditado(){
-    var datos = {
-        nombre            : valorDe("altaUsuario-nombre"),
-        apellido          : valorDe("altaUsuario-apellido"),
-        nombreDeUsuario   : valorDe("altaUsuario-nombreDeUsuario"),
-        contrasenia       : valorDe("altaUsuario-contrasenia"),
-        miEntidadJuridica : valorDe("altaUsuario-miEntidadJuridica"),
-        entidadJuridica   : valorDe("altaUsuario-entidadJuridica"),
-        soyRevisor        : $('input:radio[name=soyRevisor]:checked').val()
-    };
-    return datos;
-}
-
 function mostrarModalConfirmacionCambiosEnUsuario(id) {
     var datos = recuperarDatosFormularioUsuarioEditado();
     var ruta = "/editarUsuario/guardar/" + id;
@@ -207,6 +171,19 @@ function mostrarModalConfirmacionCambiosEnUsuario(id) {
             }
         });
     }
+}
+
+function recuperarDatosFormularioUsuarioEditado(){
+    var datos = {
+        nombre            : valorDe("altaUsuario-nombre"),
+        apellido          : valorDe("altaUsuario-apellido"),
+        nombreDeUsuario   : valorDe("altaUsuario-nombreDeUsuario"),
+        contrasenia       : valorDe("altaUsuario-contrasenia"),
+        miEntidadJuridica : valorDe("altaUsuario-miEntidadJuridica"),
+        entidadJuridica   : valorDe("altaUsuario-entidadJuridica"),
+        soyRevisor        : $('input:radio[name=soyRevisor]:checked').val()
+    };
+    return datos;
 }
 
 //habilitar input para cambiar contraseña
@@ -230,4 +207,3 @@ function cambiarHabilitacionInputEntidadJuridica() {
 }
 cambioEntidadJuridica.addEventListener('change', cambiarHabilitacionInputEntidadJuridica);
 no_cambioEntidadJuridica.addEventListener('change', cambiarHabilitacionInputEntidadJuridica);
-

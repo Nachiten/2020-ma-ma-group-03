@@ -20,8 +20,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @GeneratedValue
     private int idOperacion;
 
-    //@ManyToOne(optional = false, fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @Transient
+    @ManyToOne (optional = false, fetch = FetchType.EAGER)
     private Usuario usuario;
 
     @Column(name = "fecha")
@@ -133,7 +132,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
-    public OperacionDeEgreso(LocalDate fecha, MedioDePago medio ,List<Item> items,int cantidadPresupuestos,float montoTotal, List<CategoriaCriterio> listaDeCategorias,EntidadJuridica entidadJuridicaAsociada,Proveedor proveedor) {
+    public OperacionDeEgreso(Usuario usuario, LocalDate fecha, MedioDePago medio ,List<Item> items,int cantidadPresupuestos,float montoTotal, List<CategoriaCriterio> listaDeCategorias,EntidadJuridica entidadJuridicaAsociada,Proveedor proveedor) {
+        this.usuario = usuario;
         this.fecha = fecha;
         this.medioDePago = medio;
         this.items = items;

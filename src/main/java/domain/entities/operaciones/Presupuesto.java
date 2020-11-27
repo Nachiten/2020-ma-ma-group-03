@@ -88,6 +88,10 @@ public class Presupuesto extends EntidadPersistente {
     public List<CategoriaCriterio> getListaCategoriaCriterio() {
         return listaCategoriaCriterio;
     }
+
+    public EntidadJuridica getEntidadJuridica() {
+        return entidadJuridica;
+    }
 //-------------------------------------------------------------------------
                                     //SETTERS
     //-------------------------------------------------------------------------

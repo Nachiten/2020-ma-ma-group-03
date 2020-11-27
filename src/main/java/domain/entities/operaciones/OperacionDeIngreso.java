@@ -31,7 +31,7 @@ public class OperacionDeIngreso  {
     @Column (name = "periodoAceptacion")
     private LocalDate periodoAceptacion;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private EntidadJuridica entidadJuridicaAsociada;
 
     @OneToMany (cascade = CascadeType.ALL)

@@ -1,25 +1,3 @@
-function valorDe(unaVariableDelDocumento){
-    return $("#"+unaVariableDelDocumento+"").val();
-}
-
-function modal_show(unModal){
-    $("#"+unModal+"").modal('show');
-}
-
-function agregarA(unaVariableDelDocumento, unValor){
-    $("#"+unaVariableDelDocumento+"").append(unValor);
-}
-
-function vaciar(unaVariableDelDocumento){
-    $("#"+unaVariableDelDocumento+"").empty();
-}
-
-function showInModal(unModal, unContenido){
-    vaciar(unModal);
-    agregarA(unModal,unContenido);
-    modal_show(unModal);
-}
-
 function mostrarModalNuevoProveedor() {
     var ruta = "/nuevoProveedor";
     var metodo = "GET";
@@ -256,4 +234,3 @@ function filterSelectOptions(selectElement, attributeName, attributeValue) {
         }
     }
 }
-

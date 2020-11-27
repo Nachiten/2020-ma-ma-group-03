@@ -184,8 +184,15 @@ public class PresupuestosController {
         modalAndViewController.getParametros().put("fecha", operacionDeEgreso.getFecha());
         modalAndViewController.getParametros().put("montoTotal", operacionDeEgreso.getMontoTotal());
         modalAndViewController.getParametros().put("items", operacionDeEgreso.getItems());
-        modalAndViewController.getParametros().put("documentoComercial", operacionDeEgreso.getDocumentoComercial().getTipo().getNombre());
-        modalAndViewController.getParametros().put("medioDePago", operacionDeEgreso.getMedioDePago().getTipo().getTipoPago());
+
+        if(operacionDeEgreso.getDocumentoComercial() != null && operacionDeEgreso.getDocumentoComercial().getTipo() != null){
+            modalAndViewController.getParametros().put("documentoComercial", operacionDeEgreso.getDocumentoComercial().getTipo().getNombre());
+        }
+
+        if(operacionDeEgreso.getMedioDePago() != null && operacionDeEgreso.getMedioDePago().getTipo() != null){
+            modalAndViewController.getParametros().put("medioDePago", operacionDeEgreso.getMedioDePago().getTipo().getTipoPago());
+        }
+
 
         if(operacionDeEgreso.getProveedorAsociado().getRazonSocialProveedor() == null){
             modalAndViewController.getParametros().put("proveedor", operacionDeEgreso.getProveedorAsociado().getNombreProveedor());

@@ -20,7 +20,7 @@ public class EntidadBase extends EntidadPersistente {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "entidadJuridicaAsociada_id")
     private EntidadJuridica entidadJuridicaAsociada;
 
