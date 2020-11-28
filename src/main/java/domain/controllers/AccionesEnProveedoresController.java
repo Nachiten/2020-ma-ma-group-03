@@ -38,7 +38,7 @@ public class AccionesEnProveedoresController {
         return new ModelAndView(modalAndViewController.getParametros(), "accionesProveedores.hbs");
     }
 
-    public ModelAndView mostrarPaginaAccionesPRoveedores(Request request, Response response) {
+    public ModelAndView mostrarPaginaAccionesProveedores(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewAccionesProveedores);
     }
 
@@ -51,7 +51,7 @@ public class AccionesEnProveedoresController {
         modalAndViewController.getParametros().put("listaCiudades", listaCiudades);
         return new ModelAndView(modalAndViewController.getParametros(),"modalNuevoProveedor.hbs");
     }
-    public ModelAndView mostrarModalNuevoPRoveedor(Request request, Response response) {
+    public ModelAndView mostrarModalNuevoProveedor(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modelAndViewNuevoProveedor);
     }
 
@@ -182,7 +182,7 @@ public class AccionesEnProveedoresController {
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
     }
 
-    public ModelAndView mostrarModalConfirmacionBajaPRoveedor(Request request, Response response) {
+    public ModelAndView mostrarModalConfirmacionBajaProveedor(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewDarDeBajaProveedor(request));
     }
 

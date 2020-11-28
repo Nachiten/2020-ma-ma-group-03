@@ -10,6 +10,7 @@ function mostrarModalHabilitarUsuarios() {
         }
     });
 }
+
 function habilitarUsuario(id) {
     var metodo = "POST";
     var ruta = "/habilitarUsuario/"+id;

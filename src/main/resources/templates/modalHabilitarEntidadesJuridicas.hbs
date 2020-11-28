@@ -3,7 +3,7 @@
         <div class="modal-header">
             <h1 id="tituloModal" class="modal-title">
                 <i class="fas fa-trash-restore"></i>
-                ¡Habilitar Usuarios!
+                ¡Habilitar Entidades Jurídicas!
             </h1>
         </div>
         <div class="modal-body">
@@ -13,22 +13,22 @@
                         <thead>
                         <tr>
                             <th>NOMBRE</th>
-                            <th>APELLIDO</th>
-                            <th>USUARIO</th>
-                            <th>TIPO DE USUARIO</th>
+                            <th>NOMBRE FICTICIO</th>
+                            <th>RAZÓN SOCIAL</th>
+                            <th>CUIT/CUIL</th>
                             <td>HABILITAR</td>
                         </tr>
                         </thead>
                         <tbody id="content_table">
-                        {{#each usuariosInhabilitados}}
+                        {{#each listaEntidadesJuridicasInhabilitadas}}
                             <tr>
-                                <td>{{nombre}}</td>
-                                <td>{{apellido}}</td>
-                                <td>{{nombreUsuario}}</td>
-                                <td>{{tipo}}</td>
+                                <td>{{nombreEntidadJuridica}}</td>
+                                <td>{{nombreFicticioEntidadJuridica}}</td>
+                                <td>{{razonSocialEntidadJuridica}}</td>
+                                <td>{{cuitEntidadJuridica}}</td>
                                 <td>
                                     <div>
-                                        <a class="fas fa-edit" onclick="habilitarUsuario('{{id}}')" style="cursor: pointer"></a>
+                                        <a class="fas fa-edit" onclick="habilitarEntidadJuridica('{{id}}')" style="cursor: pointer"></a>
                                     </div>
                                 </td>
                             </tr>
@@ -45,7 +45,7 @@
         </div>
     </div>
 </div>
-<script src="/js/accionesUsuarios.js"></script>
 <link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
+<script src="/js/accionesEntidadJuridica.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">

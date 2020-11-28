@@ -6,8 +6,6 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.BooleanHelper;
 import spark.utils.HandlebarsTemplateEngineBuilder;
 
-import javax.xml.soap.SOAPPart;
-
 public class Router {
 
     private static HandlebarsTemplateEngine engine;
@@ -47,7 +45,7 @@ public class Router {
         AccionesEnUsuariosController accionesEnUsuariosController = new AccionesEnUsuariosController(modalAndViewController, operadorController);
 
         AccionesEnProveedoresController accionesEnProveedoresController = new AccionesEnProveedoresController(modalAndViewController, operadorController);
-        AltaEntidadJuridicaController altaEntidadJuridicaController = new AltaEntidadJuridicaController(modalAndViewController, operadorController);
+        AccionesEntidadJuridicaController accionesEntidadJuridicaController = new AccionesEntidadJuridicaController(modalAndViewController, operadorController);
 
         ValidadorTransparenciaController validadorTransparenciaController = new ValidadorTransparenciaController(modalAndViewController);
 
@@ -74,9 +72,9 @@ public class Router {
         Spark.get("/editarPerfil",perfilUsuarioEstandarController::mostrarPaginaPerfilUsuarioEstandar,Router.engine);
         Spark.post("/actualizarDatosPerfil",perfilUsuarioEstandarController::actualizarDatosPerfilUsuarioEstandar,Router.engine);
         Spark.post("/actualizarContrasenia",perfilUsuarioEstandarController::actualizarContraseniaPerfilUsuarioEstandar,Router.engine);
+
         //muestra página inicio dependiendo del tipo de usuario logueado
         Spark.get("/inicio", mainController::principal, Router.engine);
-
 
         // Guardar los datos de las ventanas POST
         Spark.post("/egresos", egresosController::guardarOperacionDeEgreso, Router.engine);
@@ -106,7 +104,8 @@ public class Router {
 
         //Paginas una vez logueado GET para usuario ADMIN
         Spark.get("/accionesUsuarios", accionesEnUsuariosController::mostrarPaginaAccionesUsuarios, Router.engine);
-        Spark.get("/accionesProveedores", accionesEnProveedoresController::mostrarPaginaAccionesPRoveedores, Router.engine);
+        Spark.get("/accionesProveedores", accionesEnProveedoresController::mostrarPaginaAccionesProveedores, Router.engine);
+        Spark.get("/accionesEntidadesJuridicas", accionesEntidadJuridicaController::mostrarPaginaAccionesEntidadJuridica,Router.engine);
 
         //Acciones usuarios
         Spark.get("/nuevoUsuario", accionesEnUsuariosController::mostrarModalNuevoUsuario, Router.engine);
@@ -119,31 +118,22 @@ public class Router {
         Spark.delete("/editarUsuario/darDeBaja/:id", accionesEnUsuariosController::darDeBajaUsuario, Router.engine);
 
         //Acciones proveedor
-        Spark.get("/nuevoProveedor", accionesEnProveedoresController::mostrarModalNuevoPRoveedor, Router.engine);
+        Spark.get("/nuevoProveedor", accionesEnProveedoresController::mostrarModalNuevoProveedor, Router.engine);
         Spark.post("/guardarNuevoProveedor", accionesEnProveedoresController::guardarNuevoProveedor, Router.engine);
         Spark.get("/habilitarProveedor", accionesEnProveedoresController::mostrarModalHabilitarProveedor, Router.engine);
         Spark.post("/habilitarProveedor/:id", accionesEnProveedoresController::mostrarConfirmacionHabilitarProveedor, Router.engine);
         Spark.get("/editarProveedor", accionesEnProveedoresController::mostrarModalEditarProveedores, Router.engine);
         Spark.get("/editarProveedor/modificar/:id", accionesEnProveedoresController::mostrarModalParaEditarUnProveedor, Router.engine);
         Spark.get("/editarProveedor/actualizarDireccion/:id", accionesEnProveedoresController::mostrarModalActualizarDireccionProveedor, Router.engine);
-        Spark.delete("/editarproveedor/darDeBaja/:id", accionesEnProveedoresController::mostrarModalConfirmacionBajaPRoveedor, Router.engine);
+        Spark.delete("/editarproveedor/darDeBaja/:id", accionesEnProveedoresController::mostrarModalConfirmacionBajaProveedor, Router.engine);
 
+        //Acciones entidad jurídica
+        Spark.get("/nuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalNuevaEntidadJuridica, Router.engine);
+        Spark.get("/habilitarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalHabilitarEntidadesjuridicas, Router.engine);
+        Spark.get("/editarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalEditarEntidadesJuridicas, Router.engine);
 
+        Spark.post("/altaEntidadJuridica", accionesEntidadJuridicaController::guardarEntidadJuridica,Router.engine);
         Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);
-        //Spark.get("/bajaProveedor", accionesEnProveedoresController::listarProveedores , Router.engine);
-        //Spark.get("/altaProveedor", accionesEnProveedoresController::altaProveedor , Router.engine);
-        Spark.get("/altaEntidadJuridica",altaEntidadJuridicaController::mostrarPaginaAltaEntidadJuridica,Router.engine);
-
-
-
-        //Guardar los datos de las pestañas POST de ADMIN
-
-
-        //Spark.post("/altaProveedor", accionesEnProveedoresController::guardarProveedor , Router.engine);
-        Spark.post("/altaEntidadJuridica",altaEntidadJuridicaController::guardarEntidadJuridica,Router.engine);
-
-        //Delete para eliminar un proveedor
-        //Spark.delete("/bajaProveedor/eliminar/:id", accionesEnProveedoresController::eliminar,Router.engine);
 
         Spark.get("/*", inicioController::retornarError, Router.engine);
     }

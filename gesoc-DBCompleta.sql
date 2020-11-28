@@ -307,7 +307,8 @@ DROP TABLE IF EXISTS `entidadjuridica`;
 CREATE TABLE `entidadjuridica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigoInscripcionDefinitiva` varchar(255) DEFAULT NULL,
-  `cuit` varchar(255) DEFAULT NULL,
+  `cuitEntidadJuridica` varchar(255) DEFAULT NULL,
+  `estoyHabilitado` bit(1) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `nombreFicticio` varchar(255) DEFAULT NULL,
   `razonSocial` varchar(255) DEFAULT NULL,
@@ -325,7 +326,7 @@ CREATE TABLE `entidadjuridica` (
 
 LOCK TABLES `entidadjuridica` WRITE;
 /*!40000 ALTER TABLE `entidadjuridica` DISABLE KEYS */;
-INSERT INTO `entidadjuridica` VALUES (1,'ABCD-LO','30-15269857-2','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Buenos Aires','EAAF BA',1,1),(2,'ABK-LO','30-25888897-8','Colectivo de Derechos de Infancia y Adolescencia - CDIA','Surcos ','Surcos CS',2,2),(3,'DDN-TP','30-77896583-9','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Mexico','EAAF M',3,3),(4,'AKPQ-LO','30-15789655-7','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Nueva York','EAAF NY',4,4);
+INSERT INTO `entidadjuridica` VALUES (1,'ABCD-LO','30-15269857-2',_binary '','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Buenos Aires','EAAF BA',1,1),(2,'ABK-LO','30-25888897-8',_binary '','Colectivo de Derechos de Infancia y Adolescencia - CDIA','Surcos ','Surcos CS',2,2),(3,'DDN-TP','30-77896583-9',_binary '','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Mexico','EAAF M',3,3),(4,'AKPQ-LO','30-15789655-7',_binary '','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Nueva York','EAAF NY',4,4);
 /*!40000 ALTER TABLE `entidadjuridica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1094,4 +1095,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-27 16:00:26
+-- Dump completed on 2020-11-27 23:08:12

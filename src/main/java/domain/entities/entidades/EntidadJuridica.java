@@ -17,20 +17,20 @@ import java.util.List;
 public class EntidadJuridica extends EntidadPersistente {
 
     @Column(name = "nombre")
-    private String nombre;
+    private String nombreEntidadJuridica;
 
     @Column(name = "nombreFicticio")
-    private String nombreFicticio;
+    private String nombreFicticioEntidadJuridica;
 
     @Column(name = "razonSocial")
-    private String razonSocial;
+    private String razonSocialEntidadJuridica;
 
-    @Column(name = "cuit")
-    private String cuit;
+    @Column(name = "cuitEntidadJuridica")
+    private String cuitEntidadJuridica;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "direccionPostal_id")
-    private DireccionPostal direccionPostal;
+    private DireccionPostal direccionPostalEntidadJuridica;
 
     @Column(name = "codigoInscripcionDefinitiva")
     private String codigoInscripcionDefinitiva;
@@ -45,10 +45,13 @@ public class EntidadJuridica extends EntidadPersistente {
     private List<OperacionDeIngreso> operacionesDeIngreso;
 
     @OneToMany(mappedBy = "entidadJuridicaAsociada", cascade = {CascadeType.ALL})
-    private List<EntidadBase> entidadesBase; //domain.entities.entidades que puede tener o no!
+    private List<EntidadBase> entidadesBase;
 
     @Transient
     private List<Criterio> listaCriterio;
+
+    @Column(name = "estoyHabilitado")
+    private boolean estoyHabilitado;
 
     //-------------------------------------------------------------------------
                             //CONTRUCTOR
@@ -56,12 +59,12 @@ public class EntidadJuridica extends EntidadPersistente {
 
     public EntidadJuridica() { inicializar(); }
 
-    public EntidadJuridica(String nombre,String nombreFicticio,String razonSocial, String cuit, DireccionPostal direccionPostal, String codigoInscripcionDefinitiva,TipoEntidadJuridica tipoEntidadJuridica) {
-        this.nombre = nombre;
-        this.nombreFicticio= nombreFicticio;
-        this.razonSocial = razonSocial;
-        this.cuit = cuit;
-        this.direccionPostal = direccionPostal;
+    public EntidadJuridica(String nombreEntidadJuridica, String nombreFicticioEntidadJuridica, String razonSocialEntidadJuridica, String cuitEntidadJuridica, DireccionPostal direccionPostalEntidadJuridica, String codigoInscripcionDefinitiva, TipoEntidadJuridica tipoEntidadJuridica) {
+        this.nombreEntidadJuridica = nombreEntidadJuridica;
+        this.nombreFicticioEntidadJuridica = nombreFicticioEntidadJuridica;
+        this.razonSocialEntidadJuridica = razonSocialEntidadJuridica;
+        this.cuitEntidadJuridica = cuitEntidadJuridica;
+        this.direccionPostalEntidadJuridica = direccionPostalEntidadJuridica;
         this.codigoInscripcionDefinitiva = codigoInscripcionDefinitiva;
         this.tipoEntidadJuridica = tipoEntidadJuridica;
 
@@ -75,6 +78,7 @@ public class EntidadJuridica extends EntidadPersistente {
     private void inicializar(){
         this.operacionesDeEgreso = new ArrayList<>();
         this.operacionesDeIngreso = new ArrayList<>();
+        this.estoyHabilitado = true;
     }
 
     public void agregarCriterio(Criterio criterio){ listaCriterio.add(criterio);}
@@ -92,9 +96,29 @@ public class EntidadJuridica extends EntidadPersistente {
         operacionesDeIngreso.add(operacionDeIngreso);
     }
 
+    public void cambiarAHabilitado(){
+        this.estoyHabilitado = true;
+    }
+
+    public void cambiarAInhabilitado(){
+        this.estoyHabilitado = false;
+    }
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
+
+
+    public String getNombreEntidadJuridica() {
+        return nombreEntidadJuridica;
+    }
+
+    public String getNombreFicticioEntidadJuridica() {
+        return nombreFicticioEntidadJuridica;
+    }
+
+    public String getCuitEntidadJuridica() {
+        return cuitEntidadJuridica;
+    }
 
     public List<OperacionDeEgreso> getOperacionesDeEgreso() {
         return operacionesDeEgreso;
@@ -104,8 +128,12 @@ public class EntidadJuridica extends EntidadPersistente {
         return operacionesDeIngreso;
     }
 
-    public String getRazonSocial() {
-        return razonSocial;
+    public String getRazonSocialEntidadJuridica() {
+        return razonSocialEntidadJuridica;
+    }
+
+    public boolean estoyHabilitado() {
+        return estoyHabilitado;
     }
 
     //-------------------------------------------------------------------------

@@ -14,7 +14,7 @@ public class Persistencia {
 					//  .exec("mysqldump -u root -p1234 persistenciatp");
 
 		      InputStream is = p.getInputStream();
-		      FileOutputStream fos = new FileOutputStream("gesoc2.sql");
+		      FileOutputStream fos = new FileOutputStream("gesoc-DBCompleta.sql");
 		      byte[] buffer = new byte[1000];
 
 		      int leido = is.read(buffer);
@@ -37,7 +37,7 @@ public class Persistencia {
 		            .exec("mysql -u root -p0147852. persistenciatp");
 
 		      OutputStream os = p.getOutputStream();
-		      FileInputStream fis = new FileInputStream("gesoc.sql");//No olvidar quitar el número 2 para restaurar sólo la api de ML
+		      FileInputStream fis = new FileInputStream("gesoc.sql");//cambiar a gesoc-DBCompleta.sql para la restaurar la BD completa
 		      byte[] buffer = new byte[1000];
 
 		      int leido = fis.read(buffer);

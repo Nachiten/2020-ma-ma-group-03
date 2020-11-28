@@ -1,3 +1,73 @@
+
+function mostrarModalNuevaEntidadJurdica() {
+    var ruta = "/nuevaEntidadJuridica";
+    var metodo = "GET";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function mostrarModalHabilitarEntidadesJuridicas() {
+    var ruta = "/habilitarEntidadesJuridicas";
+    var metodo = "GET";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function mostrarModalEditarEntidadesJuridicas() {
+    var ruta = "/editarEntidadesJuridicas";
+    var metodo = "GET";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function mostrarModalGuardadoAltaEntidadJuridica() {
     var datos = recuperarDatosFormularioAltaNuevaEntidadJuridica();
     var ruta = "/altaEntidadJuridica";
@@ -27,15 +97,15 @@ function recuperarDatosFormularioAltaNuevaEntidadJuridica(){
     };
 }
 
-$('#altaProveedor-pais').change(function(){
-    $('#altaProveedor-provincia').removeAttr('disabled');
-    filterSelectOptions($("#altaProveedor-provincia"), "data-attribute", $(this).val());
-    filterSelectOptions($("#altaProveedor-ciudad"), "data-attribute", $(this).val());
+$('#altaEntidadJuridica-pais').change(function(){
+    $('#altaEntidadJuridica-provincia').removeAttr('disabled');
+    filterSelectOptions($("#altaEntidadJuridica-provincia"), "data-attribute", $(this).val());
+    filterSelectOptions($("#altaEntidadJuridica-ciudad"), "data-attribute", $(this).val());
 });
 
-$('#altaProveedor-provincia').change(function(){
-    $('#altaProveedor-ciudad').removeAttr('disabled');
-    filterSelectOptions($("#altaProveedor-ciudad"), "data-attribute", $(this).val());
+$('#altaEntidadJuridica-provincia').change(function(){
+    $('#altaEntidadJuridica-ciudad').removeAttr('disabled');
+    filterSelectOptions($("#altaEntidadJuridica-ciudad"), "data-attribute", $(this).val());
 });
 
 function filterSelectOptions(selectElement, attributeName, attributeValue) {
