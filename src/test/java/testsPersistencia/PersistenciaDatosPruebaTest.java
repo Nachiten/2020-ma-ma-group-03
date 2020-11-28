@@ -28,7 +28,7 @@ import java.util.List;
 /////////////////////////////////////////////////////////////////////////////////////
 /* ORDEN EN CASO DE BORRAR Y CREAR NUEVAMENTE LA BASE:
 1 - CORRER EL TEST "ContextTest" PARA QUE SE GENEREN TODAS LAS TABLAS.
-(antes de correr el test 2 asegurarse de renombrar el archivo gesoc-ApiML.sql a gesoc.sql)
+(antes de correr el test 2 asegurarse de renombrar el archivo gesoc.sql a gesoc.sql)
 2 - CORRER EL TEST "TestPersistenciaRestaurar" PARA QUE SE CARGUEN LAS TABLAS PAIS, PROVINCIA Y CIUDAD.
 3 - CORRER EL TEST "PersistenciaTipoTest" PARA QUE SE CARGUEN LOS TIPOS Y NO ROMPA EL SIGUIENTE TEST.
 4 - CORRER EL TEST "PersistenciaDatosPruebaTest" PARA CARGAR TODOS LOS DATOS QUE PIDE LA CÁTEDRA.

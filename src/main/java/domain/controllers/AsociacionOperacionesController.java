@@ -79,7 +79,7 @@ public class AsociacionOperacionesController {
         }
 
         // Se persistio correctamente
-        modalAndViewController.getParametros().put("mensaje", "Se ejecuto la vinculacion correctamente");
+        modalAndViewController.getParametros().put("mensaje", "Se ejecutó la vinculacion correctamente");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 
@@ -107,15 +107,24 @@ public class AsociacionOperacionesController {
         operacionDeIngreso.setMontoSinVincular(unaOperacion.getMontoSinVincular());
         this.repoOperacionIngreso.modificar(operacionDeIngreso);
         List<OperacionDeEgreso> operacionesAsociadas = unaOperacion.getOperacionesDeEgresoVinculadas();
-/*        operacionDeIngreso.getOperacionesDeEgresoVinculadas().clear();
-        operacionDeIngreso.getOperacionesDeEgresoVinculadas().addAll(operacionesAsociadas);
-        this.repoOperacionIngreso.modificar(operacionDeIngreso);*/
+
+        List<OperacionDeEgreso> operacionesDeEgresoAsociadas = new ArrayList<>();
+
+        for(OperacionDeEgreso operacionAsociada : operacionesAsociadas){
+        OperacionDeEgreso operacionEnBaseDeDatos = this.repoOperacionEgreso.buscar(operacionAsociada.getIdOperacion());
+        operacionEnBaseDeDatos.setFueVinculada(operacionAsociada.getFueVinculada());
+        operacionEnBaseDeDatos.setOperacionDeIngresoId(operacionAsociada.getOperacionDeIngreso_id());
+        operacionesDeEgresoAsociadas.add(operacionEnBaseDeDatos);
+        }
+
+        operacionDeIngreso.getOperacionesDeEgresoVinculadas().addAll(operacionesDeEgresoAsociadas);
+        this.repoOperacionIngreso.modificar(operacionDeIngreso);
     }
 
-    private void actualizarEgresoEnBaseDeDatos(OperacionDeIngreso unaOperacion,OperacionDeEgreso unEgreso){
+    private void actualizarEgresoEnBaseDeDatos(OperacionDeIngreso unaOperacion, OperacionDeEgreso unEgreso){
         OperacionDeEgreso operacionDeEgreso = repoOperacionEgreso.buscar(unEgreso.getIdOperacion());
-//        OperacionDeIngreso operacionDeIngreso = this.repoOperacionIngreso.buscar(unaOperacion.getId());
-//        operacionDeEgreso.setOperacionDeIngreso(operacionDeIngreso);
+        OperacionDeIngreso operacionDeIngreso = this.repoOperacionIngreso.buscar(unaOperacion.getId());
+        operacionDeEgreso.setOperacionDeIngreso(operacionDeIngreso);
         operacionDeEgreso.setFueVinculada(true);
         repoOperacionEgreso.modificar(operacionDeEgreso);
     }
