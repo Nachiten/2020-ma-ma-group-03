@@ -29,18 +29,14 @@
     margin-left: 57px;
     float: left;
 
-    width: 45%;
+    width: 43%;
     height: auto;
 }
 
 .imagen img{
-    width: 80%;
+    width: 90%;
 }
 .articulo{
-    padding-top: 10%;
-    padding-left: 10px;
-    margin-left: 10px;
-
     float: left;
     width: 45%;
     height: auto;
@@ -55,7 +51,14 @@
 .articulo h3{
     font-size: 20px;
     color: white;
-    margin-block-start: 5%;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.articulo h4{
+    font-size: 30px;
+    color: white;
+    margin-left: 200px;
 }
 
 .sist{
@@ -71,28 +74,6 @@
     overflow-y: auto;
     margin-block-start: 5%;
     margin-block-end: 5%;
-}
-
-.list{
-    padding-left: 10px;
-    padding-top: 10%;
-    margin-left: 57px;
-    float: left;
-
-    width: 45%;
-    height: auto;
-    text-align: inherit;
-}
-
-.list h2{
-    font-size: 30px;
-    color: white;
-    margin-block-end: 5%;
-}
-
-.list h3{
-    font-size: 20px;
-    color: white;
 }
 
 .fijo{
