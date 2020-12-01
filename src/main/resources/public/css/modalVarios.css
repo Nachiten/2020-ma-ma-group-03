@@ -42,34 +42,27 @@ body{
 .modal-dialog {
     position: relative;
     width: auto;
-    margin: .5rem;
+    max-width: max-content;
+    margin: 1.75rem auto;
     pointer-events: none;
 }
-.modal-dialog {
-    max-width: 500px;
-    margin: 1.75rem auto;
-}
+
 .modal-content {
     position: relative;
-    display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
-    width: 120%;
+    width: 100%;
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3rem;
     outline: 0;
-    margin-top: 300px;
 }
 .modal-header {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-align: start;
     align-items: flex-start;
-    -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 1.5rem;
     border-bottom: 1px solid #e9ecef;
@@ -117,17 +110,52 @@ body{
     background-color: #000;
 }
 .modal-body button{
-    text-decoration: none;
-    padding: 10px;
-    font-weight: 600;
+    padding: 7px;
+    font-weight: 500;
     font-size: 20px;
     color: #080808;
     background-color: #ffffff;
-    border-radius: 6px;
-    border: 1px solid #4caf50;
+    border: 1px solid #00afff;
     cursor: pointer;
 }
+
 .modal-body button:hover{
-    color: #4caf50;
+    color: #0374ce;
     background-color: #ffffff;
+}
+
+.modal-body table {
+    width: auto;
+    height: 10px;
+}
+
+.modal-body table td {
+    padding: 1em 1em;
+    background-color: rgb(88 156 234);
+    font-weight: 500;
+    font-size: 25px;
+    color: white;
+    height: auto;
+    width: 400px;
+}
+
+h1 {
+    color: black;
+    font-size: 33px;
+    margin:auto;
+}
+
+.listadoDeUsuarios .table-wrapper table{
+    margin: 0 0 0.6em 0;
+    border-collapse: collapse;
+    width: 1000px;
+    table-layout: inherit;
+}
+
+.modal-body table th{
+    color: white;
+    height: 40px;
+    font-size: 25px;
+    font-weight: 600;
+
 }
