@@ -13,11 +13,11 @@ button{
     line-height:1;
     margin:.3em;
     padding: 0.5em 0.5em;
-    font-size: 25px;
+    font-size: 20px;
     cursor:pointer;
     border-radius: 10px 10px;
     color:white;
-    font-weight: 300;
+    font-weight: 200;
 }
 button:focus,button:hover{
     border-color:var(--hover);

@@ -6,6 +6,7 @@
 
     <form action="javascript:void(0)" method="post">
      <center>
+         <h3>AGREGAR PRESUPUESTO</h3>
         <table class= "formulario1">
             <tr>
                 <td>Operación de Egreso asociada:</td>
@@ -31,16 +32,19 @@
                         {{/each}}
                     </select>
                 </td>
+                <td></td>
             </tr>
             <tr>
                 <td>Número Documento Comercial:</td>
                 <td><input type="number" min="0" name="numeroDocumentoComercial" id="alta-numeroDocumentoComercial" placeholder="Ingrese el número" required></td>
+                <td></td>
             </tr>
 
         </table>
               
         <table class= "formulario3" border = "0">
           <td>Asociar categorías:</td>
+            <td></td>
             <!-- TR = Fila | TD = Columna-->
             <tr>
                 <td>
@@ -67,21 +71,17 @@
         </table>
 
          <center>
-             <table class="formulario2" border="0">
-                 <tr style="background-color: white">
+             <table class="formulario2">
+                 <tr> <!--yo quiero que en esta fila esten estas columnas-- la fila arranca y termina en tr.-->
                      <td>Item:</td>
-                     <td><input type="text" placeholder="Ej: papel" id="item"></td>
-                     <td rowspan="2">
-                         <div class="buttons">
-                             <button type="button" onclick="nuevaFilaEnItems()">Agregar</button>
-                         </div>
+                     <td><input type="text" placeholder="Ej: Papel" id="item"></td>
+                     <td rowspan="3">
+                         <button type="button" onclick="nuevaFilaEnItems()">Agregar</button>
                      </td>
-
-                     <td rowspan="2"></td>
                  </tr>
                  <tr>
-                     <td>Precio:</td>
-                     <td><input type="number" step="0.01" min="0" placeholder="Ej: 200" id="precio"></td>
+                     <td>Precio Unitario:</td>
+                     <td><input type="number" step="0.01" placeholder="Ej: 200.50" id="precio"></td>
                      <td></td>
                  </tr>
              </table>
@@ -93,16 +93,13 @@
                  <table id="tabla_items">
                      <thead>
                      <tr>
-                         <th>Items</th>
-                         <th>Precio</th>
+                         <td>Items</td>
+                         <td>Precio</td>
                          <td>Acciones</td>
                      </tr>
                      </thead>
                      <tbody id = "content_table">
                      <tr>
-                         <td id="item"></td>
-                         <td id="precio"></td>
-                          
                      </tr>
                      </tbody>
                  </table>
