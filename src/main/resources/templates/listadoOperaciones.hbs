@@ -2,7 +2,7 @@
  
 <div class = "listadoOperaciones">
 
-    <form>
+    <!-- <form> -->
         <center class="operaciones">
 
     <h2>LISTADO DE OPERACIONES DE EGRESO</h2>
@@ -25,7 +25,8 @@
                     <th>Fecha</th>
                     <th>Monto</th>
                     <td>Detalle</td>
-                    <td>Archivo</td>
+                    <td>Documento</td>
+                    <td>Descargar Documento</td>
                 </tr>
             </thead>
         <tbody id="content_table">
@@ -39,9 +40,21 @@
                         <button type="button" onclick="mostrarDetallesEgreso({{idOperacion}})" > Detalle</button>
                     </td>
                     <td>
-                        <input type="file" >
-                        <button type="button" onclick="adjuntarArchivoAEgreso()" > Adjuntar</button>
-
+                        <form method="post" enctype="multipart/form-data" action="/guardarDocumentoEgreso">
+                            <input type="file" name="documentoSubido" id="{{idOperacion}}">
+                            <input type="hidden" name="idOperacion" id="idOperacion" value="{{idOperacion}}">
+                            <button>Adjuntar</button>
+                        </form>
+                    </td>
+                    <td>
+                        {{#if hayDocumentoGuardado}}
+                            <form method="post" enctype="multipart/form-data" action="/descargarDocumentoEgreso">
+                                <input type="hidden" name="idOperacion" id="idOperacion" value="{{idOperacion}}">
+                                <button>Descargar</button>
+                            </form>
+                        {{else}}
+                            <p>No hay documento guardado</p>
+                        {{/if}}
                     </td>
                 </tr>
                 {{/each}}
@@ -84,7 +97,7 @@
 	</div>
 
     </center>
-    </form>    
+    <!-- </form> -->
 
 </div>
 <script src="/js/egreso.js"></script>

@@ -75,6 +75,9 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @JoinColumn(name = "entidadJuridicaAsociada_id")
     private EntidadJuridica entidadJuridicaAsociada;
 
+    @Column (name = "hayDocumentoGuardado")
+    private boolean hayDocumentoGuardado;
+
     @Transient
     private int operacionDeIngresoId;
 
@@ -168,6 +171,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     private void inicializar(){
         this.soyValida = false;
+        this.hayDocumentoGuardado = false;
         this.revisores = new ArrayList<>();
         this.presupuestos = new ArrayList<>();
     }
@@ -211,6 +215,11 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     //-------------------------------------------------------------------------
                             //SETTERS
     //-------------------------------------------------------------------------
+
+
+    public void setHayDocumentoGuardado(boolean hayDocumentoGuardado) {
+        this.hayDocumentoGuardado = hayDocumentoGuardado;
+    }
 
     public void setCantidadPresupuestosRequerida(int cantidadPresupuestosRequerida) { this.cantidadPresupuestosRequerida = cantidadPresupuestosRequerida; }
 
@@ -269,7 +278,13 @@ public class OperacionDeEgreso implements GestorDeRevisores {
                             //GETTERS
     //-------------------------------------------------------------------------
 
-    public List<Presupuesto> getPresupuestos() { return presupuestos; }
+    public boolean getHayDocumentoGuardado(){
+        return hayDocumentoGuardado;
+    }
+
+    public List<Presupuesto> getPresupuestos() {
+        return presupuestos;
+    }
 
     public LocalDate getFecha() { return fecha;}
 

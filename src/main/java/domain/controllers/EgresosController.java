@@ -4,7 +4,6 @@ import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
-import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
@@ -13,9 +12,18 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.nio.file.*;
+
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class EgresosController {
 
@@ -28,6 +36,8 @@ public class EgresosController {
     private OperadorController operadorController;
     private Repositorio<EntidadJuridica> repoEntidadJuridica;
     private Repositorio<CategoriaCriterio> repoCategorias;
+    File carpetaSubidaDocumentos;
+    String pathArchivoADescargar;
 
     public EgresosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
         this.repoTipoMedioPago = FactoryRepositorio.get(TipoMedioDePago.class);
@@ -39,6 +49,11 @@ public class EgresosController {
         this.repoCategorias = FactoryRepositorio.get(CategoriaCriterio.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
+
+        carpetaSubidaDocumentos = new File("documentosSubidos");
+        carpetaSubidaDocumentos.mkdir(); // create the upload directory if it doesn't exist
+
+        //staticFiles.externalLocation("upload");
     }
 
     private ModelAndView modalAndViewEgresos(){
@@ -61,6 +76,8 @@ public class EgresosController {
     }
 
     public ModelAndView verDetalleProveedor(Request request, Response response){
+
+
 
         String proveedorString = request.queryParams("proveedor");
 
@@ -229,13 +246,6 @@ public class EgresosController {
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
         String razonSocialProveedor = request.queryParams("proveedor");
 
-        // Estos checkeos se hacen en javascript
-        /*if (fechaString.equals("") || numeroMedioDePagoString.equals("")
-                || numeroDocumentoComercialString.equals("") || presupuestosRequeridosString.equals("")){
-            modalAndViewController.getParametros().put("mensaje","Se deben completar todos los campos.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
-        }*/
-
         if (noEligioRevisor(revisor)){
             modalAndViewController.getParametros().put("mensaje","Se debe elegir si es revisor o no.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
@@ -321,6 +331,127 @@ public class EgresosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 
+    public ModelAndView guardarDocumentoEgreso(Request request, Response response) {
+
+        request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+
+        try (InputStream input = request.raw().getPart("documentoSubido").getInputStream()) { // getPart needs to use same "name" as input field in form
+
+            String nombreArchivo = request.raw().getPart("documentoSubido").getSubmittedFileName();
+
+            if (nombreArchivo.equals("")){
+                modalAndViewController.getParametros().put("mensaje", "No se selecciono ningun archivo a guardar");
+                return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+            }
+
+            String idOperacion = request.queryParams("idOperacion");
+
+            String pathAnterior = encontrarDocumentoPorIdOperacion(idOperacion);
+
+            if (pathAnterior != null){
+                eliminarArchivoAnterior(pathAnterior);
+            }
+
+            // nombreSeparado[0] = nombreArchivo
+            // nombreSeparado[1] = txt
+            String[] nombreSeparado = nombreArchivo.split("\\.");
+
+            Path tempFile = Files.createTempFile(carpetaSubidaDocumentos.toPath(), "IdOperacion[" + idOperacion + "]", "." + nombreSeparado[1]);
+
+            Files.copy(input, tempFile, StandardCopyOption.REPLACE_EXISTING);
+
+            actualizarEgresoConDocumentoGuardado(idOperacion);
+        } catch (Exception e) {
+            System.out.println("EXCEPCION: " + e.getMessage());
+            modalAndViewController.getParametros().put("mensaje", "Hubo un error al subir el archivo");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        modalAndViewController.getParametros().put("mensaje", "El archivo se subio correctamente");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        //return new ModelAndView(response,"modalInformativo2.hbs");
+    }
+
+    private void eliminarArchivoAnterior(String nombreArchivo) throws Exception {
+        File myObj = new File(carpetaSubidaDocumentos + "/" + nombreArchivo);
+
+        if (!myObj.delete()){
+            throw new Exception("No se pudo eliminar");
+        }
+    }
+
+    private void actualizarEgresoConDocumentoGuardado(String idOperacion){
+        int idEntero = Integer.parseInt(idOperacion);
+
+        OperacionDeEgreso operacionAActualizar = repoOperacionEgreso.buscar(idEntero);
+
+        operacionAActualizar.setHayDocumentoGuardado(true);
+
+        repoOperacionEgreso.modificar(operacionAActualizar);
+    }
+
+    public ModelAndView descargarDocumentoEgreso(Request request, Response response){
+
+        request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+
+        String idOperacion = request.queryParams("idOperacion");
+
+        pathArchivoADescargar = encontrarDocumentoPorIdOperacion(idOperacion);
+
+       /*
+        * 1 - Encontrar si existe la operacion con id deseado
+        * 2 - Poner ese path en pathArchivoADescargar
+        * 3 - Descargarlo
+        */
+
+        if (pathArchivoADescargar == null){
+            modalAndViewController.getParametros().put("mensaje", "Esta operacion de egreso no tiene ningun documento asociado");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        response.redirect("descargarDocumento");
+        return new ModelAndView(response,"modalInformativo2.hbs");
+    }
+
+    private String encontrarDocumentoPorIdOperacion(String idOperacion){
+        for (final File fileEntry : Objects.requireNonNull(carpetaSubidaDocumentos.listFiles())) {
+            if (!fileEntry.isDirectory()) {
+                String nombreArchivo = fileEntry.getName();
+                if (coincideIdArchivoConOperacion(nombreArchivo, idOperacion)){
+                    return nombreArchivo;
+                }
+            }
+        }
+        return null;
+    }
+
+    private boolean coincideIdArchivoConOperacion(String nombreArchivo, String idOperacion) {
+
+        boolean leer = false;
+
+        String idLeido = "";
+
+        for (int indiceLetra = 0; indiceLetra< nombreArchivo.length(); indiceLetra++){
+
+            char caracterLeido = nombreArchivo.charAt(indiceLetra);
+
+            if ( caracterLeido== '['){
+                leer = true;
+                continue;
+            }
+
+            if (caracterLeido == ']'){
+                break;
+            }
+
+            if (leer){
+                idLeido += caracterLeido;
+            }
+        }
+
+        return idLeido.equals(idOperacion);
+    }
+
     private boolean noEligioMedioPago(String medioPagoString){
         return medioPagoString.equals("Seleccionar medio de pago");
     }
@@ -387,4 +518,38 @@ public class EgresosController {
         }
         return null;
     }
+
+    public HttpServletResponse descargarDocumento(Request request, Response response) {
+
+        File file = new File("documentosSubidos/" + pathArchivoADescargar);
+        response.raw().setContentType("application/octet-stream");
+
+        String[] nombreSeparado = file.getName().split("\\.");
+
+        response.raw().setHeader("Content-Disposition","attachment; filename=" + nombreSeparado[0] + ".zip");
+        try {
+
+            ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(response.raw().getOutputStream()));
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+
+            ZipEntry zipEntry = new ZipEntry(file.getName());
+
+            zipOutputStream.putNextEntry(zipEntry);
+
+            byte[] buffer = new byte[1024];
+
+            int len;
+            while ((len = bufferedInputStream.read(buffer)) > 0) {
+                zipOutputStream.write(buffer,0,len);
+            }
+
+            zipOutputStream.flush();
+            zipOutputStream.close();
+        } catch (Exception e) {
+            System.out.println("EXCEPCION: " + e.getMessage());
+        }
+
+        return response.raw();
+    }
 }
+
