@@ -2,17 +2,20 @@
     width: 100%;
 }
 
+
 h2{
     color: white;
-    font-size: 20px;
-    margin-block-end: 1.5%;
-    width: 100%;
+    font-size: 25px;
+    font-weight: 700;
+    margin-block-end: 50px;
+    margin-block-start: -40px;
 }
 
 h3{
  color: white;
  font-size: 20px;
-    margin-block-end: 1.5%;
+ margin-block-end: 1.5%;
+
 }
 
 .table-wrapper tbody th{
@@ -31,4 +34,32 @@ h3{
 
 .table-wrapper thead td{
     color:white;
+}
+
+button{
+    transition:.25s;
+    background: #00bcc1;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.3em;
+    padding: 0.5em 0.5em;
+    font-size: 18px;
+    cursor:pointer;
+    border-radius: 10px 10px;
+    color:white;
+    font-weight: 200;
+}
+
+
+.listadoOperaciones select{
+    font-size: 18px;
+    border-radius: 5px 5px;
+    border: 0;
+}
+
+.listadoOperaciones input{
+    font-size: 18px;
+    border-radius: 5px 5px;
+    border: 0;
 }
