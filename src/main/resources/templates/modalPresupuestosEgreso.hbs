@@ -33,12 +33,12 @@
                             {{#if proveedor}}
                                 <td> <button type="button" onclick="mostrarDetallesProveedorPresupuesto({{id}})" > Detalle</button> </td>
                             {{else}}
-                                <td>No tiene proveedor </td>
+                                <td>No hay datos </td>
                             {{/if}}
                             {{#if listaCategoriaCriterio}}
                                 <td><button type="button" onclick="mostrarCategoriaPresupuesto({{id}})" > Ver Lista</button></td>
                             {{else}}
-                                <td>No tiene categorias </td>
+                                <td>No hay datos </td>
                             {{/if}}
                                 <td><button type="button" onclick="mostrarItemsPresupuesto({{id}})" > Ver Lista</button></td>
                             {{#if montoTotal}}
@@ -59,4 +59,4 @@
         <script src="/js/accionesUsuarios.js"></script>
         <script src="/js/presupuesto.js"></script>
 
-        <link rel="stylesheet" href="/css/modalAccionesUsuarios.css"/>
+        <link rel="stylesheet" href="/css/modalVarios.css"/>

@@ -129,6 +129,11 @@ public class IngresosController {
 
         modalAndViewController.getParametros().put("operacionesVinculadas", operacionDeIngreso.getOperacionesDeEgresoVinculadas());
 
+        if(operacionDeIngreso.getOperacionesDeEgresoVinculadas().isEmpty()){
+            modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
         return new ModelAndView(modalAndViewController.getParametros(),"modalOperacionesVinculadasAIngreso.hbs");
     }
 

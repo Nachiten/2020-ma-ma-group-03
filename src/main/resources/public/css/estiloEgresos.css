@@ -1,8 +1,15 @@
 .egresos td{
     width: 50%;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 20px;
     color: white;
+}
+
+.egresos .formulario td{
+    width: 50%;
+    font-weight: 400;
+    font-size: 20px;
+    color:white;
 }
 
 .egresos input{
@@ -17,12 +24,9 @@
     border: 0;
 }
 
-.egresos .containerBoton{
-   
-    position:absolute;
-    left:50%;
-    transform:translate(-50%,-100%);
-    
+input[type=radio]{
+    margin-right: 5px;
+    margin-left: 10px;
 }
 
 button:focus,button:hover{
@@ -36,17 +40,18 @@ button:focus,button:hover{
 }
 
 button{
-    background:#00bcc1;
+    transition:.25s;
+    background: #00bcc1;
     border:0px solid;
     font:inherit;
     line-height:1;
-    margin:.5em;
-    padding:1em 2em;
-    font-weight: 100;
-    font-size: large;
+    margin:.3em;
+    padding: 0.5em 0.5em;
+    font-size: 20px;
     cursor:pointer;
     border-radius: 10px 10px;
     color:white;
+    font-weight: 200;
 }
 
 .table-wrapper .acciones{
@@ -64,16 +69,26 @@ button{
 
 .egresos .formulario3 td{
     width:25%;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 20px;
     vertical-align: top;
 }
-.egresos th{
-    color: white;
+
+input[type=checkbox]{
+    margin-top: 15px;
 }
 
 h3{
     color: white;
-    font-size: 20px;
-    margin-block-end: 1.5%;
+    font-size: 25px;
+    font-weight: 700;
+    margin-block-end: 50px;
+    margin-block-start: -75px;
+}
+
+table {
+    margin: 0 0 0.6em 0;
+    width: 900px;
+    border-collapse: collapse;
+    background-color: #01468a;
 }

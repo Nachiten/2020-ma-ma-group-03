@@ -41,3 +41,24 @@
     color: white;
 }
 
+table {
+    margin: 0 0 0.6em 0;
+    width: 1500px;
+    border-collapse: collapse;
+    background-color: #01468a;
+}
+
+h3{
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    margin-block-end: 50px;
+    margin-block-start: -43px;
+}
+
+.table-wrapper .tabla-de-mensajes td{
+    width:25%;
+    font-weight: 400;
+    font-size: 20px;
+    vertical-align: top;
+}

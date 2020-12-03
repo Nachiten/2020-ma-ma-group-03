@@ -9,7 +9,7 @@
 
 table {
     margin: 0 0 0.6em 0;
-    width: 55%;
+    width: auto;
     border-collapse: collapse;
     background-color: #01468a;
 }
@@ -27,7 +27,7 @@ table {
     table td {
         padding: 1em 1em;
         background-color: #01468a;
-        font-weight: 600;
+        font-weight: 400;
         font-size: 20px;
     }
 
@@ -35,7 +35,7 @@ table {
         color:#000;
         /*font-size: 0.9em;padding: 0 1em;
         font-weight: 550;*/
-        font-weight: 600;
+        font-weight: 400;
         font-size: 20px;
 
     }
@@ -51,7 +51,7 @@ table {
     .table-wrapper td {
         text-align :center;
         color: #000;
-        font-weight: 600;
+        font-weight: 400;
         font-size: 20px;
    }
     table.alt {

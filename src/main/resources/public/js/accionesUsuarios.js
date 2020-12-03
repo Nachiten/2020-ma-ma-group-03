@@ -187,6 +187,22 @@ function recuperarDatosFormularioUsuarioEditado(){
     return datos;
 }
 
+
+function mostrarDetalleEntidadJuridica() {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/editarPerfil/detalleEntidadJuridica";
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
 //habilitar input para cambiar contraseña
 var cambioContrasenia = document.getElementById('altaUsuario-cambioContrasenia');
 var no_cambioContrasenia = document.getElementById('altaUsuario-noCambioContrasenia');

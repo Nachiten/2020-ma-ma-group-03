@@ -1,35 +1,60 @@
 h2{
-    color:white;
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    margin-block-end: 50px;
+    margin-block-start: -43px;
 }
 
 table {
     margin: 0 0 0.6em 0;
-    border-collapse: collapse;
     width: auto;
+    border-collapse: collapse;
+    background-color: #01468a;
 }
 
 table td {
     padding: 1em 1em;
-    background-color: rgb(88 156 234);
-    font-weight: 600;
+    font-weight: 400;
     font-size: 25px;
+    color: white;
 }
 
 button {
-    text-decoration: none;
-    padding: 10px;
-    font-weight: 600;
+    transition:.25s;
+    background: #00bcc1;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.3em;
+    padding: 0.5em 0.5em;
     font-size: 20px;
-    color: #080808;
-    background-color: #ffffff;
-    border-radius: 6px;
-    border: 1px solid #00afff;
-    cursor: pointer;
-    margin-right: 2%;
+    cursor:pointer;
+    border-radius: 10px 10px;
+    color:white;
+    font-weight: 200;
 }
 
 button:hover {
     color: #0374ce;
     background-color: #ffffff;
+}
+
+input[type=radio]{
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+
+.editarUsuario input{
+    font-size: 20px;
+    border-radius: 5px 5px;
+    border: 0;
+}
+
+.editarUsuario select{
+    font-size: 20px;
+    border-radius: 5px 5px;
+    border: 0;
 }
 

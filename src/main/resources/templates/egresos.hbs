@@ -106,11 +106,8 @@
                     <tr>
                         <td>Ser Revisor: </td>
                         <td>
-                            <select name = "revisor" id="alta-revisor" required>
-                                <option hidden selected>Seleccionar opción</option>
-                                <option>Si</option>
-                                <option>No</option>
-                            </select>
+                                <input name="revisor" type="radio" value="Si" id = "alta-revisor" />Si
+                                <input name="revisor" type="radio" value="No" id = "alta-revisor" checked="checked"/>No
                         </td>
                     </tr>
                     <tr>
@@ -137,7 +134,7 @@
                     </tr>
                     <tr>
                         <td>Cantidad:</td>
-                        <td><input type="number" placeholder="Ej: 35" id="cantidad"></td>
+                        <td><input type="number" step="1" min="1" max="1000" placeholder="Ej: 5" id="cantidad"></td>
                         <td></td>
                     </tr>
                 </table>
