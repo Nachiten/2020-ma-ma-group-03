@@ -28,9 +28,9 @@ public class ValidadorContraseniasTest {
     Validador tieneUnaMayuscula = new ValidadorMayusculas(1);
     Validador tieneUnNumero = new ValidadorNumeros(1);
     Validador noTieneEspacios = new ValidadorEspacios();
-    Validador noEstaEnPeoresContra = new ValidadorPeoresContrasenias("./archivos/topPeoresContrasenias.txt");
+    Validador noEstaEnPeoresContra = new ValidadorPeoresContrasenias();
 
-    ValidadorCredenciales miValidador = new ValidadorCredenciales(Arrays.asList(longitudMayorA8, tieneUnaMayuscula, tieneUnNumero, noTieneEspacios, noEstaEnPeoresContra));
+    ValidadorCredenciales miValidador = new ValidadorCredenciales(longitudMayorA8, tieneUnaMayuscula, tieneUnNumero, noTieneEspacios, noEstaEnPeoresContra);
 
     // CHECKEAR CONTRASEÑAS
     @Test

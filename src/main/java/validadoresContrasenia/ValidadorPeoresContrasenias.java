@@ -4,9 +4,10 @@ import java.io.*;
 
 public class ValidadorPeoresContrasenias extends Validador {
 
-    public File file;
+    private File file;
+    private String ruta = "./archivos/topPeoresContrasenias.txt";
 
-    public ValidadorPeoresContrasenias(String ruta){
+    public ValidadorPeoresContrasenias(){
        file = new File(ruta);
     }
 

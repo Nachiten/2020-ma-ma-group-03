@@ -8,6 +8,7 @@ import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import validadoresContrasenia.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -77,6 +78,18 @@ public class AccionesEnUsuariosController {
         EntidadJuridica entidadJuridicaObtenida = obtenerEntidadJuridica(entidadJuridica);
         usuarioApersistir.setEntidadJuridica(entidadJuridicaObtenida);
 
+        ValidadorCredenciales miValidador = new ValidadorCredenciales(new ValidadorEspacios(), new ValidadorLongitud(8), new ValidadorMayusculas(1), new ValidadorNumeros(1));
+
+        if (!miValidador.esSegura(contrasenia)){
+            modalAndViewController.getParametros().put("mensaje", "La contraseña no es segura. Debe contener 1 mayuscula, 1 numero y 8 caracteres. Sin espacios");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        if (yaExisteNombreUsuario(nombreDeUsuario)){
+            modalAndViewController.getParametros().put("mensaje", "Ya existe un usuario con este nombre de usuario.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
         if(operadorController.persistenciaNoValida(repoUsuario,usuarioApersistir)){
             modalAndViewController.getParametros().put("mensaje", "No se pudo crear el nuevo usuario, intentelo nuevamente.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
@@ -84,6 +97,12 @@ public class AccionesEnUsuariosController {
 
         modalAndViewController.getParametros().put("mensaje", "Se creo exitosamente el nuevo usuario.");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+    }
+
+    private boolean yaExisteNombreUsuario(String nombreUsuario){
+        List<Usuario> usuarios = repoUsuario.buscarTodos();
+
+        return usuarios.stream().anyMatch(unUsuario -> unUsuario.getNombreUsuario().equals(nombreUsuario));
     }
 
     private ModelAndView modalAndViewHabilitarUsuario() {
