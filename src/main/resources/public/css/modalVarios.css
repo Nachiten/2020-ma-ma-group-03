@@ -109,6 +109,7 @@ body{
     z-index: 1040;
     background-color: #000;
 }
+
 .modal-body button{
     padding: 7px;
     font-weight: 500;
@@ -132,11 +133,11 @@ body{
 .modal-body table td {
     padding: 1em 1em;
     background-color: rgb(88 156 234);
-    font-weight: 500;
+    font-weight: 400;
     font-size: 25px;
     color: white;
     height: auto;
-    width: 400px;
+    width: auto;
 }
 
 h1 {
@@ -156,6 +157,35 @@ h1 {
     color: white;
     height: 40px;
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 400;
+}
 
+.modal-items table th{
+    color: white;
+    height: 40px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.modal-items table {
+    width: 1500px;
+    height: 10px;
+}
+
+.modal-items table td {
+    padding: 1em 1em;
+    background-color: rgb(88 156 234);
+    font-weight: 400;
+    font-size: 25px;
+    color: white;
+    height: auto;
+    width: auto;
+}
+
+.modal-items {
+    position: relative;
+    width: 1700px;
+    max-width: max-content;
+    margin: 1.75rem auto;
+    pointer-events: none;
 }

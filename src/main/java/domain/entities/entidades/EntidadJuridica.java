@@ -136,6 +136,22 @@ public class EntidadJuridica extends EntidadPersistente {
         return estoyHabilitado;
     }
 
+    public DireccionPostal getDireccionPostalEntidadJuridica() {
+        return direccionPostalEntidadJuridica;
+    }
+
+    public String getCodigoInscripcionDefinitiva() {
+        return codigoInscripcionDefinitiva;
+    }
+
+    public TipoEntidadJuridica getTipoEntidadJuridica() {
+        return tipoEntidadJuridica;
+    }
+
+    public List<EntidadBase> getEntidadesBase() {
+        return entidadesBase;
+    }
+
     //-------------------------------------------------------------------------
                             //SETTERS
     //-------------------------------------------------------------------------

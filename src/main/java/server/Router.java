@@ -72,6 +72,7 @@ public class Router {
         Spark.get("/editarPerfil",perfilUsuarioEstandarController::mostrarPaginaPerfilUsuarioEstandar,Router.engine);
         Spark.post("/actualizarDatosPerfil",perfilUsuarioEstandarController::actualizarDatosPerfilUsuarioEstandar,Router.engine);
         Spark.post("/actualizarContrasenia",perfilUsuarioEstandarController::actualizarContraseniaPerfilUsuarioEstandar,Router.engine);
+        Spark.post("/editarPerfil/detalleEntidadJuridica", perfilUsuarioEstandarController::verEntidadJuridicaAsociada,Router.engine);
 
         //muestra página inicio dependiendo del tipo de usuario logueado
         Spark.get("/inicio", mainController::principal, Router.engine);

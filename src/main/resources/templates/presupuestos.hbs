@@ -14,7 +14,7 @@
                     <select name="operacionEgreso" id="alta-operacionEgreso" required >
                         <option hidden selected> Seleccionar una operación de egreso </option>
                         {{#each operacionesEgreso}}
-                            <option>ID: {{idOperacion}} | Fecha: {{fecha}} | Monto: {{montoTotal}}</option>
+                            <option>ID: {{idOperacion}} | Fecha: {{fecha}} | Monto: {{montoTotal}} </option>
                         {{/each}}
                     </select>
                 </td>
@@ -74,15 +74,14 @@
              <table class="formulario2">
                  <tr> <!--yo quiero que en esta fila esten estas columnas-- la fila arranca y termina en tr.-->
                      <td>Item:</td>
-                     <td><input type="text" placeholder="Ej: Papel" id="item"></td>
+                     <td><select name= "item" id="seleccionar-item" required disabled>
+                         <option hidden selected>Seleccionar item</option>
+                         {{#each operacionesEgreso.items}}
+                             <option value="{{descripcion}}" data-attribute="{{descripcion}}">{{descripcion}}</option>
+                         {{/each}}
                      <td rowspan="3">
                          <button type="button" onclick="nuevaFilaEnItems()">Agregar</button>
                      </td>
-                 </tr>
-                 <tr>
-                     <td>Precio Unitario:</td>
-                     <td><input type="number" step="0.01" placeholder="Ej: 200.50" id="precio"></td>
-                     <td></td>
                  </tr>
              </table>
 

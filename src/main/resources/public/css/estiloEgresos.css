@@ -24,6 +24,11 @@
     border: 0;
 }
 
+input[type=radio]{
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
 button:focus,button:hover{
     /*border-color:var(--hover);*/
     color:#fff;
