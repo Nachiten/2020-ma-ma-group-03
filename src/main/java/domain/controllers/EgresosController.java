@@ -77,8 +77,6 @@ public class EgresosController {
 
     public ModelAndView verDetalleProveedor(Request request, Response response){
 
-
-
         String proveedorString = request.queryParams("proveedor");
 
         if(proveedorString.equals("Seleccionar proveedor")){
@@ -236,6 +234,9 @@ public class EgresosController {
     }
 
     public ModelAndView guardarOperacionDeEgreso(Request request, Response response) {
+
+        request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+
         // Leo los query params
         String fechaString = request.queryParams("fecha");
         String tipoMedioDePagoString = request.queryParams("medioDePago");
@@ -326,8 +327,40 @@ public class EgresosController {
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
 
+        try (InputStream input = request.raw().getPart("documentoSubido").getInputStream()) { // getPart needs to use same "name" as input field in form
+
+            String nombreArchivo = request.raw().getPart("documentoSubido").getSubmittedFileName();
+
+            // Si hay un archivo lo subo
+            if (!nombreArchivo.equals("")){
+
+                String idOperacion = Integer.toString(operacionAGuardar.getIdOperacion());
+
+                String pathAnterior = encontrarDocumentoPorIdOperacion(idOperacion);
+
+                if (pathAnterior != null){
+                    eliminarArchivoAnterior(pathAnterior);
+                }
+
+                // nombreSeparado[0] = nombreArchivo
+                // nombreSeparado[1] = txt
+                String[] nombreSeparado = nombreArchivo.split("\\.");
+
+                Path tempFile = Files.createTempFile(carpetaSubidaDocumentos.toPath(), "IdOperacion[" + idOperacion + "]", "." + nombreSeparado[1]);
+
+                Files.copy(input, tempFile, StandardCopyOption.REPLACE_EXISTING);
+
+                actualizarEgresoConDocumentoGuardado(idOperacion);
+            }
+
+        } catch (Exception e) {
+            System.out.println("EXCEPCION: " + e.getMessage());
+            modalAndViewController.getParametros().put("mensaje", "Hubo un error al subir el documento.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
         // Se persistio correctamente
-        modalAndViewController.getParametros().put("mensaje", "La operación de egreso se guardó correctamente");
+        modalAndViewController.getParametros().put("mensaje", "La operación de egreso se guardó correctamente.");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 

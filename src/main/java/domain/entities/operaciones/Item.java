@@ -22,8 +22,6 @@ public class Item extends EntidadPersistente {
     @Column (name = "cantidad")
     private int cantidad;
 
-
-
     //-------------------------------------------------------------------------
                                     //CONTRUCTOR
     //-------------------------------------------------------------------------

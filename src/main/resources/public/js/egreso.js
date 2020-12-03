@@ -3,17 +3,19 @@ function esVacio(string){
 }
 
 function mostrarModalGuardadoEgreso() {
-    var datos = recuperarDatosFormularioEgresos();
+    //var datos = recuperarDatosFormularioEgresos();
 
+    let datos = new FormData($("#formularioEgresos")[0]);
+
+    datos.append( 'preciosItems', datosDeTablaPorNombreDeClase(".precioItem") );
+    datos.append( 'nombresItems', datosDeTablaPorNombreDeClase(".nombreItem") );
+    datos.append( 'cantidadesItems', datosDeTablaPorNombreDeClase(".cantidadItem") );
+    datos.append( 'nombresCategorias', datosNombresCategorias() );
+
+    /*
     if (esVacio(datos.fecha) || esVacio(datos.numeroMedioDePago) ||
         esVacio(datos.numeroDocumentoComercial) || esVacio(datos.presupuestosRequeridos)){
-        console.log("Falta completar algun campo");
-        return;
-    }
-
-    /*if (datos.nombresItems === ''){
-        alert("Se debe insertar al menos un item.");
-        console.log("No habia items, cancelo post");
+        console.log("Falta completar algun campo.");
         return;
     }*/
 
@@ -25,6 +27,8 @@ function mostrarModalGuardadoEgreso() {
         url      : ruta,
         datatype : "html",
         data     : datos,
+        contentType: false,
+        processData: false,
         success  : function (result) {
             showInModal("modal", result);
         }
@@ -32,7 +36,7 @@ function mostrarModalGuardadoEgreso() {
 }
 
 function recuperarDatosFormularioEgresos(){
-    return {
+    var datos = {
         fecha: valorDe("alta-fecha"),
         medioDePago: valorDe("alta-medioDePago"),
         numeroMedioDePago: valorDe("alta-numeroMedioDePago"),
@@ -45,7 +49,16 @@ function recuperarDatosFormularioEgresos(){
         nombresItems: datosDeTablaPorNombreDeClase(".nombreItem"),
         cantidadesItems: datosDeTablaPorNombreDeClase(".cantidadItem"),
         nombresCategorias: datosNombresCategorias()
+        //archivo : $('input[name^="documentoSubido"]')[0].files[0]
     };
+
+    /*var datos = new FormData();
+
+    $.each($('input[name^="documentoSubido"]')[0].files, function(i, file) {
+        datos.append('file-' + i, file);
+    });*/
+
+    return datos;
 }
 
 function mostrarFiltradoEgresos() {
@@ -55,11 +68,11 @@ function mostrarFiltradoEgresos() {
     var ruta = "/egresos/nombreCategoria";
     var metodo = "POST";
     $.ajax({
-        type     : metodo,
-        url      : ruta,
-        datatype : "html",
-        data     : datos,
-        success  : function (result) {
+        type       : metodo,
+        url        : ruta,
+        datatype   : "html",
+        data       : datos,
+        success    : function (result) {
             showInModal("modal", result);
         }
     });

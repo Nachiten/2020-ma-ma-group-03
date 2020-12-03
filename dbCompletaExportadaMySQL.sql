@@ -533,6 +533,7 @@ CREATE TABLE `operaciondeegreso` (
   `operacionDeIngreso_id` int(11) DEFAULT NULL,
   `proveedorAsociado_id` int(11) DEFAULT NULL,
   `usuario_id` int(11) NOT NULL,
+  `hayDocumentoGuardado` bit(1) DEFAULT 0,
   PRIMARY KEY (`idOperacion`),
   KEY `FK_bscxh0d93nc9mm8e4355pysdy` (`documentoComercial_id`),
   KEY `FK_h4fe685v7j11p4wy7nr7teeia` (`entidadJuridicaAsociada_id`),
@@ -555,7 +556,16 @@ CREATE TABLE `operaciondeegreso` (
 
 LOCK TABLES `operaciondeegreso` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso` VALUES (1,3,'2020-03-10',19952.7,NULL,1,1,NULL,6,1),(2,0,'2020-07-08',2100,NULL,1,2,NULL,7,1),(3,0,'2020-07-09',3500,NULL,1,1,NULL,8,1),(4,0,'2020-08-03',26100,NULL,1,3,NULL,9,1),(5,6,'2020-09-27',17000,NULL,1,2,NULL,4,1),(6,4,'2020-10-01',207708,NULL,1,2,NULL,1,1),(7,0,'2020-10-05',200000,NULL,1,2,NULL,1,1),(8,0,'2020-10-07',1100,NULL,2,2,NULL,7,1),(9,0,'2020-10-07',800,NULL,2,2,NULL,8,1),(10,0,'2020-09-25',21000,NULL,2,2,NULL,10,1);
+INSERT INTO `operaciondeegreso` VALUES (1,3,'2020-03-10',19952.7,NULL,1,1,NULL,6,1,0),
+(2,0,'2020-07-08',2100,NULL,1,2,NULL,7,1,0),
+(3,0,'2020-07-09',3500,NULL,1,1,NULL,8,1,0),
+(4,0,'2020-08-03',26100,NULL,1,3,NULL,9,1,0),
+(5,6,'2020-09-27',17000,NULL,1,2,NULL,4,1,0),
+(6,4,'2020-10-01',207708,NULL,1,2,NULL,1,1,0),
+(7,0,'2020-10-05',200000,NULL,1,2,NULL,1,1,0),
+(8,0,'2020-10-07',1100,NULL,2,2,NULL,7,1,0),
+(9,0,'2020-10-07',800,NULL,2,2,NULL,8,1,0),
+(10,0,'2020-09-25',21000,NULL,2,2,NULL,10,1,0);
 /*!40000 ALTER TABLE `operaciondeegreso` ENABLE KEYS */;
 UNLOCK TABLES;
 

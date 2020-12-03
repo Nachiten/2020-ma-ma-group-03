@@ -3,7 +3,7 @@
         <br>
         <br>
 
-        <form action="javascript:void(0)" method="post">
+        <form enctype="multipart/form-data" action="javascript:void(0)" method="post" id="formularioEgresos">
             <center>
 
                 <h3>AGREGAR OPERACION DE EGRESO</h3>
@@ -61,6 +61,16 @@
                             <button type="button" onclick="mostrarDetallesProveedor()" > Detalle</button>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Adjuntar documento comercial:</td>
+                        <td>
+                            <!-- <form method="post" enctype="multipart/form-data" action="/guardarDocumentoEgreso"> -->
+                                <input type="file" name="documentoSubido" id="{{idOperacion}}">
+                                <input type="hidden" name="idOperacion" id="idOperacion" value="{{idOperacion}}">
+                                <button>Adjuntar</button>
+                            <!-- </form> -->
+                        </td>
+                    </tr>
                 </table>
 
                 <table class= "formulario3" border = "0">
@@ -84,7 +94,7 @@
                             {{#each criterios2}}
                                 <p>Criterio {{nombre}}:</p>
                                 {{#each listaCategoriaCriterio}}
-                                    <input type="checkbox" name="{{nombreCategoria}}" value="1"> {{nombreCategoria}}<br>
+                                    <input type="checkbox" name="{{nombreCategoria}}" class="categoria" value="1"> {{nombreCategoria}}<br>
                                 {{/each}}
                                 <br>
                             {{/each}}
@@ -154,7 +164,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" onclick="mostrarModalGuardadoEgreso()">Guardar</button>
+                <button type="button" onclick="mostrarModalGuardadoEgreso()">Guardar</button>
             </center>
 
         </form>
