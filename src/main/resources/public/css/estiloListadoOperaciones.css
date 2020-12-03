@@ -18,6 +18,14 @@ h3{
 
 }
 
+h4{
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    margin-block-end: 1.5%;
+
+}
+
 .table-wrapper tbody th{
     font-size: 18px;
     color:white;

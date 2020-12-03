@@ -1,35 +1,47 @@
 .formulario td{
     width: 50%;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 18px;
     color:#fff;
 }
+
 .formulario input{
     font-size: 17px;
 }
 
 button{
     transition:.25s;
-    background:#00bcc1;
+    background: #00bcc1;
     border:0px solid;
     font:inherit;
     line-height:1;
-    margin:.5em;
-    padding:1em 2em;
-    font-size: larger;
+    padding: 0.5em 0.5em;
+    font-size: 20px;
     cursor:pointer;
+    border-radius: 10px 10px;
     color:white;
+    font-weight: 200;
+    margin: .3em .3em .3em 20px;
 }
-button:focus,button:hover{
 
+button:focus,button:hover{
     color:#fff;
 }
 
 h2{
-    color:white;
-    margin-block-end: 1.5%;
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    margin-block-end: 50px;
+    margin-block-start: -40px;
 }
 
 td{
     color:white;
+}
+
+.validadorTransparencia input{
+    font-size: 20px;
+    border-radius: 5px 5px;
+    border: 0;
 }
