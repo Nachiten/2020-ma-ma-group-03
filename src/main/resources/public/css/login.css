@@ -1,0 +1,38 @@
+h1{
+    margin-block-start: -200px;
+
+}
+
+.login-box{
+    margin-block-start: 50px;
+}
+
+.textboxUsuario{
+    margin-top: 10px;
+    margin-block-start: -100px;
+    margin-block-end: -40px;
+}
+
+.textboxContra{
+    margin-top: 25px;
+    margin-block-start: 60px;
+}
+
+.btn{
+    margin-block-start: 1px;
+    width: 240px;
+}
+
+input[type="text"] {
+    width: 215px;
+    font-size: 20px;
+    border-radius: 5px 5px;
+    border: 0;
+}
+
+input[type="password"] {
+    width: 215px;
+    font-size: 20px;
+    border-radius: 5px 5px;
+    border: 0;
+}
