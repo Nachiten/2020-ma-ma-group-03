@@ -35,6 +35,7 @@ function mostrarModalGuardadoEgreso() {
     });
 }
 
+/*
 function recuperarDatosFormularioEgresos(){
     var datos = {
         fecha: valorDe("alta-fecha"),
@@ -52,14 +53,15 @@ function recuperarDatosFormularioEgresos(){
         //archivo : $('input[name^="documentoSubido"]')[0].files[0]
     };
 
-    /*var datos = new FormData();
+    var datos = new FormData();
 
     $.each($('input[name^="documentoSubido"]')[0].files, function(i, file) {
         datos.append('file-' + i, file);
-    });*/
+    });
 
     return datos;
 }
+*/
 
 function mostrarFiltradoEgresos() {
     var datos = recuperarCategoria();
@@ -93,6 +95,24 @@ function mostrarDetallesEgreso(id) {
         type     : metodo,
         url      : ruta,
         datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function subirDocumento(idOperacion){
+    let datos = new FormData($("#formularioArchivo" + idOperacion)[0]);
+
+    var ruta = "/guardarDocumentoEgreso";
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        data     : datos,
+        contentType: false,
+        processData: false,
         success  : function (result) {
             showInModal("modal", result);
         }
