@@ -22,93 +22,13 @@
                     <button type="button" onclick="mostrarDetallesEgresoEnPresupuesto()" > Detalle</button>
                 </td>
             </tr>
-            <tr>
-                <td>Tipo de Documento Comercial:</td>
-                <td>
-                    <select name = "documentoComercial" id="alta-tipoDocumentoComercial">
-                        <option>Seleccionar documento comercial</option>
-                        {{#each tiposDocumentoComercial}}
-                            <option>{{nombre}}</option>
-                        {{/each}}
-                    </select>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Número Documento Comercial:</td>
-                <td><input type="number" min="0" name="numeroDocumentoComercial" id="alta-numeroDocumentoComercial" placeholder="Ingrese el número" required></td>
-                <td></td>
-            </tr>
-
         </table>
-              
-        <table class= "formulario3" border = "0">
-          <td>Asociar categorías:</td>
-            <td></td>
-            <!-- TR = Fila | TD = Columna-->
-            <tr>
-                <td>
-                   {{#each criterios}}
-                       <p>Criterio {{nombre}}:</p>
-                       {{#each listaCategoriaCriterio}}
-                       <input type="checkbox" name="{{nombreCategoria}}" class="categoria" value="1"> {{nombreCategoria}}<br>
-                       {{/each}}
-                       <br>
-                   {{/each}}
-                </td>
-
-                <td>
-                    {{#each criterios2}}
-                        <p>Criterio {{nombre}}:</p>
-                        {{#each listaCategoriaCriterio}}
-                            <input type="checkbox" name="{{nombreCategoria}}" value="1"> {{nombreCategoria}}<br>
-                        {{/each}}
-                        <br>
-                    {{/each}}
-                </td>
-            </tr>
-
-        </table>
-
-         <center>
-             <table class="formulario2">
-                 <tr> <!--yo quiero que en esta fila esten estas columnas-- la fila arranca y termina en tr.-->
-                     <td>Item:</td>
-                     <td><select name= "item" id="seleccionar-item" required disabled>
-                         <option hidden selected>Seleccionar item</option>
-                         {{#each operacionesEgreso.items}}
-                             <option value="{{descripcion}}" data-attribute="{{descripcion}}">{{descripcion}}</option>
-                         {{/each}}
-                     <td rowspan="3">
-                         <button type="button" onclick="nuevaFilaEnItems()">Agregar</button>
-                     </td>
-                 </tr>
-             </table>
-
-         </center>
-
-         <center>
-             <div class="table-wrapper">
-                 <table id="tabla_items">
-                     <thead>
-                     <tr>
-                         <td>Items</td>
-                         <td>Precio</td>
-                         <td>Acciones</td>
-                     </tr>
-                     </thead>
-                     <tbody id = "content_table">
-                     <tr>
-                     </tr>
-                     </tbody>
-                 </table>
-             </div>
-             <button type="submit" onclick="mostrarModalGuardadoPresupuestos()"> Guardar</button>
+             <button type="submit" onclick="mostrarModalPrespuestoConEgreso()"> Seleccionar operación</button>
          </center>
 	</center>
     </form>
-    
 </div>
+
 <script src="/js/formatoDeTabla.js"></script>
 <script src="/js/presupuesto.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

@@ -96,6 +96,7 @@ public class Router {
         Spark.post("/presupuestos/categorias/:id", presupuestosController::verCategoriasPresupuesto, Router.engine);
         Spark.post("/presupuestos/items/:id", presupuestosController::verItemsPresupuesto, Router.engine);
         Spark.post("/presupuestos/egreso", presupuestosController::verEgresoElegido, Router.engine);
+        Spark.post("/presupuestos/operacionDeEgreso", presupuestosController::asociarEgreso, Router.engine);
 
         Spark.post("/criterios", criteriosController::guardarCriterio, Router.engine);
 

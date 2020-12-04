@@ -207,6 +207,17 @@ public class PresupuestosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleEgreso.hbs");
     }
 
+    public ModelAndView asociarEgreso(Request request, Response response){
+
+        String operacionEgreso = request.queryParams("operacionEgreso");
+
+        OperacionDeEgreso operacionDeEgreso = buscarOperacionEgreso(operacionEgreso);
+
+        modalAndViewController.getParametros().put("items", operacionDeEgreso.getItems());
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalAgregarPresupuesto.hbs");
+    }
+
     private boolean noEligioOperacionEgreso(String operacionEgresoString){
         return operacionEgresoString.equals("-Seleccionar una operacion de egreso-");
     }
