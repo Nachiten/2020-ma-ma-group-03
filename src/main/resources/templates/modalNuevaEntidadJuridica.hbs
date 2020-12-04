@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h1 id="tituloModal" class="modal-title">
-                <i class="fas fa-smile-plus"></i>
+                <a class="fas fa-smile-plus"></a>
                 ¡Nueva Entidad Jurídica!
             </h1>
         </div>
@@ -13,19 +13,19 @@
                         <table class= "formulario" border = 0 >
                             <tr>
                                 <td>Nombre:</td>
-                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-nombreEntidadJuridica" placeholder="Ingrese un nombreEntidadJuridica" required></td>
+                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-nombreEntidadJuridica" placeholder="Ingrese un nombre" required></td>
                             </tr>
                             <tr>
                                 <td>Nombre Ficticio:</td>
-                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-nombreFicticioEntidadJuridica" placeholder="Ingrese un nombreEntidadJuridica ficticio" required></td>
+                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-nombreFicticioEntidadJuridica" placeholder="Ingrese un nombre ficticio" required></td>
                             </tr>
                             <tr>
                                 <td>Código Inscripcion Definitiva:</td>
-                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-codigo" placeholder="Ingrese un código de inscripcion definitiva" style="width: 85%;" required></td>
+                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-codigo" placeholder="Ingrese un CID" required></td>
                             </tr>
                             <tr>
                                 <td>Cuit:</td>
-                                <td><input type="text" name="cuitEntidadJuridica" id = "altaEntidadJuridica-cuitEntidadJuridica" placeholder="Ingrese un cuitEntidadJuridica" required></td>
+                                <td><input type="text" name="cuitEntidadJuridica" id = "altaEntidadJuridica-cuitEntidadJuridica" placeholder="Ingrese un CUIT" required></td>
                             </tr>
                             <tr>
                                 <td>Razón Social:</td>
@@ -70,7 +70,7 @@
                             </tr>
                             <tr>
                                 <td>Calle:</td>
-                                <td><input type="text" name="calle" id="altaEntidadJuridica-calle" placeholder="Ingrese el nombreEntidadJuridica calle" required></td>
+                                <td><input type="text" name="calle" id="altaEntidadJuridica-calle" placeholder="Ingrese su calle" required></td>
                             </tr>
                             <tr>
                                 <td>Altura:</td>
@@ -82,14 +82,14 @@
                             </tr>
                             <tr>
                                 <td>Piso:</td>
-                                <td><input type="number"  min="0" name="piso" id="altaEntidadJuridica-piso" placeholder="Ingrese su número de piso" style="width: 57%;"></td>
+                                <td><input type="number"  min="0" name="piso" id="altaEntidadJuridica-piso" placeholder="Número de piso" ></td>
                             </tr>
                         </table>
                         <div class="modal-footer">
-                            <button type="button" class="btn" data-dismiss="modal">
+                            <button type="button" class="btn" data-dismiss="modal" onClick="location.reload();">
                                 Cancelar
                             </button>
-                            <button type="submit" onclick="mostrarModalConfirmacionNuevEntidadJuridica()">
+                            <button type="submit" onclick="mostrarModalGuardadoAltaEntidadJuridica()">
                                 Guardar
                             </button>
                         </div>
