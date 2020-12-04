@@ -60,33 +60,38 @@
                             <table class="formulario2">
                                 <tr> <!--yo quiero que en esta fila esten estas columnas-- la fila arranca y termina en tr.-->
                                     <td>Item:</td>
-                                    <td><select name= "item" id="seleccionar-item" required>
+                                    <td><select id="item" required>
                                         <option hidden selected>Seleccionar item</option>
                                         {{#each items}}
-                                            <option value="{{descripcion}}" data-attribute="{{descripcion}}">{{descripcion}}</option>
+                                            <option value="{{descripcion}},{{cantidad}}:{{precioUnitario}}" data-attribute="{{descripcion}}">{{descripcion}} | Cantidad: {{cantidad}} | Precio: {{precioUnitario}}</option>
                                         {{/each}}
                                     <td rowspan="3">
-                                        <button type="button" onclick="nuevaFilaEnItems()">Agregar</button>
+                                        <button type="button" onclick="nuevaFilaEnItemsDePresupuesto()">Agregar</button>
                                     </td>
                                 </tr>
                             </table>
                                 <center>
                                     <center>
-                            <div class="table-wrapper">
-                                <table id="tabla_items">
-                                    <thead>
-                                    <tr>
-                                        <td>Items</td>
-                                        <td>Precio</td>
-                                        <td>Acciones</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody id = "content_table">
-                                    <tr>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        <div class="table-wrapper">
+                                            <table id="tabla_items">
+                                                <thead>
+                                                <tr>
+                                                    <td>Item</td>
+                                                    <td>Precio Unitario</td>
+                                                    <td>Cantidad</td>
+                                                    <td>Precio Total</td>
+                                                    <td>Acciones</td>
+                                                    <!-- Item, PrecioUnitario, Cantidad, PrecioTotal, Acciones -->
+                                                </tr>
+                                                </thead>
+                                                <tbody id = "content_table">
+                                                <tr>
+                                                    <!--<td></td>
+                                                    <td></td>-->
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </center>
                                 </center>
                             </center>
