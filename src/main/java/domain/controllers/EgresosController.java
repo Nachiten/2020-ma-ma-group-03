@@ -373,7 +373,16 @@ public class EgresosController {
             String nombreArchivo = request.raw().getPart("documentoSubido").getSubmittedFileName();
 
             if (nombreArchivo.equals("")){
-                modalAndViewController.getParametros().put("mensaje", "No se selecciono ningun archivo a guardar");
+                modalAndViewController.getParametros().put("mensaje", "No se seleccionó ningun archivo a guardar.");
+                return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+            }
+
+            // nombreSeparado[0] = nombreArchivo
+            // nombreSeparado[1] = txt
+            String[] nombreSeparado = nombreArchivo.split("\\.");
+
+            if (!nombreSeparado[1].equals("pdf")){
+                modalAndViewController.getParametros().put("mensaje", "El archivo subido debe ser de extension PDF.");
                 return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
             }
 
@@ -384,10 +393,6 @@ public class EgresosController {
             if (pathAnterior != null){
                 eliminarArchivoAnterior(pathAnterior);
             }
-
-            // nombreSeparado[0] = nombreArchivo
-            // nombreSeparado[1] = txt
-            String[] nombreSeparado = nombreArchivo.split("\\.");
 
             Path tempFile = Files.createTempFile(carpetaSubidaDocumentos.toPath(), "IdOperacion[" + idOperacion + "]", "." + nombreSeparado[1]);
 
