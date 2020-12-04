@@ -1,51 +1,44 @@
 {{#partial "contenido"}}
     <div class="titulo">
-        <h1>USUARIOS</h1>
+        <h1>ADMINISTRACION DE USUARIOS</h1>
     </div>
 
-    <div class="nuevo">
+    <div class="sist">
         <div class="imagen">
-            <img src="/img/nuevoUsuario.jpg" type="image/jpg">
-        </div>
-        <div class="notaNuevo">
-            <article>
-                <h2>NUEVOS USUARIOS</h2>
-                <h3>Sistema para la creación de nuevos usuarios en una entidad jurídica determinada.</h3>
-
-            </article>
-            <div class="botonAcciones">
-                <button type="submit" onclick="mostrarModalNuevoUsuario()" title="Haga click para crear un nuevo usuario" >Nuevo</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="habilitar">
-        <div class="list">
-            <h2>HABILITAR USUARIOS</h2>
-            <h3>Sistema para dar de alta nuevamente a todos los usuarios que fueron inhabilitados.</h3>
-            <div class="botonAcciones">
-                <button type="submit" onclick="mostrarModalHabilitarUsuarios()" title="Haga click para habilitar un usuario">Habilitar</button>
-            </div>
-        </div>
-        <div class="imagen2">
-            <img src="/img/habilitar.jpg" type="image/jpg">
-        </div>
-    </div>
-
-    <div class="editar">
-        <div class="imagen3">
-            <img src="/img/editar.jpg" type="image/jpg">
+            <img src="/img/administrador.jpeg" type="image/jpeg" style="margin-block-start: 3%;">
         </div>
         <div class="articulo">
             <article>
-                <h2>EDITAR USUARIOS</h2>
-                <h3>Sistema para modificar a los usuarios activos o darles de baja.</h3>
-                <div class="botonAcciones">
-                    <button type="submit" data-dismiss="modal" onclick="mostrarModalEditarUsuarios()" title="Haga click para editar usuarios">Editar</button>
+                <br>
+                <br>
+                <h6>OPERACIONES SOBRE USUARIOS</h6>
+                <br>
+                <br>
+                <h7>Creación de un nuevo usuario:
+                    <br>
+                    <div class="botonAcciones">
+                    <button type="submit" onclick="mostrarModalNuevoUsuario()" title="Haga click para crear un nuevo usuario" >Crear usuario</button>
                 </div>
+                </h7>
             </article>
-        </div>
+            <br>
+            <br>
+            <h7>Habilitar usuarios deshabilidatos:
+                <br>
+                <div class="botonAcciones">
+                    <button type="submit" onclick="mostrarModalHabilitarUsuarios()" title="Haga click para habilitar un usuario">Habilitar usuario</button>
+                </div>
+            </h7>
+            <br>
+            <br>
+            <h7>Editar o dar de baja a usuarios:
+                <br>
+                <div class="botonAcciones">
+                    <button type="submit" data-dismiss="modal" onclick="mostrarModalEditarUsuarios()" title="Haga click para editar usuarios">Editar usuario</button>
+                </div>
+            </h7>
     </div>
+        </div>
     <link rel="stylesheet" href="/css/estiloAccionesUsuario.css"/>
     <script src="/js/accionesUsuarios.js"></script>
 {{/partial}}
