@@ -287,3 +287,8 @@ h5 {
     margin: 1.75rem auto;
     pointer-events: none;
 }
+
+input[type=radio]{
+    margin-right: 5px;
+    margin-left: 10px;
+}

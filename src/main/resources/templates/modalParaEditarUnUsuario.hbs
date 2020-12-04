@@ -3,7 +3,7 @@
         <div class="modal-header">
             <h1 id="tituloModal" class="modal-title">
                 <a class="fas fa-edit"></a>
-                ¡Editar!
+                ¡Editar un usuario!
             </h1>
         </div>
         <div class="modal-body">
@@ -28,42 +28,42 @@
                                     <input name="cambioContrasenia" type="radio" value="cambioContrasenia" id = "altaUsuario-cambioContrasenia" />Si
                                     <input name="cambioContrasenia" type="radio" value="noCambioContrasenia" id = "altaUsuario-noCambioContrasenia" checked="checked"/>No
                                     <br>
+                                    <br>
                                     Contraseña:
                                 </td>
-                                <td><br><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" value="{{miContrasenia}}" disabled></td>
+                                <td><br>
+                                    <br><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" value="{{miContrasenia}}" disabled></td>
                             </tr>
                             <tr>
                                 <td>Entidad jurídica:</td>
-                                <td><input type="text" name="miEntidadJuridica" id = "altaUsuario-miEntidadJuridica" value="{{idEntidadJuridica}}-{{razonSocialEntidadJueridica}}" disabled></td>
+                                {{#if razonSocialEntidadJuridica}}
+                                    <td><input type="text" name="miEntidadJuridica" id = "altaUsuario-miEntidadJuridica" value="{{razonSocialEntidadJuridica}}" disabled></td>
+                                {{else}}
+                                    <td><input type="text" name="miEntidadJuridica" id = "altaUsuario-miEntidadJuridica" value="{{nombreEntidadJuridica}}" disabled></td>
+                                {{/if}}
+
                             </tr>
                             <tr>
                                 <td>Cambiar entidad jurídica:
                                     <input name="cambioEntidadJuridica" type="radio" value="cambioEntidadJuridica" id = "altaUsuario-cambioEntidadJuridica" />Si
                                     <input name="cambioEntidadJuridica" type="radio" value="noCambioEntidadJuridica" id = "altaUsuario-noCambioEntidadJuridica" checked="checked"/>No
                                     <br>
+                                    <br>
                                     Nueva entidad juridica:
                                 </td>
                                 <td><br>
+                                    <br>
                                     <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" title="Elija una opción" disabled>
                                         <option hidden selected>Elegir una entidad jurídica</option>
                                         {{#each entidadesJuridicas}}
-                                            <option>{{id}}-{{razonSocialEntidadJueridica}}</option>
+                                            {{#if razonSocialEntidadJuridica}}
+                                                <option>{{razonSocialEntidadJuridica}}</option>
+                                            {{else}}
+                                                <option>{{nombreEntidadJuridica}}</option>
+                                            {{/if}}
+
                                         {{/each}}
                                     </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Soy revisor:</td>
-                                <td>
-                                    {{#if soyRevisor}}
-                                        <input name="soyRevisor" type="radio" value="soyRevisor" id = "altaUsuario-SoyRevisor" checked="checked"/>Si
-                                        <br />
-                                        <input name="soyRevisor" type="radio" value="noSoyRevisor" id = "altaUsuario-SoyRevisor"/>No
-                                    {{else}}
-                                        <input name="soyRevisor" type="radio" value="soyRevisor" id = "altaUsuario-SoyRevisor" />Si
-                                        <br />
-                                        <input name="soyRevisor" type="radio" value="noSoyRevisor" id = "altaUsuario-SoyRevisor" checked="checked"/>No
-                                    {{/if}}
                                 </td>
                             </tr>
                         </table>
