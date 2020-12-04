@@ -1,51 +1,45 @@
 {{#partial "contenido"}}
     <div class="titulo">
-        <h1>ENTIDADES JURÍDICAS</h1>
+        <h1>Administración de entidades jurídicas</h1>
     </div>
 
-    <div class="nuevo">
+    <div class="sist">
         <div class="imagen">
-            <img src="/img/nuevaEntidadJuridica.jpg" type="image/jpg">
-        </div>
-        <div class="notaNuevo">
-            <article>
-                <h2>NUEVA ENTIDAD JURÍDICA</h2>
-                <h3>Sistema para el alta de nuevas entidades jurídicas que utilizaran nuestra plataforma.</h3>
-
-            </article>
-            <div class="botonAcciones">
-                <button type="submit" onclick="mostrarModalNuevaEntidadJurdica()" title="Haga click para crear una nueva entidad jurídica" >Nuevo</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="habilitar">
-        <div class="list">
-            <h2>HABILITAR ENTIDADES JURÍDICAS</h2>
-            <h3>Sistema para dar de alta nuevamente a todas la entidades jurídicas que fueron inhabilitadas.</h3>
-            <div class="botonAcciones">
-                <button type="submit" onclick="mostrarModalHabilitarEntidadesJuridicas()" title="Haga click para habilitar entidades jurídicas">Habilitar</button>
-            </div>
-        </div>
-        <div class="imagen2">
             <img src="/img/habilitarEntidadJuridica.jpg" type="image/jpg">
-        </div>
-    </div>
-
-    <div class="editar">
-        <div class="imagen3">
-            <img src="/img/editarEntidadJuridica.jpg" type="image/jpg">
         </div>
         <div class="articulo">
             <article>
-                <h2>EDITAR ENTIDADES JURÍDICAS</h2>
-                <h3>Sistema para editar a las entidades jurídicas activas o darles de baja.</h3>
-                <div class="botonAcciones">
-                    <button type="submit" data-dismiss="modal" onclick="mostrarModalEditarEntidadesJuridicas()" title="Haga click para editar entidades jurídicas">Editar</button>
-                </div>
+                <br>
+                <br>
+                <h6>OPERACIONES SOBRE ENTIDADES</h6>
+                <br>
+                <br>
+                <h7>Creación de una nueva entidad jurídica:
+                <br>
+            <div class="botonAcciones">
+                <button type="submit" onclick="mostrarModalNuevaEntidadJurdica()" title="Haga click para crear una nueva entidad jurídica" >Nueva entidad</button>
+            </div>
+                </h7>
             </article>
+            <br>
+            <br>
+            <h7>Habilitar entidades jurídicas deshabilidatas:
+                <br>
+                <div class="botonAcciones">
+                    <button type="submit" onclick="mostrarModalHabilitarEntidadesJuridicas()" title="Haga click para habilitar entidades jurídicas">Habilitar entidad</button>
+                </div>
+            </h7>
+            <br>
+            <br>
+            <h7>Editar o dar de baja a entidades jurídicas:
+                <br>
+                <div class="botonAcciones">
+                    <button type="submit" data-dismiss="modal" onclick="mostrarModalEditarEntidadesJuridicas()" title="Haga click para editar entidades jurídicas">Editar entidad</button>
+                </div>
+            </h7>
         </div>
     </div>
+
     <link rel="stylesheet" href="/css/estiloAccionesEntidadJuridica.css"/>
     <script src="/js/accionesEntidadJuridica.js"></script>
 {{/partial}}
