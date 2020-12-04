@@ -1,51 +1,45 @@
 {{#partial "contenido"}}
     <div class="titulo">
-        <h1>PROVEEDORES</h1>
+        <h1>Administración de proveedores</h1>
     </div>
 
-    <div class="nuevo">
+    <div class="sist">
         <div class="imagen">
-            <img src="/img/nuevoProveedor.jpg" type="image/jpg">
-        </div>
-        <div class="notaNuevo">
-            <article>
-                <h2>NUEVOS PROVEEDORES</h2>
-                <h3>Sistema para el alta de nuevos proveedores que brindarán sus servicios a las entidades jurídicas.</h3>
-
-            </article>
-            <div class="botonAcciones">
-                <button type="submit" onclick="mostrarModalNuevoProveedor()" title="Haga click para crear un nuevo proveedor" >Nuevo</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="habilitar">
-        <div class="list">
-            <h2>HABILITAR PROVEEDORES</h2>
-            <h3>Sistema para dar de alta nuevamente a todos los proveedores que fueron inhabilitados.</h3>
-            <div class="botonAcciones">
-                <button type="submit" onclick="mostrarModalHabilitarProveedores()" title="Haga click para habilitar proveedores">Habilitar</button>
-            </div>
-        </div>
-        <div class="imagen2">
-            <img src="/img/altaProveedor.jpg" type="image/jpg">
-        </div>
-    </div>
-
-    <div class="editar">
-        <div class="imagen3">
-            <img src="/img/editarProveedor.jpg" type="image/jpg">
+            <img src="/img/editarEntidadJuridica.jpg" type="image/jpg">
         </div>
         <div class="articulo">
             <article>
-                <h2>EDITAR PROVEEDORES</h2>
-                <h3>Sistema para modificar a los proveedores activos o darles de baja.</h3>
-                <div class="botonAcciones">
-                    <button type="submit" data-dismiss="modal" onclick="mostrarModalEditarProveedores()" title="Haga click para editar proveedores">Editar</button>
-                </div>
+                <br>
+                <br>
+                <h6>OPERACIONES SOBRE PROVEEDORES</h6>
+                <br>
+                <br>
+                <h7>Creación de un nuevo proveedor:
+                    <br>
+                    <div class="botonAcciones">
+                        <button type="submit" onclick="mostrarModalNuevoProveedor()" title="Haga click para crear un nuevo proveedor" >Nuevo proveedor</button>
+                    </div>
+                </h7>
             </article>
+            <br>
+            <br>
+            <h7>Habilitar proveedores deshabilitados:
+                <br>
+                <div class="botonAcciones">
+                    <button type="submit" onclick="mostrarModalHabilitarProveedores()" title="Haga click para habilitar proveedores">Habilitar proveedor</button>
+                </div>
+            </h7>
+            <br>
+            <br>
+            <h7>Editar o dar de baja a proveedores:
+                <br>
+                <div class="botonAcciones">
+                    <button type="submit" data-dismiss="modal" onclick="mostrarModalEditarProveedores()" title="Haga click para editar proveedores">Editar proveedor</button>
+                </div>
+            </h7>
         </div>
     </div>
+
     <link rel="stylesheet" href="/css/estiloAccionesProveedor.css"/>
     <script src="/js/accionesProveedores.js"></script>
 {{/partial}}

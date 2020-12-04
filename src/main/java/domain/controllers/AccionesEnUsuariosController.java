@@ -159,8 +159,10 @@ public class AccionesEnUsuariosController {
         EntidadJuridica miEntidadJuridica = repoEntidadJuridica.buscar(usuarioAEditar.getEntidadJuridica().getId());
         modalAndViewController.getParametros().put("idEntidadJuridica", miEntidadJuridica.getId());
         modalAndViewController.getParametros().put("razonSocialEntidadJuridica", miEntidadJuridica.getRazonSocialEntidadJuridica());
+        modalAndViewController.getParametros().put("nombreEntidadJuridica", miEntidadJuridica.getNombreEntidadJuridica());
 
-       // modalAndViewController.getParametros().put("soyRevisor", usuarioAEditar.getSoyRevisor());
+
+        // modalAndViewController.getParametros().put("soyRevisor", usuarioAEditar.getSoyRevisor());
 
         Repositorio<EntidadJuridica> repoEntidadesJuridicas = FactoryRepositorio.get(EntidadJuridica.class);
         List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();

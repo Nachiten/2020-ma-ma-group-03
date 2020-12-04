@@ -38,36 +38,6 @@ function mostrarModalEditarEntidadesJuridicas() {
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function mostrarModalGuardadoAltaEntidadJuridica() {
     var datos = recuperarDatosFormularioAltaNuevaEntidadJuridica();
     var ruta = "/altaEntidadJuridica";

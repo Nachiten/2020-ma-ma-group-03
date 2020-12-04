@@ -1,4 +1,4 @@
-<div class="modal-dialog">
+<div class="modal-editar-entidades">
     <div class="modal-content">
         <div class="modal-header">
             <h1 id="tituloModal" class="modal-title">
@@ -13,12 +13,12 @@
                         <table id="proveedores">
                             <thead>
                             <tr>
-                                <th>NOMBRE</th>
-                                <th>NOMBRE FICTICIO</th>
-                                <th>RAZÓN SOCIAL</th>
+                                <th>Nombre</th>
+                                <th>Nombre ficticio</th>
+                                <th>Razón social</th>
                                 <th>CUIT/CUIL</th>
-                                <td>EDITAR</td>
-                                <td>DAR DE BAJA</td>
+                                <th>Editar</th>
+                                <th>Dar de baja</th>
                             </tr>
                             </thead>
                             <tbody id="content_table">
@@ -46,7 +46,7 @@
                 </center>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal" >
+                <button type="button" class="btn" data-dismiss="modal" onClick="location.reload();">
                     Cerrar
                 </button>
             </div>
