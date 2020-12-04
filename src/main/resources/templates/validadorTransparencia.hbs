@@ -1,21 +1,271 @@
 {{#partial "contenido"}}
 
     <div class = "validadorTransparencia">
-
-
-        <form >
-
+        <form action="javascript:void(0)" method="post" id="formularioValidador">
             <center>
                 <h2>CONFIGURAR VALIDADOR DE TRANSPARENCIA </h2>
                 <table>
                     <tr>
-                        <td>Ingresar día y hora de ejecución:</td></td>
-                        <td><input type="number" name="minutos" id="minutos-ok"  placeholder="Ingrese un día y una hora" required> <button type= "submit" onclick = ""  >Guardar</button></td>
+                        <td>Dia de la semana:</td>
+                        <td>Horario:</td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="Lunes" id="lunes" class="categoria" value="1">Lunes<br>
+                        </td>
+
+                        <td>
+                            <select name = "horario" id="horarioLunes" disabled>
+                                <option hidden selected>Seleccionar horario</option>
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="Martes" id="martes" class="categoria" value="1">Martes<br>
+                        </td>
+
+                        <td>
+                            <select name = "horario" id="horarioMartes" disabled>
+                                <option hidden selected>Seleccionar horario</option>
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="Miercoles" id="miercoles"  value="1">Miercoles<br>
+                        </td>
+
+                        <td>
+                            <select name="horario" id="horarioMiercoles" disabled>
+                                <option hidden selected>Seleccionar horario</option>
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="Jueves" id="jueves"  value="1">Jueves<br>
+                        </td>
+
+                        <td>
+                            <select name = "horario" id="horarioJueves" disabled>
+                                <option hidden selected>Seleccionar horario</option>
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="Viernes" id="viernes"  value="1">Viernes<br>
+                        </td>
+
+                        <td>
+                            <select name = "horario" id="horarioViernes" disabled>
+                                <option hidden selected>Seleccionar horario</option>
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="Sabado" id="sabado" value="1">Sabado<br>
+                        </td>
+
+                        <td>
+                            <select name = "horario" id="horarioSabado" disabled>
+                                <option hidden selected>Seleccionar horario</option>
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="Domingo" id="domingo" value="1">Domingo<br>
+                        </td>
+
+                        <td>
+                            <select name = "horario" id="horarioDomingo" disabled>
+                                <option hidden selected>Seleccionar horario</option>
+                                <option>00:00</option>
+                                <option>01:00</option>
+                                <option>02:00</option>
+                                <option>03:00</option>
+                                <option>04:00</option>
+                                <option>05:00</option>
+                                <option>06:00</option>
+                                <option>07:00</option>
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+                                <option>21:00</option>
+                                <option>22:00</option>
+                                <option>23:00</option>
+                            </select>
+                        </td>
                     </tr>
 
                 </table>
 
-                <button type= "submit" onclick = "mostrarModalEjecucionValidador()"  >Ejecutar Validador</button>
+                <button type="button" onclick="mostrarModalEjecucionValidador()">Programar validador</button>
+                <button type="button" onclick="mostrarModalEjecutarValidadorAhora()">Ejecutar validador ahora</button>
 
             </center>
 
@@ -24,6 +274,7 @@
 
     </div>
     <script src="/js/formatoDeTabla.js"></script>
+    <script src="/js/validadorTransparencia.js"></script>
 
     <link rel="stylesheet" href="/css/estiloValidadorTransparencia.css" />
 {{/partial}}

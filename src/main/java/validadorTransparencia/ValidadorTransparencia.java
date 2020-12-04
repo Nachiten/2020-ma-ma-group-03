@@ -54,6 +54,7 @@ public class ValidadorTransparencia implements SchedulerFunction{
 
     @Override
     public void ejecutarse() {
+        System.out.println("Ejecutando validador...");
         validarEgresos();
     }
 }

@@ -1,16 +1,12 @@
 package domain.controllers;
 
-import criterioOperacion.Criterio;
-import criterioSeleccionProveedor.CriterioProveedorMenorValor;
 import domain.entities.operaciones.OperacionDeEgreso;
-import domain.entities.operaciones.OperacionDeIngreso;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import validadorTransparencia.*;
-import validadoresContrasenia.Validador;
 
 import java.util.*;
 
@@ -32,25 +28,73 @@ public class ValidadorTransparenciaController {
         return new ModelAndView(modalAndViewController.getParametros(), "validadorTransparencia.hbs");
     }
 
-    public ModelAndView ejecutarValidadorDeTransparencia(Request request, Response response) {
+    public ModelAndView programarValidadorDeTransparencia(Request request, Response response) {
 
-        String minutosEnString = request.queryParams("minutos");
-        List<OperacionDeEgreso> operacionesDeEgreso = repoOperacionEgreso.buscarTodos();
+        String lunes = request.queryParams("lunes");
+        String martes = request.queryParams("martes");
+        String miercoles = request.queryParams("miercoles");
+        String jueves = request.queryParams("jueves");
+        String viernes = request.queryParams("viernes");
+        String sabado = request.queryParams("sabado");
+        String domingo = request.queryParams("domingo");
 
-        Map<String, Object> model = new HashMap<>();
+        try{
+            List<OperacionDeEgreso> operacionesDeEgreso = repoOperacionEgreso.buscarTodos();
 
-        int minutos = Integer.parseInt(minutosEnString);
+            ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
+            ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
 
-        ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
-        ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
+            List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado));
 
-        List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado));
+            ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesDeEgreso, 1);
 
-        ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesDeEgreso, 1);
-        Scheduler.ejecutarCadaCiertoTiempo(validadorTransparencia, minutos * 60000); //lo pase a minutos.
+            ejecutarValidadorEnDia(Calendar.MONDAY, lunes, validadorTransparencia);
+            ejecutarValidadorEnDia(Calendar.TUESDAY, martes, validadorTransparencia);
+            ejecutarValidadorEnDia(Calendar.WEDNESDAY, miercoles, validadorTransparencia);
+            ejecutarValidadorEnDia(Calendar.THURSDAY, jueves, validadorTransparencia);
+            ejecutarValidadorEnDia(Calendar.FRIDAY, viernes, validadorTransparencia);
+            ejecutarValidadorEnDia(Calendar.SATURDAY, sabado, validadorTransparencia);
+            ejecutarValidadorEnDia(Calendar.SUNDAY, domingo, validadorTransparencia);
+        }catch (Exception e){
+            modalAndViewController.getParametros().put("mensaje","Hubo un error al programar el validador.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
 
-        model.put("mensaje","Se ejecutó el Validador de Transparencia correctamente.");
+        modalAndViewController.getParametros().put("mensaje","Se programó el Validador de Transparencia correctamente.");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView ejecutarValidadorDeTransparenciaAhora(Request request, Response response){
+        try {
+            List<OperacionDeEgreso> operacionesDeEgreso = repoOperacionEgreso.buscarTodos();
+
+            ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
+            ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
+
+            List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado));
+
+            ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesDeEgreso, 1);
+
+            validadorTransparencia.ejecutarse();
+        }catch (Exception e){
+            modalAndViewController.getParametros().put("mensaje","Hubo un error al ejecutar el validador.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        modalAndViewController.getParametros().put("mensaje","Se ejecutó el Validador de Transparencia correctamente.");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    private void ejecutarValidadorEnDia(int dia, String horaString, ValidadorTransparencia validadorTransparencia){
+
+        if (horaString.equals("-1") || horaString.equals("Seleccionar horario")){
+            return;
+        }
+
+        // hora = recortar los primeros dos digitos de la hora que viene
+        int hora = Integer.parseInt(horaString.substring(0,2));
+
+        Scheduler.ejecutarEnDiaYHorario(validadorTransparencia, dia, hora); //lo pase a minutos.
     }
 
 }

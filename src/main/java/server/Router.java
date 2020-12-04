@@ -102,7 +102,8 @@ public class Router {
 
         Spark.post("/asociarOperacion", asociacionOperacionesController::ejecutarVinculacion, Router.engine);
 
-        Spark.post("/validadorDeTransparencia", validadorTransparenciaController::ejecutarValidadorDeTransparencia, Router.engine);
+        Spark.post("/validadorDeTransparencia", validadorTransparenciaController::programarValidadorDeTransparencia, Router.engine);
+        Spark.post("/validadorDeTransparenciaAhora", validadorTransparenciaController::ejecutarValidadorDeTransparenciaAhora, Router.engine);
 
         //Paginas una vez logueado GET para usuario ADMIN
         Spark.get("/accionesUsuarios", accionesEnUsuariosController::mostrarPaginaAccionesUsuarios, Router.engine);

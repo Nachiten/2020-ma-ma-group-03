@@ -48,22 +48,6 @@ function recuperarDatosFormularioCriterio (){
     }
 }
 
-function mostrarModalEjecucionValidador() {
-
-    var ruta = "/validadorDeTransparencia";
-    var datos = {minutos: valorDe("minutos-ok")}
-    var metodo = "POST";
-    $.ajax({
-        type : metodo,
-        url : ruta,
-        datatype : "html",
-        data: datos,
-        success : function (result) {
-            showInModal("modal", result);
-        }
-    });
-}
-
 //habilitar input para cambiar contraseña
 var cambioContrasenia = document.getElementById('altaUsuarioPerfil-cambioContrasenia');
 var no_cambioContrasenia = document.getElementById('altaUsuarioPerfil-noCambioContrasenia');

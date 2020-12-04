@@ -86,7 +86,7 @@ public class Principal {
 
         int segundoEnMilisegundos = 1000;
 
-        Scheduler.ejecutarCadaCiertoTiempo(validadorTransparencia, segundoEnMilisegundos * 20);
+        Scheduler.ejecutarEnDiaYHorario(validadorTransparencia, Calendar.FRIDAY, 3);
 
         // printear los mensajes de la bandeja de mensajes del usuario.
         // TODO La bandeja de mensajes queda vacia entonces no se printea nada
