@@ -257,7 +257,6 @@ h5 {
     width: auto;
 }
 
-
 .modal-habilitar-usuarios table th{
     color: white;
     height: 40px;
@@ -291,4 +290,34 @@ h5 {
 input[type=radio]{
     margin-right: 5px;
     margin-left: 10px;
+}
+
+.modal-habilitar-proveedores table th{
+    color: white;
+    height: 40px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.modal-habilitar-proveedores table {
+    width: 1500px;
+    height: 10px;
+}
+
+.modal-habilitar-proveedores table td {
+    padding: 1em 1em;
+    background-color: rgb(88 156 234);
+    font-weight: 400;
+    font-size: 25px;
+    color: white;
+    height: auto;
+    width: auto;
+}
+
+.modal-habilitar-proveedores {
+    position: relative;
+    width: 1700px;
+    max-width: max-content;
+    margin: 1.75rem auto;
+    pointer-events: none;
 }
