@@ -111,6 +111,76 @@ function nuevaFilaEnItems()
 
 }
 
+function nuevaFilaEnItemsDePresupuesto()
+{
+
+	console.log("Entre en nuevaFilaItems");
+
+	var itemCompleto = document.getElementById("item").value;
+
+	var indexcoma = itemCompleto.indexOf(",");
+	var indexDosPuntos = itemCompleto.indexOf(":");
+
+	var item = itemCompleto.substring(0, indexcoma);
+
+	var cantidad = itemCompleto.substring(indexcoma + 1, indexDosPuntos);
+
+	var precioUnitario = itemCompleto.substring(indexDosPuntos + 1, itemCompleto.length);
+
+	console.log("Item: [" + item + "]");
+	console.log("Precio: [" + precioUnitario + "]");
+
+	if (item === "") {
+		alert("El nombre de un item no puede estar vacio.");
+		return;
+	}
+
+	if (precioUnitario === "") {
+		alert("El precio unitario de un item no puede estar vacio.");
+		return;
+	}
+
+	if (cantidad === "") {
+		alert("La cantidad de un item no puede estar vacia.");
+		return;
+	}
+
+	var name_table = document.getElementById("tabla_items");
+
+	var row = name_table.insertRow(1);
+
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+	var cell3 = row.insertCell(2);
+	var cell4 = row.insertCell(3);
+	var cell5 = row.insertCell(4);
+
+	var itemInputOculto   = '<input type="hidden" class="nombreItem" name="nombre_I[' + numeroFila + ']" id="nombre_I[' + numeroFila + ']" value="' + item;
+	var precioInputOculto = '<input type="hidden" class="precioItem" name="precio_I[' + numeroFila + ']" id="precio_I[' + numeroFila + ']" value="' + precioUnitario;
+	var cantidadInputOculto = '<input type="hidden" class="cantidadItem" name="cantidad_I[' + numeroFila + ']" id="cantidad_I[' + numeroFila + ']" value="' + cantidad;
+
+	var itemTextoMostrado   = '"> <p name="" class="non-margin" style="color : white">' + item + '</p>';
+	var precioTextoMostrado = '"> <p name="" class="non-margin" style="color : white">' + precioUnitario + '</p>';
+	var cantidadTextoMostrado = '"> <p name="" class="non-margin" style="color : white">' + cantidad + '</p>';
+
+	var precioTotalMostrado = '<p name="" class="non-margin" style="color : white">' + cantidad * precioUnitario + '</p>';
+
+	cell1.innerHTML = itemInputOculto + itemTextoMostrado;
+	cell2.innerHTML = precioInputOculto + precioTextoMostrado;
+	cell3.innerHTML = cantidadInputOculto + cantidadTextoMostrado;
+	cell4.innerHTML = precioTotalMostrado;
+	cell5.innerHTML = '<div class="acciones">' +
+		'<i style="color: red" class="fas fa-trash"></i><input type="button" class="borrar" value="Eliminar" style="color: white" /></div>' +
+		'<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">';
+
+	numeroFila++;
+
+	document.getElementById("item").value = "";
+	document.getElementById("precio").value = "";
+	document.getElementById("cantidad").value = "";
+
+}
+
 function nuevaFilaEnCategoria()
 {
 	console.log("Entre en nuevaFilaCategoria");
