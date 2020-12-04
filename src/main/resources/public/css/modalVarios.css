@@ -314,7 +314,37 @@ input[type=radio]{
     width: auto;
 }
 
-.modal-habilitar-proveedores {
+.modal-editar-proveedores {
+    position: relative;
+    width: 1700px;
+    max-width: max-content;
+    margin: 1.75rem auto;
+    pointer-events: none;
+}
+
+.modal-editar-proveedores table th{
+    color: white;
+    height: 40px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.modal-editar-proveedores table {
+    width: 1500px;
+    height: 10px;
+}
+
+.modal-editar-proveedores table td {
+    padding: 1em 1em;
+    background-color: rgb(88 156 234);
+    font-weight: 400;
+    font-size: 25px;
+    color: white;
+    height: auto;
+    width: auto;
+}
+
+.modal-editar-proveedores {
     position: relative;
     width: 1700px;
     max-width: max-content;
