@@ -226,3 +226,33 @@ h5 {
     margin: 1.75rem auto;
     pointer-events: none;
 }
+
+.modal-agregar-presupuesto {
+    position: relative;
+    width: 1400px;
+    max-width: max-content;
+    margin: 1.75rem auto;
+    pointer-events: none;
+}
+
+.modal-agregar-presupuesto table th{
+    color: white;
+    height: 40px;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.modal-agregar-presupuesto table {
+    width: 1200px;
+    height: 10px;
+}
+
+.modal-agregar-presupuesto table td {
+    padding: 1em 1em;
+    background-color: rgb(88 156 234);
+    font-weight: 400;
+    font-size: 25px;
+    color: white;
+    height: auto;
+    width: auto;
+}

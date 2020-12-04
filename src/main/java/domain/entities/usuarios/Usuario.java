@@ -30,7 +30,7 @@ public class Usuario extends EntidadPersistente {
     @Column(name = "apellido")
     private String apellido;
 
-    @ManyToOne //(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private EntidadJuridica entidadJuridica;
 
     @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})

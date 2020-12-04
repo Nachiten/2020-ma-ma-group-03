@@ -82,3 +82,41 @@ table {
     border-collapse: collapse;
     background-color: #01468a;
 }
+
+.modal-agregar-presupuesto select{
+    font-size: 20px;
+    border-radius: 5px 5px;
+    border: 0;
+}
+
+.presupuesto table{
+    margin: 0 0 0.6em 0;
+    width: 900px;
+    border-collapse: collapse;
+    background-color: #01468a;
+}
+
+.modal-agregar-presupuesto input{
+    font-size: 20px;
+    border-radius: 5px 5px;
+    border: 0;
+}
+
+.modal.fade .modal-agregar-presupuesto {
+    transition: -webkit-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+    -webkit-transform: translate(0,-25%);
+    transform: translate(0,-25%);
+}
+.modal.show .modal-agregar-presupuesto {
+    -webkit-transform: translate(0,0);
+    transform: translate(0,0);
+}
+.modal-agregar-presupuesto {
+    position: relative;
+    width: auto;
+    max-width: max-content;
+    margin: 1.75rem auto;
+    pointer-events: none;
+}
