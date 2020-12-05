@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h1 id="tituloModal" class="modal-title">
-                <a class="fas fa-smile-plus"></a>
+                <i class="fas fa-plus-circle"></i>
                 ¡Nueva Entidad Jurídica!
             </h1>
         </div>
@@ -13,15 +13,15 @@
                         <table class= "formulario" border = 0 >
                             <tr>
                                 <td>Nombre:</td>
-                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-nombreEntidadJuridica" placeholder="Ingrese un nombre" required></td>
+                                <td><input type="text" name="nombreEntidadJuridica" id = "altaEntidadJuridica-nombre" placeholder="Ingrese un nombre" required></td>
                             </tr>
                             <tr>
                                 <td>Nombre Ficticio:</td>
-                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-nombreFicticioEntidadJuridica" placeholder="Ingrese un nombre ficticio" required></td>
+                                <td><input type="text" name="nombreFicticioEntidadJuridica" id = "altaEntidadJuridica-nombreFicticio" placeholder="Ingrese un nombre ficticio" required></td>
                             </tr>
                             <tr>
                                 <td>Código Inscripcion Definitiva:</td>
-                                <td><input type="text" name="codigo" id = "altaEntidadJuridica-codigo" placeholder="Ingrese un CID" required></td>
+                                <td><input type="text" name="codigoInscripcionDefinitiva" id = "altaEntidadJuridica-codigo" placeholder="Ingrese un CID"  required></td>
                             </tr>
                             <tr>
                                 <td>Cuit:</td>
@@ -29,7 +29,7 @@
                             </tr>
                             <tr>
                                 <td>Razón Social:</td>
-                                <td><input type="text" name="razonSocial" id = "altaEntidadJuridica-razonSocial" placeholder="Ingrese una razón social" required></td>
+                                <td><input type="text" name="razonSocialEntidadJuridica" id = "altaEntidadJuridica-razonSocial" placeholder="Ingrese una razón social" required></td>
                             </tr>
                             <tr>
                                 <td>País:</td>
@@ -89,7 +89,7 @@
                             <button type="button" class="btn" data-dismiss="modal" onClick="location.reload();">
                                 Cancelar
                             </button>
-                            <button type="submit" onclick="mostrarModalGuardadoAltaEntidadJuridica()">
+                            <button type="submit" onclick="mostrarModalConfirmarGuardarNuevaEntidadJuridica()">
                                 Guardar
                             </button>
                         </div>
@@ -100,7 +100,7 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="/css/modalVarios.css" />
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
 <script src="/js/accionesEntidadJuridica.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">

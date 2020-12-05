@@ -67,7 +67,7 @@ public class EgresosController {
         modalAndViewController.getParametros().put("tiposMediosDePago", tiposMediosPago);
         modalAndViewController.getParametros().put("tiposDocumentoComercial", tiposDocumentoComercial);
         modalAndViewController.getParametros().put("proveedores", proveedores);
-        modalAndViewController.getParametros().put("criterios", criterios);
+        modalAndViewController.getParametros().put("mostrarPaginaCriterios", criterios);
         modalAndViewController.getParametros().put("criterios2", criterios2);
         return new ModelAndView(modalAndViewController.getParametros(), "egresos.hbs");
     }

@@ -2,18 +2,13 @@ package domain.controllers;
 
 import domain.entities.apiMercadoLibre.*;
 import domain.entities.entidades.EntidadJuridica;
-import domain.entities.tipoEntidadJuridica.TipoEntidadJuridica;
-import domain.entities.usuarios.Usuario;
-import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AccionesEntidadJuridicaController {
@@ -34,6 +29,7 @@ public class AccionesEntidadJuridicaController {
         this.repoCiudades =FactoryRepositorio.get(Ciudad.class);
     }
 
+    //Muestra página acciones entidad jurídica
     private ModelAndView modalAndViewAltaEntidadJuridica(){
 
         return new ModelAndView(modalAndViewController.getParametros(),"accionesEntidadesJuridicas.hbs");
@@ -43,6 +39,7 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewAltaEntidadJuridica);
     }
 
+    //Muestra modal nueva entidad jurídica
     private ModelAndView modalAndViewMostrarFormularioNuevaEntidadJuridica() {
         List<Pais> listaPaisesEJ = respoPaises.buscarTodos();
         List<Estado> listaProvinciasEJ = repoProvincias.buscarTodos();
@@ -57,17 +54,27 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMostrarFormularioNuevaEntidadJuridica);
     }
 
-    public ModelAndView guardarEntidadJuridica(Request request, Response response){
-        String nombre = request.queryParams("nombre");
-        String nombreFicticio = request.queryParams("nombreFicticio");
+    //Modal para confirmar si se da de alta nueva enidad jurídica
+    private ModelAndView modalAndViewMostrarModalConfirmarNuevaEntidadJuridica() {
+        modalAndViewController.getParametros().put("mensaje", "¿Desea dar de alta esta nueva entidad jurídica?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarNuevaEntidadJuridica.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarNuevaEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMostrarModalConfirmarNuevaEntidadJuridica);
+    }
+
+    //Guardar y confirmar que se dio de alta nueva entidad jurídica
+    public ModelAndView modalAndViewMostrarModalConfirmacionNuevaEntidadJuridica(Request request){
+        String nombre = request.queryParams("nombreEntidadJuridica");
+        String nombreFicticio = request.queryParams("nombreFicticioEntidadJuridica");
         String codigoInscripcion = request.queryParams("codigoInscripcionDefinitiva");
-        String razonSocial = request.queryParams("razonSocial");
-        String cuit_cuil = request.queryParams("cuit");
+        String razonSocial = request.queryParams("razonSocialEntidadJuridica");
+        String cuit_cuil = request.queryParams("cuitEntidadJuridica");
 
         DireccionPostal direccionPostal = operadorController.generarDireccionPostal(request);
 
-        EntidadJuridica entidadJuridicaAGuardar = new EntidadJuridica(nombre, nombreFicticio, razonSocial,
-                cuit_cuil, null, codigoInscripcion, null);
+        EntidadJuridica entidadJuridicaAGuardar = new EntidadJuridica(nombre, nombreFicticio, razonSocial, cuit_cuil, direccionPostal, codigoInscripcion, null);
 
         if (operadorController.persistenciaNoValida(repoEntidadJuridica, entidadJuridicaAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
@@ -77,6 +84,10 @@ public class AccionesEntidadJuridicaController {
         modalAndViewController.getParametros().put("mensaje", "Se persistio correctamente la entidad juridica.");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
 
+    }
+
+    public ModelAndView mostrarModalConfirmacionNuevaEntidadJuridica(Request request, Response response){
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionNuevaEntidadJuridica(request));
     }
 
     private ModelAndView modalAndViewMostrarListaEntidadesJuridicasInhabilitadas() {

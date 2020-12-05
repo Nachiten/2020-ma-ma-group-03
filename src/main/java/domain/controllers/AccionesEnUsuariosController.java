@@ -47,6 +47,15 @@ public class AccionesEnUsuariosController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewNuevoUsuario);
     }
 
+    private ModelAndView modalAndViewConfirmarNuevoUsuario() {
+        modalAndViewController.getParametros().put("mensaje", "¿Está seguro que quiere crear a este nuevo usuario?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarNuevoUsuario.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarNuevoUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewConfirmarNuevoUsuario);
+    }
+
     private EntidadJuridica obtenerEntidadJuridica(String entidadJuridica){
         String[] obtenerId = entidadJuridica.split("-");
         String id = obtenerId[0];
@@ -62,8 +71,7 @@ public class AccionesEnUsuariosController {
             return TipoUsuario.ADMIN;
     }
 
-    //Se guarda en la BD el usuario ingresado en el formulario
-    public ModelAndView guardarNuevoUsuario(Request request, Response response) {
+    private ModelAndView modalAndViewGuardarNuevoUsuario(Request request) {
         String nombre = request.queryParams("nombre");
         String apellido = request.queryParams("apellido");
         String nombreDeUsuario = request.queryParams("nombreDeUsuario");
@@ -99,6 +107,11 @@ public class AccionesEnUsuariosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 
+    //Se guarda en la BD el usuario ingresado en el formulario
+    public ModelAndView guardarNuevoUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewGuardarNuevoUsuario(request));
+    }
+
     private boolean yaExisteNombreUsuario(String nombreUsuario){
         List<Usuario> usuarios = repoUsuario.buscarTodos();
 
@@ -116,13 +129,29 @@ public class AccionesEnUsuariosController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewHabilitarUsuario);
     }
 
-    public ModelAndView habilitarUsuario(Request request, Response response) {
+    private ModelAndView modalAndViewConfirmarHabilitarUsuario(Request request) {
+        int idBuscado = Integer.parseInt(request.params("id"));
+        Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
+        modalAndViewController.getParametros().put("id", usuarioBuscado.getId());
+        modalAndViewController.getParametros().put("mensaje", "¿Está seguro que quiere habilitar al usuario "+usuarioBuscado.getNombreUsuario()+"?");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativoConfirmarHabilitarUsuario.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarHabilitarUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewConfirmarHabilitarUsuario(request));
+    }
+
+    private ModelAndView modalAndViewHabilitarUsuario(Request request){
         int idBuscado = Integer.parseInt(request.params("id"));
         Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
         usuarioBuscado.cambiarAHabilitado();
         this.repoUsuario.modificar(usuarioBuscado);
-        modalAndViewController.getParametros().put("mensaje", "El usuario se habilitó correctamente");
+        modalAndViewController.getParametros().put("mensaje", "El usuario "+usuarioBuscado.getNombreUsuario()+" se habilitó correctamente");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView habilitarUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewHabilitarUsuario(request));
     }
 
     private ModelAndView modalAndViewEditarUsuarios() {
@@ -136,17 +165,44 @@ public class AccionesEnUsuariosController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewEditarUsuarios);
     }
 
+    private ModelAndView modalAndViewConfirmarBajaUsuario(Request request) {
+        int idBuscado = Integer.parseInt(request.params("id"));
+        Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
+        modalAndViewController.getParametros().put("id", usuarioBuscado.getId());
+        modalAndViewController.getParametros().put("mensaje","¿Está seguro que quiere dar de baja al usuario "+usuarioBuscado.getNombreUsuario()+"?");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativoConfirmarBajaUsuario.hbs") ;
+    }
 
-    public ModelAndView darDeBajaUsuario(Request request, Response response) {
+    public ModelAndView mostrarModalParaConfirmarBajaDeUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewConfirmarBajaUsuario(request));
+    }
+
+    private ModelAndView modalAndViewDarDeBajaUsuario(Request request){
         int idBuscado = Integer.parseInt(request.params("id"));
         Usuario usuarioBuscado = this.repoUsuario.buscar(idBuscado);
         usuarioBuscado.cambiarAInhabilitado();
         this.repoUsuario.modificar(usuarioBuscado);
-        modalAndViewController.getParametros().put("mensaje","El usuario se dio de baja correctamente");
+        modalAndViewController.getParametros().put("mensaje","Se dio de baja al usuario "+usuarioBuscado.getNombreUsuario()+" correctamente");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
     }
 
-    public ModelAndView mostrarModalParaEditarUnUsuario(Request request, Response response) {
+    public ModelAndView darDeBajaUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewDarDeBajaUsuario(request));
+    }
+
+    private ModelAndView modalAndViewConfirmarEditarUnUsuario(Request request) {
+        int idUsuario = Integer.parseInt(request.params("id"));
+        Usuario usuarioAEditar = this.repoUsuario.buscar(idUsuario);
+        modalAndViewController.getParametros().put("miId", usuarioAEditar.getId());
+        modalAndViewController.getParametros().put("mensaje","¿Está seguro que quiere editar al usuario "+usuarioAEditar.getNombreUsuario()+"?");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativoConfirmarEditarUnUsuario.hbs") ;
+    }
+
+    public ModelAndView mostrarModalParaConfirmarEditarUnUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewConfirmarEditarUnUsuario(request));
+    }
+
+    private ModelAndView modalAndViewParaEditarUnUsuario(Request request){
         int idUsuario = Integer.parseInt(request.params("id"));
         Usuario usuarioAEditar = this.repoUsuario.buscar(idUsuario);
         modalAndViewController.getParametros().put("miId", usuarioAEditar.getId());
@@ -171,8 +227,23 @@ public class AccionesEnUsuariosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalParaEditarUnUsuario.hbs") ;
     }
 
+    public ModelAndView mostrarModalParaEditarUnUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewParaEditarUnUsuario(request));
+    }
 
-    public ModelAndView guardarCambiosDeEdicionDelUsuario(Request request, Response response) {
+    private ModelAndView modalAndViewParaConfirmarCambiosEnUnUsuario(Request request) {
+        int idUsuario = Integer.parseInt(request.params("id"));
+        Usuario usuarioAEditar = this.repoUsuario.buscar(idUsuario);
+        modalAndViewController.getParametros().put("miId", usuarioAEditar.getId());
+        modalAndViewController.getParametros().put("mensaje","¿Está seguro que quiere guardar los cambios realizados del usuario "+usuarioAEditar.getNombreUsuario()+"?");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativoConfirmarCambiosEnUnUsuario.hbs") ;
+    }
+
+    public ModelAndView mostrarModalparaConfirmarCambiosRealizadosEnUnUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewParaConfirmarCambiosEnUnUsuario(request));
+    }
+
+    private ModelAndView modalAndViewParaGuardarCambiosDeEdicionDelUsuario(Request request){
         int idUsuario = Integer.parseInt(request.params("id"));
         Usuario usuarioEditadoAGuardar = this.repoUsuario.buscar(idUsuario);
         String nombreEditado = request.queryParams("nombre");
@@ -198,4 +269,9 @@ public class AccionesEnUsuariosController {
         modalAndViewController.getParametros().put("mensaje","Los datos se actualizaron correctamente");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
     }
+
+    public ModelAndView guardarCambiosDeEdicionDelUsuario(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewParaGuardarCambiosDeEdicionDelUsuario(request));
+    }
+
 }

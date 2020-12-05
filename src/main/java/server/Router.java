@@ -62,7 +62,6 @@ public class Router {
         Spark.get("/ingresos", ingresosController::ingresos, Router.engine);
         Spark.get("/egresos", egresosController::egresos, Router.engine);
         Spark.get("/presupuestos", presupuestosController::presupuestos, Router.engine);
-        Spark.get("/criterios", criteriosController::criterios, Router.engine);
         Spark.get("/listadoOperaciones", asociacionOperacionesController::listadoOperaciones, Router.engine);
         Spark.get("/asociarOperacion", asociacionOperacionesController::asociarOperacion, Router.engine);
         Spark.get("/mensajes", mensajesController::mensajes, Router.engine);
@@ -98,8 +97,6 @@ public class Router {
         Spark.post("/presupuestos/egreso", presupuestosController::verEgresoElegido, Router.engine);
         Spark.post("/presupuestos/operacionDeEgreso", presupuestosController::asociarEgreso, Router.engine);
 
-        Spark.post("/criterios", criteriosController::guardarCriterio, Router.engine);
-
         Spark.post("/asociarOperacion", asociacionOperacionesController::ejecutarVinculacion, Router.engine);
 
         Spark.post("/validadorDeTransparencia", validadorTransparenciaController::programarValidadorDeTransparencia, Router.engine);
@@ -109,15 +106,21 @@ public class Router {
         Spark.get("/accionesUsuarios", accionesEnUsuariosController::mostrarPaginaAccionesUsuarios, Router.engine);
         Spark.get("/accionesProveedores", accionesEnProveedoresController::mostrarPaginaAccionesProveedores, Router.engine);
         Spark.get("/accionesEntidadesJuridicas", accionesEntidadJuridicaController::mostrarPaginaAccionesEntidadJuridica,Router.engine);
+        Spark.get("/accionesCriterios", criteriosController::mostrarPaginaCriterios, Router.engine);
 
         //Acciones usuarios
         Spark.get("/nuevoUsuario", accionesEnUsuariosController::mostrarModalNuevoUsuario, Router.engine);
+        Spark.post("/confirmarNuevoUsuario", accionesEnUsuariosController::mostrarModalParaConfirmarNuevoUsuario, Router.engine);
         Spark.post("/guardarUsuario", accionesEnUsuariosController::guardarNuevoUsuario, Router.engine);
         Spark.get("/habilitarUsuario", accionesEnUsuariosController::mostrarModalHabilitarUsuario, Router.engine);
+        Spark.post("/confirmarHabilitarUsuario/:id", accionesEnUsuariosController::mostrarModalParaConfirmarHabilitarUsuario, Router.engine);
         Spark.post("/habilitarUsuario/:id", accionesEnUsuariosController::habilitarUsuario, Router.engine);
         Spark.get("/editarUsuario", accionesEnUsuariosController::mostrarModalEditarUsuarios, Router.engine);
+        Spark.post("/editarUsuario/confirmarEditarUsuario/:id", accionesEnUsuariosController::mostrarModalParaConfirmarEditarUnUsuario, Router.engine);
         Spark.get("/editarUsuario/modificar/:id", accionesEnUsuariosController::mostrarModalParaEditarUnUsuario, Router.engine);
-        Spark.post("/editarUsuario/guardar/:id", accionesEnUsuariosController::guardarCambiosDeEdicionDelUsuario, Router.engine);
+        Spark.post("/editarUsuario/modificar/:id/confirmarModificar/:id", accionesEnUsuariosController::mostrarModalparaConfirmarCambiosRealizadosEnUnUsuario, Router.engine);
+        Spark.post("/editarUsuario/modificar/:id/guardar/:id", accionesEnUsuariosController::guardarCambiosDeEdicionDelUsuario, Router.engine);
+        Spark.post("/editarUsuario/confirmarBajaUsuario/:id", accionesEnUsuariosController::mostrarModalParaConfirmarBajaDeUsuario, Router.engine);
         Spark.delete("/editarUsuario/darDeBaja/:id", accionesEnUsuariosController::darDeBajaUsuario, Router.engine);
 
         //Acciones proveedor
@@ -132,16 +135,19 @@ public class Router {
 
         //Acciones entidad jurídica
         Spark.get("/nuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalNuevaEntidadJuridica, Router.engine);
+        Spark.post("/confirmarNuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadJuridica, Router.engine);
+        Spark.post("/GuardarNuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadJuridica,Router.engine);
         Spark.get("/habilitarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalHabilitarEntidadesjuridicas, Router.engine);
         Spark.get("/editarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalEditarEntidadesJuridicas, Router.engine);
 
-        Spark.post("/altaEntidadJuridica", accionesEntidadJuridicaController::guardarEntidadJuridica,Router.engine);
-        Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);
+        //Acciones criterios
+        Spark.post("/accionesCriterios", criteriosController::guardarCriterio, Router.engine);
 
         Spark.post("/guardarDocumentoEgreso", egresosController::guardarDocumentoEgreso ,Router.engine);
         Spark.post("/descargarDocumentoEgreso", egresosController::descargarDocumentoEgreso, Router.engine);
         Spark.get("/descargarDocumento", egresosController::descargarDocumento);
 
+        //
         Spark.get("/*", inicioController::retornarError, Router.engine);
     }
 }

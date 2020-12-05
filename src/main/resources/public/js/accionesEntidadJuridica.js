@@ -1,4 +1,4 @@
-
+/*Nueva entidad jurídica*/
 function mostrarModalNuevaEntidadJurdica() {
     var ruta = "/nuevaEntidadJuridica";
     var metodo = "GET";
@@ -12,6 +12,53 @@ function mostrarModalNuevaEntidadJurdica() {
     });
 }
 
+function recuperarDatosFormularioAltaNuevaEntidadJuridica(){
+    return {
+        nombreEntidadJuridica           : valorDe("altaEntidadJuridica-nombre"),
+        nombreFicticioEntidadJuridica   : valorDe("altaEntidadJuridica-nombreFicticio"),
+        codigoInscripcionDefinitiva     : valorDe("altaEntidadJuridica-codigo"),
+        cuitEntidadJuridica             : valorDe("altaEntidadJuridica-cuit"),
+        razonSocialEntidadJuridica      : valorDe("altaEntidadJuridica-razonSocial"),
+        barrio                          : valorDe("altaEntidadJuridica-barrio"),
+        calle                           : valorDe("altaEntidadJuridica-calle"),
+        altura                          : valorDe("altaEntidadJuridica-altura"),
+        departamento                    : valorDe("altaEntidadJuridica-departamento"),
+        piso                            : valorDe("altaEntidadJuridica-piso"),
+        pais                            : $("#altaEntidadJuridica-pais option:selected").val(),
+        provincia                       : $("#altaEntidadJuridica-provincia option:selected").val(),
+        ciudad                          : $("#altaEntidadJuridica-ciudad option:selected").val()
+    };
+}
+
+function mostrarModalConfirmarGuardarNuevaEntidadJuridica() {
+    var ruta = "/confirmarNuevaEntidadJuridica";
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionAltaNuevaEntidadJuridica() {
+    var datos = recuperarDatosFormularioAltaNuevaEntidadJuridica();
+    var ruta = "/GuardarNuevaEntidadJuridica";
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        data     : datos,
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
+/*Habilitar entidad jurídica*/
 function mostrarModalHabilitarEntidadesJuridicas() {
     var ruta = "/habilitarEntidadesJuridicas";
     var metodo = "GET";
@@ -25,6 +72,7 @@ function mostrarModalHabilitarEntidadesJuridicas() {
     });
 }
 
+/*Editar entidad jurídica*/
 function mostrarModalEditarEntidadesJuridicas() {
     var ruta = "/editarEntidadesJuridicas";
     var metodo = "GET";

@@ -11,21 +11,31 @@ function mostrarModalHabilitarUsuarios() {
     });
 }
 
+function mostrarModalConfirmarHabilitarUsuario(id) {
+    var ruta = "/confirmarHabilitarUsuario/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success: function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
 function habilitarUsuario(id) {
     var metodo = "POST";
     var ruta = "/habilitarUsuario/"+id;
-    var mensaje = confirm("¿Está seguro que quiere habilitar a este usuario?");
-    if (mensaje) {
-        $.ajax({
-            type: metodo,
-            url: ruta,
-            dataType: "html",
-            success: function (result) {
-                showInModal("modal2", result);
-                mostrarModalHabilitarUsuarios();
-            }
-        });
-    }
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success: function (result) {
+            showInModal("modal3", result);
+            mostrarModalHabilitarUsuarios();
+        }
+    });
 }
 
 function esVacio(string){
@@ -59,6 +69,17 @@ function validarDatos(datos){
     return '';
 }
 
+function recuperarDatosFormularioNuevoUsuario(){
+    return {
+        nombre              : valorDe("altaUsuario-nombre"),
+        apellido            : valorDe("altaUsuario-apellido"),
+        nombreDeUsuario     : valorDe("altaUsuario-nombreDeUsuario"),
+        contrasenia         : valorDe("altaUsuario-contrasenia"),
+        tipoUsuario         : valorDe("altaUsuario-tipoUsuario"),
+        entidadJuridica     : valorDe("altaUsuario-entidadJuridica")
+    };
+}
+
 function mostrarModalConfirmacionNuevoUsuario() {
     var datos = recuperarDatosFormularioNuevoUsuario();
 
@@ -71,30 +92,29 @@ function mostrarModalConfirmacionNuevoUsuario() {
 
     var ruta = "/guardarUsuario";
     var metodo = "POST";
-    var mensaje = confirm("¿Está seguro que quiere crear a este nuevo usuario?");
-    if (mensaje) {
-        $.ajax({
-            type: metodo,
-            url: ruta,
-            datatype: "html",
-            data: datos,
-            success: function (result) {
-                showInModal("modal2", result);
-                mostrarModalNuevoUsuario();
-            }
-        });
-    }
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        datatype: "html",
+        data: datos,
+        success: function (result) {
+            showInModal("modal2", result);
+            mostrarModalNuevoUsuario();
+        }
+    });
 }
 
-function recuperarDatosFormularioNuevoUsuario(){
-    return {
-        nombre              : valorDe("altaUsuario-nombre"),
-        apellido            : valorDe("altaUsuario-apellido"),
-        nombreDeUsuario     : valorDe("altaUsuario-nombreDeUsuario"),
-        contrasenia         : valorDe("altaUsuario-contrasenia"),
-        tipoUsuario         : valorDe("altaUsuario-tipoUsuario"),
-        entidadJuridica     : valorDe("altaUsuario-entidadJuridica")
-    };
+function mostrarModalConfirmarNuevousuario() {
+    var ruta = "/confirmarNuevoUsuario";
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
 }
 
 function mostrarModalNuevoUsuario(){
@@ -110,6 +130,34 @@ function mostrarModalNuevoUsuario(){
     });
 }
 
+function mostrarModalConfirmarBajaUsuario(id) {
+    var ruta = "/editarUsuario/confirmarBajaUsuario/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
+function darDeBajaUsuario(id){
+    var ruta = "/editarUsuario/darDeBaja/" + id;
+    var metodo = "DELETE";
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success : function(result){
+            showInModal("modal3",result);
+            mostrarModalEditarUsuarios();
+        }
+    });
+}
+
+//EditarUsuarios
 function mostrarModalEditarUsuarios() {
     var ruta = "/editarUsuario";
     var metodo = "GET";
@@ -123,55 +171,59 @@ function mostrarModalEditarUsuarios() {
     });
 }
 
-function darDeBajaUsuario(id){
-    var ruta = "/editarUsuario/darDeBaja/" + id;
-    var metodo = "DELETE";
-    var mensaje = confirm("¿Está seguro que quiere dar de baja éste usuario?");
-    if (mensaje) {
-        $.ajax({
-            type: metodo,
-            url: ruta,
-            dataType: "html",
-            success : function(result){
-                showInModal("modal2",result);
-                mostrarModalEditarUsuarios();
-            }
-        });
-    }
+function mostrarModalConfirmarEditarUnUsuario(id) {
+    var ruta = "/editarUsuario/confirmarEditarUsuario/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
 }
 
 function mostrarModalParaEditarUnUsuario(id) {
     var ruta = "/editarUsuario/modificar/" + id;
     var metodo = "GET";
-    var mensaje = confirm("¿Está seguro que quiere editar éste usuario?");
-    if (mensaje) {
-        $.ajax({
-            type: metodo,
-            url: ruta,
-            dataType: "html",
-            success : function(result){
-                showInModal("modal2",result);//verificar si funciona con modal2
-            }
-        });
-    }
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success : function(result){
+            showInModal("modal3",result);
+        }
+    });
+}
+
+function mostrarModalParaConfirmarCambiosRealizadosEnUsuario(id) {
+    var ruta = "/editarUsuario/modificar/" + id + "/confirmarModificar/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success : function(result){
+            showInModal("modal4",result);
+        }
+    });
 }
 
 function mostrarModalConfirmacionCambiosEnUsuario(id) {
     var datos = recuperarDatosFormularioUsuarioEditado();
-    var ruta = "/editarUsuario/guardar/" + id;
+    var ruta = "/editarUsuario/modificar/" + id + "/guardar/" + id;
     var metodo = "POST";
-    var mensaje = confirm("¿Está seguro de guardar los cambios de éste usuario?");
-    if (mensaje) {
-        $.ajax({
-            type: metodo,
-            url: ruta,
-            dataType: "html",
-            data: datos,
-            success : function(result){
-                showInModal("modal3",result);
-            }
-        });
-    }
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        data: datos,
+        success : function(result){
+            showInModal("modal5",result);
+            mostrarModalParaEditarUnUsuario(id);
+        }
+    });
 }
 
 function recuperarDatosFormularioUsuarioEditado(){

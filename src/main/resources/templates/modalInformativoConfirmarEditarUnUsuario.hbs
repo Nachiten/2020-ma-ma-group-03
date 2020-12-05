@@ -1,0 +1,25 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                <i class="fas fa-info-circle"></i>
+                ¡Alerta!
+            </h1>
+        </div>
+        <div class="modal-body">
+            <h2>{{mensaje}}</h2>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal" >
+                    Cancelar
+                </button>
+                <button type="button" class="btn" data-dismiss="modal" onclick="mostrarModalParaEditarUnUsuario({{miId}})">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/accionesUsuarios.js"></script>
+<link rel="stylesheet" href="/css/modalAccionesUsuarios.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">

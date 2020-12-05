@@ -30,8 +30,8 @@ public class CriteriosController {
         return new ModelAndView(modalAndViewController.getParametros(), "criterios.hbs");
     }
 
-    public ModelAndView criterios(Request request, Response response)throws Exception {
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewCriterios());
+    public ModelAndView mostrarPaginaCriterios(Request request, Response response)throws Exception {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewCriterios);
     }
 
     public ModelAndView guardarCriterio(Request request, Response response){
@@ -51,7 +51,7 @@ public class CriteriosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 
-    // Leer la lista de la ventana criterios
+    // Leer la lista de la ventana mostrarPaginaCriterios
     private List<CategoriaCriterio> obtenerYGenerarListaCategoriasCriterio(Request request){
         List<CategoriaCriterio> categoriasLista = new ArrayList<>();
 
