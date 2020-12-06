@@ -178,7 +178,3 @@ function mostrarPresupuestosEgreso(id) {
         }
     });
 }
-
-function adjuntarArchivoAEgreso(){
-    console.log("Tratando de adjuntar archivo");
-}
