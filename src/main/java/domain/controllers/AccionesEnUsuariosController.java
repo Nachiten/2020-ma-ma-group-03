@@ -79,6 +79,31 @@ public class AccionesEnUsuariosController {
         String tipoDeUsuario = request.queryParams("tipoUsuario");
         String entidadJuridica = request.queryParams("entidadJuridica");
 
+        if (operadorController.soyCadenaVaciaONula(nombre)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un nombre");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(apellido)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un apellido");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(nombreDeUsuario)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un nombre de usuario");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(contrasenia)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese una contraseña");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.noSeleccioneUnaOpcion(entidadJuridica)){
+            modalAndViewController.getParametros().put("mensaje", "Selecciona una entidad jurídica");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.noSeleccioneUnaOpcion(tipoDeUsuario)){
+            modalAndViewController.getParametros().put("mensaje", "Selecciona un tipo de usuario");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
         TipoUsuario tipoUsuario = soyDelTipoUsuario(tipoDeUsuario);
 
         Usuario usuarioApersistir = new Usuario(tipoUsuario,nombreDeUsuario,contrasenia,nombre,apellido);
@@ -89,7 +114,7 @@ public class AccionesEnUsuariosController {
         ValidadorCredenciales miValidador = new ValidadorCredenciales(new ValidadorEspacios(), new ValidadorLongitud(8), new ValidadorMayusculas(1), new ValidadorNumeros(1));
 
         if (!miValidador.esSegura(contrasenia)){
-            modalAndViewController.getParametros().put("mensaje", "La contraseña no es segura. Debe contener 1 mayuscula, 1 numero y 8 caracteres. Sin espacios");
+            modalAndViewController.getParametros().put("mensaje", "La contraseña no es segura. Debe contener 1 mayuscula, 1 numero y ser de 8 caracteres. Sin espacios");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
@@ -104,7 +129,7 @@ public class AccionesEnUsuariosController {
         }
 
         modalAndViewController.getParametros().put("mensaje", "Se creo exitosamente el nuevo usuario.");
-        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativoConfirmacionDeNuevoUsuario.hbs");
     }
 
     //Se guarda en la BD el usuario ingresado en el formulario
@@ -252,21 +277,21 @@ public class AccionesEnUsuariosController {
         String contraseniaEditado = request.queryParams("contrasenia");
         String entidadJuridicaQueConservo = request.queryParams("miEntidadJuridica");
         String entidadJuridicaEditado = request.queryParams("entidadJuridica");
-        String soyRevisorEditado = request.queryParams("soyRevisor");
 
-        //obtengo la clase entidad jurídica que se eligió en el select
-        EntidadJuridica nuevaEntidadJuridica = obtenerEntidadJuridica(entidadJuridicaQueConservo);
-        if (!entidadJuridicaEditado.equals("Elegir una entidad jurídica")){
-            nuevaEntidadJuridica = obtenerEntidadJuridica(entidadJuridicaEditado);
+        //verifico si hubo cambio de entidad jurídica
+        if (operadorController.noSeleccioneUnaOpcion(entidadJuridicaEditado)){
+            usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado);
+
+        }else{
+            Repositorio<EntidadJuridica> repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
+            int idEntidadjuridica = Integer.parseInt(entidadJuridicaEditado);
+            EntidadJuridica nuevaEntidadJuridica = repoEntidadJuridica.buscar(idEntidadjuridica);
+            usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado, nuevaEntidadJuridica);
         }
-
-        boolean soyRevisor = soyRevisorEditado.equals("soyRevisor");
-
-        usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado, nuevaEntidadJuridica);
 
         repoUsuario.modificar(usuarioEditadoAGuardar);
 
-        modalAndViewController.getParametros().put("mensaje","Los datos se actualizaron correctamente");
+        modalAndViewController.getParametros().put("mensaje","Los datos del usuario "+usuarioEditadoAGuardar.getNombreUsuario()+" se actualizaron correctamente");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs") ;
     }
 

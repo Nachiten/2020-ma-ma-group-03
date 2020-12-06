@@ -202,4 +202,12 @@ public class OperadorController {
 
         return direccionPostal;
     }
+
+    public boolean soyCadenaVaciaONula(String unaCadena){
+        return unaCadena.isEmpty();
+    }
+
+    public boolean noSeleccioneUnaOpcion(String unaCadena){
+        return unaCadena.equals("0");
+    }
 }

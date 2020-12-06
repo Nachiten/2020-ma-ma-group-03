@@ -54,14 +54,13 @@
                                 <td><br>
                                     <br>
                                     <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" title="Elija una opción" disabled>
-                                        <option hidden selected>Elegir una entidad jurídica</option>
+                                        <option value="0" hidden selected>Elegir una entidad jurídica</option>
                                         {{#each entidadesJuridicas}}
                                             {{#if razonSocialEntidadJuridica}}
-                                                <option>{{razonSocialEntidadJuridica}}</option>
+                                                <option value="{{id}}">{{razonSocialEntidadJuridica}}</option>
                                             {{else}}
-                                                <option>{{nombreEntidadJuridica}}</option>
+                                                <option value="{{id}}">{{nombreEntidadJuridica}}</option>
                                             {{/if}}
-
                                         {{/each}}
                                     </select>
                                 </td>
@@ -71,7 +70,7 @@
                             <button type="button" class="btn" data-dismiss="modal" >
                                 Cancelar
                             </button>
-                            <button type="submit" data-dismiss="modal" onclick="mostrarModalParaConfirmarCambiosRealizadosEnUsuario({{miId}})">
+                            <button type="submit" class="btn" data-dismiss="modal3" onclick="mostrarModalParaConfirmarCambiosRealizadosEnUsuario({{miId}})">
                                 Guardar
                             </button>
                         </div>

@@ -13,27 +13,27 @@
                         <table class= "formulario" border = 0 >
                             <tr>
                                 <td>Nombre:</td>
-                                <td><input type="text" name="nombre" id = "altaUsuario-nombre" placeholder="Ingrese un nombre" required></td>
+                                <td><input type="text" name="nombre" id = "altaUsuario-nombre" placeholder="Ingrese un nombre"></td>
                             </tr>
                             <tr>
                                 <td>Apellido:</td>
-                                <td><input type="text" name="apellido" id = "altaUsuario-apellido" placeholder="Ingrese un apellido" required></td>
+                                <td><input type="text" name="apellido" id = "altaUsuario-apellido" placeholder="Ingrese un apellido"></td>
                             </tr>
                             <tr>
                                 <td>Nombre de usuario:</td>
-                                <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" placeholder="Ingrese un usuario" required></td>
+                                <td><input type="text" name="nombreDeUsuario" id = "altaUsuario-nombreDeUsuario" placeholder="Ingrese un usuario"></td>
                             </tr>
                             <tr>
                                 <td>Contraseña:</td>
-                                <td><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" placeholder="Ingrese una contraseña" required></td>
+                                <td><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" placeholder="Ingrese una contraseña"></td>
                             </tr>
                             <tr>
                                 <td>Entidad Jurídica:</td>
                                 <td>
-                                    <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" required title="Elija una opción">
-                                        <option hidden selected>Elegir una entidad jurídica</option>
+                                    <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" title="Elija una opción">
+                                        <option value="0" hidden selected>Elegir una entidad jurídica</option>
                                         {{#each entidadesJuridicas}}
-                                            <option>{{id}}-{{razonSocialEntidadJuridica}}</option>
+                                            <option value="{{id}}">{{razonSocialEntidadJuridica}}</option>
                                         {{/each}}
                                     </select>
                                 </td>
@@ -41,8 +41,8 @@
                             <tr>
                                 <td>Tipo de usuario:</td>
                                 <td>
-                                    <select name = "tipoUsuario" id = "altaUsuario-tipoUsuario" required title="Elija una opción">
-                                        <option hidden selected>Elegir tipo de usuario</option>
+                                    <select name = "tipoUsuario" id = "altaUsuario-tipoUsuario" title="Elija una opción">
+                                        <option value="0" hidden selected>Elegir tipo de usuario</option>
                                         {{#each tiposUsuarios}}
                                             <option>{{this}}</option>
                                         {{/each}}

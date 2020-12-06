@@ -118,8 +118,8 @@ public class Router {
         Spark.get("/editarUsuario", accionesEnUsuariosController::mostrarModalEditarUsuarios, Router.engine);
         Spark.post("/editarUsuario/confirmarEditarUsuario/:id", accionesEnUsuariosController::mostrarModalParaConfirmarEditarUnUsuario, Router.engine);
         Spark.get("/editarUsuario/modificar/:id", accionesEnUsuariosController::mostrarModalParaEditarUnUsuario, Router.engine);
-        Spark.post("/editarUsuario/modificar/:id/confirmarModificar/:id", accionesEnUsuariosController::mostrarModalparaConfirmarCambiosRealizadosEnUnUsuario, Router.engine);
-        Spark.post("/editarUsuario/modificar/:id/guardar/:id", accionesEnUsuariosController::guardarCambiosDeEdicionDelUsuario, Router.engine);
+        Spark.post("/editarUsuario/modificar/confirmarModificar/:id", accionesEnUsuariosController::mostrarModalparaConfirmarCambiosRealizadosEnUnUsuario, Router.engine);
+        Spark.post("/editarUsuario/modificar/guardar/:id", accionesEnUsuariosController::guardarCambiosDeEdicionDelUsuario, Router.engine);
         Spark.post("/editarUsuario/confirmarBajaUsuario/:id", accionesEnUsuariosController::mostrarModalParaConfirmarBajaDeUsuario, Router.engine);
         Spark.delete("/editarUsuario/darDeBaja/:id", accionesEnUsuariosController::darDeBajaUsuario, Router.engine);
 

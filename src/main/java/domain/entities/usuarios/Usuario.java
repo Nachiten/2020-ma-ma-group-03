@@ -131,6 +131,14 @@ public class Usuario extends EntidadPersistente {
 
     }
 
+    public void guardarCambiosEfectuadosEnMisAtributos(String nombreEditado, String apellidoEditado, String nombreDeUsuarioEditado, String contraseniaEditada) {
+
+        this.nombre = nombreEditado;
+        this.apellido = apellidoEditado;
+        this.nombreUsuario = nombreDeUsuarioEditado;
+        verificarSiLaContraseniaFueActualizada(contraseniaEditada);
+    }
+
     public void verificarSiLaContraseniaFueActualizada(String contraseniaEditada){
         if(!(contraseniaEditada.equals(this.contraseniaEncriptada) && this.contraseniaEncriptada.equals(encriptarContrasenia(contraseniaEditada)))){
             cambiarContrasenia(contraseniaEditada);
