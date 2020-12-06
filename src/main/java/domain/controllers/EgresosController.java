@@ -369,6 +369,11 @@ public class EgresosController {
                 // nombreSeparado[1] = txt
                 String[] nombreSeparado = nombreArchivo.split("\\.");
 
+                if (!nombreSeparado[1].equals("pdf")){
+                    modalAndViewController.getParametros().put("mensaje", "El archivo subido debe ser de extension PDF.");
+                    return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+                }
+
                 Path tempFile = Files.createTempFile(carpetaSubidaDocumentos.toPath(), "IdOperacion[" + idOperacion + "]", "." + nombreSeparado[1]);
 
                 Files.copy(input, tempFile, StandardCopyOption.REPLACE_EXISTING);
