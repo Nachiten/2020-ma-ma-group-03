@@ -125,6 +125,7 @@ public class Router {
 
         //Acciones proveedor
         Spark.get("/nuevoProveedor", accionesEnProveedoresController::mostrarModalNuevoProveedor, Router.engine);
+        Spark.post("/confirmarNuevoProveedor", accionesEnProveedoresController::mostrarModalParaConfirmarNuevoProveedor, Router.engine);
         Spark.post("/guardarNuevoProveedor", accionesEnProveedoresController::guardarNuevoProveedor, Router.engine);
         Spark.get("/habilitarProveedor", accionesEnProveedoresController::mostrarModalHabilitarProveedor, Router.engine);
         Spark.post("/habilitarProveedor/:id", accionesEnProveedoresController::mostrarConfirmacionHabilitarProveedor, Router.engine);

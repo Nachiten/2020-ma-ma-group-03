@@ -13,25 +13,25 @@
                         <table class= "formulario" border = 0 >
                             <tr>
                                 <td>Nombre:</td>
-                                <td><input type="text" name="nombre" id="altaProveedor-nombre" placeholder="Ingrese su nombre" required></td>
+                                <td><input type="text" name="nombre" id="altaProveedor-nombre" placeholder="Ingrese un nombre"></td>
                             </tr>
                             <tr>
                                 <td>Apellido:</td>
-                                <td><input type="text" name="apellido" id="altaProveedor-apellido" placeholder="Ingrese su apellido"  required></td>
+                                <td><input type="text" name="apellido" id="altaProveedor-apellido" placeholder="Ingrese un apellido"></td>
                             </tr>
                             <tr>
                                 <td>Razón Social:</td>
-                                <td><input type="text" name="razonSocial" id="altaProveedor-razonSocial" placeholder="Ingrese su razon social" required></td>
+                                <td><input type="text" name="razonSocial" id="altaProveedor-razonSocial" placeholder="Ingrese una razón social"></td>
                             </tr>
                             <tr>
                                 <td>CUIT/CUIL:</td>
-                                <td><input type="number" min="0" name="cuit_cuil" id="altaProveedor-cuit_cuil" placeholder="Ingrese su CUIT/CUIL" required></td>
+                                <td><input type="number" min="0" name="cuit_cuil" id="altaProveedor-cuit_cuil" placeholder="Ingrese un CUIT/CUIL"></td>
                             </tr>
                             <tr>
                                 <td>País:</td>
                                 <td>
-                                    <select name="pais" id="altaProveedor-pais" required >
-                                        <option hidden selected>Seleccionar país</option>
+                                    <select name="pais" id="altaProveedor-pais">
+                                        <option value="0" hidden selected>Seleccionar país</option>
                                         {{#each listaPaises}}
                                             <option value="{{id}}">{{name}}</option>
                                         {{/each}}
@@ -41,8 +41,8 @@
                             <tr>
                                 <td>Provincia:</td>
                                 <td>
-                                    <select name="provincia" id="altaProveedor-provincia"required disabled>
-                                        <option hidden selected>Seleccionar provincia</option>
+                                    <select name="provincia" id="altaProveedor-provincia" disabled>
+                                        <option value="0" hidden selected>Seleccionar provincia</option>
                                         {{#each listaProvincias}}
                                             <option value="{{id}}" data-attribute="{{paisAsociado.id}}">{{name}}</option>
                                         {{/each}}
@@ -52,8 +52,8 @@
                             <tr>
                                 <td>Ciudad:</td>
                                 <td>
-                                    <select name="ciudad"  id="altaProveedor-ciudad" required disabled>
-                                        <option hidden selected>Seleccionar Ciudad</option>
+                                    <select name="ciudad"  id="altaProveedor-ciudad" disabled>
+                                        <option value="0" hidden selected>Seleccionar Ciudad</option>
                                         {{#each listaCiudades}}
                                             <option value="{{id}}" data-attribute="{{provinciaAsociada.id}}">{{name}}</option>
                                         {{/each}}
@@ -62,19 +62,19 @@
                             </tr>
                             <tr>
                                 <td>Barrio:</td>
-                                <td><input type="text" name="barrio" id="altaProveedor-barrio" placeholder="Ingrese su barrio" ></td>
+                                <td><input type="text" name="barrio" id="altaProveedor-barrio" placeholder="Ingrese un barrio" ></td>
                             </tr>
                             <tr>
                                 <td>Calle:</td>
-                                <td><input type="text" name="calle" id="altaProveedor-calle" placeholder="Ingrese la calle" required></td>
+                                <td><input type="text" name="calle" id="altaProveedor-calle" placeholder="Ingrese un nombre de calle"></td>
                             </tr>
                             <tr>
                                 <td>Altura:</td>
-                                <td><input type="number" min="0" name="altura" id="altaProveedor-altura" placeholder="Ingrese la altura" required></td>
+                                <td><input type="number" min="0" name="altura" id="altaProveedor-altura" placeholder="Ingrese la altura"></td>
                             </tr>
                             <tr>
                                 <td>Departamento:</td>
-                                <td><input type="text" name="departamento" id="altaProveedor-departamento" placeholder="Ingrese su departamento" ></td>
+                                <td><input type="text" name="departamento" id="altaProveedor-departamento" placeholder="Ingrese un departamento" ></td>
                             </tr>
                             <tr>
                                 <td>Piso:</td>
@@ -85,7 +85,7 @@
                             <button type="button" class="btn" data-dismiss="modal" onClick="location.reload();">
                                 Cancelar
                             </button>
-                            <button type="submit" onclick="mostrarModalConfirmacionNuevoProveedor()">
+                            <button type="submit" onclick="mostrarModalConfirmarNuevoProveedor()">
                                 Guardar
                             </button>
                         </div>
