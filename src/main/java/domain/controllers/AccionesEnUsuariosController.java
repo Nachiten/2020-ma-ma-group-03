@@ -57,9 +57,7 @@ public class AccionesEnUsuariosController {
     }
 
     private EntidadJuridica obtenerEntidadJuridica(String entidadJuridica){
-        String[] obtenerId = entidadJuridica.split("-");
-        String id = obtenerId[0];
-        int idEntidadJuridica = Integer.parseInt(id);
+        int idEntidadJuridica = Integer.parseInt(entidadJuridica);
         Repositorio<EntidadJuridica> repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
         return repoEntidadJuridica.buscar(idEntidadJuridica);
     }
