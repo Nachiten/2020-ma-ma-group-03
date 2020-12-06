@@ -151,6 +151,8 @@ public class Router {
 
         //Acciones criterios
         Spark.post("/accionesCriterios", criteriosController::guardarCriterio, Router.engine);
+        Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);
+
 
         Spark.post("/guardarDocumentoEgreso", egresosController::guardarDocumentoEgreso ,Router.engine);
         Spark.post("/descargarDocumentoEgreso", egresosController::descargarDocumentoEgreso, Router.engine);
