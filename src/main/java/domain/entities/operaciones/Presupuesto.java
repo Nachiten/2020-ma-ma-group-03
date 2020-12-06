@@ -116,4 +116,8 @@ public class Presupuesto extends EntidadPersistente {
     public void setListaCategoriaCriterio(List<CategoriaCriterio> listaCategoriaCriterio) {
         this.listaCategoriaCriterio = listaCategoriaCriterio;
     }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
 }

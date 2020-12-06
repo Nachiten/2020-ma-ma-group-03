@@ -10,6 +10,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +85,8 @@ public class PresupuestosController {
         // Leo operacion de egreso asociada
         OperacionDeEgreso operacionEgresoAsociada = buscarOperacionEgreso(operacionEgresoString);
 
+        LocalDate fecha = operadorController.convertirAFecha(fechaString);
+
         // Leo todos los items
         List<Item> listaItems = operadorController.obtenerListaItems(request);
 
@@ -111,6 +114,7 @@ public class PresupuestosController {
 
         Presupuesto presupuestoAGuardar = new Presupuesto();
 
+        presupuestoAGuardar.setFecha(fecha);
         presupuestoAGuardar.setMontoTotal(montoTotal);
         presupuestoAGuardar.setDocumentoComercial(documentoComercial);
         presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
