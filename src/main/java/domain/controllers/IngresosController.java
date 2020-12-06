@@ -56,7 +56,7 @@ public class IngresosController {
         Map<String, Object> model = new HashMap<>();
 
         if(descripcion.equals("")){
-            model.put("mensaje", "No ingresó una descripción, ingrese una descripción.");
+            model.put("mensaje", "Se debe ingresar una descripción.");
             return new ModelAndView(model, "modalInformativo2.hbs");
         }
 

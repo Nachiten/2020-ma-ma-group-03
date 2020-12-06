@@ -67,7 +67,7 @@ public class EgresosController {
         modalAndViewController.getParametros().put("tiposMediosDePago", tiposMediosPago);
         modalAndViewController.getParametros().put("tiposDocumentoComercial", tiposDocumentoComercial);
         modalAndViewController.getParametros().put("proveedores", proveedores);
-        modalAndViewController.getParametros().put("mostrarPaginaCriterios", criterios);
+        modalAndViewController.getParametros().put("criterios", criterios);
         modalAndViewController.getParametros().put("criterios2", criterios2);
         return new ModelAndView(modalAndViewController.getParametros(), "egresos.hbs");
     }
@@ -247,6 +247,11 @@ public class EgresosController {
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
         String razonSocialProveedor = request.queryParams("proveedor");
 
+        if(fechaString.equals("")){
+            modalAndViewController.getParametros().put("mensaje","Se debe elegir una fecha.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
         if (noEligioRevisor(revisor)){
             modalAndViewController.getParametros().put("mensaje","Se debe elegir si es revisor o no.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
@@ -267,6 +272,24 @@ public class EgresosController {
         if (noEligioProveedor(razonSocialProveedor)){
             // No se eligio un proveedor
             modalAndViewController.getParametros().put("mensaje","No se seleccionó un proveedor.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        if (numeroMedioDePagoString.equals("") && !tipoMedioDePagoString.equals("Efectivo")){
+
+            modalAndViewController.getParametros().put("mensaje","No se indicó un número de medio de pago.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        if (numeroDocumentoComercialString.equals("")){
+
+            modalAndViewController.getParametros().put("mensaje","No se indicó un número de documento comercial.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+        if (presupuestosRequeridosString.equals("")){
+
+            modalAndViewController.getParametros().put("mensaje","No se indicó una cantidad de presupuestos requeridos.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
 
@@ -361,7 +384,7 @@ public class EgresosController {
 
         // Se persistio correctamente
         modalAndViewController.getParametros().put("mensaje", "La operación de egreso se guardó correctamente.");
-        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo4.hbs");
     }
 
     public ModelAndView guardarDocumentoEgreso(Request request, Response response) {
