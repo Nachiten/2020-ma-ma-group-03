@@ -72,6 +72,19 @@ function mostrarModalHabilitarProveedores(){
     });
 }
 
+function mostrarModalParaConfirmarHabilitarUnProveedor(id) {
+    var ruta = "/habilitarProveedor/confirmarHabilitar/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
 function habilitarProveedor(id) {
     var ruta = "/habilitarProveedor/"+id;
     var metodo = "POST";
@@ -80,7 +93,7 @@ function habilitarProveedor(id) {
         url      : ruta,
         datatype : "html",
         success  : function (result) {
-            showInModal("modal2", result);
+            showInModal("modal3", result);
             mostrarModalHabilitarProveedores();
         }
     });

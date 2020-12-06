@@ -158,12 +158,24 @@ public class AccionesEnProveedoresController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewListarProveedoresInhabilitados);
     }
 
+    private ModelAndView modalAndViewConfirmarHabilitarProveedor(Request request) {
+        int idProveedor = Integer.parseInt(request.params("id"));
+        Proveedor proveedorAHabilitar = this.repoProveedor.buscar(idProveedor);
+        modalAndViewController.getParametros().put("id", proveedorAHabilitar.getId());
+        modalAndViewController.getParametros().put("mensaje", "¿Está seguro de habilitar al proveedor "+proveedorAHabilitar.getRazonSocialProveedor()+"?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarHabilitarProveedor.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarHabilitarProveedor(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewConfirmarHabilitarProveedor(request));
+    }
+
     private ModelAndView modalAndViewHabilitarProveedor(Request request) {
         int idProveedor = Integer.parseInt(request.params("id"));
         Proveedor proveedorAEditar = this.repoProveedor.buscar(idProveedor);
         proveedorAEditar.cambiarAHabilitado();
         this.repoProveedor.modificar(proveedorAEditar);
-        modalAndViewController.getParametros().put("mensaje", "El proveedor "+proveedorAEditar.getRazonSocialProveedor()+" se habilitó correctamente");
+        modalAndViewController.getParametros().put("mensaje", "El proveedor "+proveedorAEditar.getRazonSocialProveedor()+" se habilitó correctamente.");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
     }
 
@@ -251,7 +263,7 @@ public class AccionesEnProveedoresController {
         Proveedor proveedorAEditar = this.repoProveedor.buscar(idProveedor);
         proveedorAEditar.cambiarAInhabilitado();
         this.repoProveedor.modificar(proveedorAEditar);
-        modalAndViewController.getParametros().put("mensaje", "Se dio de baja correctamente al proveedor "+proveedorAEditar.getRazonSocialProveedor());
+        modalAndViewController.getParametros().put("mensaje", "Se dio de baja correctamente al proveedor "+proveedorAEditar.getRazonSocialProveedor()+".");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
     }
 

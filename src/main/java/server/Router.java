@@ -112,14 +112,18 @@ public class Router {
         Spark.get("/nuevoUsuario", accionesEnUsuariosController::mostrarModalNuevoUsuario, Router.engine);
         Spark.post("/confirmarNuevoUsuario", accionesEnUsuariosController::mostrarModalParaConfirmarNuevoUsuario, Router.engine);
         Spark.post("/guardarUsuario", accionesEnUsuariosController::guardarNuevoUsuario, Router.engine);
+
         Spark.get("/habilitarUsuario", accionesEnUsuariosController::mostrarModalHabilitarUsuario, Router.engine);
         Spark.post("/confirmarHabilitarUsuario/:id", accionesEnUsuariosController::mostrarModalParaConfirmarHabilitarUsuario, Router.engine);
         Spark.post("/habilitarUsuario/:id", accionesEnUsuariosController::habilitarUsuario, Router.engine);
+
         Spark.get("/editarUsuario", accionesEnUsuariosController::mostrarModalEditarUsuarios, Router.engine);
         Spark.post("/editarUsuario/confirmarEditarUsuario/:id", accionesEnUsuariosController::mostrarModalParaConfirmarEditarUnUsuario, Router.engine);
+
         Spark.get("/editarUsuario/modificar/:id", accionesEnUsuariosController::mostrarModalParaEditarUnUsuario, Router.engine);
         Spark.post("/editarUsuario/modificar/confirmarModificar/:id", accionesEnUsuariosController::mostrarModalparaConfirmarCambiosRealizadosEnUnUsuario, Router.engine);
         Spark.post("/editarUsuario/modificar/guardar/:id", accionesEnUsuariosController::guardarCambiosDeEdicionDelUsuario, Router.engine);
+
         Spark.post("/editarUsuario/confirmarBajaUsuario/:id", accionesEnUsuariosController::mostrarModalParaConfirmarBajaDeUsuario, Router.engine);
         Spark.delete("/editarUsuario/darDeBaja/:id", accionesEnUsuariosController::darDeBajaUsuario, Router.engine);
 
@@ -127,11 +131,15 @@ public class Router {
         Spark.get("/nuevoProveedor", accionesEnProveedoresController::mostrarModalNuevoProveedor, Router.engine);
         Spark.post("/confirmarNuevoProveedor", accionesEnProveedoresController::mostrarModalParaConfirmarNuevoProveedor, Router.engine);
         Spark.post("/guardarNuevoProveedor", accionesEnProveedoresController::guardarNuevoProveedor, Router.engine);
+
         Spark.get("/habilitarProveedor", accionesEnProveedoresController::mostrarModalHabilitarProveedor, Router.engine);
+        Spark.post("/habilitarProveedor/confirmarHabilitar/:id", accionesEnProveedoresController::mostrarModalParaConfirmarHabilitarProveedor, Router.engine);
         Spark.post("/habilitarProveedor/:id", accionesEnProveedoresController::mostrarConfirmacionHabilitarProveedor, Router.engine);
+
         Spark.get("/editarProveedor", accionesEnProveedoresController::mostrarModalEditarProveedores, Router.engine);
         Spark.get("/editarProveedor/modificar/:id", accionesEnProveedoresController::mostrarModalParaEditarUnProveedor, Router.engine);
         Spark.get("/editarProveedor/actualizarDireccion/:id", accionesEnProveedoresController::mostrarModalActualizarDireccionProveedor, Router.engine);
+
         Spark.delete("/editarproveedor/darDeBaja/:id", accionesEnProveedoresController::mostrarModalConfirmacionBajaProveedor, Router.engine);
 
         //Acciones entidad jurídica
