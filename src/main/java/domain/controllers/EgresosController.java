@@ -32,6 +32,7 @@ public class EgresosController {
     private Repositorio<TipoDocumentoComercial> repoTipoDocComercial;
     private Repositorio<Criterio> repoCriterio;
     private Repositorio<Proveedor> repoProveedor;
+    private Repositorio<Usuario> repoUsuario;
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
     private Repositorio<EntidadJuridica> repoEntidadJuridica;
@@ -47,6 +48,7 @@ public class EgresosController {
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
         this.repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
         this.repoCategorias = FactoryRepositorio.get(CategoriaCriterio.class);
+        this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
 
@@ -263,12 +265,6 @@ public class EgresosController {
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
 
-        if (operadorController.noEligioDocumentoComercial(tipoDocumentoComercialString)){
-            // No se inserto documento comercial
-            modalAndViewController.getParametros().put("mensaje","No se seleccionó un documento comercial.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
-        }
-
         if (noEligioProveedor(razonSocialProveedor)){
             // No se eligio un proveedor
             modalAndViewController.getParametros().put("mensaje","No se seleccionó un proveedor.");
@@ -278,12 +274,6 @@ public class EgresosController {
         if (numeroMedioDePagoString.equals("") && !tipoMedioDePagoString.equals("Efectivo")){
 
             modalAndViewController.getParametros().put("mensaje","No se indicó un número de medio de pago.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
-        }
-
-        if (numeroDocumentoComercialString.equals("")){
-
-            modalAndViewController.getParametros().put("mensaje","No se indicó un número de documento comercial.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
 
@@ -343,6 +333,7 @@ public class EgresosController {
         if(revisor.equals("Si")){
             operacionAGuardar.agregarRevisor(miUsuario);
             miUsuario.agregarOperacionDeEgreso(operacionAGuardar);
+            repoUsuario.modificar(miUsuario);
         }
 
         if (operadorController.persistenciaNoValida(repoOperacionEgreso, operacionAGuardar)){
@@ -386,6 +377,8 @@ public class EgresosController {
             modalAndViewController.getParametros().put("mensaje", "Hubo un error al subir el documento.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
+
+        repoOperacionEgreso.agregar(operacionAGuardar);
 
         // Se persistio correctamente
         modalAndViewController.getParametros().put("mensaje", "La operación de egreso se guardó correctamente.");

@@ -1,6 +1,7 @@
 package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
+import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.OperacionDeIngreso;
 import domain.repositories.Repositorio;
@@ -17,6 +18,8 @@ public class AsociacionOperacionesController {
     private ModalAndViewController modalAndViewController;
     private Repositorio<OperacionDeEgreso> repoOperacionEgreso;
     private Repositorio<OperacionDeIngreso> repoOperacionIngreso;
+    private List<OperacionDeEgreso> operacionesEgreso;
+    private List<OperacionDeIngreso> operacionesIngreso;
     private Repositorio<CategoriaCriterio> repoCategoriaCriterio;
 
     public AsociacionOperacionesController(ModalAndViewController modalAndViewController){
@@ -28,9 +31,10 @@ public class AsociacionOperacionesController {
 
     private ModelAndView modalAndViewListadoOperaciones(){
 
-        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
-        List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
         List<CategoriaCriterio> categoriaCriterios = this.repoCategoriaCriterio.buscarTodos();
+        EntidadJuridica entidadJuridicaDeUsuario = modalAndViewController.getUsuario().getEntidadJuridica();
+        operacionesEgreso = entidadJuridicaDeUsuario.getOperacionesDeEgreso();
+        operacionesIngreso = entidadJuridicaDeUsuario.getOperacionesDeIngreso();
 
         modalAndViewController.getParametros().put("operacionesEgreso", operacionesEgreso);
         modalAndViewController.getParametros().put("operacionesIngreso", operacionesIngreso);
@@ -53,10 +57,11 @@ public class AsociacionOperacionesController {
 
     public ModelAndView ejecutarVinculacion(Request request, Response response) {
 
-        List<String> criterios = obtenerListaCriteriosVinculacion(request);
+        EntidadJuridica entidadJuridicaDeUsuario = modalAndViewController.getUsuario().getEntidadJuridica();
+        operacionesEgreso = entidadJuridicaDeUsuario.getOperacionesDeEgreso();
+        operacionesIngreso = entidadJuridicaDeUsuario.getOperacionesDeIngreso();
 
-        List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
-        List<OperacionDeIngreso> operacionesIngreso = this.repoOperacionIngreso.buscarTodos();
+        List<String> criterios = obtenerListaCriteriosVinculacion(request);
 
         ApiEgresoIngreso.ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ApiEgresoIngreso.ServicioVinculacionEgresosIngresos.instancia();
 

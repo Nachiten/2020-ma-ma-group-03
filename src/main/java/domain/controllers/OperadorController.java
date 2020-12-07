@@ -103,10 +103,15 @@ public class OperadorController {
     List<CategoriaCriterio> obtenerListaCategoriaCriterio(Request request){
 
         String categoriasLeidas = request.queryParams("nombresCategorias");
+        List<CategoriaCriterio> listaADevolver = new ArrayList<>();
+
+        if(categoriasLeidas == null){
+            return listaADevolver;
+        }
 
         String[] listaNombresCategorias = categoriasLeidas.split("=");
 
-        List<CategoriaCriterio> listaADevolver = new ArrayList<>();
+
         List<CategoriaCriterio> categoriasCriterioTotales = this.repoCategoriaCriterio.buscarTodos();
 
         for(String unNombreCategoria : listaNombresCategorias){
