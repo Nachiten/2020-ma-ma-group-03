@@ -13,11 +13,11 @@
                         <table class= "formulario" border = 0 >
                             <tr>
                                 <td>Nombre:</td>
-                                <td><input type="text" name="nombre" id="altaProveedor-nombre" placeholder="Ingrese su nombre"  id=" altaProveedor-nombre" value="{{nombreProveedor}}" required></td>
+                                <td><input type="text" name="nombre" id="altaProveedor-nombre" placeholder="Ingrese su nombre"  id=" altaProveedor-nombre" value="{{nombreProveedor}}" ></td>
                             </tr>
                             <tr>
                                 <td>Apellido:</td>
-                                <td><input type="text" name="apellido" id="altaProveedor-apellido" placeholder="Ingrese su apellido" id="altaProveedor-apellido" value="{{apellidoproveedor}}" required></td>
+                                <td><input type="text" name="apellido" id="altaProveedor-apellido" placeholder="Ingrese su apellido" id="altaProveedor-apellido" value="{{apellidoproveedor}}" ></td>
                             </tr>
                             <tr>
                                 <td>Razón Social:</td>
@@ -25,12 +25,12 @@
                             </tr>
                             <tr>
                                 <td>CUIT/CUIL:</td>
-                                <td><input type="number" min="0" name="cuit_cuil" id="altaProveedor-cuit_cuil" placeholder="Ingrese su CUIT/CUIL" id="altaProveedor-cuit_cuil" value="{{cuil}}" required></td>
+                                <td><input type="text" name="cuit_cuil" id="altaProveedor-cuit_cuil" placeholder="Ingrese su CUIT/CUIL" id="altaProveedor-cuit_cuil" value="{{cuil}}" required></td>
                             </tr>
                             <tr>
                                 <td>Actualizar dirección:</td>
                                 <td>
-                                    <button type="submit" onclick="mostrarModalCambiarDireccionDelProveedor({{idProveedor}})">
+                                    <button type="submit" class="btn" data-dismiss="modal3" onclick="mostrarModalParaConfirmarEditarDireccionDelProveedor({{idProveedor}})">
                                         Actualizar
                                     </button>
                                 </td>
@@ -52,7 +52,7 @@
                             <button type="button" class="btn" data-dismiss="modal" >
                                 Cancelar
                             </button>
-                            <button type="submit" onclick="mostrarModalConfirmacionDeEdicionDelProveedor()">
+                            <button type="submit" class="btn" onclick="mostrarModalParaConfirmarCambiosEnDatosDelProveedor({{idProveedor}})">
                                 Guardar
                             </button>
                         </div>

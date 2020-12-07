@@ -55,6 +55,18 @@ public class Direccion extends EntidadPersistente {
     }
 
     //-------------------------------------------------------------------------
+                            //METODOS
+    //-------------------------------------------------------------------------
+
+    public void modificarMisAtributos(String barrioNuevaDireccion, String calleNuevaDireccion, int altura, int piso, String departamentoNuevaDireccion) {
+        this.barrio = barrioNuevaDireccion;
+        this.calle = calleNuevaDireccion;
+        this.numero = altura;
+        this.piso = piso;
+        this.dpto = departamentoNuevaDireccion;
+    }
+
+    //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
 
@@ -97,4 +109,9 @@ public class Direccion extends EntidadPersistente {
     public void setPiso(int piso) {
         this.piso = piso;
     }
+
+    public void setBarrio(String barrio) {
+        this.barrio = barrio;
+    }
+
 }

@@ -14,8 +14,8 @@
                             <tr>
                                 <td>País:</td>
                                 <td>
-                                    <select name="pais" id="altaProveedor-pais" required >
-                                        <option hidden selected>Seleccionar país</option>
+                                    <select name="pais" id="altaProveedor-pais" >
+                                        <option value="0" hidden selected>Seleccionar país</option>
                                         {{#each listaPaisesApi}}
                                             <option value="{{id}}">{{name}}</option>
                                         {{/each}}
@@ -25,8 +25,8 @@
                             <tr>
                                 <td>Provincia:</td>
                                 <td>
-                                    <select name="provincia" id="altaProveedor-provincia"required disabled>
-                                        <option hidden selected>Seleccionar provincia</option>
+                                    <select name="provincia" id="altaProveedor-provincia" disabled>
+                                        <option value="0" hidden selected>Seleccionar provincia</option>
                                         {{#each listaProvinciasApi}}
                                             <option value="{{id}}" data-attribute="{{paisAsociado.id}}">{{name}}</option>
                                         {{/each}}
@@ -36,8 +36,8 @@
                             <tr>
                                 <td>Ciudad:</td>
                                 <td>
-                                    <select name="ciudad"  id="altaProveedor-ciudad" required disabled>
-                                        <option hidden selected>Seleccionar Ciudad</option>
+                                    <select name="ciudad"  id="altaProveedor-ciudad" disabled>
+                                        <option value="0" hidden selected>Seleccionar Ciudad</option>
                                         {{#each listaCiudadesApi}}
                                             <option value="{{id}}" data-attribute="{{provinciaAsociada.id}}">{{name}}</option>
                                         {{/each}}
@@ -46,30 +46,30 @@
                             </tr>
                             <tr>
                                 <td>Barrio:</td>
-                                <td><input type="text" name="barrio" id="altaProveedor-barrio" placeholder="Ingrese su barrio" ></td>
+                                <td><input type="text" name="barrio" id="altaProveedor-barrio" placeholder="Ingrese su barrio" value="{{barrio}}"></td>
                             </tr>
                             <tr>
                                 <td>Calle:</td>
-                                <td><input type="text" name="calle" id="altaProveedor-calle" placeholder="Ingrese el nombre de la calle" required></td>
+                                <td><input type="text" name="calle" id="altaProveedor-calle" placeholder="Ingrese nombre de calle" value="{{calle}}"></td>
                             </tr>
                             <tr>
                                 <td>Altura:</td>
-                                <td><input type="number" min="0" name="altura" id="altaProveedor-altura" placeholder="Ingrese la altura" required></td>
+                                <td><input type="number" min="0" name="altura" id="altaProveedor-altura" placeholder="Ingrese la altura" value="{{numero}}"></td>
                             </tr>
                             <tr>
                                 <td>Departamento:</td>
-                                <td><input type="text" name="departamento" id="altaProveedor-departamento" placeholder="Ingrese su departamento" ></td>
+                                <td><input type="text" name="departamento" id="altaProveedor-departamento" placeholder="Ingrese el departamento" value="{{departamento}}"></td>
                             </tr>
                             <tr>
                                 <td>Piso:</td>
-                                <td><input type="number"  min="0" name="piso" id="altaProveedor-piso" placeholder="Ingrese su número de piso" ></td>
+                                <td><input type="number"  min="0" name="piso" id="altaProveedor-piso" placeholder="Ingrese número de piso" value="{{piso}}"></td>
                             </tr>
                         </table>
                         <div class="modal-footer">
                             <button type="button" class="btn" data-dismiss="modal" >
                                 Cancelar
                             </button>
-                            <button type="submit" onclick="mostrarModalConfirmacionCambioDireccionProveedor({{idProveedor}})">
+                            <button type="submit" onclick="mostrarModalConfirmarCambiosEnDireccionProveedor({{idProveedor}})">
                                 Actualizar
                             </button>
                         </div>

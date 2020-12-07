@@ -137,9 +137,17 @@ public class Router {
         Spark.post("/habilitarProveedor/:id", accionesEnProveedoresController::mostrarConfirmacionHabilitarProveedor, Router.engine);
 
         Spark.get("/editarProveedor", accionesEnProveedoresController::mostrarModalEditarProveedores, Router.engine);
+        Spark.post("/editarProveedor/confirmarEditarProveedor/:id", accionesEnProveedoresController::mostrarModalParaConfirmarEditarUnProveedor, Router.engine);
         Spark.get("/editarProveedor/modificar/:id", accionesEnProveedoresController::mostrarModalParaEditarUnProveedor, Router.engine);
-        Spark.get("/editarProveedor/actualizarDireccion/:id", accionesEnProveedoresController::mostrarModalActualizarDireccionProveedor, Router.engine);
+        Spark.post("/editarProveedor/modificar/confirmarCambiosDatosProveedor/:id", accionesEnProveedoresController::mostrarModalParaConfirmarCambiosEnDatosDelProveedor, Router.engine);
+        Spark.post("/editarProveedor/modificar/confirmacionCambiosDatosProveedor/:id", accionesEnProveedoresController::mostrarModalConfirmacionDatosActualizadosDelProveedor, Router.engine);
 
+        Spark.post("/editarProveedor/modificar/confirmarEditarDireccionProveedor/:id", accionesEnProveedoresController::mostrarModalParaConfirmarEditarDireccionProveedor, Router.engine);
+        Spark.get("/editarProveedor/modificar/actualizarDireccion/:id", accionesEnProveedoresController::mostrarModalParaActualizarDireccionProveedor, Router.engine);
+        Spark.post("/editarProveedor/modificar/confirmarActualizarDireccion/:id", accionesEnProveedoresController::mostrarModalParaConfirmarActualizarDireccionProveedor, Router.engine);
+        Spark.post("/editarProveedor/modificar/actualizacionDireccion/:id", accionesEnProveedoresController::mostrarConfirmacionDatosActualizadosDireccionProveedor, Router.engine);
+
+        Spark.post("/editarProveedor/confirmarBajaProveedor/:id", accionesEnProveedoresController::mostrarModalParaConfirmarBajaDeUnProveedor, Router.engine);
         Spark.delete("/editarproveedor/darDeBaja/:id", accionesEnProveedoresController::mostrarModalConfirmacionBajaProveedor, Router.engine);
 
         //Acciones entidad jurídica

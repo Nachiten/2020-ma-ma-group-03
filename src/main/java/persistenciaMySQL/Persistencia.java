@@ -37,7 +37,7 @@ public class Persistencia {
 		            .exec("mysql -u root -p0147852. persistenciatp");
 
 		      OutputStream os = p.getOutputStream();
-		      FileInputStream fis = new FileInputStream("gesoc.sql");//cambiar a gesoc-DBCompleta.sql para la restaurar la BD completa
+		      FileInputStream fis = new FileInputStream("dbCompletaExportadaMySQL.sql");//cambiar a gesoc-DBCompleta.sql para la restaurar la BD completa
 		      byte[] buffer = new byte[1000];
 
 		      int leido = fis.read(buffer);

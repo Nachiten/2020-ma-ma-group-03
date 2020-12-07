@@ -195,6 +195,11 @@ public class OperadorController {
         if (!departamento.equals("")){
             direccion.setDpto(departamento);
         }
+
+        if (!barrio.equals("")){
+            direccion.setBarrio(barrio);
+        }
+
         DireccionPostal direccionPostal = new DireccionPostal(direccion);
         direccionPostal.setPais(paisElegido);
         direccionPostal.setProvincia(provinciaElegida);

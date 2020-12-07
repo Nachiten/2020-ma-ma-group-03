@@ -1,4 +1,6 @@
+/////////////////////////////////////
 //Nuevo proveedor
+/////////////////////////////////////
 function mostrarModalNuevoProveedor() {
     var ruta = "/nuevoProveedor";
     var metodo = "GET";
@@ -99,7 +101,10 @@ function habilitarProveedor(id) {
     });
 }
 
+/////////////////////////////////////
 //Editar Proveedor
+/////////////////////////////////////
+//paso 1- muestro la lista de proveedores activos que se dara de baja o actualizará datos
 function mostrarModalEditarProveedores(){
     var ruta = "/editarProveedor";
     var metodo = "GET";
@@ -113,28 +118,111 @@ function mostrarModalEditarProveedores(){
     });
 }
 
-function mostrarModalParaEditarUnProveedor(id) {
-    var ruta = "/editarProveedor/modificar/" + id;
-    var metodo = "GET";
+//muestra el modal para confirmar si se quiere editar los datos a un proveedor
+function mostrarModalParaConfirmarEditarUnProveedor(id) {
+    var ruta = "/editarProveedor/confirmarEditarProveedor/"+id;
+    var metodo = "POST";
     $.ajax({
-        type: metodo,
-        url: ruta,
-        dataType: "html",
-        success : function(result){
-            showInModal("modal2",result);//verificar si funciona con modal2
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
         }
     });
 }
 
-function mostrarModalCambiarDireccionDelProveedor(id) {
-    var ruta = "/editarProveedor/actualizarDireccion/" + id;
+//muestra el formulario con los datos de un proveedor al cual se le editará
+function mostrarModalParaEditarUnProveedor(id) {
+    var ruta = "/editarProveedor/modificar/" + id;
     var metodo = "GET";
     $.ajax({
-        type: metodo,
-        url: ruta,
-        dataType: "html",
-        success : function(result){
-            showInModal("modal3",result);//verificar si funciona con modal2
+        type      : metodo,
+        url       : ruta,
+        dataType  : "html",
+        success   : function(result){
+            showInModal("modal3",result);
+        }
+    });
+}
+
+//muestra modal para confirmar si quiero guardar los cambios realizados en los datos del proveedo
+function mostrarModalParaConfirmarCambiosEnDatosDelProveedor(id) {
+    var ruta = "/editarProveedor/modificar/confirmarCambiosDatosProveedor/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal4", result);
+        }
+    });
+}
+
+function recuperarDatosParaActualizarProveedor() {
+    return{
+        nombre          : valorDe("altaProveedor-nombre"),
+        apellido        : valorDe("altaProveedor-apellido"),
+        razonSocial     : valorDe("altaProveedor-razonSocial"),
+        cuit_cuil       : valorDe("altaProveedor-cuit_cuil")
+    }
+}
+//muestra el modal que se realizó la actualización de datos del proveedor
+function mostrarModalConfirmacionDatosActualizadosEnProveedor(id) {
+    var datosProveedor = recuperarDatosParaActualizarProveedor();
+    var ruta = "/editarProveedor/modificar/confirmacionCambiosDatosProveedor/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type      : metodo,
+        url       : ruta,
+        dataType  : "html",
+        data      : datosProveedor,
+        success   : function(result){
+            showInModal("modal5",result);
+            mostrarModalEditarProveedores();
+        }
+    });
+}
+
+//muestra un modal para confirmar si quiero editar la direccion del proveedor
+function mostrarModalParaConfirmarEditarDireccionDelProveedor(id) {
+    var ruta = "/editarProveedor/modificar/confirmarEditarDireccionProveedor/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal4", result);
+        }
+    });
+}
+
+//muestra el formulario con los datos de la direccion al cual se le editará
+function mostrarModalCambiarDireccionDelProveedor(id) {
+    var ruta = "/editarProveedor/modificar/actualizarDireccion/" + id;
+    var metodo = "GET";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        dataType : "html",
+        success  : function(result){
+            showInModal("modal5",result);
+        }
+    });
+}
+
+//muestra modal para confirmar si quiero actualizar los datos de la direccion del proveedor
+function mostrarModalConfirmarCambiosEnDireccionProveedor(id) {
+    var ruta = "/editarProveedor/modificar/confirmarActualizarDireccion/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        dataType : "html",
+        success  : function(result){
+            showInModal("modal6",result);
         }
     });
 }
@@ -153,23 +241,38 @@ function recuperarDatosDireccion() {
         ciudad          : $("#altaProveedor-ciudad option:selected").val()
     }
 }
+
+//muestra un modal que confirma que los datos actualizados de la direccion del proveedor se guardaron correctamente
 function mostrarModalConfirmacionCambioDireccionProveedor(id) {
     var datosDireccion = recuperarDatosDireccion();
-    var ruta = "/editarProveedor/actualizarDireccion/" + id;
+    var ruta = "/editarProveedor/modificar/actualizacionDireccion/" + id;
     var metodo = "POST";
     $.ajax({
-        type: metodo,
-        url: ruta,
-        dataType: "html",
+        type     : metodo,
+        url      : ruta,
+        dataType : "html",
         data     : datosDireccion,
-        success : function(result){
-            showInModal("modal3",result);//verificar si funciona con modal2
-            mostrarModalCambiarDireccionDelProveedor(id);
+        success  : function(result){
+            showInModal("modal7",result);
         }
     });
 }
 
+/////////////////////////////////////
 //Dar de baja proveedor
+/////////////////////////////////////
+function mostrarModalParaConfirmarBajaDeUnProveedor(id) {
+    var ruta = "/editarProveedor/confirmarBajaProveedor/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
 function darDeBajaProveedor(id) {
     var ruta = "/editarproveedor/darDeBaja/"+id;
     var metodo = "DELETE";
@@ -178,13 +281,15 @@ function darDeBajaProveedor(id) {
         url      : ruta,
         datatype : "html",
         success  : function (result) {
-            showInModal("modal2", result);
+            showInModal("modal3", result);
             mostrarModalEditarProveedores();
         }
     });
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //funcion que habilita un select despues de seleccionar un option en otro select
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $('#altaProveedor-pais').change(function(){
     $('#altaProveedor-provincia').removeAttr('disabled');
     filterSelectOptions($("#altaProveedor-provincia"), "data-attribute", $(this).val());
