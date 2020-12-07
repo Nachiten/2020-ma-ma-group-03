@@ -2,7 +2,7 @@
 <div class="asociarOperaciones">
     <br>
     <br>
-    <form action="" method="post" >
+    <form action="javascript:void(0)" method="post" >
     <center>
 
         <h3>VINCULACION DE OPERACIONES</h3>
@@ -22,11 +22,11 @@
 
     </center>
     <center>
-        <button type="submit">Ejecutar Vinculación</button>
+        <button type="submit" onclick="mostrarModalEjecucionVinculacion()"> Ejecutar Vinculación</button>
     </center>
     </form>
-    
 </div>
+<script src="/js/operacionesComunes.js"></script>
 <link rel="stylesheet" href="/css/estiloAsociaroperaciones.css" />
 {{/partial}}
 {{>principalStandar.hbs}}

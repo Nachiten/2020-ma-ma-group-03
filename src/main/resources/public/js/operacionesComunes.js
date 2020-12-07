@@ -68,3 +68,16 @@ function datosDeTablaPorNombreDeClase(nombreClase) {
 
     return nombresItemsValores;
 }
+
+function mostrarModalEjecucionVinculacion(){
+    var ruta = "/asociarOperacion";
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
