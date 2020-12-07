@@ -17,7 +17,11 @@
                     {{#each categorias}}
                         <tr>
                             <td>{{nombreCategoria}}</td>
-                            <td>{{descripcion}}</td>
+                            {{#if descripcion}}
+                                <td> {{descripcion}} </td>
+                            {{else}}
+                                <td>No hay datos </td>
+                            {{/if}}
                         </tr>
                     {{/each}}
                     </tbody>

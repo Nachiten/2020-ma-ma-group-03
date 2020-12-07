@@ -80,6 +80,9 @@ public class Router {
         Spark.post("/egresos", egresosController::guardarOperacionDeEgreso, Router.engine);
         Spark.post("/egresos/proveedor", egresosController::verDetalleProveedor, Router.engine);
         Spark.post("/egresos/detalle/:id", egresosController::verDetalleEgreso, Router.engine);
+        Spark.post("/egresos/nuevasCategorias/:id", egresosController::asociarNuevasCategorias, Router.engine);
+        Spark.post("/egresos/categoriasNuevas/:id", egresosController::actualizarCategorias, Router.engine);
+
         Spark.post("/egresos/items/:id", egresosController::verItemsEgreso, Router.engine);
         Spark.post("/egresos/categorias/:id", egresosController::verCategoriasEgreso, Router.engine);
         Spark.post("/egresos/revisores/:id", egresosController::verRevisores, Router.engine);

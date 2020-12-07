@@ -577,7 +577,15 @@ public class PersistenciaDatosPruebaTest {
     }
 
     @Test
-    public void t3_persitirPresupuestos(){
+    public void t3_persistirUsuariosEstandar(){
+        persistirUnObjeto(usuarioA);
+        persistirUnObjeto(usuarioB);
+        persistirUnObjeto(usuarioC);
+        persistirUnObjeto(usuarioAdmin);
+    }
+
+    @Test
+    public void t4_persitirPresupuestos(){
         persistirUnObjeto(presupuestoCorralonLaprida);
         persistirUnObjeto(presupuestoCorralonSanJuan);
         persistirUnObjeto(presupuestoGarbarino);
@@ -585,14 +593,6 @@ public class PersistenciaDatosPruebaTest {
         persistirUnObjeto(presupuestoPintureriasRex);
         persistirUnObjeto(presupuestoPintureriasSanJorge);
         persistirUnObjeto(presupuestoPintureriasSerrentino);
-    }
-
-    @Test
-    public void t4_persistirUsuariosEstandar(){
-        persistirUnObjeto(usuarioA);
-        persistirUnObjeto(usuarioB);
-        persistirUnObjeto(usuarioC);
-        persistirUnObjeto(usuarioAdmin);
     }
 
     @Test

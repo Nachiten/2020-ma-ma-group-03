@@ -1,0 +1,73 @@
+{{#partial "contenido"}}
+
+    <div class="modal-agregar-presupuesto">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 id="tituloModal" class="modal-title">
+                        ASOCIAR CATEGORIAS A EGRESO
+                    </h1>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <table class= "formulario" border = 0 >
+                            <tr>
+                                <td>Número de operación de egreso: {{id}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Monto: {{monto}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                        <table class= "formulario3" border = "0">
+                            <td>Asociar categorías:</td>
+                            <td></td>
+                            <!-- TR = Fila | TD = Columna-->
+                            <tr>
+                                <td>
+                                    {{#each criterios}}
+                                        <p>Criterio {{nombre}}:</p>
+                                        {{#each listaCategoriaCriterio}}
+                                            <input type="checkbox" name="{{nombreCategoria}}" class="categoria" value="1"> {{nombreCategoria}}<br>
+                                        {{/each}}
+                                        <br>
+                                    {{/each}}
+                                </td>
+
+                                <td>
+                                    {{#each criterios2}}
+                                        <p>Criterio {{nombre}}:</p>
+                                        {{#each listaCategoriaCriterio}}
+                                            <input type="checkbox" name="{{nombreCategoria}}" class="categoria" value="1"> {{nombreCategoria}}<br>
+                                        {{/each}}
+                                        <br>
+                                    {{/each}}
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal" > Cancelar </button>
+                        <button type="submit" class="botonGuardar" onclick="mostrarModalAsociacionCategoriasNuevas({{id}})"> Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/formatoDeTabla.js"></script>
+    <script src="/js/operacionesComunes.js"></script>
+    <script src="/js/egreso.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="/css/estiloPresupuestos.css" />
+    <link rel="stylesheet" href="/css/modalVarios.css" />
+
+{{/partial}}
+{{>principalStandar.hbs}}

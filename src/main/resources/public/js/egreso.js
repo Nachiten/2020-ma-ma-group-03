@@ -35,6 +35,31 @@ function mostrarModalGuardadoEgreso() {
     });
 }
 
+function mostrarModalAsociacionCategoriasNuevas(id){
+
+    var datos = recuperarCategoriasNuevas();
+
+    var ruta = "/egresos/categoriasNuevas/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        data     : datos,
+        success : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+
+
+function recuperarCategoriasNuevas(){
+    return {
+        nombresCategorias: datosNombresCategorias()
+    }
+}
+
 
 
 /*
@@ -92,6 +117,21 @@ function mostrarDetallesEgreso(id) {
 
     //acá yo le digo che loco, hace un post sobre tal ruta!
     var ruta = "/egresos/detalle/" + id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal", result);
+        }
+    });
+}
+
+function asociarNuevasCategorias(id) {
+
+    //acá yo le digo che loco, hace un post sobre tal ruta!
+    var ruta = "/egresos/nuevasCategorias/" + id;
     var metodo = "POST";
     $.ajax({
         type     : metodo,

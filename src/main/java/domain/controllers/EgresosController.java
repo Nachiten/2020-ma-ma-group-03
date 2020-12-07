@@ -4,6 +4,7 @@ import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
+import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
@@ -22,8 +23,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 public class EgresosController {
 
@@ -103,6 +102,22 @@ public class EgresosController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleProveedor.hbs");
     }
 
+    public ModelAndView actualizarCategorias(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+        OperacionDeEgreso operacionDeEgreso = buscarOperacionDeEgreso(idOperacion);
+
+        List<CategoriaCriterio> categoriasCriterio = operadorController.obtenerListaCategoriaCriterio(request);
+
+        operacionDeEgreso.getListaCategoriaCriterio().clear();
+        operacionDeEgreso.getListaCategoriaCriterio().addAll(categoriasCriterio);
+
+        repoOperacionEgreso.modificar(operacionDeEgreso);
+
+        modalAndViewController.getParametros().put("mensaje", "Se actualizaron las categorías correctamente.");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo4.hbs");
+    }
+
     public void cargarCategorias(Request request, Response response){
         String criterioString = request.queryParams("criteriosCategoria");
 
@@ -146,6 +161,23 @@ public class EgresosController {
         modalAndViewController.getParametros().put("revisores", operacionDeEgreso.getRevisores());
 
         return new ModelAndView(modalAndViewController.getParametros(),"modalDetalleEgreso.hbs");
+    }
+
+    public ModelAndView asociarNuevasCategorias(Request request, Response response){
+
+        int idOperacion = Integer.parseInt(request.params("id"));
+
+        OperacionDeEgreso operacionDeEgreso = buscarOperacionDeEgreso(idOperacion);
+
+        List<Criterio> criterios = repoCriterio.buscarTodos();
+        List<Criterio> criterios2 = operadorController.quitarMitad(criterios);
+
+        modalAndViewController.getParametros().put("id", operacionDeEgreso.getIdOperacion());
+        modalAndViewController.getParametros().put("monto", operacionDeEgreso.getMontoTotal());
+        modalAndViewController.getParametros().put("criterios", criterios);
+        modalAndViewController.getParametros().put("criterios2", criterios2);
+
+        return new ModelAndView(modalAndViewController.getParametros(),"modalNuevasCategoriasEgreso.hbs");
     }
 
     public ModelAndView verItemsEgreso(Request request, Response response){
@@ -596,7 +628,5 @@ public class EgresosController {
         }
         return null;
     }
-
-
 }
 

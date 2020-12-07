@@ -119,6 +119,7 @@ public class PresupuestosController {
         presupuestoAGuardar.setDocumentoComercial(documentoComercial);
         presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
         presupuestoAGuardar.setItems(listaItems);
+        operacionEgresoAsociada.agregarPresupuesto(presupuestoAGuardar);
         presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
 
         if (operadorController.persistenciaNoValida(repoPresupuesto, presupuestoAGuardar)){
@@ -126,7 +127,10 @@ public class PresupuestosController {
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        // Se persisitio correctamente
+        repoPresupuesto.agregar(presupuestoAGuardar);
+        repoOperacionEgreso.modificar(operacionEgresoAsociada);
+        repoPresupuesto.modificar(presupuestoAGuardar);
+
         modalAndViewController.getParametros().put("mensaje","Se guardó el presupuesto correctamente.");
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo4.hbs");
     }
