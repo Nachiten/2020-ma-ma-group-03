@@ -35,7 +35,22 @@ button {
     font-weight: 200;
 }
 
-button:hover {
+button:disabled,
+button[disabled]{
+    background: #8e8c8b;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.3em;
+    padding: 0.5em 0.5em;
+    font-size: 20px;
+    cursor:pointer;
+    border-radius: 10px 10px;
+    color:white;
+    font-weight: 200;
+}
+
+button:hover{
     color: #0374ce;
     background-color: #ffffff;
 }

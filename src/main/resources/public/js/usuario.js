@@ -48,6 +48,7 @@ function recuperarDatosFormularioCriterio (){
     }
 }
 
+/*
 //habilitar input para cambiar contraseña
 var cambioContrasenia = document.getElementById('altaUsuarioPerfil-cambioContrasenia');
 var no_cambioContrasenia = document.getElementById('altaUsuarioPerfil-noCambioContrasenia');
@@ -58,7 +59,7 @@ function cambiarHabilitacionInputContrasenia() {
 }
 cambioContrasenia.addEventListener('change', cambiarHabilitacionInputContrasenia);
 no_cambioContrasenia.addEventListener('change', cambiarHabilitacionInputContrasenia);
-
+*/
 
 function recuperarDatosFormularioPerfil(){
     return {
