@@ -20,7 +20,6 @@ public class AccionesEnProveedoresController {
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
 
-
     public AccionesEnProveedoresController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
 
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
@@ -29,7 +28,6 @@ public class AccionesEnProveedoresController {
         this.respoPaises = FactoryRepositorio.get(Pais.class);
         this.repoProvincias = FactoryRepositorio.get(Estado.class);
         this.repoCiudades =FactoryRepositorio.get(Ciudad.class);
-
     }
 
     private ModelAndView modalAndViewAccionesProveedores() {
@@ -224,9 +222,7 @@ public class AccionesEnProveedoresController {
                 modalAndViewController.getParametros().put("provinciaProveedor", provinciaProveedor.getName());
                 modalAndViewController.getParametros().put("ciudadProveedor", ciudadProveedor.getName());
             }
-
         }
-
     }
 
     private ModelAndView modalAndViewEditarUnProveedor(Request request) {
@@ -240,9 +236,7 @@ public class AccionesEnProveedoresController {
         modalAndViewController.getParametros().put("cuil", proveedorAEditar.getCuit());
 
         DireccionPostal direccionPostalproveedor = proveedorAEditar.getDireccionPostal();
-
         verificarSiTieneDireccionPostal(direccionPostalproveedor);
-
         return new ModelAndView(modalAndViewController.getParametros(), "modalDatosAEditarDeUnProveedor.hbs");
     }
 
