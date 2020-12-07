@@ -68,8 +68,10 @@ public class EntidadJuridica extends EntidadPersistente {
         this.codigoInscripcionDefinitiva = codigoInscripcionDefinitiva;
         this.tipoEntidadJuridica = tipoEntidadJuridica;
 
+
         inicializar();
     }
+
 
     //-------------------------------------------------------------------------
                             //METODOS

@@ -30,7 +30,6 @@ public class Empresa extends TipoEntidadJuridica {
         this.sector = sector;
         this.promedioVentasAnuales = promedioVentasAnuales;
         this.cantidadPersonal = cantidadPersonal;
-        super.nombreFicticio = nombreFicticio;
         calcularCategoria();
     }
 

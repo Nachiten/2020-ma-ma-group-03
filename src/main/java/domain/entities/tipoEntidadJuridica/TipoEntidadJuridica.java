@@ -10,6 +10,5 @@ public abstract class TipoEntidadJuridica {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
 
-    @Column(name = "nombreFicticio")
-    public String nombreFicticio;
+
 }

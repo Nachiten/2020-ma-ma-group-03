@@ -79,12 +79,13 @@ public class OperacionDeIngreso  {
         inicializar();
     }
 
-    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha, LocalDate periodoAceptable,EntidadJuridica entidadJuridica) {
+    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha, LocalDate periodoAceptable,EntidadJuridica entidadJuridica,Moneda moneda) {
         this.descripcion = descripcion;
         this.montoTotal = montoTotal;
         this.fecha = fecha;
         this.periodoAceptacion = periodoAceptable;
         this.entidadJuridicaAsociada = entidadJuridica;
+        this.moneda = moneda;
         inicializar();
     }
 

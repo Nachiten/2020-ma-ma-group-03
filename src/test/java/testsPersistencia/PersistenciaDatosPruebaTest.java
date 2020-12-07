@@ -262,7 +262,9 @@ public class PersistenciaDatosPruebaTest {
     static private Estado londres;
     static private Estado ciudadDeMexico;
 
-
+     // Moneda
+    static private Moneda pesosArgentinos;
+    static private Repositorio<Moneda> repoMoneda;
 
     @BeforeClass
     public static void init() {
@@ -273,6 +275,7 @@ public class PersistenciaDatosPruebaTest {
         repoPaises = FactoryRepositorio.get(Pais.class);
         repoProvincias = FactoryRepositorio.get(Estado.class);
         repoCiudades = FactoryRepositorio.get(Ciudad.class);
+        repoMoneda = FactoryRepositorio.get(Moneda.class);
 
         //PAISES
         argentina = repoPaises.buscar("AR");
@@ -301,6 +304,9 @@ public class PersistenciaDatosPruebaTest {
         direccionPostalMexico = new DireccionPostal(direccionRobertoGayol, "",ciudadDeMexico, mexico);
         direccionPostalPalermo = new DireccionPostal(direccionJeronimoSalguero,"Palermo", buenosAires, argentina,ciudadAutonomaBSAS);
 
+        // MONEDA
+        pesosArgentinos = repoMoneda.buscar("ARS");
+
         //SECTOR
         sectorConstruccion = new Sector("Construccion");
         sectorAlojamiento = new Sector("Alojamiento");
@@ -327,12 +333,14 @@ public class PersistenciaDatosPruebaTest {
         tipoEntidadJuridica4 = new Empresa(sectorConstruccion,8000000,8);
         //ENTIDADES JURIDICAS
 
-        entidadJuridicaEAAFBA = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Buenos Aires" ,"EAAF BA","30-15269857-2", direccionPostalAlmagro,"ABCD-LO",tipoEntidadJuridica1);
-        entidadJuridicaEAAFNY = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Nueva York" ,"EAAF NY","30-15789655-7", direccionPostalReinoUnido,"AKPQ-LO",tipoEntidadJuridica2);
-        entidadJuridicaEAAFM = new EntidadJuridica("Equipo Argentino de Antropología Forense - EAAF","Oficina Central Mexico" ,"EAAF M","30-77896583-9", direccionPostalMexico,"DDN-TP",tipoEntidadJuridica3);
-        entidadJuridicaSurcosCS = new EntidadJuridica("Colectivo de Derechos de Infancia y Adolescencia - CDIA","Surcos " ,"Surcos CS","30-25888897-8", direccionPostalPalermo,"ABK-LO",tipoEntidadJuridica4);
+        String nombreEntidadJuridicaEAAF = "Equipo Argentino de Antropología Forense - EAAF";
+        String nombreEntidadJuridicaCDIA = "Colectivo de Derechos de Infancia y Adolescencia - CDIA";
+        entidadJuridicaEAAFBA = new EntidadJuridica(nombreEntidadJuridicaEAAF,"Oficina Central Buenos Aires" ,"EAAF BA","30-15269857-2", direccionPostalAlmagro,"ABCD-LO",tipoEntidadJuridica1);
+        entidadJuridicaEAAFNY = new EntidadJuridica(nombreEntidadJuridicaEAAF,"Oficina Central Nueva York" ,"EAAF NY","30-15789655-7", direccionPostalReinoUnido,"AKPQ-LO",tipoEntidadJuridica2);
+        entidadJuridicaEAAFM = new EntidadJuridica(nombreEntidadJuridicaEAAF,"Oficina Central Mexico" ,"EAAF M","30-77896583-9", direccionPostalMexico,"DDN-TP",tipoEntidadJuridica3);
+        entidadJuridicaSurcosCS = new EntidadJuridica(nombreEntidadJuridicaCDIA,"Surcos " ,"Surcos CS","30-25888897-8", direccionPostalPalermo,"ABK-LO",tipoEntidadJuridica4);
         //ENTIDADES BASE
-        entidadBaseAndhes = new EntidadBase("Colectivo de Derechos de Infancia y Adolescencia - CDIA","Andhes");
+        entidadBaseAndhes = new EntidadBase(nombreEntidadJuridicaCDIA,"Andhes");
         entidadBaseAndhes.asociarEntidadJuridica(entidadJuridicaSurcosCS);
         //INSTANCIAS DE USUARIOS
 
@@ -481,10 +489,10 @@ public class PersistenciaDatosPruebaTest {
         presupuestoCorralonLaprida = new Presupuesto(207708,listaDeItemsDeCorralonLaprida,null,LocalDate.of(2020,9,15),proveedorCorralonLaprida,entidadJuridicaEAAFBA);
 
 
-        ingresoDonacionDeTerceros = new OperacionDeIngreso("Donacion de terceros",20000, LocalDate.of(2020,2,25),LocalDate.of(2020,3,20),entidadJuridicaEAAFBA);
-        ingresoDonacionDeRimoliSA = new OperacionDeIngreso("Donacion de Rimoli SA",10000,LocalDate.of(2020,5,2),LocalDate.of(2020,8,3),entidadJuridicaEAAFBA);
-        ingresoDonacionGranImperio = new OperacionDeIngreso("Donacion de Gran Imperio",980000,LocalDate.of(2020,8,3),LocalDate.of(2020,10,1),entidadJuridicaEAAFBA);
-        ingresoDonacionGabinoSRL = new OperacionDeIngreso("Donacion Gabino SRL",10000,LocalDate.of(2020,5,1),LocalDate.of(2020,10,1),entidadJuridicaSurcosCS);
+        ingresoDonacionDeTerceros = new OperacionDeIngreso("Donacion de terceros",20000, LocalDate.of(2020,2,25),LocalDate.of(2020,3,20),entidadJuridicaEAAFBA,pesosArgentinos);
+        ingresoDonacionDeRimoliSA = new OperacionDeIngreso("Donacion de Rimoli SA",10000,LocalDate.of(2020,5,2),LocalDate.of(2020,8,3),entidadJuridicaEAAFBA,pesosArgentinos);
+        ingresoDonacionGranImperio = new OperacionDeIngreso("Donacion de Gran Imperio",980000,LocalDate.of(2020,8,3),LocalDate.of(2020,10,1),entidadJuridicaEAAFBA,pesosArgentinos);
+        ingresoDonacionGabinoSRL = new OperacionDeIngreso("Donacion Gabino SRL",10000,LocalDate.of(2020,5,1),LocalDate.of(2020,10,1),entidadJuridicaSurcosCS,pesosArgentinos);
 
         //CATEGORIAS PARA OPERACIONES DE EGRESO
         listaCategoriaOperacionDeEgreso1 = new ArrayList<>(Arrays.asList(categoriaFachada,categoriaInterior,categoriaHumedad));
@@ -509,6 +517,26 @@ public class PersistenciaDatosPruebaTest {
        operacionDeEgreso8 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8,entidadJuridicaSurcosCS,proveedorEdesur);
        operacionDeEgreso9 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS,proveedorMetrogas);
        operacionDeEgreso10 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS,proveedorTelasZN);
+
+       // SE AGREGA OPERACIONES DE INGRESO A ENTIDADES JURIDICAS
+        entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeTerceros);
+        entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeRimoliSA);
+        entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionGranImperio);
+
+        entidadJuridicaSurcosCS.agregarOperacionDeIngresoAsociada(ingresoDonacionGabinoSRL);
+
+        // SE AGREGAN OPERACIONES DE EGRESO A ENTIDADES JURIDICAS
+        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso1);
+        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso2);
+        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso3);
+        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso4);
+        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso5);
+        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso6);
+        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso7);
+
+        entidadJuridicaSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso8);
+        entidadJuridicaSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso9);
+        entidadJuridicaSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso10);
 
     }
 
