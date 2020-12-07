@@ -78,9 +78,11 @@ public class OperadorController {
             String unaCantidadString = cantidades[i];
 
             float unPrecio = Float.parseFloat(unPrecioString);
-            int cantidad = Integer.parseInt(unaCantidadString);
+            float cantidad = Float.parseFloat(unaCantidadString);
 
-            Item miItem = new Item(TipoItem.PRODUCTO, unNombre, unPrecio, cantidad);
+            int cantidadDeItem = Math.round(cantidad);
+
+            Item miItem = new Item(TipoItem.PRODUCTO, unNombre, unPrecio, cantidadDeItem);
 
             items.add(miItem);
         }

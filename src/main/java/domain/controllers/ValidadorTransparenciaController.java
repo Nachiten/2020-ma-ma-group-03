@@ -38,6 +38,16 @@ public class ValidadorTransparenciaController {
         String sabado = request.queryParams("sabado");
         String domingo = request.queryParams("domingo");
 
+        if(lunes.equals("-1") && martes.equals("-1") && miercoles.equals("-1") && jueves.equals("-1") && viernes.equals("-1") && sabado.equals("-1") && domingo.equals("-1")){
+            modalAndViewController.getParametros().put("mensaje","Se debe seleccionar algún día y horario.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        if(lunes.equals("Seleccionar horario") || martes.equals("Seleccionar horario") || miercoles.equals("Seleccionar horario") || jueves.equals("Seleccionar horario") || viernes.equals("Seleccionar horario") || sabado.equals("Seleccionar horario") || domingo.equals("Seleccionar horario")){
+            modalAndViewController.getParametros().put("mensaje","Se debe seleccionar algún día y horario.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
         try{
             List<OperacionDeEgreso> operacionesDeEgreso = repoOperacionEgreso.buscarTodos();
 

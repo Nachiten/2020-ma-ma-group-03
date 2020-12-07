@@ -15,6 +15,7 @@
                         <th>Monto</th>
                         <th>Detalle</th>
                         <th>Archivo</th>
+                        <th>Descargar Documento</th>
 
                     </tr>
                     </thead>
@@ -29,7 +30,21 @@
                                 <button type="button" onclick="mostrarDetallesEgreso({{idOperacion}})" > Detalle</button>
                             </td>
                             <td>
-                                <button type="button" onclick="adjuntarArchivoAEgreso()" > Adjuntar</button>
+                                <form method="post" enctype="multipart/form-data" action="javascript:void(0)" id="formularioArchivo{{idOperacion}}">
+                                    <input type="file" name="documentoSubido" id="{{idOperacion}}">
+                                    <input type="hidden" name="idOperacion" id="idOperacion" value="{{idOperacion}}">
+                                    <button type="button" onclick="subirDocumento({{idOperacion}})">Adjuntar</button>
+                                </form>
+                            </td>
+                            <td>
+                                {{#if hayDocumentoGuardado}}
+                                    <form method="post" enctype="multipart/form-data" action="/descargarDocumentoEgreso">
+                                        <input type="hidden" name="idOperacion" id="idOperacion" value="{{idOperacion}}">
+                                        <button>Descargar</button>
+                                    </form>
+                                {{else}}
+                                    <p>No hay documento guardado</p>
+                                {{/if}}
                             </td>
                         </tr>
                     {{/each}}

@@ -10,6 +10,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +38,11 @@ public class PresupuestosController {
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
         List<Criterio> criterios = this.repoCriterio.buscarTodos();
         List<Criterio> criterios2 = operadorController.quitarMitad(criterios);
+        List<OperacionDeEgreso> operacionesQueRequierenPresupuestos = operacionesQueRequierenPresupuestos(operacionesEgreso);
 
-        modalAndViewController.getParametros().put("operacionesEgreso", operacionesEgreso);
+        modalAndViewController.getParametros().put("operacionesEgreso", operacionesQueRequierenPresupuestos);
         modalAndViewController.getParametros().put("tiposDocumentoComercial", tiposDocumentoComercial);
-        modalAndViewController.getParametros().put("mostrarPaginaCriterios", criterios);
+        modalAndViewController.getParametros().put("criterios", criterios);
         modalAndViewController.getParametros().put("criterios2", criterios2);
 
         return new ModelAndView(modalAndViewController.getParametros(), "presupuestos.hbs");
@@ -52,6 +54,7 @@ public class PresupuestosController {
 
     public ModelAndView guardarPresupuesto(Request request, Response response){
         // Leo query params
+        String fechaString = request.queryParams("fecha");
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
         String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
         String operacionEgresoString = request.queryParams("operacionEgreso");
@@ -61,32 +64,41 @@ public class PresupuestosController {
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
+        if(fechaString.equals("")){
+            modalAndViewController.getParametros().put("mensaje","Se debe elegir una fecha.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
+
+
         if (operadorController.noEligioDocumentoComercial(tipoDocumentoComercialString)){
             // No se inserto documento comercial
             modalAndViewController.getParametros().put("mensaje", "No se inserto documento comercial.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
+        if (numeroDocumentoComercialString.equals("")){
+
+            modalAndViewController.getParametros().put("mensaje", "No se inserto número de documento comercial.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
         // Leo operacion de egreso asociada
         OperacionDeEgreso operacionEgresoAsociada = buscarOperacionEgreso(operacionEgresoString);
 
+        LocalDate fecha = operadorController.convertirAFecha(fechaString);
+
         // Leo todos los items
         List<Item> listaItems = operadorController.obtenerListaItems(request);
+
+        if(listaItems.size() == 0){
+            modalAndViewController.getParametros().put("mensaje", "Se debe elegir algún item.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
 
         if (operacionEgresoAsociada == null){
             modalAndViewController.getParametros().put("mensaje", "Error al leer la operacion de egreso.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
-
-        if (!listasDeItemsIguales(listaItems, operacionEgresoAsociada.getItems())){
-            // No se inserto documento comercial
-            modalAndViewController.getParametros().put("mensaje", "Los items del presupuesto deben ser iguales a los del egreso.");
-            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
-        }
-
-        // TODO | Problema, se crea una copia de los items cuando realmente presupuesto
-        //  y egreso deberian referenciar los mismositems
-        // listaItems = operacionEgresoAsociada.getItems();
 
         // Leo las categorias
         List<CategoriaCriterio> categoriasCriterio = operadorController.obtenerListaCategoriaCriterio(request);
@@ -102,6 +114,7 @@ public class PresupuestosController {
 
         Presupuesto presupuestoAGuardar = new Presupuesto();
 
+        presupuestoAGuardar.setFecha(fecha);
         presupuestoAGuardar.setMontoTotal(montoTotal);
         presupuestoAGuardar.setDocumentoComercial(documentoComercial);
         presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
@@ -114,8 +127,20 @@ public class PresupuestosController {
         }
 
         // Se persisitio correctamente
-        modalAndViewController.getParametros().put("mensaje","Los datos se guardaron correctamente.");
-        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        modalAndViewController.getParametros().put("mensaje","Se guardó el presupuesto correctamente.");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo4.hbs");
+    }
+
+    private List<OperacionDeEgreso> operacionesQueRequierenPresupuestos(List<OperacionDeEgreso> operacionesDeEgresos){
+
+        List<OperacionDeEgreso> operacionesQueRequierenPresupuestos = new ArrayList<>();
+
+        for(OperacionDeEgreso operacion : operacionesDeEgresos){
+            if(operacion.getCantidadPresupuestosRequerida() > operacion.getPresupuestos().size()){
+                operacionesQueRequierenPresupuestos.add(operacion);
+            }
+        }
+        return operacionesQueRequierenPresupuestos;
     }
 
     public ModelAndView verDetalleProveedor(Request request, Response response){
@@ -219,7 +244,7 @@ public class PresupuestosController {
     }
 
     private boolean noEligioOperacionEgreso(String operacionEgresoString){
-        return operacionEgresoString.equals("-Seleccionar una operacion de egreso-");
+        return operacionEgresoString.equals("Seleccionar una operacion de egreso");
     }
 
     private boolean listasDeItemsIguales(List<Item> itemsPresupuesto, List<Item> itemsEgreso){

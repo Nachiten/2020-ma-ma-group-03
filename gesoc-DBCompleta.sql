@@ -533,6 +533,7 @@ CREATE TABLE `operaciondeegreso` (
   `operacionDeIngreso_id` int(11) DEFAULT NULL,
   `proveedorAsociado_id` int(11) DEFAULT NULL,
   `usuario_id` int(11) NOT NULL,
+  `hayDocumentoGuardado` bit(1) DEFAULT 0,
   PRIMARY KEY (`idOperacion`),
   KEY `FK_bscxh0d93nc9mm8e4355pysdy` (`documentoComercial_id`),
   KEY `FK_h4fe685v7j11p4wy7nr7teeia` (`entidadJuridicaAsociada_id`),

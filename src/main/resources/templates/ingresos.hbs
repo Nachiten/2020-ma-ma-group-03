@@ -29,8 +29,8 @@
 			  <tr>
 	             <td><label>Moneda: </label></td>
 	             <td>
-                     <select name="moneda" id="alta-moneda" required>
-                         <option hidden selected>-Seleccionar moneda-</option>
+                     <select name="moneda" id="alta-moneda">
+                         <option hidden selected>Seleccionar moneda</option>
                          {{#each monedas}}
                          <option>{{id}} - {{description}}</option>
                          {{/each}}
@@ -40,7 +40,7 @@
 
 	          <tr>
 	            <td><label>Descripción: </label></td>
-	            <td><input type="text" name="descripcion" id="alta-descripcion" placeholder="Ingrese la descripción" required></td>
+	            <td><input type="text" name="descripcion" id="alta-descripcion" placeholder="Ingrese la descripción"></td>
 	          </tr>
 
 	        </table>

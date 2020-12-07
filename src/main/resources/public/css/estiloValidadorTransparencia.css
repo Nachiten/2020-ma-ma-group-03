@@ -45,3 +45,13 @@ td{
     border-radius: 5px 5px;
     border: 0;
 }
+
+.validadorTransparencia select{
+    font-size: 20px;
+    border-radius: 5px 5px;
+    border: 0;
+}
+
+input[type=checkbox]{
+    margin-right: 5px;
+}

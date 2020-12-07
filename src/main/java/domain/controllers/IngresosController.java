@@ -55,16 +55,21 @@ public class IngresosController {
 
         Map<String, Object> model = new HashMap<>();
 
-        // No se eligio una moneda
-        if (validarVacio(monedaString)){
-            model.put("mensaje","No seleccionaste una moneda.");
-            return new ModelAndView(model,"modalInformativo2.hbs");
+        if(descripcion.equals("")){
+            model.put("mensaje", "Se debe ingresar una descripción.");
+            return new ModelAndView(model, "modalInformativo2.hbs");
         }
+
 
         //se convierte el string fecha a formato fecha
         LocalDate fecha = operadorController.convertirAFecha(fechaString);
         LocalDate fechaPeriodoAceptacion = operadorController.convertirAFecha(periodoDeAceptacionString);
         float monto = Float.parseFloat(montoString);
+
+        if(fecha.isAfter(fechaPeriodoAceptacion)){
+            model.put("mensaje", "Se ingresó una fecha de aceptación anterior a la de la operación de ingreso, ingrese una fecha posterior.");
+            return new ModelAndView(model, "modalInformativo2.hbs");
+        }
 
         //se convierte el string moneda a tipo moneda
         Moneda monedaElegida = buscarMoneda(monedaString);
@@ -82,7 +87,7 @@ public class IngresosController {
         }
 
         model.put("mensaje","Los datos se guardaron correctamente.");
-        return new ModelAndView(model,"modalInformativo2.hbs");
+        return new ModelAndView(model,"modalInformativo4.hbs");
     }
 
 

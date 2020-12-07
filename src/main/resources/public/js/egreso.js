@@ -10,7 +10,7 @@ function mostrarModalGuardadoEgreso() {
     datos.append( 'preciosItems', datosDeTablaPorNombreDeClase(".precioItem") );
     datos.append( 'nombresItems', datosDeTablaPorNombreDeClase(".nombreItem") );
     datos.append( 'cantidadesItems', datosDeTablaPorNombreDeClase(".cantidadItem") );
-    datos.append( 'nombresCategorias', datosNombresCategorias() );
+    datos.append( 'nombresCatego rias', datosNombresCategorias() );
 
     /*
     if (esVacio(datos.fecha) || esVacio(datos.numeroMedioDePago) ||
@@ -34,6 +34,8 @@ function mostrarModalGuardadoEgreso() {
         }
     });
 }
+
+
 
 /*
 function recuperarDatosFormularioEgresos(){
@@ -115,6 +117,22 @@ function subirDocumento(idOperacion){
         processData: false,
         success  : function (result) {
             showInModal("modal", result);
+            // TODO | Se debe actualizar la pagina
+            //recargarPaginaLuegoDeSubidoDocumento();
+        }
+    });
+}
+
+function recargarPaginaLuegoDeSubidoDocumento() {
+    var ruta = "/hola";
+    var metodo = "GET";
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success : function(result){
+            console.log("hola");
+            showInModal("modal3", result);
         }
     });
 }
@@ -177,8 +195,4 @@ function mostrarPresupuestosEgreso(id) {
             showInModal("modal", result);
         }
     });
-}
-
-function adjuntarArchivoAEgreso(){
-    console.log("Tratando de adjuntar archivo");
 }

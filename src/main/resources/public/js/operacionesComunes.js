@@ -22,11 +22,13 @@ function showInModal(unModal, unContenido){
 
 function recuperarDatosFormularioPresupuesto(){
     return {
+        fecha: valorDe("alta-fecha"),
         documentoComercial: valorDe("alta-tipoDocumentoComercial"),
         numeroDocumentoComercial: valorDe("alta-numeroDocumentoComercial"),
         operacionEgreso: valorDe("alta-operacionEgreso"),
         preciosItems: datosDeTablaPorNombreDeClase(".precioItem"),
         nombresItems: datosDeTablaPorNombreDeClase(".nombreItem"),
+        cantidadesItems: datosDeTablaPorNombreDeClase(".cantidadItem"),
         nombresCategorias: datosNombresCategorias()
     };
 }
