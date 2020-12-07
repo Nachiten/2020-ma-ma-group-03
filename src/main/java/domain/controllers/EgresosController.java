@@ -433,11 +433,8 @@ public class EgresosController {
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
         }
 
-        //response.redirect("/listadoOperaciones");
-        //return new ModelAndView(response,"modalInformativo2.hbs");
-
         modalAndViewController.getParametros().put("mensaje", "El archivo se subio correctamente");
-        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativoConfirmacionSubidaArchivo.hbs");
     }
 
     private void eliminarArchivoAnterior(String nombreArchivo) throws Exception {

@@ -40,11 +40,15 @@
                         <button type="button" onclick="mostrarDetallesEgreso({{idOperacion}})" > Detalle</button>
                     </td>
                     <td>
-                        <form method="post" enctype="multipart/form-data" action="javascript:void(0)" id="formularioArchivo{{idOperacion}}">
-                            <input type="file" name="documentoSubido" id="{{idOperacion}}">
-                            <input type="hidden" name="idOperacion" id="idOperacion" value="{{idOperacion}}">
-                            <button type="button" onclick="subirDocumento({{idOperacion}})">Adjuntar</button>
-                        </form>
+                        {{#if documentoComercial}}
+                            <form method="post" enctype="multipart/form-data" action="javascript:void(0)" id="formularioArchivo{{idOperacion}}">
+                                <input type="file" name="documentoSubido" id="{{idOperacion}}">
+                                <input type="hidden" name="idOperacion" id="idOperacion" value="{{idOperacion}}">
+                                <button type="button" onclick="subirDocumento({{idOperacion}})">Adjuntar</button>
+                            </form>
+                        {{else}}
+                            <p>No hay documento comercial asociado al egreso</p>
+                        {{/if}}
                     </td>
                     <td>
                         {{#if hayDocumentoGuardado}}
