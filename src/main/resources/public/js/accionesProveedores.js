@@ -126,18 +126,6 @@ function mostrarModalParaEditarUnProveedor(id) {
     });
 }
 
-function mostrarModalCambiarDireccionDelProveedor(id) {
-    var ruta = "/editarProveedor/actualizarDireccion/" + id;
-    var metodo = "GET";
-    $.ajax({
-        type: metodo,
-        url: ruta,
-        dataType: "html",
-        success : function(result){
-            showInModal("modal3",result);//verificar si funciona con modal2
-        }
-    });
-}
 
 function recuperarDatosDireccion() {
     return{
@@ -153,6 +141,20 @@ function recuperarDatosDireccion() {
         ciudad          : $("#altaProveedor-ciudad option:selected").val()
     }
 }
+
+function mostrarModalCambiarDireccionDelProveedor(id) {
+    var ruta = "/editarProveedor/actualizarDireccion/" + id;
+    var metodo = "GET";
+    $.ajax({
+        type: metodo,
+        url: ruta,
+        dataType: "html",
+        success : function(result){
+            showInModal("modal3",result);//verificar si funciona con modal2
+        }
+    });
+}
+
 function mostrarModalConfirmacionCambioDireccionProveedor(id) {
     var datosDireccion = recuperarDatosDireccion();
     var ruta = "/editarProveedor/actualizarDireccion/" + id;
