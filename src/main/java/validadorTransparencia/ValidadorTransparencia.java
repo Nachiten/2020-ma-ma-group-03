@@ -49,7 +49,7 @@ public class ValidadorTransparencia implements SchedulerFunction{
     }
 
     public void validarEgresos(){
-       operacionesDeEgresoAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
+        operacionesDeEgresoAValidar.stream().filter(this::validarEgreso).collect(Collectors.toList());
     }
 
     @Override

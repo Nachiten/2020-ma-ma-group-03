@@ -76,7 +76,8 @@ public class ValidadorTransparenciaController {
 
     public ModelAndView ejecutarValidadorDeTransparenciaAhora(Request request, Response response){
         try {
-            List<OperacionDeEgreso> operacionesDeEgreso = repoOperacionEgreso.buscarTodos();
+
+            List<OperacionDeEgreso> operacionesDeEgreso = modalAndViewController.getUsuario().getEntidadJuridica().getOperacionesDeEgreso();
 
             ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
             ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
