@@ -3,24 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>GESOC</title>
 
     <!-- Estilos CSS-->
     <link rel="stylesheet" type="text/css" href="/css/stylePantalla.css">
     <link rel="stylesheet" href="/css/formatoDeTabla.css" />
     <link rel="stylesheet" href="/css/modalVarios.css" />
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css">
 
     <!-- Imagenes-->
     <link rel="icon"   href="/img/e-commerce.png" type="image/png" />
 
     <!-- JS-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css">
+
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -30,7 +29,7 @@
     <script type="text/javascript" src="/js/usuario.js"></script>
 
   </head>
-  <body style="background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS_UbQYLp_IVyvhxcs6NaKxov5QJVOA0ebD8A&usqp=CAU);
+  <body style="background-image: url('/img/fondo.jpeg');
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -67,13 +66,10 @@
                   </div>
               <div class="bottom_nav">
                   <ul class="link">
-                      <li class="a"><a href="/altaUsuario">Alta usuario</a></li>
-                      <li class="b"><a href="/altaProveedor">Alta proveedor</a></li>
-                      <li class="c"><a href="/bajaUsuario">Baja usuario</a></li>
-                      <li class="d"><a href="/bajaProveedor">Baja proveedor</a></li>
-                      <li class="e"><a href="/criterios">Criterios</a></li>
-                      <li class="f"><a href="/altaEntidadJuridica">Alta Entidad Juridica</a></li>
-
+                      <li class="a"><a href="/accionesUsuarios">Usuarios</a></li>
+                      <li class="b"><a href="/accionesProveedores">Proveedores</a></li>
+                      <li class="c"><a href="/accionesEntidadesJuridicas">Entidades Jurídicas</a></li>
+                      <li class="d"><a href="/accionesCriterios">Criterios</a></li>
                   </ul>
               </div>
           </div>
@@ -82,6 +78,12 @@
               {{/block}}
           </div>
       </div>
-      <div id="modal" class="modal fade" role="dialog"></div>
+      <div id="modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="overflow-y: scroll;" ></div>
+      <div id="modal2" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="overflow-y: scroll;" ></div>
+      <div id="modal3" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="overflow-y: scroll;" ></div>
+      <div id="modal4" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="overflow-y: scroll;"></div>
+      <div id="modal5" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="overflow-y: scroll;"></div>
+      <div id="modal6" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="overflow-y: scroll;"></div>
+      <div id="modal7" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" ></div>
   </body>
 </html>
