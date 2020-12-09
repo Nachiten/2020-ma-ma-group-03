@@ -65,7 +65,7 @@ public class Router {
         Spark.get("/listadoOperaciones", asociacionOperacionesController::listadoOperaciones, Router.engine);
         Spark.get("/asociarOperacion", asociacionOperacionesController::asociarOperacion, Router.engine);
         Spark.get("/mensajes", mensajesController::mensajes, Router.engine);
-        Spark.post("/mensajes/:id",mensajesController::mostrarContenidoMensaje,Router.engine);
+        Spark.get("/mensajes/:id",mensajesController::mostrarContenidoMensaje,Router.engine);
 
         //Perfil de usuario estandar
         Spark.get("/editarPerfil",perfilUsuarioEstandarController::mostrarPaginaPerfilUsuarioEstandar,Router.engine);

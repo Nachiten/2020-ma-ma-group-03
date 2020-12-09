@@ -1,6 +1,6 @@
 function mostrarModalContenidoMensaje(id){
     var ruta = "/mensajes/"+id;
-    var metodo = "POST";
+    var metodo = "GET";
     $.ajax({
         type	: metodo,
         url 	: ruta,
