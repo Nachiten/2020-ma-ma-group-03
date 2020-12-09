@@ -1,6 +1,8 @@
 package domain.controllers;
 
 import domain.entities.operaciones.OperacionDeEgreso;
+import domain.entities.usuarios.Mensaje;
+import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -13,11 +15,11 @@ import java.util.*;
 public class ValidadorTransparenciaController {
 
     private ModalAndViewController modalAndViewController;
-    private Repositorio<OperacionDeEgreso> repoOperacionEgreso;
+    private Repositorio<Usuario> repoUsuarios;
 
     public ValidadorTransparenciaController(ModalAndViewController modalAndViewController) {
-        this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
         this.modalAndViewController = modalAndViewController;
+        this.repoUsuarios = FactoryRepositorio.get(Usuario.class);
     }
 
     public ModelAndView validadorTransparencia(Request request, Response response) {
@@ -49,7 +51,7 @@ public class ValidadorTransparenciaController {
         }
 
         try{
-            List<OperacionDeEgreso> operacionesDeEgreso = repoOperacionEgreso.buscarTodos();
+            List<OperacionDeEgreso> operacionesDeEgreso = modalAndViewController.getUsuario().getEntidadJuridica().getOperacionesDeEgreso();
 
             ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
             ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
@@ -92,6 +94,8 @@ public class ValidadorTransparenciaController {
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
+        Usuario usuarioLogueado = modalAndViewController.getUsuario();
+        repoUsuarios.modificar(usuarioLogueado);
         modalAndViewController.getParametros().put("mensaje","Se ejecutó el Validador de Transparencia correctamente.");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
     }
@@ -106,6 +110,8 @@ public class ValidadorTransparenciaController {
         int hora = Integer.parseInt(horaString.substring(0,2));
 
         Scheduler.ejecutarEnDiaYHorario(validadorTransparencia, dia, hora); //lo pase a minutos.
+        Usuario usuarioLogueado = modalAndViewController.getUsuario();
+        repoUsuarios.modificar(usuarioLogueado);
     }
 
 }

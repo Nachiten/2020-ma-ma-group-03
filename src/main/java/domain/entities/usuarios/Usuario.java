@@ -43,7 +43,7 @@ public class Usuario extends EntidadPersistente {
     private LocalDate tiempoUltimaContrasenia;
 
     // TODO | Sacar el cascade para correr el server | (cascade=CascadeType.ALL)
-    @ManyToMany //(cascade=CascadeType.ALL)
+    @ManyToMany (cascade=CascadeType.ALL)
     private List<OperacionDeEgreso> operacionesRevisadas;
 
     @Column(name="estoyHabilitado")
@@ -93,8 +93,8 @@ public class Usuario extends EntidadPersistente {
         return DigestUtils.md5Hex(contrasenia);
     }
 
-    public void publicarMensajeEnBandejaDeMensajes(String identificacion, Boolean resultadoValidacion){
-        new Publicador().publicarMensaje(resultadoValidacion, identificacion, this);
+    public void publicarMensajeEnBandejaDeMensajes(String identificacion){
+        new Publicador().publicarMensaje(identificacion, this);
     }
 
     public void agregarContraAnterior(ContraAnterior unaContraAnterior){

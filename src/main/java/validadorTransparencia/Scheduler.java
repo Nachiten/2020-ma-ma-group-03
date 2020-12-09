@@ -1,6 +1,5 @@
 package validadorTransparencia;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;

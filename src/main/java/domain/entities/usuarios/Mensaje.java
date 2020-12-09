@@ -34,9 +34,9 @@ public class Mensaje extends EntidadPersistente {
         inicializar();
     }
 
-    public Mensaje(Boolean resultado, String identificacion, Usuario usuario){
+    public Mensaje(String identificacion, Usuario usuario){
         this.fechaCreado = new Date();
-        this.contenido = "La operacion de egreso: " + identificacion + " tiene resultado " + resultado.toString();
+        this.contenido = identificacion;
         this.usuarioAsociado = usuario;
         inicializar();
     }

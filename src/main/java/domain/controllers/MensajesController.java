@@ -9,7 +9,6 @@ import spark.Request;
 import spark.Response;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MensajesController {
 
@@ -22,9 +21,9 @@ public class MensajesController {
     }
 
     private ModelAndView modalAndViewMensajes(){
-        List<Mensaje> listaMensajes = this.repoMensajes.buscarTodos();
         Usuario usuarioLogueado = this.modalAndViewController.getUsuario();
-        List<Mensaje> mensajesUsuario = listaMensajes.stream().filter(mensaje -> mensaje.getNombreUsuarioAsociado().equals(usuarioLogueado.getNombreUsuario())).collect(Collectors.toList());
+        List<Mensaje> mensajesUsuario = usuarioLogueado.getBandejaDeMensajes();
+
         modalAndViewController.getParametros().put("bandejaDeMensajes", mensajesUsuario);
         return new ModelAndView(modalAndViewController.getParametros(), "mensaje.hbs");
     }

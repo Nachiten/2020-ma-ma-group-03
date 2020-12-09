@@ -2,9 +2,9 @@ package domain.entities.usuarios;
 
 public class Publicador {
 
-    public void publicarMensaje(Boolean resultado, String identificacion, Usuario usuario){
+    public void publicarMensaje(String identificacion, Usuario usuario){
 
-        Mensaje mensaje = new Mensaje(resultado, identificacion, usuario);
+        Mensaje mensaje = new Mensaje(identificacion, usuario);
         usuario.asociarMensaje(mensaje);
     }
 
