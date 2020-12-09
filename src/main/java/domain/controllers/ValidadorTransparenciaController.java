@@ -11,6 +11,8 @@ import spark.Response;
 import validadorTransparencia.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ValidadorTransparenciaController {
 
@@ -52,13 +54,14 @@ public class ValidadorTransparenciaController {
 
         try{
             List<OperacionDeEgreso> operacionesDeEgreso = modalAndViewController.getUsuario().getEntidadJuridica().getOperacionesDeEgreso();
+            List<OperacionDeEgreso> operacionesAValidar = operacionesAValidar(operacionesDeEgreso);
 
             ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
             ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
 
             List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado));
 
-            ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesDeEgreso, 1);
+            ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesAValidar, 1);
 
             ejecutarValidadorEnDia(Calendar.MONDAY, lunes, validadorTransparencia);
             ejecutarValidadorEnDia(Calendar.TUESDAY, martes, validadorTransparencia);
@@ -80,13 +83,14 @@ public class ValidadorTransparenciaController {
         try {
 
             List<OperacionDeEgreso> operacionesDeEgreso = modalAndViewController.getUsuario().getEntidadJuridica().getOperacionesDeEgreso();
+            List<OperacionDeEgreso> operacionesAValidar = operacionesAValidar(operacionesDeEgreso);
 
             ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
             ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
 
             List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado));
 
-            ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesDeEgreso, 1);
+            ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesAValidar, 1);
 
             validadorTransparencia.ejecutarse();
         }catch (Exception e){
@@ -114,4 +118,9 @@ public class ValidadorTransparenciaController {
         repoUsuarios.modificar(usuarioLogueado);
     }
 
+    private List<OperacionDeEgreso> operacionesAValidar(List<OperacionDeEgreso> operacionDeEgresos){
+       return operacionDeEgresos.stream().filter(operacionDeEgreso -> operacionDeEgreso.getCantidadPresupuestosRequerida() != 0).collect(Collectors.toList());
+    }
 }
+
+
