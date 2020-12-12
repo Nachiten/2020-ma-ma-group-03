@@ -7,6 +7,7 @@ import domain.entities.vendedor.Proveedor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -57,7 +58,10 @@ public class Presupuesto extends EntidadPersistente {
         this.proveedorAsociado = proveedorAsociado;
         this.operacionAsociada = operacionAsociada;
         this.entidadJuridica = entidadJuridica;
+        inicializar();
     }
+
+
 
     //-------------------------------------------------------------------------
                                     //METODOS
@@ -65,6 +69,10 @@ public class Presupuesto extends EntidadPersistente {
 
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
 
+    private void inicializar(){
+
+        this.listaCategoriaCriterio = new ArrayList<>();
+    }
     //-------------------------------------------------------------------------
                                     //GETTERS
     //-------------------------------------------------------------------------

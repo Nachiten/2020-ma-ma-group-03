@@ -266,6 +266,8 @@ public class PersistenciaDatosPruebaTest {
     static private Moneda pesosArgentinos;
     static private Repositorio<Moneda> repoMoneda;
 
+
+
     @BeforeClass
     public static void init() {
 
@@ -476,17 +478,48 @@ public class PersistenciaDatosPruebaTest {
        listaItemsOperacionDeEgreso9 = new ArrayList<>(Arrays.asList(item15Egreso));
        listaItemsOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(item16Egreso));
 
-
-
         //PRESUPUESTOS
         presupuestoPintureriasRex = new Presupuesto(21451.6f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020,2,25),proveedorPintureriasRex,entidadJuridicaEAAFBA);
         presupuestoPintureriasSanJorge = new Presupuesto(20300.8f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020, 2,25),proveedorPintureriasRex,entidadJuridicaEAAFBA);
         presupuestoPintureriasSerrentino = new Presupuesto(19952.69f,listaDeItemsDePintureriasSerrentino,null, LocalDate.of(2020, 2,27),proveedorPintureriaSerrentino,entidadJuridicaEAAFBA);
         presupuestoLaCasaDelAudio = new Presupuesto(17900,listaDeItemsDeLaCasaDelAudio,null,LocalDate.of(2020,9,10),proveedorLaCasaDelAudio,entidadJuridicaEAAFBA);
         presupuestoGarbarino = new Presupuesto(17660,  listaDeItemsDeGarbarino,null,LocalDate.of(2020,9,11),proveedorGarbarino,entidadJuridicaEAAFBA);
-        presupuestoIngenieriaComercial = new Presupuesto(17000, listaDeItemsDeIngenieriaComercial,null , LocalDate.of(2020,9,12),proveedorIngenieriaComercial,entidadJuridicaEAAFBA);
+        presupuestoIngenieriaComercial = new Presupuesto(17000, listaDeItemsDeIngenieriaComercial,null, LocalDate.of(2020,9,12),proveedorIngenieriaComercial,entidadJuridicaEAAFBA);
         presupuestoCorralonSanJuan = new Presupuesto(214420,listaDeItemsDeCorralonSanJuan,null,LocalDate.of(2020,9,15),proveedorCorralonSanJuan,entidadJuridicaEAAFBA);
         presupuestoCorralonLaprida = new Presupuesto(207708,listaDeItemsDeCorralonLaprida,null,LocalDate.of(2020,9,15),proveedorCorralonLaprida,entidadJuridicaEAAFBA);
+
+        //Agrego criterios a presupuestos
+        presupuestoPintureriasRex.asociarCategoriaCriterio(categoriaFachada);
+        presupuestoPintureriasRex.asociarCategoriaCriterio(categoriaInterior);
+        presupuestoPintureriasRex.asociarCategoriaCriterio(categoriaHumedad);
+
+        presupuestoPintureriasSanJorge.asociarCategoriaCriterio(categoriaFachada);
+        presupuestoPintureriasSanJorge.asociarCategoriaCriterio(categoriaInterior);
+        presupuestoPintureriasSanJorge.asociarCategoriaCriterio(categoriaHumedad);
+
+        presupuestoPintureriasSerrentino.asociarCategoriaCriterio(categoriaFachada);
+        presupuestoPintureriasSerrentino.asociarCategoriaCriterio(categoriaInterior);
+        presupuestoPintureriasSerrentino.asociarCategoriaCriterio(categoriaHumedad);
+
+
+        presupuestoLaCasaDelAudio.asociarCategoriaCriterio(categoriaMueblesYUtiles);
+        presupuestoLaCasaDelAudio.asociarCategoriaCriterio(categoriaElectronicos);
+
+        presupuestoGarbarino.asociarCategoriaCriterio(categoriaMueblesYUtiles);
+        presupuestoGarbarino.asociarCategoriaCriterio(categoriaElectronicos);
+
+        presupuestoIngenieriaComercial.asociarCategoriaCriterio(categoriaMueblesYUtiles);
+        presupuestoIngenieriaComercial.asociarCategoriaCriterio(categoriaElectronicos);
+
+        presupuestoCorralonLaprida.asociarCategoriaCriterio(categoriaFachada);
+        presupuestoCorralonLaprida.asociarCategoriaCriterio(categoriaExterior);
+        presupuestoCorralonLaprida.asociarCategoriaCriterio(categoriaGrande);
+
+        presupuestoCorralonSanJuan.asociarCategoriaCriterio(categoriaFachada);
+        presupuestoCorralonSanJuan.asociarCategoriaCriterio(categoriaExterior);
+        presupuestoCorralonSanJuan.asociarCategoriaCriterio(categoriaGrande);
+
+
 
 
         ingresoDonacionDeTerceros = new OperacionDeIngreso("Donacion de terceros",20000, LocalDate.of(2020,2,25),LocalDate.of(2020,3,20),entidadJuridicaEAAFBA,pesosArgentinos);
@@ -507,6 +540,7 @@ public class PersistenciaDatosPruebaTest {
         listaCategoriaOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(categoriaNecesario));
 
        //OPERACIONES DE EGRESO
+
        operacionDeEgreso1 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,3,10),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso1,3,19952.69f,listaCategoriaOperacionDeEgreso1,entidadJuridicaEAAFBA,proveedorPintureriaSerrentino);
        operacionDeEgreso2 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,7,8),medioDePagoEfectivo,listaItemsOperacionDeEgreso2,0,2100,listaCategoriaOperacionDeEgreso2,entidadJuridicaEAAFBA,proveedorEdesur);
        operacionDeEgreso3 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,7,9),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso3,0,3500,listaCategoriaOperacionDeEgreso3,entidadJuridicaEAAFBA,proveedorMetrogas);
@@ -514,9 +548,40 @@ public class PersistenciaDatosPruebaTest {
        operacionDeEgreso5 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,9,27),medioDePagoEfectivo,listaItemsOperacionDeEgreso5,6,17000,listaCategoriaOperacionDeEgreso5,entidadJuridicaEAAFBA,proveedorIngenieriaComercial);
        operacionDeEgreso6 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,1),medioDePagoEfectivo,listaItemsOperacionDeEgreso6,4,207708,listaCategoriaOperacionDeEgreso6,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
        operacionDeEgreso7 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,5),medioDePagoEfectivo,listaItemsOperacionDeEgreso7,0,200000,listaCategoriaOperacionDeEgreso7,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
-       operacionDeEgreso8 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8,entidadJuridicaSurcosCS,proveedorEdesur);
-       operacionDeEgreso9 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS,proveedorMetrogas);
-       operacionDeEgreso10 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS,proveedorTelasZN);
+       operacionDeEgreso8 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8,entidadJuridicaSurcosCS,proveedorEdesur);
+       operacionDeEgreso9 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS,proveedorMetrogas);
+       operacionDeEgreso10 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS,proveedorTelasZN);
+
+
+
+
+       // SE AGREGA LOS PRESUPUESTOS A LAS OPERACIONES DE EGRESO
+        //ESTA ES LA QUE PIDEN PARA EL 10/3/20
+        operacionDeEgreso1.agregarPresupuesto(presupuestoPintureriasRex);
+        operacionDeEgreso1.agregarPresupuesto(presupuestoPintureriasSanJorge);
+        operacionDeEgreso1.agregarPresupuesto(presupuestoPintureriasSerrentino);
+
+        // Fecha 27/9/20
+        operacionDeEgreso5.agregarPresupuesto(presupuestoLaCasaDelAudio);
+        operacionDeEgreso5.agregarPresupuesto(presupuestoGarbarino);
+        operacionDeEgreso5.agregarPresupuesto(presupuestoIngenieriaComercial);
+
+        //Fecha 1/10/20
+        operacionDeEgreso6.agregarPresupuesto(presupuestoCorralonLaprida);
+        operacionDeEgreso6.agregarPresupuesto(presupuestoCorralonSanJuan);
+
+        //Se agrega revisores
+        operacionDeEgreso1.agregarRevisor(usuarioA);
+        operacionDeEgreso2.agregarRevisor(usuarioA);
+        operacionDeEgreso3.agregarRevisor(usuarioA);
+        operacionDeEgreso4.agregarRevisor(usuarioA);
+        operacionDeEgreso5.agregarRevisor(usuarioA);
+        operacionDeEgreso6.agregarRevisor(usuarioA);
+        operacionDeEgreso7.agregarRevisor(usuarioA);
+
+        operacionDeEgreso8.agregarRevisor(usuarioC);
+        operacionDeEgreso9.agregarRevisor(usuarioC);
+        operacionDeEgreso10.agregarRevisor(usuarioC);
 
        // SE AGREGA OPERACIONES DE INGRESO A ENTIDADES JURIDICAS
         entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeTerceros);
@@ -574,6 +639,7 @@ public class PersistenciaDatosPruebaTest {
         persistirUnObjeto(categoriaNecesario);
         persistirUnObjeto(categoriaGrande);
         persistirUnObjeto(categoriaExterior);
+
     }
 
     @Test
@@ -590,6 +656,7 @@ public class PersistenciaDatosPruebaTest {
         persistirUnObjeto(presupuestoCorralonSanJuan);
         persistirUnObjeto(presupuestoGarbarino);
         persistirUnObjeto(presupuestoIngenieriaComercial);
+        persistirUnObjeto(presupuestoLaCasaDelAudio);
         persistirUnObjeto(presupuestoPintureriasRex);
         persistirUnObjeto(presupuestoPintureriasSanJorge);
         persistirUnObjeto(presupuestoPintureriasSerrentino);
@@ -628,7 +695,10 @@ public class PersistenciaDatosPruebaTest {
     }
 
 
-
+    @Test
+    public void t8_persistirProveedor() {
+    persistirUnObjeto(proveedorPintureriasSanJorge);
+    }
 
 
 

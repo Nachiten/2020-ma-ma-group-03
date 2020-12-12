@@ -165,6 +165,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
+
+
     //-------------------------------------------------------------------------
                                 //METODOS
     //-------------------------------------------------------------------------
@@ -175,6 +177,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.revisores = new ArrayList<>();
         this.presupuestos = new ArrayList<>();
     }
+
+
 
     public void adjuntarDocumentoComercial(DocumentoComercial documentoComercial) {
         this.documentoComercial = documentoComercial;
