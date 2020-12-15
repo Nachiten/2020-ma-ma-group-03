@@ -59,7 +59,7 @@ public class Item extends EntidadPersistente {
         return tipo;
     }
 
-    public float getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 

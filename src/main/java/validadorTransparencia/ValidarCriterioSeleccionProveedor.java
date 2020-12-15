@@ -4,6 +4,6 @@ import domain.entities.operaciones.OperacionDeEgreso;
 
 public class ValidarCriterioSeleccionProveedor extends EstrategiaValidacion {
     public Boolean validarEgreso(OperacionDeEgreso operacionDeEgreso){
-        return operacionDeEgreso.getCriterioSeleccionProveedor().seleccionarProveedor(operacionDeEgreso);
+        return operacionDeEgreso.getCriterioProveedorMenorValor().seleccionarProveedor(operacionDeEgreso);
     }
 }

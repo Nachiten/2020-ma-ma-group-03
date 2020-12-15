@@ -58,8 +58,9 @@ public class ValidadorTransparenciaController {
 
             ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
             ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
+            ValidarCriterioSeleccionProveedor validarCriterioSeleccionProveedor = new ValidarCriterioSeleccionProveedor();
 
-            List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado));
+            List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado, validarCriterioSeleccionProveedor));
 
             ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesAValidar, 1);
 
@@ -87,8 +88,9 @@ public class ValidadorTransparenciaController {
 
             ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
             ValidarPresupuestoAsociado validarPresupuestoAsociado = new ValidarPresupuestoAsociado();
+            ValidarCriterioSeleccionProveedor validarCriterioSeleccionProveedor = new ValidarCriterioSeleccionProveedor();
 
-            List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado));
+            List<EstrategiaValidacion> validaciones = new ArrayList<>(Arrays.asList(validarCantidadPresupuestos, validarPresupuestoAsociado, validarCriterioSeleccionProveedor));
 
             ValidadorTransparencia validadorTransparencia = new ValidadorTransparencia(validaciones, operacionesAValidar, 1);
 

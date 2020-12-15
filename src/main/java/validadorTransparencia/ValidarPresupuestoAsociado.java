@@ -1,8 +1,10 @@
 package validadorTransparencia;
 
+import domain.entities.operaciones.Item;
 import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.Presupuesto;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ValidarPresupuestoAsociado extends EstrategiaValidacion{
@@ -23,7 +25,30 @@ public class ValidarPresupuestoAsociado extends EstrategiaValidacion{
     }
 
     private Boolean itemsIguales(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){
-        return operacionDeEgreso.getItems().containsAll(presupuesto.getItems()) && presupuesto.getItems().containsAll(operacionDeEgreso.getItems());
+        List<Item> itemsEgreso = operacionDeEgreso.getItems();
+        List<Item> itemsPresupuesto = presupuesto.getItems();
+        Boolean resultado = null;
+        boolean resultadoParcial;
+
+        for(Item item: itemsEgreso){
+            String descripcion = item.getDescripcion();
+            int cantidad = item.getCantidad();
+            float precioUnitario = item.getPrecioUnitario();
+
+            for(Item itemPresupuesto: itemsPresupuesto){
+                String descripcionItemPresupuesto = itemPresupuesto.getDescripcion();
+                int cantidadItemPresupuesto = itemPresupuesto.getCantidad();
+                float precioItemPrespuesto = item.getPrecioUnitario();
+                resultadoParcial = descripcion.equals(descripcionItemPresupuesto) && cantidad == cantidadItemPresupuesto && precioUnitario == precioItemPrespuesto;
+
+                if(resultadoParcial){
+                    resultado = true;
+                    break;
+                }
+                resultado = false;
+            }
+        }
+        return resultado;
     }
 
     private Boolean documentoComercialIguales(OperacionDeEgreso operacionDeEgreso, Presupuesto presupuesto){

@@ -1,6 +1,7 @@
 package domain.entities.operaciones;
 
 import criterioOperacion.CategoriaCriterio;
+import criterioSeleccionProveedor.CriterioProveedorMenorValor;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.usuarios.Usuario;
 import criterioSeleccionProveedor.CriterioSeleccionProveedor;
@@ -50,8 +51,9 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Usuario> revisores;
 
-    @Transient // No se persiste
-    private CriterioSeleccionProveedor criterioSeleccionProveedor;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "criterioProveedor_id")
+    private CriterioProveedorMenorValor criterioProveedorMenorValor;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<CategoriaCriterio> listaCategoriaCriterio;
@@ -231,8 +233,8 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.validadorTransparencia = validadorTransparencia;
     }
 
-    public void setCriterioSeleccionProveedor(CriterioSeleccionProveedor criterioSeleccionProveedor) {
-        this.criterioSeleccionProveedor = criterioSeleccionProveedor;
+    public void setCriterioSeleccionProveedor(CriterioProveedorMenorValor criterioProveedorMenorValor) {
+        this.criterioProveedorMenorValor = criterioProveedorMenorValor;
     }
 
     public void setListaCategoriaCriterio(List<CategoriaCriterio> listaCategoriaCriterio) {
@@ -306,7 +308,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public List<Usuario> getRevisores() { return revisores; }
 
-    public CriterioSeleccionProveedor getCriterioSeleccionProveedor() { return criterioSeleccionProveedor; }
+    public CriterioSeleccionProveedor getCriterioProveedorMenorValor() { return criterioProveedorMenorValor; }
 
     public MedioDePago getMedioDePago() { return medioDePago; }
 

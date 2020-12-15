@@ -2,6 +2,7 @@ package testsPersistencia;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
+import criterioSeleccionProveedor.CriterioProveedorMenorValor;
 import domain.entities.apiMercadoLibre.*;
 import domain.entities.entidades.EntidadBase;
 import domain.entities.entidades.EntidadJuridica;
@@ -552,6 +553,21 @@ public class PersistenciaDatosPruebaTest {
        operacionDeEgreso9 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS,proveedorMetrogas);
        operacionDeEgreso10 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS,proveedorTelasZN);
 
+
+       //SETEO EL CRITERIO DE SELECCION DE PROVEEDOR A CADA OPERACION DE EGRESO
+
+        CriterioProveedorMenorValor criterioProveedorMenorValor = new CriterioProveedorMenorValor();
+
+        operacionDeEgreso1.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso2.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso3.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso4.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso5.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso6.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso7.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso8.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso9.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
+        operacionDeEgreso10.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
 
 
 
