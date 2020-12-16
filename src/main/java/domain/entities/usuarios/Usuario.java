@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "usuario")
@@ -202,6 +203,12 @@ public class Usuario extends EntidadPersistente {
 
     public List<Mensaje> getBandejaDeMensajes() {
         return bandejaDeMensajes;
+    }
+
+    public void leerMensaje(int idMensaje){
+        Optional<Mensaje> mensajeEncontrado = bandejaDeMensajes.stream().filter(unMensaje -> unMensaje.getId() == idMensaje).findFirst();
+
+        mensajeEncontrado.ifPresent(Mensaje::leerMensaje);
     }
 
     public TipoUsuario getTipo() { return tipo; }

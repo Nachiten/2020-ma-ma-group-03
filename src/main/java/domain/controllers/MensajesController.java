@@ -37,6 +37,11 @@ public class MensajesController {
         int idMensaje = Integer.parseInt(id);
         Mensaje mensaje = repoMensajes.buscar(idMensaje);
         modalAndViewController.getParametros().put("contenidoMensaje", mensaje.getContenido());
+
+        // Leo el mensaje del usuario logueado en memoria
+        this.modalAndViewController.getUsuario().leerMensaje(idMensaje);
+
+        // Leo el mensaje de persistencia
         mensaje.leerMensaje();
         repoMensajes.modificar(mensaje);
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo3.hbs");
