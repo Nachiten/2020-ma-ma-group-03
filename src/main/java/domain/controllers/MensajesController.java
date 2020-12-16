@@ -14,15 +14,17 @@ public class MensajesController {
 
     private ModalAndViewController modalAndViewController;
     private Repositorio<Mensaje> repoMensajes;
+    private Repositorio<Usuario> repoUsuarios;
 
     public MensajesController(ModalAndViewController modalAndViewController) {
         this.modalAndViewController = modalAndViewController;
         this.repoMensajes = FactoryRepositorio.get(Mensaje.class);
+        this.repoUsuarios = FactoryRepositorio.get(Usuario.class);
     }
 
     private ModelAndView modalAndViewMensajes(){
         Usuario usuarioLogueado = this.modalAndViewController.getUsuario();
-        List<Mensaje> mensajesUsuario = usuarioLogueado.getBandejaDeMensajes();
+        List<Mensaje> mensajesUsuario = repoUsuarios.buscar(usuarioLogueado.getId()).getBandejaDeMensajes();
 
         modalAndViewController.getParametros().put("bandejaDeMensajes", mensajesUsuario);
         return new ModelAndView(modalAndViewController.getParametros(), "mensaje.hbs");
