@@ -4,7 +4,6 @@ import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
-import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
