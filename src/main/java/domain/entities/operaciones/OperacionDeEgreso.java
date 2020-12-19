@@ -194,7 +194,6 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     public void agregarRevisor(Usuario revisor){
         revisores.add(revisor);
-        revisor.agregarOperacionDeEgreso(this);
     }
 
     public void removerRevisor(Usuario revisor) {

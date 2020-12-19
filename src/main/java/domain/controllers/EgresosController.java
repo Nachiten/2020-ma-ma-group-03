@@ -372,14 +372,15 @@ public class EgresosController {
         operacionAGuardar.setProveedorAsociado(proveedor);
         operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
-        repoOperacionEgreso.agregar(operacionAGuardar);
-
         if (revisor.equals("Si")) {
             operacionAGuardar.agregarRevisor(miUsuario);
             miUsuario.agregarOperacionDeEgreso(operacionAGuardar);
-            repoUsuario.modificar(miUsuario);
         }
+        repoUsuario.modificar(miUsuario);
+        repoOperacionEgreso.agregar(operacionAGuardar);
 
+        entidadJuridica.agregarOperacionDeEgresoAsociada(operacionAGuardar);
+        repoEntidadJuridica.modificar(entidadJuridica);
 
         try (InputStream input = request.raw().getPart("documentoSubido").getInputStream()) { // getPart needs to use same "name" as input field in form
 
