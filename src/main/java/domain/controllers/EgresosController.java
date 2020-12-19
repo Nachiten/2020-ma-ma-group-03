@@ -280,46 +280,46 @@ public class EgresosController {
         String presupuestosRequeridosString = request.queryParams("presupuestosRequeridos");
         String razonSocialProveedor = request.queryParams("proveedor");
 
-        if(fechaString.equals("")){
-            modalAndViewController.getParametros().put("mensaje","Se debe elegir una fecha.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        if (fechaString.equals("")) {
+            modalAndViewController.getParametros().put("mensaje", "Se debe elegir una fecha.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        if (noEligioRevisor(revisor)){
-            modalAndViewController.getParametros().put("mensaje","Se debe elegir si es revisor o no.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        if (noEligioRevisor(revisor)) {
+            modalAndViewController.getParametros().put("mensaje", "Se debe elegir si es revisor o no.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        if (noEligioMedioPago(tipoMedioDePagoString)){
+        if (noEligioMedioPago(tipoMedioDePagoString)) {
             // No se inserto metodo de pago
-            modalAndViewController.getParametros().put("mensaje","No se seleccionó un metodo de pago.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+            modalAndViewController.getParametros().put("mensaje", "No se seleccionó un metodo de pago.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        if (noEligioProveedor(razonSocialProveedor)){
+        if (noEligioProveedor(razonSocialProveedor)) {
             // No se eligio un proveedor
-            modalAndViewController.getParametros().put("mensaje","No se seleccionó un proveedor.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+            modalAndViewController.getParametros().put("mensaje", "No se seleccionó un proveedor.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        if (numeroMedioDePagoString.equals("") && !tipoMedioDePagoString.equals("Efectivo")){
+        if (numeroMedioDePagoString.equals("") && !tipoMedioDePagoString.equals("Efectivo")) {
 
-            modalAndViewController.getParametros().put("mensaje","No se indicó un número de medio de pago.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+            modalAndViewController.getParametros().put("mensaje", "No se indicó un número de medio de pago.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        if (presupuestosRequeridosString.equals("")){
+        if (presupuestosRequeridosString.equals("")) {
 
-            modalAndViewController.getParametros().put("mensaje","No se indicó una cantidad de presupuestos requeridos.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+            modalAndViewController.getParametros().put("mensaje", "No se indicó una cantidad de presupuestos requeridos.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
         // Leo todos los items
         List<Item> listaItems = operadorController.obtenerListaItems(request);
 
-        if(listaItems.size() == 0){
-            modalAndViewController.getParametros().put("mensaje","Se debe ingresar al menos un item.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        if (listaItems.size() == 0) {
+            modalAndViewController.getParametros().put("mensaje", "Se debe ingresar al menos un item.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
         // Leo lista de categorias
@@ -331,17 +331,28 @@ public class EgresosController {
         float montoTotal = operadorController.calcularMontoTotalDeItems(listaItems);
         // Convierto de string a int
         int presupuestosRequeridos = Integer.parseInt(presupuestosRequeridosString);
-        int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
+
+        DocumentoComercial documentoComercial = null;
+
+        if (eligioDocumentoComercial(tipoDocumentoComercialString) && numeroDocumentoComercialString.equals("")) {
+            modalAndViewController.getParametros().put("mensaje", "Se debe ingresar un número de documento comercial");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        if (eligioDocumentoComercial(tipoDocumentoComercialString)) {
+            int numeroDocumentoComercial = Integer.parseInt(numeroDocumentoComercialString);
+            TipoDocumentoComercial tipoDocComercial = operadorController.buscarTipoDocComercial(tipoDocumentoComercialString);
+            documentoComercial = new DocumentoComercial(tipoDocComercial, numeroDocumentoComercial);
+        }
 
         // Busco proveedor
         Proveedor proveedor = buscarProveedor(razonSocialProveedor);
         // Genero tipo medio pago y tipoDocComercial
         TipoMedioDePago tipoMedioPago = buscarTipoMedioPago(tipoMedioDePagoString);
-        TipoDocumentoComercial tipoDocComercial = operadorController.buscarTipoDocComercial(tipoDocumentoComercialString);
 
         // Genero medio pago y documento comercial
         MedioDePago medioDePago = new MedioDePago(tipoMedioPago, numeroMedioDePagoString);
-        DocumentoComercial documentoComercial = new DocumentoComercial(tipoDocComercial, numeroDocumentoComercial);
+
 
         // Genero operacion de egreso
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
@@ -361,29 +372,27 @@ public class EgresosController {
         operacionAGuardar.setProveedorAsociado(proveedor);
         operacionAGuardar.setListaCategoriaCriterio(categoriasCriterio);
 
-        if(revisor.equals("Si")){
+        repoOperacionEgreso.agregar(operacionAGuardar);
+
+        if (revisor.equals("Si")) {
             operacionAGuardar.agregarRevisor(miUsuario);
             miUsuario.agregarOperacionDeEgreso(operacionAGuardar);
             repoUsuario.modificar(miUsuario);
         }
 
-        if (operadorController.persistenciaNoValida(repoOperacionEgreso, operacionAGuardar)){
-            modalAndViewController.getParametros().put("mensaje", "Se produjo un error al guardar la operación de egreso.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
-        }
 
         try (InputStream input = request.raw().getPart("documentoSubido").getInputStream()) { // getPart needs to use same "name" as input field in form
 
             String nombreArchivo = request.raw().getPart("documentoSubido").getSubmittedFileName();
 
             // Si hay un archivo lo subo
-            if (!nombreArchivo.equals("")){
+            if (!nombreArchivo.equals("")) {
 
                 String idOperacion = Integer.toString(operacionAGuardar.getIdOperacion());
 
                 String pathAnterior = encontrarDocumentoPorIdOperacion(idOperacion);
 
-                if (pathAnterior != null){
+                if (pathAnterior != null) {
                     eliminarArchivoAnterior(pathAnterior);
                 }
 
@@ -391,9 +400,9 @@ public class EgresosController {
                 // nombreSeparado[1] = txt
                 String[] nombreSeparado = nombreArchivo.split("\\.");
 
-                if (!nombreSeparado[1].equals("pdf")){
+                if (!nombreSeparado[1].equals("pdf")) {
                     modalAndViewController.getParametros().put("mensaje", "El archivo subido debe ser de extension PDF.");
-                    return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+                    return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
                 }
 
                 Path tempFile = Files.createTempFile(carpetaSubidaDocumentos.toPath(), "IdOperacion[" + idOperacion + "]", "." + nombreSeparado[1]);
@@ -406,14 +415,17 @@ public class EgresosController {
         } catch (Exception e) {
             System.out.println("EXCEPCION: " + e.getMessage());
             modalAndViewController.getParametros().put("mensaje", "Hubo un error al subir el documento.");
-            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        repoOperacionEgreso.agregar(operacionAGuardar);
+        if (operadorController.persistenciaNoValida(repoOperacionEgreso, operacionAGuardar)) {
+            modalAndViewController.getParametros().put("mensaje", "Se produjo un error al guardar la operación de egreso.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
 
         // Se persistio correctamente
         modalAndViewController.getParametros().put("mensaje", "La operación de egreso se guardó correctamente.");
-        return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo4.hbs");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo4.hbs");
     }
 
     public ModelAndView guardarDocumentoEgreso(Request request, Response response) {
@@ -567,6 +579,10 @@ public class EgresosController {
 
     private boolean noEligioRevisor(String revisor){
         return revisor.equals("Seleccionar opción");
+    }
+
+    private boolean eligioDocumentoComercial(String documentoComercial){
+        return !documentoComercial.equals("Seleccionar documento comercial");
     }
 
     private boolean noEligioProveedor(String razonSocialProveedor){

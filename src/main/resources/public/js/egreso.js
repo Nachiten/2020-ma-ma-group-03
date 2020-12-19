@@ -10,7 +10,7 @@ function mostrarModalGuardadoEgreso() {
     datos.append( 'preciosItems', datosDeTablaPorNombreDeClase(".precioItem") );
     datos.append( 'nombresItems', datosDeTablaPorNombreDeClase(".nombreItem") );
     datos.append( 'cantidadesItems', datosDeTablaPorNombreDeClase(".cantidadItem") );
-    datos.append( 'nombresCatego rias', datosNombresCategorias() );
+    datos.append( 'nombresCategorias', datosNombresCategorias() );
 
     /*
     if (esVacio(datos.fecha) || esVacio(datos.numeroMedioDePago) ||
