@@ -1,5 +1,6 @@
 package validadorTransparencia;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +26,7 @@ public class Scheduler {
         horario.set(Calendar.DAY_OF_WEEK, diaSemana);
         // Hora elegida
         horario.set(Calendar.HOUR_OF_DAY, hora);
+        horario.set(Calendar.DAY_OF_MONTH, LocalDateTime.now().getDayOfMonth() + 1);
         // Siempre es la hora :00
         horario.set(Calendar.MINUTE, 0);
         horario.set(Calendar.SECOND, 0);
