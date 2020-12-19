@@ -2,6 +2,7 @@ package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
+import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
@@ -22,11 +23,13 @@ public class PresupuestosController {
     private ModalAndViewController modalAndViewController;
     private Repositorio<Presupuesto> repoPresupuesto;
     private OperadorController operadorController;
+    private Repositorio<Proveedor> repoProveedor;
 
     public PresupuestosController(ModalAndViewController modalAndViewController, OperadorController operadorController){
         this.repoTipoDocComercial = FactoryRepositorio.get(TipoDocumentoComercial.class);
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
         this.repoPresupuesto = FactoryRepositorio.get(Presupuesto.class);
+        this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
@@ -36,12 +39,14 @@ public class PresupuestosController {
 
         List<OperacionDeEgreso> operacionesEgreso = this.repoOperacionEgreso.buscarTodos();
         List<TipoDocumentoComercial> tiposDocumentoComercial = this.repoTipoDocComercial.buscarTodos();
+        List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
         List<Criterio> criterios = this.repoCriterio.buscarTodos();
         List<Criterio> criterios2 = operadorController.quitarMitad(criterios);
         List<OperacionDeEgreso> operacionesQueRequierenPresupuestos = operacionesQueRequierenPresupuestos(operacionesEgreso);
 
         modalAndViewController.getParametros().put("operacionesEgreso", operacionesQueRequierenPresupuestos);
         modalAndViewController.getParametros().put("tiposDocumentoComercial", tiposDocumentoComercial);
+        modalAndViewController.getParametros().put("proveedores", proveedores);
         modalAndViewController.getParametros().put("criterios", criterios);
         modalAndViewController.getParametros().put("criterios2", criterios2);
 
@@ -58,6 +63,13 @@ public class PresupuestosController {
         String tipoDocumentoComercialString = request.queryParams("documentoComercial");
         String numeroDocumentoComercialString = request.queryParams("numeroDocumentoComercial");
         String operacionEgresoString = request.queryParams("operacionEgreso");
+        String proveedorString = request.queryParams("proveedor");
+
+
+        if(noEligioProveedor(proveedorString)){
+            modalAndViewController.getParametros().put("mensaje","Se debe elegir un proveedor.");
+            return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+        }
 
         if (noEligioOperacionEgreso(operacionEgresoString)){
             modalAndViewController.getParametros().put("mensaje", "Se debe asociar con una operacion de egreso.");
@@ -114,6 +126,10 @@ public class PresupuestosController {
 
         Presupuesto presupuestoAGuardar = new Presupuesto();
 
+        EntidadJuridica entidadJuridicaAsociada = modalAndViewController.getUsuario().getEntidadJuridica();
+
+        Proveedor proveedor = buscarProveedor(proveedorString);
+
         presupuestoAGuardar.setFecha(fecha);
         presupuestoAGuardar.setMontoTotal(montoTotal);
         presupuestoAGuardar.setDocumentoComercial(documentoComercial);
@@ -121,6 +137,8 @@ public class PresupuestosController {
         presupuestoAGuardar.setItems(listaItems);
         operacionEgresoAsociada.agregarPresupuesto(presupuestoAGuardar);
         presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
+        presupuestoAGuardar.setEntidadJuridica(entidadJuridicaAsociada);
+        presupuestoAGuardar.setProveedorAsociado(proveedor);
 
         if (operadorController.persistenciaNoValida(repoPresupuesto, presupuestoAGuardar)){
             modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos correctamente, intentelo nuevamente.");
@@ -251,6 +269,10 @@ public class PresupuestosController {
         return operacionEgresoString.equals("Seleccionar una operacion de egreso");
     }
 
+    private boolean noEligioProveedor(String proveedorString){
+        return proveedorString.equals("Seleccionar proveedor");
+    }
+
     private boolean listasDeItemsIguales(List<Item> itemsPresupuesto, List<Item> itemsEgreso){
 
         if (itemsPresupuesto.size() != itemsEgreso.size()){
@@ -304,6 +326,18 @@ public class PresupuestosController {
         for ( Presupuesto unPresupuesto : presupuestos ) {
             if (unPresupuesto.getId() == id){
                 return unPresupuesto;
+            }
+        }
+        return null;
+    }
+
+    private Proveedor buscarProveedor(String proveedor){
+
+        List<Proveedor> proveedores = this.repoProveedor.buscarTodos();
+
+        for ( Proveedor unProveedor : proveedores ) {
+            if (unProveedor.getRazonSocialProveedor().equals(proveedor)){
+                return unProveedor;
             }
         }
         return null;

@@ -125,6 +125,14 @@ public class Presupuesto extends EntidadPersistente {
         this.listaCategoriaCriterio = listaCategoriaCriterio;
     }
 
+    public void setProveedorAsociado(Proveedor proveedorAsociado) {
+        this.proveedorAsociado = proveedorAsociado;
+    }
+
+    public void setEntidadJuridica(EntidadJuridica entidadJuridica) {
+        this.entidadJuridica = entidadJuridica;
+    }
+
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }

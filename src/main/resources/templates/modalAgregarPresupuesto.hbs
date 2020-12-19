@@ -33,6 +33,18 @@
                                     <td><input type="number" min="0" name="numeroDocumentoComercial" id="alta-numeroDocumentoComercial" placeholder="Ingrese el número" required></td>
                                     <td></td>
                                 </tr>
+                                <tr>
+                                    <td>Seleccionar proveedor:</td>
+                                    <td>
+                                        <select name = "proveedor" id="alta-proveedor">
+                                            <option>Seleccionar proveedor</option>
+                                            {{#each proveedores}}
+                                                <option>{{razonSocialProveedor}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
                             </table>
 
                             <table class= "formulario3" border = "0">

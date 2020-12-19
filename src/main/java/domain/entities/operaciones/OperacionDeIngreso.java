@@ -101,7 +101,6 @@ public class OperacionDeIngreso  {
 
     public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) {
         this.entidadJuridicaAsociada = entidadJuridicaAsociada;
-        entidadJuridicaAsociada.agregarOperacionDeIngresoAsociada(this);
     }
 
     public void setPeriodoAceptacion(LocalDate periodoAceptacion) {

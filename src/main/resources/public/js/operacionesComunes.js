@@ -25,6 +25,7 @@ function recuperarDatosFormularioPresupuesto(){
         fecha: valorDe("alta-fecha"),
         documentoComercial: valorDe("alta-tipoDocumentoComercial"),
         numeroDocumentoComercial: valorDe("alta-numeroDocumentoComercial"),
+        proveedor: valorDe("alta-proveedor"),
         operacionEgreso: valorDe("alta-operacionEgreso"),
         preciosItems: datosDeTablaPorNombreDeClase(".precioItem"),
         nombresItems: datosDeTablaPorNombreDeClase(".nombreItem"),

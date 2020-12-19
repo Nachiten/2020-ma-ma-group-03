@@ -2,8 +2,8 @@ package domain.controllers;
 
 import domain.entities.apiMercadoLibre.Moneda;
 import domain.entities.entidades.EntidadJuridica;
-import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.OperacionDeIngreso;
+import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -78,8 +78,13 @@ public class IngresosController {
         OperacionDeIngreso operacionDeIngresoAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
         int entidadJuridica_id = modalAndViewController.getUsuario().getEntidadJuridica().getId();
         EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(entidadJuridica_id);
-        operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
         operacionDeIngresoAGuardar.setPeriodoAceptacion(fechaPeriodoAceptacion);
+        operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
+
+        repoOperacionIngreso.agregar(operacionDeIngresoAGuardar);
+
+        entidadJuridica.agregarOperacionDeIngresoAsociada(operacionDeIngresoAGuardar);
+        repoEntidadJuridica.modificar(entidadJuridica);
 
         if (operadorController.persistenciaNoValida(repoOperacionIngreso, operacionDeIngresoAGuardar)){
             model.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
