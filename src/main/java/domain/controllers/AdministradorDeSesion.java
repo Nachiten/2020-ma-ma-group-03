@@ -2,40 +2,40 @@ package domain.controllers;
 
 import domain.entities.usuarios.Usuario;
 import spark.Request;
+
+import java.util.HashMap;
 import java.util.Optional;
 
 public class AdministradorDeSesion {
 
-	private Optional<spark.Session> sesionOpcional;
+	private HashMap<String, spark.Session> sesionPorID;
 
 	public AdministradorDeSesion() {
-		this.sesionOpcional = Optional.empty();
+		this.sesionPorID = new HashMap<>();
 	}
 
-	public <T> void iniciarSesion(Request request, T usuario) {
-		sesionOpcional = Optional.of(request.session(true));
-		sesionOpcional.get().attribute("id",obtenerId(usuario));
-	}
-	
-	public void cerrarSesion(Request request) {
-		if(this.esLaSesionValida(request)){
-			sesionOpcional.get().invalidate();
+	private void verificarQueEsUnica(spark.Session sesionAVerificar){
+		if(sesionPorID.containsKey(sesionAVerificar.id())){
+			throw new RuntimeException();
 		}
 	}
-	
-	public String idDeSesionEn(Request request) {
 
-		return request.session().id();
+	public String iniciarSesion(Request request, Usuario usuario) {
+		spark.Session sesion = request.session(true);
+		verificarQueEsUnica(sesion);
+		sesion.attribute("id",usuario.getId());
+		String idDeSesion = sesion.id();
+		sesionPorID.put(idDeSesion, sesion);
+		return idDeSesion;
 	}
 	
-	private <T> int obtenerId(T usuario) {
-		Usuario unUsuario = (Usuario) usuario;
-		return unUsuario.getId();
+	public void cerrarSesion(String potencialIDDeSesion) {
+		if(this.esLaSesionValida(potencialIDDeSesion)){
+			sesionPorID.remove(potencialIDDeSesion);
+		}
 	}
 
-	public boolean esLaSesionValida(Request request) {
-		return sesionOpcional
-				.map((session) -> session.id().equals(this.idDeSesionEn(request)))
-				.orElse(false);
+	public boolean esLaSesionValida(String potencialIDDeSesion) {
+		return sesionPorID.containsKey(potencialIDDeSesion);
 	}
 }
