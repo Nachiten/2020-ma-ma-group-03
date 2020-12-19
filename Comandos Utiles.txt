@@ -1,0 +1,14 @@
+Asignarle un dyno a la app para q corra:
+> heroku ps:scale web=1
+Pushear el repo a heroku para actualizarlo:
+> git push heroku master
+Mostrar toda la info de los dynos:
+> heroku ps
+Reiniciar todos los dynos:
+> heroku ps:restart
+Para el dyno:
+> heroku ps:stop worker
+Abrir la web:
+> heroku open
+Ver logs de heroku:
+> heroku logs --tail
