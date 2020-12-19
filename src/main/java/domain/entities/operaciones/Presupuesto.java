@@ -36,19 +36,22 @@ public class Presupuesto extends EntidadPersistente {
     @ManyToOne (cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    // TODO | Si pongo este cascade no se guarda bien el presupuesto
+    @ManyToOne //(cascade = CascadeType.ALL)
     private EntidadJuridica entidadJuridica;
     //-------------------------------------------------------------------------
                                     //CONTRUCTOR
     //-------------------------------------------------------------------------
 
     public Presupuesto() {
+        inicializar();
     }
 
     public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada) {
         this.montoTotal = montoTotal;
         this.items = items;
         this.operacionAsociada = operacionAsociada;
+        inicializar();
     }
 
     public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada, LocalDate fecha, Proveedor proveedorAsociado, EntidadJuridica entidadJuridica) {
@@ -70,7 +73,6 @@ public class Presupuesto extends EntidadPersistente {
     public void asociarCategoriaCriterio(CategoriaCriterio categoriaCriterio){ listaCategoriaCriterio.add(categoriaCriterio);}
 
     private void inicializar(){
-
         this.listaCategoriaCriterio = new ArrayList<>();
     }
     //-------------------------------------------------------------------------

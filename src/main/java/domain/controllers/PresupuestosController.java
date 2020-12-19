@@ -136,7 +136,7 @@ public class PresupuestosController {
         presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
         presupuestoAGuardar.setItems(listaItems);
         operacionEgresoAsociada.agregarPresupuesto(presupuestoAGuardar);
-        presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
+        //presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
         presupuestoAGuardar.setEntidadJuridica(entidadJuridicaAsociada);
         presupuestoAGuardar.setProveedorAsociado(proveedor);
 

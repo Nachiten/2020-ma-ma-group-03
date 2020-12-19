@@ -584,7 +584,7 @@ CREATE TABLE `operaciondeegreso` (
 
 LOCK TABLES `operaciondeegreso` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso` VALUES (1,6,'2020-09-27',_binary '\0',17000,1,NULL,1,2,NULL,6,1),(2,3,'2020-03-10',_binary '\0',19952.7,1,NULL,1,1,NULL,1,1),(3,0,'2020-07-09',_binary '\0',3500,1,NULL,1,1,NULL,4,1),(4,0,'2020-07-08',_binary '\0',2100,1,NULL,1,2,NULL,3,1),(5,0,'2020-08-03',_binary '\0',26100,1,NULL,1,3,NULL,5,1),(6,4,'2020-10-01',_binary '\0',207708,1,NULL,1,2,NULL,9,1),(7,0,'2020-10-05',_binary '\0',200000,1,NULL,1,2,NULL,9,1),(8,0,'2020-09-25',_binary '\0',21000,1,NULL,2,2,NULL,11,3),(9,0,'2020-10-07',_binary '\0',800,1,NULL,2,2,NULL,4,3),(10,0,'2020-10-07',_binary '\0',1100,1,NULL,2,2,NULL,3,3);
+INSERT INTO `operaciondeegreso` VALUES (1,6,'2020-09-27',_binary '\0',17000,1,NULL,1,2,NULL,6,1),(2,3,'2020-03-10',_binary '\0',19952.7,1,NULL,1,1,NULL,1,1),(3,0,'2020-07-09',_binary '\0',3500,1,NULL,1,1,NULL,4,1),(4,0,'2020-07-08',_binary '\0',2100,1,NULL,1,2,NULL,3,1),(5,0,'2020-08-03',_binary '\0',26100,1,NULL,1,3,NULL,5,1),(6,4,'2020-10-01',_binary '\0',207708,1,NULL,1,2,NULL,9,1),(7,0,'2020-10-05',_binary '\0',200000,1,NULL,1,2,NULL,9,1),(8,0,'2020-10-07',_binary '\0',800,1,NULL,2,2,NULL,4,3),(9,0,'2020-10-07',_binary '\0',1100,1,NULL,2,2,NULL,3,3),(10,0,'2020-09-25',_binary '\0',21000,1,NULL,2,2,NULL,11,3);
 /*!40000 ALTER TABLE `operaciondeegreso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -611,7 +611,7 @@ CREATE TABLE `operaciondeegreso_categoriacriterio` (
 
 LOCK TABLES `operaciondeegreso_categoriacriterio` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso_categoriacriterio` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso_categoriacriterio` VALUES (2,1),(2,3),(2,4),(4,5),(3,5),(5,6),(5,8),(1,6),(1,8),(6,1),(6,2),(6,9),(7,1),(10,10),(9,11),(8,12);
+INSERT INTO `operaciondeegreso_categoriacriterio` VALUES (2,1),(2,3),(2,4),(4,5),(3,5),(5,6),(5,8),(1,6),(1,8),(6,1),(6,2),(6,9),(7,1),(9,10),(8,11),(10,12);
 /*!40000 ALTER TABLE `operaciondeegreso_categoriacriterio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -638,7 +638,7 @@ CREATE TABLE `operaciondeegreso_item` (
 
 LOCK TABLES `operaciondeegreso_item` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso_item` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso_item` VALUES (2,1),(2,2),(2,3),(4,10),(3,11),(5,12),(5,13),(1,14),(6,18),(6,19),(6,20),(6,21),(7,30),(10,31),(9,32),(8,33);
+INSERT INTO `operaciondeegreso_item` VALUES (2,1),(2,2),(2,3),(4,10),(3,11),(5,12),(5,13),(1,14),(6,18),(6,19),(6,20),(6,21),(7,30),(9,31),(8,32),(10,33);
 /*!40000 ALTER TABLE `operaciondeegreso_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -692,7 +692,7 @@ CREATE TABLE `operaciondeegreso_usuario` (
 
 LOCK TABLES `operaciondeegreso_usuario` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso_usuario` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso_usuario` VALUES (2,1),(4,1),(3,1),(5,1),(1,1),(6,1),(7,1),(10,3),(9,3),(8,3);
+INSERT INTO `operaciondeegreso_usuario` VALUES (2,1),(4,1),(3,1),(5,1),(1,1),(6,1),(7,1),(9,3),(8,3),(10,3);
 /*!40000 ALTER TABLE `operaciondeegreso_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -815,7 +815,7 @@ CREATE TABLE `presupuesto` (
 
 LOCK TABLES `presupuesto` WRITE;
 /*!40000 ALTER TABLE `presupuesto` DISABLE KEYS */;
-INSERT INTO `presupuesto` VALUES (1,'2020-02-25',21451.6,NULL,1,NULL,2),(2,'2020-02-25',20300.8,NULL,1,NULL,2),(3,'2020-02-27',19952.7,NULL,1,NULL,1),(4,'2020-09-10',17900,NULL,1,NULL,7),(5,'2020-09-11',17660,NULL,1,NULL,8),(6,'2020-09-12',17000,NULL,1,NULL,6),(7,'2020-09-15',207708,NULL,1,NULL,9),(8,'2020-09-15',214420,NULL,1,NULL,10);
+INSERT INTO `presupuesto` VALUES (1,'2020-02-25',21451.6,NULL,1,2,2),(2,'2020-02-25',20300.8,NULL,1,2,2),(3,'2020-02-27',19952.7,NULL,1,2,1),(4,'2020-09-10',17900,NULL,1,1,7),(5,'2020-09-11',17660,NULL,1,1,8),(6,'2020-09-12',17000,NULL,1,1,6),(7,'2020-09-15',207708,NULL,1,6,9),(8,'2020-09-15',214420,NULL,1,6,10);
 /*!40000 ALTER TABLE `presupuesto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1086,7 +1086,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Roco','f17b7633272696c47b844b4659a3c262',_binary '','Alejandro','aroco','2020-12-15','ESTANDAR',1),(2,'Rojas','5efee46cf55702f7fb66e4a93591991d',_binary '','Rocio','rrojas','2020-12-15','ESTANDAR',1),(3,'Azul','0eb349575b983394cc57b3a7b0752be1',_binary '','Julieta','jazul','2020-12-15','ESTANDAR',2),(4,'Root','21232f297a57a5a743894a0e4a801fc3',_binary '','Admin','Admin','2020-12-15','ADMIN',NULL);
+INSERT INTO `usuario` VALUES (1,'Roco','f17b7633272696c47b844b4659a3c262',_binary '','Alejandro','aroco','2020-12-19','ESTANDAR',1),(2,'Rojas','5efee46cf55702f7fb66e4a93591991d',_binary '','Rocio','rrojas','2020-12-19','ESTANDAR',1),(3,'Azul','0eb349575b983394cc57b3a7b0752be1',_binary '','Julieta','jazul','2020-12-19','ESTANDAR',2),(4,'Root','21232f297a57a5a743894a0e4a801fc3',_binary '','Admin','Admin','2020-12-19','ADMIN',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1113,7 +1113,6 @@ CREATE TABLE `usuario_operaciondeegreso` (
 
 LOCK TABLES `usuario_operaciondeegreso` WRITE;
 /*!40000 ALTER TABLE `usuario_operaciondeegreso` DISABLE KEYS */;
-INSERT INTO `usuario_operaciondeegreso` VALUES (1,2),(1,4),(1,3),(1,5),(1,1),(1,6),(1,7),(3,10),(3,9),(3,8);
 /*!40000 ALTER TABLE `usuario_operaciondeegreso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1126,4 +1125,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-15 14:35:04
+-- Dump completed on 2020-12-19 12:41:28

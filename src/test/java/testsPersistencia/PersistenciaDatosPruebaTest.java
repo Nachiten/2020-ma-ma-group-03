@@ -26,15 +26,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////
-/* ORDEN EN CASO DE BORRAR Y CREAR NUEVAMENTE LA BASE:
+/*  ORDEN EN CASO DE BORRAR Y CREAR NUEVAMENTE LA BASE:
 1 - CORRER EL TEST "ContextTest" PARA QUE SE GENEREN TODAS LAS TABLAS.
-(antes de correr el test 2 asegurarse de renombrar el archivo gesoc.sql a gesoc.sql)
-2 - CORRER EL TEST "TestPersistenciaRestaurar" PARA QUE SE CARGUEN LAS TABLAS PAIS, PROVINCIA Y CIUDAD.
+2 - CORRER EL SCRIPT "gesoc.sql" EN MYSQL PARA CARGAR DATOS DE API ML.
 3 - CORRER EL TEST "PersistenciaTipoTest" PARA QUE SE CARGUEN LOS TIPOS Y NO ROMPA EL SIGUIENTE TEST.
-4 - CORRER EL TEST "PersistenciaDatosPruebaTest" PARA CARGAR TODOS LOS DATOS QUE PIDE LA CÁTEDRA.
-*/
-/////////////////////////////////////////////////////////////////////////////////////
+4 - CORRER EL TEST "PersistenciaDatosPruebaTest" PARA CARGAR TODOS LOS DATOS QUE PIDE LA CÁTEDRA. */
 /////////////////////////////////////////////////////////////////////////////////////
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -599,7 +595,7 @@ public class PersistenciaDatosPruebaTest {
         operacionDeEgreso9.agregarRevisor(usuarioC);
         operacionDeEgreso10.agregarRevisor(usuarioC);
 
-       // SE AGREGA OPERACIONES DE INGRESO A ENTIDADES JURIDICAS
+        // SE AGREGA OPERACIONES DE INGRESO A ENTIDADES JURIDICAS
         entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeTerceros);
         entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeRimoliSA);
         entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionGranImperio);

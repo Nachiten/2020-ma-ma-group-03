@@ -210,7 +210,10 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         }
     }
 
-    public void agregarPresupuesto(Presupuesto unPresupuesto){ presupuestos.add(unPresupuesto); }
+    public void agregarPresupuesto(Presupuesto unPresupuesto){
+        presupuestos.add(unPresupuesto);
+        unPresupuesto.setOperacionAsociada(this);
+    }
 
     public void soyValida(){ this.soyValida = true; }
 

@@ -1,6 +1,8 @@
 package domain.controllers;
 
 import domain.entities.usuarios.Usuario;
+import domain.repositories.Repositorio;
+import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
 import spark.Request;
 
@@ -12,12 +14,14 @@ public class ModalAndViewController {
 
     private Map<String, Object> parametros;
     private Usuario usuario;
+    private Repositorio<Usuario> repoUsuarios;
 
     private ContextoDeUsuarioLogueado contextoDeUsuarioLogueado;
 
     public ModalAndViewController(ContextoDeUsuarioLogueado contextoDeUsuarioLogueado){
         this.parametros = new HashMap<>();
         this.usuario = new Usuario();
+        this.repoUsuarios = FactoryRepositorio.get(Usuario.class);
 
         this.contextoDeUsuarioLogueado = contextoDeUsuarioLogueado;
     }
@@ -37,13 +41,11 @@ public class ModalAndViewController {
         return new ModelAndView(null,"error404.hbs");
     }
 
-
-
     public Map<String, Object> getParametros() {
         return parametros;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getUsuario(){
+        return repoUsuarios.buscar(usuario.getId());
     }
 }

@@ -12,6 +12,7 @@ import spark.Response;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AsociacionOperacionesController {
@@ -35,6 +36,7 @@ public class AsociacionOperacionesController {
         List<CategoriaCriterio> categoriaCriterios = this.repoCategoriaCriterio.buscarTodos();
         EntidadJuridica entidadJuridicaDeUsuario = modalAndViewController.getUsuario().getEntidadJuridica();
         operacionesEgreso = entidadJuridicaDeUsuario.getOperacionesDeEgreso();
+
         operacionesIngreso = entidadJuridicaDeUsuario.getOperacionesDeIngreso();
 
         modalAndViewController.getParametros().put("operacionesEgreso", operacionesEgreso);
@@ -45,7 +47,7 @@ public class AsociacionOperacionesController {
     }
 
     public ModelAndView listadoOperaciones(Request request, Response response) {
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewListadoOperaciones());
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewListadoOperaciones);
     }
 
     private ModelAndView modalAndViewAsociarOperacion(){
@@ -53,7 +55,7 @@ public class AsociacionOperacionesController {
     }
 
     public ModelAndView asociarOperacion(Request request, Response response) {
-        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewAsociarOperacion());
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewAsociarOperacion);
     }
 
     public ModelAndView ejecutarVinculacion(Request request, Response response) {
@@ -80,6 +82,11 @@ public class AsociacionOperacionesController {
         }catch (Exception e) {
             String mensajeError = e.getMessage();
             System.out.println("EXCEPCION: " + mensajeError);
+            // No está corriendo el servicio
+            if (mensajeError.equals("Failed to connect to localhost/0:0:0:0:0:0:0:1:8080")){
+                modalAndViewController.getParametros().put("mensaje", "No fue posible conectarse con el servicio de vinculacion.");
+                return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
+            }
             // Hubo un error
             modalAndViewController.getParametros().put("mensaje", "Se produjo un error al realizar la vinculacion.");
             return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");

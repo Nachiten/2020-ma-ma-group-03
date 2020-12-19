@@ -353,7 +353,6 @@ public class EgresosController {
         // Genero medio pago y documento comercial
         MedioDePago medioDePago = new MedioDePago(tipoMedioPago, numeroMedioDePagoString);
 
-
         // Genero operacion de egreso
         OperacionDeEgreso operacionAGuardar = new OperacionDeEgreso(fecha, montoTotal);
 

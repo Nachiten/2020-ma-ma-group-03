@@ -20,7 +20,7 @@
                                     <td>Tipo de Documento Comercial:</td>
                                     <td>
                                         <select name = "documentoComercial" id="alta-tipoDocumentoComercial">
-                                            <option>Seleccionar documento comercial</option>
+                                            <option hidden selected>Seleccionar documento comercial</option>
                                             {{#each tiposDocumentoComercial}}
                                                 <option>{{nombre}}</option>
                                             {{/each}}
@@ -37,7 +37,7 @@
                                     <td>Seleccionar proveedor:</td>
                                     <td>
                                         <select name = "proveedor" id="alta-proveedor">
-                                            <option>Seleccionar proveedor</option>
+                                            <option hidden selected>Seleccionar proveedor</option>
                                             {{#each proveedores}}
                                                 <option>{{razonSocialProveedor}}</option>
                                             {{/each}}
