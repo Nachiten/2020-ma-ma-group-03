@@ -13,7 +13,7 @@ public class GsonConverter {
         List<String> operacionesGson = new ArrayList<>();
         Gson gson = new Gson();
         for (OperacionDeEgreso operacionDeEgreso : egresos) {
-            String operacionEgresoGson = gson.toJson(operacionDeEgreso); //todo el problema esta aca!
+            String operacionEgresoGson = gson.toJson(operacionDeEgreso);
             operacionesGson.add(operacionEgresoGson);
         }
         return operacionesGson;

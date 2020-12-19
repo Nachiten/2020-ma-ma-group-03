@@ -100,7 +100,7 @@ public class Router {
         Spark.post("/presupuestos/egreso", presupuestosController::verEgresoElegido, Router.engine);
         Spark.post("/presupuestos/operacionDeEgreso", presupuestosController::asociarEgreso, Router.engine);
 
-        Spark.post("/asociarOperacion", asociacionOperacionesController::ejecutarVinculacion, Router.engine);
+        Spark.post("/asociarOperacion/vinculacion", asociacionOperacionesController::ejecutarVinculacion, Router.engine);
 
         Spark.post("/validadorDeTransparencia", validadorTransparenciaController::programarValidadorDeTransparencia, Router.engine);
         Spark.post("/validadorDeTransparenciaAhora", validadorTransparenciaController::ejecutarValidadorDeTransparenciaAhora, Router.engine);

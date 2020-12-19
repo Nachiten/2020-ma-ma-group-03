@@ -11,6 +11,7 @@ import spark.Request;
 import spark.Response;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AsociacionOperacionesController {
@@ -57,11 +58,12 @@ public class AsociacionOperacionesController {
 
     public ModelAndView ejecutarVinculacion(Request request, Response response) {
 
+        List<String> criterios = obtenerListaCriteriosVinculacion(request);
+
         EntidadJuridica entidadJuridicaDeUsuario = modalAndViewController.getUsuario().getEntidadJuridica();
         operacionesEgreso = entidadJuridicaDeUsuario.getOperacionesDeEgreso();
         operacionesIngreso = entidadJuridicaDeUsuario.getOperacionesDeIngreso();
 
-        List<String> criterios = obtenerListaCriteriosVinculacion(request);
 
         ApiEgresoIngreso.ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ApiEgresoIngreso.ServicioVinculacionEgresosIngresos.instancia();
 
@@ -88,17 +90,19 @@ public class AsociacionOperacionesController {
         return new ModelAndView(modalAndViewController.getParametros(),"modalInformativo2.hbs");
     }
 
-    private List<String> obtenerListaCriteriosVinculacion(Request request){
+    List<String> obtenerListaCriteriosVinculacion(Request request){
 
+        String criteriosLeidos = request.queryParams("criterios");
         List<String> listaADevolver = new ArrayList<>();
 
-        for(int i = 0; i<3;i++){
-            String criterioLeido = request.queryParams(Integer.toString(i));
-
-            if (criterioLeido != null){
-                listaADevolver.add(criterioLeido);
-            }
+        if(criteriosLeidos == null){
+            return listaADevolver;
         }
+
+        String[] listaCriterios = criteriosLeidos.split("=");
+
+
+        listaADevolver.addAll(Arrays.asList(listaCriterios));
 
         if (listaADevolver.size() > 1){
             listaADevolver.add(0, "mix");
@@ -134,3 +138,5 @@ public class AsociacionOperacionesController {
         repoOperacionEgreso.modificar(operacionDeEgreso);
     }
 }
+
+

@@ -71,14 +71,42 @@ function datosDeTablaPorNombreDeClase(nombreClase) {
 }
 
 function mostrarModalEjecucionVinculacion(){
-    var ruta = "/asociarOperacion";
+    var datos = recuperarCriterios();
+    var ruta = "/asociarOperacion/vinculacion";
     var metodo = "POST";
     $.ajax({
         type     : metodo,
         url      : ruta,
         datatype : "html",
+        data : datos,
         success  : function (result) {
             showInModal("modal", result);
         }
     });
+}
+
+
+function datosNombresCriterios() {
+    var criterios = document.querySelectorAll(".criterio");
+
+    var criteriosString = '';
+    for (var x = 0; x < criterios.length; x++) {
+        if (criterios[x].checked) {
+            criteriosString += criterios[x].name;
+            criteriosString += '=';
+        }
+
+    }
+
+    var cadenaADevolver = criteriosString.substring(0, criteriosString.length - 1);
+
+    console.log("criterios: " + cadenaADevolver);
+
+    return cadenaADevolver;
+}
+
+function recuperarCriterios(){
+    return {
+        criterios: datosNombresCriterios()
+    };
 }
