@@ -17,7 +17,7 @@ function recuperarDatosFormularioAltaNuevaEntidadJuridica(){
         nombreEntidadJuridica           : valorDe("altaEntidadJuridica-nombre"),
         nombreFicticioEntidadJuridica   : valorDe("altaEntidadJuridica-nombreFicticio"),
         codigoInscripcionDefinitiva     : valorDe("altaEntidadJuridica-codigo"),
-        cuitEntidadJuridica             : valorDe("altaEntidadJuridica-cuit"),
+        cuitEntidadJuridica             : valorDe("altaEntidadJuridica-cuitEntidadJuridica"),
         razonSocialEntidadJuridica      : valorDe("altaEntidadJuridica-razonSocial"),
         barrio                          : valorDe("altaEntidadJuridica-barrio"),
         calle                           : valorDe("altaEntidadJuridica-calle"),
@@ -100,7 +100,7 @@ function mostrarModalGuardadoAltaEntidadJuridica() {
         }
     });
 }
-
+/*
 function recuperarDatosFormularioAltaNuevaEntidadJuridica(){
     return {
         nombre : valorDe("altaEntidadJuridica-nombre"),
@@ -114,7 +114,7 @@ function recuperarDatosFormularioAltaNuevaEntidadJuridica(){
         // TODO | Falta pais ciudad provincia
     };
 }
-
+*/
 $('#altaEntidadJuridica-pais').change(function(){
     $('#altaEntidadJuridica-provincia').removeAttr('disabled');
     filterSelectOptions($("#altaEntidadJuridica-provincia"), "data-attribute", $(this).val());
