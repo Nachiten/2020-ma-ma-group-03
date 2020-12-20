@@ -1,7 +1,7 @@
 package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 import domain.entities.operaciones.OperacionDeEgreso;
 import domain.entities.operaciones.OperacionDeIngreso;
 import domain.repositories.Repositorio;
@@ -34,10 +34,9 @@ public class AsociacionOperacionesController {
     private ModelAndView modalAndViewListadoOperaciones(){
 
         List<CategoriaCriterio> categoriaCriterios = this.repoCategoriaCriterio.buscarTodos();
-        EntidadJuridica entidadJuridicaDeUsuario = modalAndViewController.getUsuario().getEntidadJuridica();
-        operacionesEgreso = entidadJuridicaDeUsuario.getOperacionesDeEgreso();
-
-        operacionesIngreso = entidadJuridicaDeUsuario.getOperacionesDeIngreso();
+        Entidad entidadDeUsuario = modalAndViewController.getUsuario().getEntidad();
+        operacionesEgreso = entidadDeUsuario.getOperacionesDeEgreso();
+        operacionesIngreso = entidadDeUsuario.getOperacionesDeIngreso();
 
         modalAndViewController.getParametros().put("operacionesEgreso", operacionesEgreso);
         modalAndViewController.getParametros().put("operacionesIngreso", operacionesIngreso);
@@ -62,9 +61,9 @@ public class AsociacionOperacionesController {
 
         List<String> criterios = obtenerListaCriteriosVinculacion(request);
 
-        EntidadJuridica entidadJuridicaDeUsuario = modalAndViewController.getUsuario().getEntidadJuridica();
-        operacionesEgreso = entidadJuridicaDeUsuario.getOperacionesDeEgreso();
-        operacionesIngreso = entidadJuridicaDeUsuario.getOperacionesDeIngreso();
+        Entidad entidadDeUsuario = modalAndViewController.getUsuario().getEntidad();
+        operacionesEgreso = entidadDeUsuario.getOperacionesDeEgreso();
+        operacionesIngreso = entidadDeUsuario.getOperacionesDeIngreso();
 
 
         ApiEgresoIngreso.ServicioVinculacionEgresosIngresos servicioVinculacionEgresosIngresos = ApiEgresoIngreso.ServicioVinculacionEgresosIngresos.instancia();

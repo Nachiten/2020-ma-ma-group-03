@@ -1,7 +1,6 @@
 package domain.controllers;
 
 import domain.entities.operaciones.OperacionDeEgreso;
-import domain.entities.usuarios.Mensaje;
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
@@ -12,7 +11,6 @@ import validadorTransparencia.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ValidadorTransparenciaController {
 
@@ -53,7 +51,7 @@ public class ValidadorTransparenciaController {
         }
 
         try{
-            List<OperacionDeEgreso> operacionesDeEgreso = modalAndViewController.getUsuario().getEntidadJuridica().getOperacionesDeEgreso();
+            List<OperacionDeEgreso> operacionesDeEgreso = modalAndViewController.getUsuario().getEntidad().getOperacionesDeEgreso();
             List<OperacionDeEgreso> operacionesAValidar = operacionesAValidar(operacionesDeEgreso);
 
             ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();
@@ -83,7 +81,7 @@ public class ValidadorTransparenciaController {
     public ModelAndView ejecutarValidadorDeTransparenciaAhora(Request request, Response response){
         try {
 
-            List<OperacionDeEgreso> operacionesDeEgreso = modalAndViewController.getUsuario().getEntidadJuridica().getOperacionesDeEgreso();
+            List<OperacionDeEgreso> operacionesDeEgreso = modalAndViewController.getUsuario().getEntidad().getOperacionesDeEgreso();
             List<OperacionDeEgreso> operacionesAValidar = operacionesAValidar(operacionesDeEgreso);
 
             ValidarCantidadPresupuestos validarCantidadPresupuestos = new ValidarCantidadPresupuestos();

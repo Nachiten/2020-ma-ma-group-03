@@ -1,6 +1,6 @@
 package domain.entities.usuarios;
 
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 import domain.entities.operaciones.OperacionDeEgreso;
 import org.apache.commons.codec.digest.DigestUtils;
 import persistencia.EntidadPersistente;
@@ -32,7 +32,7 @@ public class Usuario extends EntidadPersistente {
     private String apellido;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private EntidadJuridica entidadJuridica;
+    private Entidad entidad;
 
     @OneToMany(mappedBy = "usuarioAsociado", cascade = {CascadeType.ALL})
     private List<Mensaje> bandejaDeMensajes;
@@ -58,13 +58,13 @@ public class Usuario extends EntidadPersistente {
         inicializar();
     }
 
-    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido, EntidadJuridica entidadJuridica) {
+    public Usuario(TipoUsuario tipo, String nombreUsuario, String contrasenia, String nombre, String apellido, Entidad entidad) {
         this.tipo = tipo;
         this.nombreUsuario = nombreUsuario;
         this.contraseniaEncriptada = encriptarContrasenia(contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
-        this.entidadJuridica = entidadJuridica;
+        this.entidad = entidad;
         inicializar();
     }
 
@@ -122,13 +122,13 @@ public class Usuario extends EntidadPersistente {
 
     }
 
-    public void guardarCambiosEfectuadosEnMisAtributos(String nombreEditado, String apellidoEditado, String nombreDeUsuarioEditado, String contraseniaEditada, EntidadJuridica entidadJuridicaEditado) {
+    public void guardarCambiosEfectuadosEnMisAtributos(String nombreEditado, String apellidoEditado, String nombreDeUsuarioEditado, String contraseniaEditada, Entidad entidadEditado) {
 
         this.nombre = nombreEditado;
         this.apellido = apellidoEditado;
         this.nombreUsuario = nombreDeUsuarioEditado;
        verificarSiLaContraseniaFueActualizada(contraseniaEditada);
-        this.entidadJuridica = entidadJuridicaEditado;
+        this.entidad = entidadEditado;
 
     }
 
@@ -164,8 +164,8 @@ public class Usuario extends EntidadPersistente {
         operacionesRevisadas.add(operacionDeEgreso);
     }
 
-    public void setEntidadJuridica(EntidadJuridica entidadJuridica) {
-        this.entidadJuridica = entidadJuridica;
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
     }
 
     public void setApellido(String apellido) {
@@ -223,8 +223,8 @@ public class Usuario extends EntidadPersistente {
         return apellido;
     }
 
-    public EntidadJuridica getEntidadJuridica() {
-        return entidadJuridica;
+    public Entidad getEntidad() {
+        return entidad;
     }
 
     public boolean getEstoyHabilitado(){return estoyHabilitado;}

@@ -12,85 +12,200 @@
                     <form action="javascript:void(0)" method="post">
                         <table class= "formulario" border = 0 >
                             <tr>
-                                <td>Nombre:</td>
-                                <td><input type="text" name="nombreEntidadJuridica" id = "altaEntidadJuridica-nombre" placeholder="Ingrese un nombre" required></td>
-                            </tr>
-                            <tr>
-                                <td>Nombre Ficticio:</td>
-                                <td><input type="text" name="nombreFicticioEntidadJuridica" id = "altaEntidadJuridica-nombreFicticio" placeholder="Ingrese un nombre ficticio" required></td>
-                            </tr>
-                            <tr>
-                                <td>Código Inscripcion Definitiva:</td>
-                                <td><input type="text" name="codigoInscripcionDefinitiva" id = "altaEntidadJuridica-codigo" placeholder="Ingrese un CID"  required></td>
-                            </tr>
-                            <tr>
-                                <td>Cuit:</td>
-                                <td><input type="text" name="cuitEntidadJuridica" id = "altaEntidadJuridica-cuitEntidadJuridica" placeholder="Ingrese un CUIT" required></td>
-                            </tr>
-                            <tr>
-                                <td>Razón Social:</td>
-                                <td><input type="text" name="razonSocialEntidadJuridica" id = "altaEntidadJuridica-razonSocial" placeholder="Ingrese una razón social" required></td>
-                            </tr>
-                            <tr>
-                                <td>País:</td>
+                                <td>Nombre entidad jurídica:</td>
                                 <td>
-                                    <select name="pais" id="altaEntidadJuridica-pais" required >
-                                        <option hidden selected>Seleccionar país</option>
-                                        {{#each listaPaisesEJ}}
-                                            <option value="{{id}}">{{name}}</option>
-                                        {{/each}}
-                                    </select>
+                                    <input type="text" name="nombreEntidadJuridicaNueva" id = "altaEntidadJuridica-nombreNuevo" placeholder="Ingrese un nombre" >
+                                    <button type="submit" onclick="mostrarModalConfirmarGuardarNuevaEntidadJuridica()">
+                                        Guardar
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Provincia:</td>
+                                <td>Elegir nueva entidad:</td>
                                 <td>
-                                    <select name="provincia" id="altaEntidadJuridica-provincia"required disabled>
-                                        <option hidden selected>Seleccionar provincia</option>
-                                        {{#each listaProvinciasEJ}}
-                                            <option value="{{id}}" data-attribute="{{paisAsociado.id}}">{{name}}</option>
-                                        {{/each}}
-                                    </select>
+                                    <input type="radio" name="nuevaEntidad" value="empresa" onclick="mostrarSeleccion(this)">Empresa
+                                    <input type="radio" name="nuevaEntidad" value="orgSoc" onclick="mostrarSeleccion(this)"> Organización social
+                                    <input type="radio" name="nuevaEntidad" value="base" onclick="mostrarSeleccion(this)"> Entidad base
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Ciudad:</td>
-                                <td>
-                                    <select name="ciudad"  id="altaEntidadJuridica-ciudad" required disabled>
-                                        <option hidden selected>Seleccionar Ciudad</option>
-                                        {{#each listaCiudadesEJ}}
-                                            <option value="{{id}}" data-attribute="{{provinciaAsociada.id}}">{{name}}</option>
-                                        {{/each}}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Barrio:</td>
-                                <td><input type="text" name="barrio" id="altaEntidadJuridica-barrio" placeholder="Ingrese su barrio" ></td>
-                            </tr>
-                            <tr>
-                                <td>Calle:</td>
-                                <td><input type="text" name="calle" id="altaEntidadJuridica-calle" placeholder="Ingrese su calle" required></td>
-                            </tr>
-                            <tr>
-                                <td>Altura:</td>
-                                <td><input type="number" min="0" name="altura" id="altaEntidadJuridica-altura" placeholder="Ingrese la altura" required></td>
-                            </tr>
-                            <tr>
-                                <td>Departamento:</td>
-                                <td><input type="text" name="departamento" id="altaEntidadJuridica-departamento" placeholder="Ingrese su departamento" ></td>
-                            </tr>
-                            <tr>
-                                <td>Piso:</td>
-                                <td><input type="number"  min="0" name="piso" id="altaEntidadJuridica-piso" placeholder="Número de piso" ></td>
                             </tr>
                         </table>
+                        <div id="nuevaEmpresa" style="display:none">
+                            <table border = 0>
+                                <tr>
+                                    <td>Entidad Jurídica:</td>
+                                    <td>
+                                        <select name="entidadJuridicaSeleccionadaEmpresa" id="altaEmpresa-EJSeleccionada">
+                                            <option hidden selected>Seleccionar Entidad Jurídica</option>
+                                            {{#each listaEntidadesJuridicas}}
+                                                <option value="{{id}}">{{nombreEntidadJuridica}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre Ficticio:</td>
+                                    <td><input type="text" name="nombreFicticioEmpresa" id = "altaEmpresa-nombreFicticio" placeholder="Ingrese un nombre ficticio" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Código Inscripcion Definitiva:</td>
+                                    <td><input type="text" name="codigoInscripcionDefinitiva" id = "altaEmpresa-codigo" placeholder="Ingrese un CID" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Cuit:</td>
+                                    <td><input type="text" name="cuitEmpresa" id = "altaEmpresa-cuit" placeholder="Ingrese un CUIT" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Razón Social:</td>
+                                    <td><input type="text" name="razonSocialEmpresa" id = "altaEmpresa-razonSocial" placeholder="Ingrese una razón social" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Sector:</td>
+                                    <td>
+                                        <select name="sectorEmpresa" id="altaEmpresa-sector">
+                                            <option hidden selected>Seleccionar un sector</option>
+                                            {{#each listaSectores}}
+                                                <option value="{{id}}">{{nombre}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Promedio de Ventas Anuales:</td>
+                                    <td>
+                                        <input type="number" min="0" name="promedioVAEmpresa" id="altaEmpresa-promedioVA" placeholder="Ingrese un valor">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cantidad de Personal:</td>
+                                    <td>
+                                        <input type="number" min="0" name="cantPersonalEmpresa" id="altaEmpresa-cantPersonal" placeholder="ingrese un valor">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>País:</td>
+                                    <td>
+                                        <select name="pais" id="altaEmpresa-pais" required >
+                                            <option hidden selected>Seleccionar país</option>
+                                            {{#each listaPaisesEJ}}
+                                                <option value="{{id}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Provincia:</td>
+                                    <td>
+                                        <select name="provincia" id="altaEmpresa-provincia" disabled>
+                                            <option hidden selected>Seleccionar provincia</option>
+                                            {{#each listaProvinciasEJ}}
+                                                <option value="{{id}}" data-attribute="{{paisAsociado.id}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ciudad:</td>
+                                    <td>
+                                        <select name="ciudad"  id="altaEmpresa-ciudad"  disabled>
+                                            <option hidden selected>Seleccionar Ciudad</option>
+                                            {{#each listaCiudadesEJ}}
+                                                <option value="{{id}}" data-attribute="{{provinciaAsociada.id}}">{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Barrio:</td>
+                                    <td><input type="text" name="barrio" id="altaEmpresa-barrio" placeholder="Ingrese su barrio" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Calle:</td>
+                                    <td><input type="text" name="calle" id="altaEmpresa-calle" placeholder="Ingrese su calle" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Altura:</td>
+                                    <td><input type="number" min="0" name="altura" id="altaEmpresa-altura" placeholder="Ingrese la altura" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Departamento:</td>
+                                    <td><input type="text" name="departamento" id="altaEmpresa-departamento" placeholder="Ingrese su departamento" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Piso:</td>
+                                    <td><input type="number"  min="0" name="piso" id="altaEmpresa-piso" placeholder="Número de piso" ></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <button type="submit" onclick="mostrarModalConfirmarGuardarNuevaEntidadEmpresa()">
+                                            Guardar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="nuevaOrgSoc" style="display:none">
+                            <table border = 0>
+                                <tr>
+                                    <td>Entidad Jurídica:</td>
+                                    <td>
+                                        <select name="entidadJuridicaSeleccionadaOrgSoc" id="altaOrgSoc-EJSeleccionada">
+                                            <option hidden selected>Seleccionar Entidad Jurídica</option>
+                                            {{#each listaEntidadesJuridicas}}
+                                                <option value="{{id}}">{{nombreEntidadJuridica}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre Ficticio:</td>
+                                    <td><input type="text" name="nombreFicticioOrgSoc" id = "altaOrgSoc-nombreFicticio" placeholder="Ingrese un nombre ficticio" ></td>
+                                </tr>
+                                <tr>
+                                    <td>Razón Social:</td>
+                                    <td><input type="text" name="razonSocialOrgSoc" id = "altaOrgSoc-razonSocial" placeholder="Ingrese una razón social" ></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <button type="submit" onclick="mostrarModalConfirmarGuardarNuevaEntidadOrgSoc()">
+                                            Guardar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="nuevaBase" style="display:none">
+                            <table border = 0>
+                                <tr>
+                                    <td>Entidad Jurídica:</td>
+                                    <td>
+                                        <select name="entidadJuridicaSeleccionadaBase" id="altaBase-EJSeleccionada">
+                                            <option hidden selected>Seleccionar Entidad Jurídica</option>
+                                            {{#each listaEntidadesJuridicas}}
+                                                <option value="{{id}}">{{nombreEntidadJuridica}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre Ficticio:</td>
+                                    <td><input type="text" name="nombreFicticioBase" id = "altaBase-nombreFicticio" placeholder="Ingrese un nombre ficticio" ></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <button type="submit" onclick="mostrarModalConfirmarGuardarNuevaEntidadBase()">
+                                            Guardar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn" data-dismiss="modal" onClick="location.reload();">
                                 Cancelar
-                            </button>
-                            <button type="submit" onclick="mostrarModalConfirmarGuardarNuevaEntidadJuridica()">
-                                Guardar
                             </button>
                         </div>
                     </form>

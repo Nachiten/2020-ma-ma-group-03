@@ -1,7 +1,7 @@
 package domain.entities.operaciones;
 
 import criterioOperacion.CategoriaCriterio;
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 import persistencia.EntidadPersistente;
 import domain.entities.vendedor.Proveedor;
 
@@ -36,9 +36,8 @@ public class Presupuesto extends EntidadPersistente {
     @ManyToOne (cascade = CascadeType.ALL)
     private Proveedor proveedorAsociado;
 
-    // TODO | Si pongo este cascade no se guarda bien el presupuesto
-    @ManyToOne //(cascade = CascadeType.ALL)
-    private EntidadJuridica entidadJuridica;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Entidad entidad;
     //-------------------------------------------------------------------------
                                     //CONTRUCTOR
     //-------------------------------------------------------------------------
@@ -54,13 +53,13 @@ public class Presupuesto extends EntidadPersistente {
         inicializar();
     }
 
-    public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada, LocalDate fecha, Proveedor proveedorAsociado, EntidadJuridica entidadJuridica) {
+    public Presupuesto(float montoTotal, List<Item> items, OperacionDeEgreso operacionAsociada, LocalDate fecha, Proveedor proveedorAsociado, Entidad entidad) {
         this.montoTotal = montoTotal;
         this.items = items;
         this.fecha = fecha;
         this.proveedorAsociado = proveedorAsociado;
         this.operacionAsociada = operacionAsociada;
-        this.entidadJuridica = entidadJuridica;
+        this.entidad = entidad;
         inicializar();
     }
 
@@ -99,8 +98,8 @@ public class Presupuesto extends EntidadPersistente {
         return listaCategoriaCriterio;
     }
 
-    public EntidadJuridica getEntidadJuridica() {
-        return entidadJuridica;
+    public Entidad getEntidad() {
+        return entidad;
     }
 //-------------------------------------------------------------------------
                                     //SETTERS
@@ -131,8 +130,8 @@ public class Presupuesto extends EntidadPersistente {
         this.proveedorAsociado = proveedorAsociado;
     }
 
-    public void setEntidadJuridica(EntidadJuridica entidadJuridica) {
-        this.entidadJuridica = entidadJuridica;
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
     }
 
     public void setFecha(LocalDate fecha) {

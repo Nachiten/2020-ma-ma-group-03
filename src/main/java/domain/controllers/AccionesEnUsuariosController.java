@@ -1,6 +1,6 @@
 package domain.controllers;
 
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 import domain.entities.usuarios.TipoUsuario;
 import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
@@ -35,8 +35,8 @@ public class AccionesEnUsuariosController {
     }
 
     private ModelAndView modalAndViewNuevoUsuario() {
-        Repositorio<EntidadJuridica> repoEntidadesJuridicas = FactoryRepositorio.get(EntidadJuridica.class);
-        List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
+        Repositorio<Entidad> repoEntidadesJuridicas = FactoryRepositorio.get(Entidad.class);
+        List<Entidad> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
         modalAndViewController.getParametros().put("tiposUsuarios", TipoUsuario.values());
         modalAndViewController.getParametros().put("entidadesJuridicas",entidadesJuridicas);
         return new ModelAndView(modalAndViewController.getParametros(), "modalNuevoUsuario.hbs");
@@ -56,9 +56,9 @@ public class AccionesEnUsuariosController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewConfirmarNuevoUsuario);
     }
 
-    private EntidadJuridica obtenerEntidadJuridica(String entidadJuridica){
+    private Entidad obtenerEntidadJuridica(String entidadJuridica){
         int idEntidadJuridica = Integer.parseInt(entidadJuridica);
-        Repositorio<EntidadJuridica> repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
+        Repositorio<Entidad> repoEntidadJuridica = FactoryRepositorio.get(Entidad.class);
         return repoEntidadJuridica.buscar(idEntidadJuridica);
     }
 
@@ -106,8 +106,8 @@ public class AccionesEnUsuariosController {
 
         Usuario usuarioApersistir = new Usuario(tipoUsuario,nombreDeUsuario,contrasenia,nombre,apellido);
 
-        EntidadJuridica entidadJuridicaObtenida = obtenerEntidadJuridica(entidadJuridica);
-        usuarioApersistir.setEntidadJuridica(entidadJuridicaObtenida);
+        Entidad entidadObtenida = obtenerEntidadJuridica(entidadJuridica);
+        usuarioApersistir.setEntidad(entidadObtenida);
 
         ValidadorCredenciales miValidador = new ValidadorCredenciales(new ValidadorEspacios(), new ValidadorLongitud(8), new ValidadorMayusculas(1), new ValidadorNumeros(1));
 
@@ -234,17 +234,16 @@ public class AccionesEnUsuariosController {
         modalAndViewController.getParametros().put("miNombreDeUsuario", usuarioAEditar.getNombreUsuario());
         modalAndViewController.getParametros().put("miContrasenia", usuarioAEditar.getContrasenia());
 
-        Repositorio<EntidadJuridica> repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
-        EntidadJuridica miEntidadJuridica = repoEntidadJuridica.buscar(usuarioAEditar.getEntidadJuridica().getId());
-        modalAndViewController.getParametros().put("idEntidadJuridica", miEntidadJuridica.getId());
-        modalAndViewController.getParametros().put("razonSocialEntidadJuridica", miEntidadJuridica.getRazonSocialEntidadJuridica());
-        modalAndViewController.getParametros().put("nombreEntidadJuridica", miEntidadJuridica.getNombreEntidadJuridica());
+        Repositorio<Entidad> repoEntidadJuridica = FactoryRepositorio.get(Entidad.class);
+        Entidad miEntidad = repoEntidadJuridica.buscar(usuarioAEditar.getEntidad().getId());
+        modalAndViewController.getParametros().put("idEntidadJuridica", miEntidad.getId());
+        modalAndViewController.getParametros().put("razonSocialEntidadJuridica", miEntidad.getRazonSocialEntidad());
 
 
         // modalAndViewController.getParametros().put("soyRevisor", usuarioAEditar.getSoyRevisor());
 
-        Repositorio<EntidadJuridica> repoEntidadesJuridicas = FactoryRepositorio.get(EntidadJuridica.class);
-        List<EntidadJuridica> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
+        Repositorio<Entidad> repoEntidadesJuridicas = FactoryRepositorio.get(Entidad.class);
+        List<Entidad> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
         modalAndViewController.getParametros().put("entidadesJuridicas",entidadesJuridicas);
 
         return new ModelAndView(modalAndViewController.getParametros(),"modalParaEditarUnUsuario.hbs") ;
@@ -281,10 +280,10 @@ public class AccionesEnUsuariosController {
             usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado);
 
         }else{
-            Repositorio<EntidadJuridica> repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
+            Repositorio<Entidad> repoEntidadJuridica = FactoryRepositorio.get(Entidad.class);
             int idEntidadjuridica = Integer.parseInt(entidadJuridicaEditado);
-            EntidadJuridica nuevaEntidadJuridica = repoEntidadJuridica.buscar(idEntidadjuridica);
-            usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado, nuevaEntidadJuridica);
+            Entidad nuevaEntidad = repoEntidadJuridica.buscar(idEntidadjuridica);
+            usuarioEditadoAGuardar.guardarCambiosEfectuadosEnMisAtributos(nombreEditado, apellidoEditado, nombreDeUsuarioEditado, contraseniaEditado, nuevaEntidad);
         }
 
         repoUsuario.modificar(usuarioEditadoAGuardar);

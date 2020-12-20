@@ -157,7 +157,18 @@ public class Router {
         Spark.get("/nuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalNuevaEntidadJuridica, Router.engine);
         Spark.post("/confirmarNuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadJuridica, Router.engine);
         Spark.post("/GuardarNuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadJuridica,Router.engine);
+
+        Spark.post("/confirmarNuevaEntidadEmpresa", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadEmpresa, Router.engine);
+        Spark.post("/GuardarNuevaEntidadEmpresa", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadEmpresa, Router.engine);
+
+        Spark.post("/confirmarNuevaEntidadOrgSoc", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadOrgSoc, Router.engine);
+        Spark.post("/GuardarNuevaEntidadOrgSoc", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadOrgSoc, Router.engine);
+
+        Spark.post("/confirmarNuevaEntidadBase", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadBase, Router.engine);
+        Spark.post("/GuardarNuevaEntidadBase", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadBase, Router.engine);
+
         Spark.get("/habilitarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalHabilitarEntidadesjuridicas, Router.engine);
+
         Spark.get("/editarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalEditarEntidadesJuridicas, Router.engine);
 
         //Acciones criterios

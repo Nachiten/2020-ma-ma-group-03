@@ -2,7 +2,7 @@ package domain.entities.operaciones;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioSeleccionProveedor.CriterioProveedorMenorValor;
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 import domain.entities.usuarios.Usuario;
 import criterioSeleccionProveedor.CriterioSeleccionProveedor;
 import validadorTransparencia.ValidadorTransparencia;
@@ -75,7 +75,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "entidadJuridicaAsociada_id")
-    private EntidadJuridica entidadJuridicaAsociada;
+    private Entidad entidadAsociada;
 
     @Column (name = "hayDocumentoGuardado")
     private boolean hayDocumentoGuardado;
@@ -143,18 +143,18 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         inicializar();
     }
 
-    public OperacionDeEgreso(LocalDate fecha, MedioDePago medio, List<Item> items, int cantidadPresupuestos, float montoTotal, List<CategoriaCriterio> listaDeCategorias, EntidadJuridica entidadJuridicaAsociada) {
+    public OperacionDeEgreso(LocalDate fecha, MedioDePago medio, List<Item> items, int cantidadPresupuestos, float montoTotal, List<CategoriaCriterio> listaDeCategorias, Entidad entidadAsociada) {
         this.fecha = fecha;
         this.medioDePago = medio;
         this.items = items;
         this.cantidadPresupuestosRequerida = cantidadPresupuestos;
         this.montoTotal = montoTotal;
         this.listaCategoriaCriterio = listaDeCategorias;
-        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
+        this.entidadAsociada = entidadAsociada;
         inicializar();
     }
 
-    public OperacionDeEgreso(Usuario usuario, LocalDate fecha, MedioDePago medio ,List<Item> items,int cantidadPresupuestos,float montoTotal, List<CategoriaCriterio> listaDeCategorias,EntidadJuridica entidadJuridicaAsociada,Proveedor proveedor) {
+    public OperacionDeEgreso(Usuario usuario, LocalDate fecha, MedioDePago medio , List<Item> items, int cantidadPresupuestos, float montoTotal, List<CategoriaCriterio> listaDeCategorias, Entidad entidadAsociada, Proveedor proveedor) {
         this.usuario = usuario;
         this.fecha = fecha;
         this.medioDePago = medio;
@@ -162,7 +162,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.cantidadPresupuestosRequerida = cantidadPresupuestos;
         this.montoTotal = montoTotal;
         this.listaCategoriaCriterio = listaDeCategorias;
-        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
+        this.entidadAsociada = entidadAsociada;
         this.proveedorAsociado = proveedor;
         inicializar();
     }
@@ -267,7 +267,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
         this.presupuestos = presupuestos;
     }
 
-    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) { this.entidadJuridicaAsociada = entidadJuridicaAsociada; }
+    public void setEntidadAsociada(Entidad entidadAsociada) { this.entidadAsociada = entidadAsociada; }
 
     public void setProveedorAsociado(Proveedor proveedorAsociado) {
         this.proveedorAsociado = proveedorAsociado;
@@ -319,7 +319,7 @@ public class OperacionDeEgreso implements GestorDeRevisores {
     public int getCantidadDeVecesValidada() { return cantidadDeVecesValidada; }
 
     public int getEntidadJuridicaAsociada_id(){
-        return entidadJuridicaAsociada.getId();
+        return entidadAsociada.getId();
     }
 
     public Boolean fueVinculada(){

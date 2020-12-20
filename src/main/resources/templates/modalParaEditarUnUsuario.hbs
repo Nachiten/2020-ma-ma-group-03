@@ -37,9 +37,9 @@
                             <tr>
                                 <td>Entidad jurídica:</td>
                                 {{#if razonSocialEntidadJuridica}}
-                                    <td><input type="text" name="miEntidadJuridica" id = "altaUsuario-miEntidadJuridica" value="{{razonSocialEntidadJuridica}}" disabled></td>
+                                    <td><input type="text" name="miEntidad" id = "altaUsuario-miEntidad" value="{{razonSocialEntidadJuridica}}" disabled></td>
                                 {{else}}
-                                    <td><input type="text" name="miEntidadJuridica" id = "altaUsuario-miEntidadJuridica" value="{{nombreEntidadJuridica}}" disabled></td>
+                                    <td><input type="text" name="miEntidad" id = "altaUsuario-miEntidad" value="{{nombreEntidadJuridica}}" disabled></td>
                                 {{/if}}
 
                             </tr>
@@ -53,7 +53,7 @@
                                 </td>
                                 <td><br>
                                     <br>
-                                    <select name = "entidadJuridica" id = "altaUsuario-entidadJuridica" title="Elija una opción" disabled>
+                                    <select name = "entidad" id = "altaUsuario-entidad" title="Elija una opción" disabled>
                                         <option value="0" hidden selected>Elegir una entidad jurídica</option>
                                         {{#each entidadesJuridicas}}
                                             {{#if razonSocialEntidadJuridica}}

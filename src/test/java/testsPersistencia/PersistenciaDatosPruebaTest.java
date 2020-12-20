@@ -4,6 +4,7 @@ import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
 import criterioSeleccionProveedor.CriterioProveedorMenorValor;
 import domain.entities.apiMercadoLibre.*;
+import domain.entities.entidades.Entidad;
 import domain.entities.entidades.EntidadBase;
 import domain.entities.entidades.EntidadJuridica;
 import domain.entities.operaciones.*;
@@ -60,10 +61,12 @@ public class PersistenciaDatosPruebaTest {
     static private DireccionPostal direccionPostalPalermo;
 
     //ENTIDAD JURIDICA
-    static private EntidadJuridica entidadJuridicaEAAFBA;
-    static private EntidadJuridica entidadJuridicaEAAFNY;
-    static private EntidadJuridica entidadJuridicaEAAFM;
-    static private EntidadJuridica entidadJuridicaSurcosCS;
+    static private EntidadJuridica entidadJuridicaEAAF;
+    static private EntidadJuridica entidadJuridicaCDIA;
+    static private Entidad entidadEAAFBA;
+    static private Entidad entidadEAAFNY;
+    static private Entidad entidadEAAFM;
+    static private Entidad entidadSurcosCS;
 
     //ENTIDADES BASE
     static private EntidadBase entidadBaseAndhes;
@@ -123,10 +126,10 @@ public class PersistenciaDatosPruebaTest {
     static private  List<CategoriaCriterio> listaCategoriaOperacionDeEgreso10;
 
     //EMPRESAS
-    static  private TipoEntidadJuridica tipoEntidadJuridica1;
-    static  private TipoEntidadJuridica tipoEntidadJuridica2;
-    static  private TipoEntidadJuridica tipoEntidadJuridica3;
-    static  private TipoEntidadJuridica tipoEntidadJuridica4;
+    static  private Empresa tipoEntidadJuridica1;
+    static  private Empresa tipoEntidadJuridica2;
+    static  private Empresa tipoEntidadJuridica3;
+    static  private Empresa tipoEntidadJuridica4;
 
     //USUARIOS
     static private Usuario usuarioA;
@@ -290,7 +293,6 @@ public class PersistenciaDatosPruebaTest {
         //CIUDADES
         ciudadAutonomaBSAS = repoCiudades.buscar("TUxCQ0JVRTcyNTA04300");
 
-
         //DIRECCION
         direccionAvMedrano = new Direccion("Av Medrano",51,0,"0");
         direccionLibertyAve = new Direccion("Liberty Ave",720,0,"0");
@@ -315,7 +317,6 @@ public class PersistenciaDatosPruebaTest {
         Categoria medianaTramo1Construccion = new Categoria("MedianaTramo1", 643710000, 200);
         Categoria medianaTramo2Construccion = new Categoria("MedianaTramo2", 965460000, 590);
 
-
         //Asociar sector a categoria
         microConstruccion.setSectorAsociado(sectorConstruccion);
         pequeniaConstruccion.setSectorAsociado(sectorConstruccion);
@@ -324,28 +325,43 @@ public class PersistenciaDatosPruebaTest {
 
         sectorConstruccion.addCategorias(microConstruccion, pequeniaConstruccion, medianaTramo1Construccion, medianaTramo2Construccion);
 
-
         // TIPOENTIDAD JURIDICA EMPRESA
         tipoEntidadJuridica1 = new Empresa(sectorConstruccion,600000000,150);
         tipoEntidadJuridica2 = new Empresa(sectorConstruccion,960000000,580);
         tipoEntidadJuridica3 = new Empresa(sectorConstruccion,643710000,240);
         tipoEntidadJuridica4 = new Empresa(sectorConstruccion,8000000,8);
+
         //ENTIDADES JURIDICAS
-
         String nombreEntidadJuridicaEAAF = "Equipo Argentino de Antropología Forense - EAAF";
-        String nombreEntidadJuridicaCDIA = "Colectivo de Derechos de Infancia y Adolescencia - CDIA";
-        entidadJuridicaEAAFBA = new EntidadJuridica(nombreEntidadJuridicaEAAF,"Oficina Central Buenos Aires" ,"EAAF BA","30-15269857-2", direccionPostalAlmagro,"ABCD-LO",tipoEntidadJuridica1);
-        entidadJuridicaEAAFNY = new EntidadJuridica(nombreEntidadJuridicaEAAF,"Oficina Central Nueva York" ,"EAAF NY","30-15789655-7", direccionPostalReinoUnido,"AKPQ-LO",tipoEntidadJuridica2);
-        entidadJuridicaEAAFM = new EntidadJuridica(nombreEntidadJuridicaEAAF,"Oficina Central Mexico" ,"EAAF M","30-77896583-9", direccionPostalMexico,"DDN-TP",tipoEntidadJuridica3);
-        entidadJuridicaSurcosCS = new EntidadJuridica(nombreEntidadJuridicaCDIA,"Surcos " ,"Surcos CS","30-25888897-8", direccionPostalPalermo,"ABK-LO",tipoEntidadJuridica4);
-        //ENTIDADES BASE
-        entidadBaseAndhes = new EntidadBase(nombreEntidadJuridicaCDIA,"Andhes");
-        entidadBaseAndhes.asociarEntidadJuridica(entidadJuridicaSurcosCS);
-        //INSTANCIAS DE USUARIOS
+        entidadJuridicaEAAF = new EntidadJuridica(nombreEntidadJuridicaEAAF);
 
-        usuarioA = new Usuario(TipoUsuario.ESTANDAR, "aroco", "*_aroco20!-?", "Alejandro", "Roco", entidadJuridicaEAAFBA);
-        usuarioB = new Usuario(TipoUsuario.ESTANDAR,"rrojas","*-_rrojas!?", "Rocio", "Rojas", entidadJuridicaEAAFBA);
-        usuarioC = new Usuario(TipoUsuario.ESTANDAR,"jazul","!-*jazul_!?","Julieta","Azul",entidadJuridicaSurcosCS);
+        String nombreEntidadJuridicaCDIA = "Colectivo de Derechos de Infancia y Adolescencia - CDIA";
+        entidadJuridicaCDIA = new EntidadJuridica(nombreEntidadJuridicaCDIA);
+
+        entidadEAAFBA = new Entidad("Oficina Central Buenos Aires" ,"EAAF BA","30-15269857-2", direccionPostalAlmagro,"ABCD-LO");
+        entidadEAAFBA.agregarEntidadJuridicaAsociada(entidadJuridicaEAAF);
+        entidadEAAFBA.agregarTipoEmpresa(tipoEntidadJuridica1);
+
+        entidadEAAFNY = new Entidad("Oficina Central Nueva York" ,"EAAF NY","30-15789655-7", direccionPostalReinoUnido,"AKPQ-LO");
+        entidadEAAFNY.agregarEntidadJuridicaAsociada(entidadJuridicaEAAF);
+        entidadEAAFNY.agregarTipoEmpresa(tipoEntidadJuridica2);
+
+        entidadEAAFM = new Entidad("Oficina Central Mexico" ,"EAAF M","30-77896583-9", direccionPostalMexico,"DDN-TP");
+        entidadEAAFM.agregarEntidadJuridicaAsociada(entidadJuridicaEAAF);
+        entidadEAAFM.agregarTipoEmpresa(tipoEntidadJuridica3);
+
+        entidadSurcosCS = new Entidad("Surcos " ,"Surcos CS","30-25888897-8", direccionPostalPalermo,"ABK-LO");
+        entidadSurcosCS.agregarEntidadJuridicaAsociada(entidadJuridicaCDIA);
+        entidadSurcosCS.agregarTipoEmpresa(tipoEntidadJuridica4);
+
+        //ENTIDADES BASE
+        entidadBaseAndhes = new EntidadBase("Andhes");
+        entidadBaseAndhes.asociarEntidadJuridica(entidadJuridicaCDIA);
+
+        //INSTANCIAS DE USUARIOS
+        usuarioA = new Usuario(TipoUsuario.ESTANDAR, "aroco", "*_aroco20!-?", "Alejandro", "Roco", entidadEAAFBA);
+        usuarioB = new Usuario(TipoUsuario.ESTANDAR,"rrojas","*-_rrojas!?", "Rocio", "Rojas", entidadEAAFBA);
+        usuarioC = new Usuario(TipoUsuario.ESTANDAR,"jazul","!-*jazul_!?","Julieta","Azul", entidadSurcosCS);
         usuarioAdmin = new Usuario(TipoUsuario.ADMIN, "Admin", "admin", "Admin", "Root");
 
         //INSTANCIAS DE MEDIOS DE PAGO
@@ -359,7 +375,6 @@ public class PersistenciaDatosPruebaTest {
         medioDePagoEfectivo = new MedioDePago(efectivo);
 
         //PROVEEDORES
-
         proveedorPintureriaSerrentino = new Proveedor("Pinturerías Serrentino","20-36975289-9");
         proveedorEdesur = new Proveedor("Edesur","26-36977895-2");
         proveedorMetrogas = new Proveedor("Metrogas","21-16357895-9");
@@ -373,7 +388,7 @@ public class PersistenciaDatosPruebaTest {
         proveedorGarbarino = new Proveedor("Garbarino","36-89652214-4");
         proveedorCorralonSanJuan = new Proveedor("Corralon San Juan","11-48696325-5");
 
-         //ITEMS OPERACION DE EGRESO
+        //ITEMS OPERACION DE EGRESO
         item1Egreso = new Item(TipoItem.PRODUCTO,"PINTURA Z10 LATEX SUPERCUBRITIVO 20L",9625,1);
         item2Egreso = new Item(TipoItem.PRODUCTO,"PINTURA LOXON FTES IMPERMEABILIZANTE 10L",6589.40f,1);
         item3Egreso = new Item(TipoItem.PRODUCTO,"PINTURA BRIKOL PISOS NEGRO 4L",3738.29f,1);
@@ -390,7 +405,6 @@ public class PersistenciaDatosPruebaTest {
         item14Egreso = new Item(TipoItem.SERVICIO,"FACTURA SERVICIO DE LUZ PERIODO JUNIO 2020",1100,1);
         item15Egreso = new Item(TipoItem.SERVICIO,"FACTURA SERVICIO DE GAS PERIODO JUNIO 2020",800,1);
         item16Egreso = new Item(TipoItem.PRODUCTO,"CORTINAS BLACKOUT VINILICO 2 PAÑOS",4200,5);
-
 
         //ITEMS PRESUPUESTOS
         item1Presupuesto = new Item(TipoItem.PRODUCTO,"PINTURA Z10 LATEX SUPERCUBRITIVO 20L",9900.80f,1);
@@ -463,27 +477,26 @@ public class PersistenciaDatosPruebaTest {
         listaDeItemsDeCorralonLaprida = new ArrayList<>(Arrays.asList(item17Presupuesto,item18Presupuesto,item19Presupuesto,item20Presupuesto));
 
         //LISTA DE ITEMS DE OPERACIONES DE EGRESO
-
-       listaItemsOperacionDeEgreso1 =new ArrayList<>(Arrays.asList(item1Egreso,item2Egreso,item3Egreso));
-       listaItemsOperacionDeEgreso2 = new ArrayList<>(Arrays.asList(item4Egreso));
-       listaItemsOperacionDeEgreso3 = new ArrayList<>(Arrays.asList(item5Egreso));
-       listaItemsOperacionDeEgreso4 = new ArrayList<>(Arrays.asList(item6Egreso,item7Egreso));
-       listaItemsOperacionDeEgreso5 = new ArrayList<>(Arrays.asList(item8Egreso));
-       listaItemsOperacionDeEgreso6 = new ArrayList<>(Arrays.asList(item9Egreso,item10Egreso,item11Egreso,item12Egreso));
-       listaItemsOperacionDeEgreso7 = new ArrayList<>(Arrays.asList(item13Egreso));
-       listaItemsOperacionDeEgreso8 = new ArrayList<>(Arrays.asList(item14Egreso));
-       listaItemsOperacionDeEgreso9 = new ArrayList<>(Arrays.asList(item15Egreso));
-       listaItemsOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(item16Egreso));
+        listaItemsOperacionDeEgreso1 =new ArrayList<>(Arrays.asList(item1Egreso,item2Egreso,item3Egreso));
+        listaItemsOperacionDeEgreso2 = new ArrayList<>(Arrays.asList(item4Egreso));
+        listaItemsOperacionDeEgreso3 = new ArrayList<>(Arrays.asList(item5Egreso));
+        listaItemsOperacionDeEgreso4 = new ArrayList<>(Arrays.asList(item6Egreso,item7Egreso));
+        listaItemsOperacionDeEgreso5 = new ArrayList<>(Arrays.asList(item8Egreso));
+        listaItemsOperacionDeEgreso6 = new ArrayList<>(Arrays.asList(item9Egreso,item10Egreso,item11Egreso,item12Egreso));
+        listaItemsOperacionDeEgreso7 = new ArrayList<>(Arrays.asList(item13Egreso));
+        listaItemsOperacionDeEgreso8 = new ArrayList<>(Arrays.asList(item14Egreso));
+        listaItemsOperacionDeEgreso9 = new ArrayList<>(Arrays.asList(item15Egreso));
+        listaItemsOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(item16Egreso));
 
         //PRESUPUESTOS
-        presupuestoPintureriasRex = new Presupuesto(21451.6f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020,2,25),proveedorPintureriasRex,entidadJuridicaEAAFBA);
-        presupuestoPintureriasSanJorge = new Presupuesto(20300.8f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020, 2,25),proveedorPintureriasRex,entidadJuridicaEAAFBA);
-        presupuestoPintureriasSerrentino = new Presupuesto(19952.69f,listaDeItemsDePintureriasSerrentino,null, LocalDate.of(2020, 2,27),proveedorPintureriaSerrentino,entidadJuridicaEAAFBA);
-        presupuestoLaCasaDelAudio = new Presupuesto(17900,listaDeItemsDeLaCasaDelAudio,null,LocalDate.of(2020,9,10),proveedorLaCasaDelAudio,entidadJuridicaEAAFBA);
-        presupuestoGarbarino = new Presupuesto(17660,  listaDeItemsDeGarbarino,null,LocalDate.of(2020,9,11),proveedorGarbarino,entidadJuridicaEAAFBA);
-        presupuestoIngenieriaComercial = new Presupuesto(17000, listaDeItemsDeIngenieriaComercial,null, LocalDate.of(2020,9,12),proveedorIngenieriaComercial,entidadJuridicaEAAFBA);
-        presupuestoCorralonSanJuan = new Presupuesto(214420,listaDeItemsDeCorralonSanJuan,null,LocalDate.of(2020,9,15),proveedorCorralonSanJuan,entidadJuridicaEAAFBA);
-        presupuestoCorralonLaprida = new Presupuesto(207708,listaDeItemsDeCorralonLaprida,null,LocalDate.of(2020,9,15),proveedorCorralonLaprida,entidadJuridicaEAAFBA);
+        presupuestoPintureriasRex = new Presupuesto(21451.6f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020,2,25),proveedorPintureriasRex, entidadEAAFBA);
+        presupuestoPintureriasSanJorge = new Presupuesto(20300.8f,listaDeItemsDePintureriasRex,null,LocalDate.of(2020, 2,25),proveedorPintureriasRex, entidadEAAFBA);
+        presupuestoPintureriasSerrentino = new Presupuesto(19952.69f,listaDeItemsDePintureriasSerrentino,null, LocalDate.of(2020, 2,27),proveedorPintureriaSerrentino, entidadEAAFBA);
+        presupuestoLaCasaDelAudio = new Presupuesto(17900,listaDeItemsDeLaCasaDelAudio,null,LocalDate.of(2020,9,10),proveedorLaCasaDelAudio, entidadEAAFBA);
+        presupuestoGarbarino = new Presupuesto(17660,  listaDeItemsDeGarbarino,null,LocalDate.of(2020,9,11),proveedorGarbarino, entidadEAAFBA);
+        presupuestoIngenieriaComercial = new Presupuesto(17000, listaDeItemsDeIngenieriaComercial,null, LocalDate.of(2020,9,12),proveedorIngenieriaComercial, entidadEAAFBA);
+        presupuestoCorralonSanJuan = new Presupuesto(214420,listaDeItemsDeCorralonSanJuan,null,LocalDate.of(2020,9,15),proveedorCorralonSanJuan, entidadEAAFBA);
+        presupuestoCorralonLaprida = new Presupuesto(207708,listaDeItemsDeCorralonLaprida,null,LocalDate.of(2020,9,15),proveedorCorralonLaprida, entidadEAAFBA);
 
         //Agrego criterios a presupuestos
         presupuestoPintureriasRex.asociarCategoriaCriterio(categoriaFachada);
@@ -517,12 +530,10 @@ public class PersistenciaDatosPruebaTest {
         presupuestoCorralonSanJuan.asociarCategoriaCriterio(categoriaGrande);
 
 
-
-
-        ingresoDonacionDeTerceros = new OperacionDeIngreso("Donacion de terceros",20000, LocalDate.of(2020,2,25),LocalDate.of(2020,3,20),entidadJuridicaEAAFBA,pesosArgentinos);
-        ingresoDonacionDeRimoliSA = new OperacionDeIngreso("Donacion de Rimoli SA",10000,LocalDate.of(2020,5,2),LocalDate.of(2020,8,3),entidadJuridicaEAAFBA,pesosArgentinos);
-        ingresoDonacionGranImperio = new OperacionDeIngreso("Donacion de Gran Imperio",980000,LocalDate.of(2020,8,3),LocalDate.of(2020,10,1),entidadJuridicaEAAFBA,pesosArgentinos);
-        ingresoDonacionGabinoSRL = new OperacionDeIngreso("Donacion Gabino SRL",10000,LocalDate.of(2020,5,1),LocalDate.of(2020,10,1),entidadJuridicaSurcosCS,pesosArgentinos);
+        ingresoDonacionDeTerceros = new OperacionDeIngreso("Donacion de terceros",20000, LocalDate.of(2020,2,25),LocalDate.of(2020,3,20), entidadEAAFBA,pesosArgentinos);
+        ingresoDonacionDeRimoliSA = new OperacionDeIngreso("Donacion de Rimoli SA",10000,LocalDate.of(2020,5,2),LocalDate.of(2020,8,3), entidadEAAFBA,pesosArgentinos);
+        ingresoDonacionGranImperio = new OperacionDeIngreso("Donacion de Gran Imperio",980000,LocalDate.of(2020,8,3),LocalDate.of(2020,10,1), entidadEAAFBA,pesosArgentinos);
+        ingresoDonacionGabinoSRL = new OperacionDeIngreso("Donacion Gabino SRL",10000,LocalDate.of(2020,5,1),LocalDate.of(2020,10,1), entidadSurcosCS,pesosArgentinos);
 
         //CATEGORIAS PARA OPERACIONES DE EGRESO
         listaCategoriaOperacionDeEgreso1 = new ArrayList<>(Arrays.asList(categoriaFachada,categoriaInterior,categoriaHumedad));
@@ -536,22 +547,20 @@ public class PersistenciaDatosPruebaTest {
         listaCategoriaOperacionDeEgreso9 = new ArrayList<>(Arrays.asList(categoriaServiciosDeGas));
         listaCategoriaOperacionDeEgreso10 = new ArrayList<>(Arrays.asList(categoriaNecesario));
 
-       //OPERACIONES DE EGRESO
+        //OPERACIONES DE EGRESO
+        operacionDeEgreso1 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,3,10),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso1,3,19952.69f,listaCategoriaOperacionDeEgreso1, entidadEAAFBA,proveedorPintureriaSerrentino);
+        operacionDeEgreso2 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,7,8),medioDePagoEfectivo,listaItemsOperacionDeEgreso2,0,2100,listaCategoriaOperacionDeEgreso2, entidadEAAFBA,proveedorEdesur);
+        operacionDeEgreso3 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,7,9),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso3,0,3500,listaCategoriaOperacionDeEgreso3, entidadEAAFBA,proveedorMetrogas);
+        operacionDeEgreso4 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,8,3),medioDePagoTarjetaDebito,listaItemsOperacionDeEgreso4,0,26100,listaCategoriaOperacionDeEgreso4, entidadEAAFBA,proveedorMitoas);
+        operacionDeEgreso5 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,9,27),medioDePagoEfectivo,listaItemsOperacionDeEgreso5,6,17000,listaCategoriaOperacionDeEgreso5, entidadEAAFBA,proveedorIngenieriaComercial);
+        operacionDeEgreso6 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,1),medioDePagoEfectivo,listaItemsOperacionDeEgreso6,4,207708,listaCategoriaOperacionDeEgreso6, entidadEAAFBA,proveedorCorralonLaprida);
+        operacionDeEgreso7 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,5),medioDePagoEfectivo,listaItemsOperacionDeEgreso7,0,200000,listaCategoriaOperacionDeEgreso7, entidadEAAFBA,proveedorCorralonLaprida);
+        operacionDeEgreso8 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8, entidadSurcosCS,proveedorEdesur);
+        operacionDeEgreso9 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9, entidadSurcosCS,proveedorMetrogas);
+        operacionDeEgreso10 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10, entidadSurcosCS,proveedorTelasZN);
 
-       operacionDeEgreso1 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,3,10),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso1,3,19952.69f,listaCategoriaOperacionDeEgreso1,entidadJuridicaEAAFBA,proveedorPintureriaSerrentino);
-       operacionDeEgreso2 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,7,8),medioDePagoEfectivo,listaItemsOperacionDeEgreso2,0,2100,listaCategoriaOperacionDeEgreso2,entidadJuridicaEAAFBA,proveedorEdesur);
-       operacionDeEgreso3 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,7,9),medioDePagoTarjetaDeCredito,listaItemsOperacionDeEgreso3,0,3500,listaCategoriaOperacionDeEgreso3,entidadJuridicaEAAFBA,proveedorMetrogas);
-       operacionDeEgreso4 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,8,3),medioDePagoTarjetaDebito,listaItemsOperacionDeEgreso4,0,26100,listaCategoriaOperacionDeEgreso4,entidadJuridicaEAAFBA,proveedorMitoas);
-       operacionDeEgreso5 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,9,27),medioDePagoEfectivo,listaItemsOperacionDeEgreso5,6,17000,listaCategoriaOperacionDeEgreso5,entidadJuridicaEAAFBA,proveedorIngenieriaComercial);
-       operacionDeEgreso6 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,1),medioDePagoEfectivo,listaItemsOperacionDeEgreso6,4,207708,listaCategoriaOperacionDeEgreso6,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
-       operacionDeEgreso7 = new OperacionDeEgreso(usuarioA,LocalDate.of(2020,10,5),medioDePagoEfectivo,listaItemsOperacionDeEgreso7,0,200000,listaCategoriaOperacionDeEgreso7,entidadJuridicaEAAFBA,proveedorCorralonLaprida);
-       operacionDeEgreso8 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso8,0,1100,listaCategoriaOperacionDeEgreso8,entidadJuridicaSurcosCS,proveedorEdesur);
-       operacionDeEgreso9 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,10,7),medioDePagoEfectivo,listaItemsOperacionDeEgreso9,0,800,listaCategoriaOperacionDeEgreso9,entidadJuridicaSurcosCS,proveedorMetrogas);
-       operacionDeEgreso10 = new OperacionDeEgreso(usuarioC,LocalDate.of(2020,9,25),medioDePagoEfectivo,listaItemsOperacionDeEgreso10,0,21000,listaCategoriaOperacionDeEgreso10,entidadJuridicaSurcosCS,proveedorTelasZN);
 
-
-       //SETEO EL CRITERIO DE SELECCION DE PROVEEDOR A CADA OPERACION DE EGRESO
-
+        //SETEO EL CRITERIO DE SELECCION DE PROVEEDOR A CADA OPERACION DE EGRESO
         CriterioProveedorMenorValor criterioProveedorMenorValor = new CriterioProveedorMenorValor();
 
         operacionDeEgreso1.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
@@ -565,9 +574,7 @@ public class PersistenciaDatosPruebaTest {
         operacionDeEgreso9.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
         operacionDeEgreso10.setCriterioSeleccionProveedor(criterioProveedorMenorValor);
 
-
-
-       // SE AGREGA LOS PRESUPUESTOS A LAS OPERACIONES DE EGRESO
+        // SE AGREGA LOS PRESUPUESTOS A LAS OPERACIONES DE EGRESO
         //ESTA ES LA QUE PIDEN PARA EL 10/3/20
         operacionDeEgreso1.agregarPresupuesto(presupuestoPintureriasRex);
         operacionDeEgreso1.agregarPresupuesto(presupuestoPintureriasSanJorge);
@@ -596,24 +603,24 @@ public class PersistenciaDatosPruebaTest {
         operacionDeEgreso10.agregarRevisor(usuarioC);
 
         // SE AGREGA OPERACIONES DE INGRESO A ENTIDADES JURIDICAS
-        entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeTerceros);
-        entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeRimoliSA);
-        entidadJuridicaEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionGranImperio);
+        entidadEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeTerceros);
+        entidadEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionDeRimoliSA);
+        entidadEAAFBA.agregarOperacionDeIngresoAsociada(ingresoDonacionGranImperio);
 
-        entidadJuridicaSurcosCS.agregarOperacionDeIngresoAsociada(ingresoDonacionGabinoSRL);
+        entidadSurcosCS.agregarOperacionDeIngresoAsociada(ingresoDonacionGabinoSRL);
 
         // SE AGREGAN OPERACIONES DE EGRESO A ENTIDADES JURIDICAS
-        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso1);
-        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso2);
-        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso3);
-        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso4);
-        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso5);
-        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso6);
-        entidadJuridicaEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso7);
+        entidadEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso1);
+        entidadEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso2);
+        entidadEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso3);
+        entidadEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso4);
+        entidadEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso5);
+        entidadEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso6);
+        entidadEAAFBA.agregarOperacionDeEgresoAsociada(operacionDeEgreso7);
 
-        entidadJuridicaSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso8);
-        entidadJuridicaSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso9);
-        entidadJuridicaSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso10);
+        entidadSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso8);
+        entidadSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso9);
+        entidadSurcosCS.agregarOperacionDeEgresoAsociada(operacionDeEgreso10);
 
     }
 
@@ -676,10 +683,10 @@ public class PersistenciaDatosPruebaTest {
 
     @Test
     public void t5_persistirEntidadesJuridicas(){
-        persistirUnObjeto(entidadJuridicaEAAFBA);
-        persistirUnObjeto(entidadJuridicaEAAFM);
-        persistirUnObjeto(entidadJuridicaEAAFNY);
-        persistirUnObjeto(entidadJuridicaSurcosCS);
+        persistirUnObjeto(entidadEAAFBA);
+        persistirUnObjeto(entidadEAAFM);
+        persistirUnObjeto(entidadEAAFNY);
+        persistirUnObjeto(entidadSurcosCS);
         persistirUnObjeto(entidadBaseAndhes);
     }
 
