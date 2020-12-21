@@ -11,7 +11,6 @@ import domain.entities.operaciones.*;
 import domain.entities.tipoEntidadJuridica.Categoria;
 import domain.entities.tipoEntidadJuridica.Empresa;
 import domain.entities.tipoEntidadJuridica.Sector;
-import domain.entities.tipoEntidadJuridica.TipoEntidadJuridica;
 import domain.entities.usuarios.TipoUsuario;
 import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
@@ -713,17 +712,10 @@ public class PersistenciaDatosPruebaTest {
         persistirUnObjeto(operacionDeEgreso10);
     }
 
-
     @Test
     public void t8_persistirProveedor() {
     persistirUnObjeto(proveedorPintureriasSanJorge);
     }
-
-
-
-
-
-
 
 /*
         @Test
