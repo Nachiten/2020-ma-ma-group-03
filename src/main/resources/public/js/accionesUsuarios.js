@@ -19,7 +19,7 @@ function recuperarDatosFormularioNuevoUsuario(){
         nombreDeUsuario  : valorDe("altaUsuario-nombreDeUsuario"),
         contrasenia      : valorDe("altaUsuario-contrasenia"),
         tipoUsuario      : $("#altaUsuario-tipoUsuario option:selected").val(),
-        entidadJuridica  : $("#altaUsuario-entidadJuridica option:selected").val()
+        entidad          : $("#altaUsuario-entidad option:selected").val()
     };
 }
 

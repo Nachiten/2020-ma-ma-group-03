@@ -75,7 +75,7 @@ public class AccionesEnUsuariosController {
         String nombreDeUsuario = request.queryParams("nombreDeUsuario");
         String contrasenia = request.queryParams("contrasenia");
         String tipoDeUsuario = request.queryParams("tipoUsuario");
-        String entidadJuridica = request.queryParams("entidadJuridica");
+        String entidadJuridica = request.queryParams("entidad");
 
         if (operadorController.soyCadenaVaciaONula(nombre)){
             modalAndViewController.getParametros().put("mensaje", "Ingrese un nombre");
