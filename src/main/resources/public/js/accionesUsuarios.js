@@ -224,6 +224,9 @@ var no_cambioContrasenia = document.getElementById('altaUsuarioPerfil-noCambioCo
 var contrasenia = document.getElementById('altaUsuarioPerfil-contrasenia');
 
 function cambiarHabilitacionInputContrasenia() {
+
+    console.log("Entre en cambiarHabilitacionInputContrasenia");
+
     contrasenia.disabled = !cambioContrasenia.checked;
 
     var objetoBotonCambiarContra = document.getElementById("botonCambiarContrasenia");
@@ -247,3 +250,6 @@ function cambiarHabilitacionInputEntidadJuridica() {
 }
 cambioEntidadJuridica.addEventListener('change', cambiarHabilitacionInputEntidadJuridica);
 no_cambioEntidadJuridica.addEventListener('change', cambiarHabilitacionInputEntidadJuridica);
+
+
+

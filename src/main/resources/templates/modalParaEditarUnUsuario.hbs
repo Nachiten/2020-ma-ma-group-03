@@ -35,11 +35,11 @@
                                     <br><input type="password" name="contrasenia"   id = "altaUsuario-contrasenia" value="{{miContrasenia}}" disabled></td>
                             </tr>
                             <tr>
-                                <td>Entidad jurídica:</td>
+                                <td>Entidad jurídica actual:</td>
                                 {{#if razonSocialEntidadJuridica}}
-                                    <td><input type="text" name="miEntidad" id = "altaUsuario-miEntidad" value="{{razonSocialEntidadJuridica}}" disabled></td>
+                                    <td><p>{{razonSocialEntidadJuridica}}</p></td>
                                 {{else}}
-                                    <td><input type="text" name="miEntidad" id = "altaUsuario-miEntidad" value="{{nombreEntidadJuridica}}" disabled></td>
+                                    <td><p>{{nombreEntidadJuridica}}</p></td>
                                 {{/if}}
 
                             </tr>
@@ -81,4 +81,5 @@
     </div>
 </div>
 <script src="/js/accionesUsuarios.js"></script>
+<script src="/js/accionesEditarUsuario.js"></script>
 <link rel="stylesheet" href="/css/modalVarios.css" />
