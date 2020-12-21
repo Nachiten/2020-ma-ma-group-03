@@ -196,8 +196,8 @@ function recuperarDatosFormularioUsuarioEditado(){
         apellido          : valorDe("altaUsuario-apellido"),
         nombreDeUsuario   : valorDe("altaUsuario-nombreDeUsuario"),
         contrasenia       : valorDe("altaUsuario-contrasenia"),
-        miEntidadJuridica : valorDe("altaUsuario-miEntidadJuridica"),
-        entidadJuridica   : $("#altaUsuario-entidadJuridica option:selected").val()
+        miEntidad         : valorDe("altaUsuario-miEntidad"),
+        entidad           : $("#altaUsuario-entidad option:selected").val()
     };
     return datos;
 }

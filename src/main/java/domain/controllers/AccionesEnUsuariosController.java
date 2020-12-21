@@ -272,8 +272,8 @@ public class AccionesEnUsuariosController {
         String apellidoEditado = request.queryParams("apellido");
         String nombreDeUsuarioEditado = request.queryParams("nombreDeUsuario");
         String contraseniaEditado = request.queryParams("contrasenia");
-        String entidadJuridicaQueConservo = request.queryParams("miEntidadJuridica");
-        String entidadJuridicaEditado = request.queryParams("entidadJuridica");
+        String entidadJuridicaQueConservo = request.queryParams("miEntidad");
+        String entidadJuridicaEditado = request.queryParams("entidad");
 
         //verifico si hubo cambio de entidad jurídica
         if (operadorController.noSeleccioneUnaOpcion(entidadJuridicaEditado)){
