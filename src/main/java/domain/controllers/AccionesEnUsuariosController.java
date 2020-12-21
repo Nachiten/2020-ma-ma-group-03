@@ -35,10 +35,10 @@ public class AccionesEnUsuariosController {
     }
 
     private ModelAndView modalAndViewNuevoUsuario() {
-        Repositorio<Entidad> repoEntidadesJuridicas = FactoryRepositorio.get(Entidad.class);
-        List<Entidad> entidadesJuridicas = repoEntidadesJuridicas.buscarTodos();
+        Repositorio<Entidad> repoEntidades = FactoryRepositorio.get(Entidad.class);
+        List<Entidad> entidades = repoEntidades.buscarTodos();
         modalAndViewController.getParametros().put("tiposUsuarios", TipoUsuario.values());
-        modalAndViewController.getParametros().put("entidadesJuridicas",entidadesJuridicas);
+        modalAndViewController.getParametros().put("entidadesJuridicas",entidades);
         return new ModelAndView(modalAndViewController.getParametros(), "modalNuevoUsuario.hbs");
     }
 
