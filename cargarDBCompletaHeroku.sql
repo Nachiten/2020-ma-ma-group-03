@@ -533,7 +533,7 @@ CREATE TABLE `mensaje` (
   PRIMARY KEY (`id`),
   KEY `FK_1f1fqqn868fysovk9g10ge8kt` (`usuarioAsociado_id`),
   CONSTRAINT `FK_1f1fqqn868fysovk9g10ge8kt` FOREIGN KEY (`usuarioAsociado_id`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -542,7 +542,6 @@ CREATE TABLE `mensaje` (
 
 LOCK TABLES `mensaje` WRITE;
 /*!40000 ALTER TABLE `mensaje` DISABLE KEYS */;
-INSERT INTO `mensaje` VALUES (1,'El egreso con fecha: 2020-10-01 y ID: 2 no pudo ser validado correctamente.','2020-12-21 22:11:30','2020-12-21 22:11:33',_binary '',1),(2,'El egreso con fecha: 2020-09-27 y ID: 4 no pudo ser validado correctamente.','2020-12-21 22:11:30','2020-12-21 22:11:38',_binary '',1),(3,'El egreso con fecha: 2020-03-10 y ID: 5 pudo ser validado correctamente.','2020-12-21 22:11:30','2020-12-21 22:11:46',_binary '',1),(4,'El egreso con fecha: 2020-10-01 y ID: 2 no pudo ser validado correctamente.','2020-12-21 22:11:30',NULL,_binary '\0',1),(5,'El egreso con fecha: 2020-09-27 y ID: 4 no pudo ser validado correctamente.','2020-12-21 22:11:30',NULL,_binary '\0',1),(6,'El egreso con fecha: 2020-03-10 y ID: 5 pudo ser validado correctamente.','2020-12-21 22:11:30',NULL,_binary '\0',1);
 /*!40000 ALTER TABLE `mensaje` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1119,7 +1118,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Roco','f17b7633272696c47b844b4659a3c262',_binary '','Alejandro','aroco','2020-12-21','ESTANDAR',1),(2,'Rojas','5efee46cf55702f7fb66e4a93591991d',_binary '','Rocio','rrojas','2020-12-21','ESTANDAR',1),(3,'Azul','0eb349575b983394cc57b3a7b0752be1',_binary '','Julieta','jazul','2020-12-21','ESTANDAR',2),(4,'Root','21232f297a57a5a743894a0e4a801fc3',_binary '','Admin','Admin','2020-12-21','ADMIN',NULL);
+INSERT INTO `usuario` VALUES (1,'Roco','f17b7633272696c47b844b4659a3c262',_binary '','Alejandro','aroco','2020-12-22','ESTANDAR',1),(2,'Rojas','5efee46cf55702f7fb66e4a93591991d',_binary '','Rocio','rrojas','2020-12-22','ESTANDAR',1),(3,'Azul','0eb349575b983394cc57b3a7b0752be1',_binary '','Julieta','jazul','2020-12-22','ESTANDAR',2),(4,'Root','21232f297a57a5a743894a0e4a801fc3',_binary '','Admin','Admin','2020-12-22','ADMIN',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1158,4 +1157,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-21 22:15:16
+-- Dump completed on 2020-12-22  9:51:42
