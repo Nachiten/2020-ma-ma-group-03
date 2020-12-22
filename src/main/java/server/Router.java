@@ -196,6 +196,9 @@ public class Router {
         Spark.post("/confirmarEditarEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarEditarEntidadjuridica, Router.engine);
         Spark.get("/editarEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaEditarEntidadJuridica, Router.engine);
 
+        Spark.post("/confirmarCambiosDatosEnEntidadJuridica/:id",accionesEntidadJuridicaController::mostrarModalConfirmacionEdicionEntidadJuridica,Router.engine);
+
+
         //Acciones criterios
         Spark.post("/accionesCriterios", criteriosController::guardarCriterio, Router.engine);
         Spark.get("/validadorDeTransparencia", validadorTransparenciaController::validadorTransparencia,Router.engine);

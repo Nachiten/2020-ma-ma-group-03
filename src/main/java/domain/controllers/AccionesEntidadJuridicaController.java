@@ -7,6 +7,7 @@ import domain.entities.entidades.EntidadJuridica;
 import domain.entities.tipoEntidadJuridica.Empresa;
 import domain.entities.tipoEntidadJuridica.OrganizacionSectorSocial;
 import domain.entities.tipoEntidadJuridica.Sector;
+import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -573,6 +574,7 @@ public class AccionesEntidadJuridicaController {
     private ModelAndView modalAndViewMostrarModalEntidadJuridica(Request request) {
         int idEntidadJuridica = Integer.parseInt(request.params("id"));
         EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        modalAndViewController.getParametros().put("id",entidadJuridica.getId());
         modalAndViewController.getParametros().put("nombreFicticio", entidadJuridica.getNombreEntidadJuridica());
         return new ModelAndView(modalAndViewController.getParametros(), "modalEditarUnaEntidadJuridica.hbs");
     }
@@ -580,5 +582,26 @@ public class AccionesEntidadJuridicaController {
     public ModelAndView mostrarModalParaEditarEntidadJuridica(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalEntidadJuridica(request));
     }
+
+
+
+    public ModelAndView mostrarModalConfirmacionEdicionEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewConfirmacionCambiosEnDatosDeLaEntidadJuridica(request));
+    }
+
+    private ModelAndView modalAndViewConfirmacionCambiosEnDatosDeLaEntidadJuridica(Request request) {
+        String nombreActualizado = request.queryParams("nombre");
+
+        int idEntidad = Integer.parseInt(request.params("id"));
+       EntidadJuridica entidadAEditar = this.repoEntidadJuridica.buscar(idEntidad);
+        entidadAEditar.actualizarCambiosEnMisAtributos(nombreActualizado);
+        repoEntidadJuridica.modificar(entidadAEditar);
+        modalAndViewController.getParametros().put("mensaje","Se actualizó correctamente los datos de la entidad juridica ");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+
+
+
 
 }

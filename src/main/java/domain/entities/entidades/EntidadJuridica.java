@@ -52,6 +52,11 @@ public class EntidadJuridica extends EntidadPersistente {
     public void cambiarAInhabilitado(){
         this.estoyHabilitado = false;
     }
+
+    public void actualizarCambiosEnMisAtributos(String nuevoNombre){
+        this.nombreEntidadJuridica = nuevoNombre;
+    }
+
     //-------------------------------------------------------------------------
                             //GETTERS
     //-------------------------------------------------------------------------
@@ -87,4 +92,6 @@ public class EntidadJuridica extends EntidadPersistente {
     public void setEntidadesAsociadas(List<Entidad> entidadesAsociadas) {
         this.entidadesAsociadas = entidadesAsociadas;
     }
+
+
 }
