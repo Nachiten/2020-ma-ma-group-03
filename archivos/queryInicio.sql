@@ -22,6 +22,8 @@ SELECT * FROM item;
 SELECT * FROM presupuesto_item;
 SELECT * FROM direccion;
 SELECT * FROM entidadjuridica;
+SELECT * FROM entidades;
+SELECT * FROM entidadbase;
 SELECT * FROM tipoentidadjuridicaempresa;
 SELECT * FROM sector;
 SELECT * FROM categoriaEmpresa;

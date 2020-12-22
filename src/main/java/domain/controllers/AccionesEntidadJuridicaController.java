@@ -1,12 +1,19 @@
 package domain.controllers;
 
 import domain.entities.apiMercadoLibre.*;
+import domain.entities.entidades.Entidad;
+import domain.entities.entidades.EntidadBase;
 import domain.entities.entidades.EntidadJuridica;
+import domain.entities.tipoEntidadJuridica.Empresa;
+import domain.entities.tipoEntidadJuridica.OrganizacionSectorSocial;
+import domain.entities.tipoEntidadJuridica.Sector;
+import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import validadoresContrasenia.MatchearPattern;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,17 +23,23 @@ public class AccionesEntidadJuridicaController {
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
     private Repositorio<EntidadJuridica> repoEntidadJuridica;
+    private Repositorio<Entidad> repoEntidad;
+    private Repositorio<EntidadBase> repoEntidadBase;
     private Repositorio<Pais> respoPaises;
     private Repositorio<Estado> repoProvincias;
     private Repositorio<Ciudad> repoCiudades;
+    private Repositorio<Sector> repoSector;
 
     public AccionesEntidadJuridicaController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
         this.modalAndViewController = modalAndViewController;
         this.repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
+        this.repoEntidad = FactoryRepositorio.get(Entidad.class);
+        this.repoEntidadBase = FactoryRepositorio.get(EntidadBase.class);
         this.operadorController = operadorController;
         this.respoPaises = FactoryRepositorio.get(Pais.class);
         this.repoProvincias = FactoryRepositorio.get(Estado.class);
-        this.repoCiudades =FactoryRepositorio.get(Ciudad.class);
+        this.repoCiudades = FactoryRepositorio.get(Ciudad.class);
+        this.repoSector = FactoryRepositorio.get(Sector.class);
     }
 
     //Muestra página acciones entidad jurídica
@@ -39,14 +52,19 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewAltaEntidadJuridica);
     }
 
+    ///////////////
     //Muestra modal nueva entidad jurídica
     private ModelAndView modalAndViewMostrarFormularioNuevaEntidadJuridica() {
         List<Pais> listaPaisesEJ = respoPaises.buscarTodos();
         List<Estado> listaProvinciasEJ = repoProvincias.buscarTodos();
         List<Ciudad> listaCiudadesEJ = repoCiudades.buscarTodos();
+        List<EntidadJuridica> listaEntidadesJuridicas = repoEntidadJuridica.buscarTodos();
+        List<Sector> listaSectores = repoSector.buscarTodos();
         modalAndViewController.getParametros().put("listaPaisesEJ", listaPaisesEJ);
         modalAndViewController.getParametros().put("listaProvinciasEJ", listaProvinciasEJ);
         modalAndViewController.getParametros().put("listaCiudadesEJ", listaCiudadesEJ);
+        modalAndViewController.getParametros().put("listaEntidadesJuridicas", listaEntidadesJuridicas);
+        modalAndViewController.getParametros().put("listaSectores", listaSectores);
         return new ModelAndView(modalAndViewController.getParametros(),"modalNuevaEntidadJuridica.hbs");
     }
 
@@ -66,30 +84,246 @@ public class AccionesEntidadJuridicaController {
 
     //Guardar y confirmar que se dio de alta nueva entidad jurídica
     public ModelAndView modalAndViewMostrarModalConfirmacionNuevaEntidadJuridica(Request request){
-        String nombre = request.queryParams("nombreEntidadJuridica");
-        String nombreFicticio = request.queryParams("nombreFicticioEntidadJuridica");
-        String codigoInscripcion = request.queryParams("codigoInscripcionDefinitiva");
-        String razonSocial = request.queryParams("razonSocialEntidadJuridica");
-        String cuit_cuil = request.queryParams("cuitEntidadJuridica");
+        String nombre = request.queryParams("nombreEntidadJuridicaNueva");
+        EntidadJuridica entidadJuridicaNueva = new EntidadJuridica(nombre);
 
-        DireccionPostal direccionPostal = operadorController.generarDireccionPostal(request);
-
-        EntidadJuridica entidadJuridicaAGuardar = new EntidadJuridica(nombre, nombreFicticio, razonSocial, cuit_cuil, direccionPostal, codigoInscripcion, null);
-
-        if (operadorController.persistenciaNoValida(repoEntidadJuridica, entidadJuridicaAGuardar)){
-            modalAndViewController.getParametros().put("mensaje", "No se guardaron los datos, intentelo nuevamente.");
+        if (nombre.isEmpty()){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un nombre para la nueva entidad jurídica.");
             return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
         }
 
-        modalAndViewController.getParametros().put("mensaje", "Se persistio correctamente la entidad juridica.");
-        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        if (operadorController.persistenciaNoValida(repoEntidadJuridica, entidadJuridicaNueva)){
+            modalAndViewController.getParametros().put("mensaje", "El nombre de la entidad jurídica ingresada ya existe, intentelo nuevamente con otro nombre.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
 
+        modalAndViewController.getParametros().put("mensaje", "Se dio de alta correctamente la nueva entidad juridica "+nombre+".");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
     }
 
     public ModelAndView mostrarModalConfirmacionNuevaEntidadJuridica(Request request, Response response){
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionNuevaEntidadJuridica(request));
     }
 
+    private ModelAndView modalAndViewMostrarModalConfirmarNuevaEntidadEmpresa() {
+        modalAndViewController.getParametros().put("mensaje", "¿Desea dar de alta esta nueva empresa?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarNuevaEntidadEmpresa.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarNuevaEntidadEmpresa(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMostrarModalConfirmarNuevaEntidadEmpresa);
+    }
+
+    private boolean yaExisteCuit(String cuitEmpresa, List<Entidad> entidades) {
+        return entidades.stream().anyMatch(unaEntidad -> (unaEntidad.getCuitEntidad() != null && unaEntidad.getCuitEntidad().equals(cuitEmpresa)));
+    }
+
+    private boolean yaExisteRazonsocial(String razonSocialEmpresa, List<Entidad> entidades) {
+        return entidades.stream().anyMatch(unaEntidad -> unaEntidad.getRazonSocialEntidad().equals(razonSocialEmpresa));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionNuevaEntidadEmpresa(Request request) {
+        String entidadJuridicaSeleccionadaEmpresa = request.queryParams("entidadJuridicaSeleccionadaEmpresa");
+        String nombreFicticioEmpresa = request.queryParams("nombreFicticioEmpresa");
+        String codigoInscripcionDefinitiva = request.queryParams("codigoInscripcionDefinitiva");
+        String cuitEmpresa = request.queryParams("cuitEmpresa");
+        String razonSocialEmpresa = request.queryParams("razonSocialEmpresa");
+        String sectorEmpresa = request.queryParams("sectorEmpresa");
+        String promedioVAEmpresa = request.queryParams("promedioVAEmpresa");
+        String cantPersonalEmpresa = request.queryParams("cantPersonalEmpresa");
+
+        if (operadorController.soyCadenaVaciaONula(cantPersonalEmpresa)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese una cantidad de personal.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(entidadJuridicaSeleccionadaEmpresa)){
+            modalAndViewController.getParametros().put("mensaje", "Seleccione una entidad jurídica.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(nombreFicticioEmpresa)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un nombre para la empresa.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(codigoInscripcionDefinitiva)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un código de inscripción definitiva.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(cuitEmpresa)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un CUIT/CUIL.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(razonSocialEmpresa)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese una razón social.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(sectorEmpresa)){
+            modalAndViewController.getParametros().put("mensaje", "Seleccione un sector.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(promedioVAEmpresa)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un promedio de ventas anuales.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        String calle = request.queryParams("calle");
+        String altura = request.queryParams("altura");
+        String pais = request.queryParams("pais");
+        String provincia = request.queryParams("provincia");
+        String ciudad = request.queryParams("ciudad");
+
+        if (operadorController.soyCadenaVaciaONula(calle)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un nombre de calle.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.noSeleccioneUnaOpcion(ciudad)){
+            modalAndViewController.getParametros().put("mensaje", "Seleccione una cuidad.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.noSeleccioneUnaOpcion(provincia)){
+            modalAndViewController.getParametros().put("mensaje", "Seleccione una provincia.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.noSeleccioneUnaOpcion(pais)){
+            modalAndViewController.getParametros().put("mensaje", "Seleccione un país.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(altura)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese la altura de la calle.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        List<Entidad> entidades = repoEntidad.buscarTodos();
+        if (yaExisteCuit(cuitEmpresa, entidades)){
+            modalAndViewController.getParametros().put("mensaje", "El CUIT/CUIL ingresado ya se encuentra registrado.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (yaExisteRazonsocial(razonSocialEmpresa, entidades)){
+            modalAndViewController.getParametros().put("mensaje", "La razón social ingresada ya se encuentra registrada.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        //genero la direccion postal
+        DireccionPostal direccionPostal = operadorController.generarDireccionPostal(request);
+        Entidad entidadNueva = new Entidad(nombreFicticioEmpresa, razonSocialEmpresa, cuitEmpresa, direccionPostal, codigoInscripcionDefinitiva);
+
+        //asocio la entidad jurídica a la nueva entidad empresa
+        int idEntidadJuridica = Integer.parseInt(entidadJuridicaSeleccionadaEmpresa);
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        entidadNueva.agregarEntidadJuridicaAsociada(entidadJuridica);
+
+        //instancio y asocio el tipo empresa a la nueva entidad
+        int idSector = Integer.parseInt(sectorEmpresa);
+        Sector sector = repoSector.buscar(idSector);
+        int promedioVA = Integer.parseInt(promedioVAEmpresa);
+        int cantPersonas = Integer.parseInt(cantPersonalEmpresa);
+        Empresa empresa = new Empresa(sector, promedioVA, cantPersonas);
+        entidadNueva.agregarTipoEmpresa(empresa);
+
+        if (operadorController.persistenciaNoValida(repoEntidad, entidadNueva)){
+            modalAndViewController.getParametros().put("mensaje", "No se pudo crear la nueva entidad, inténtelo nuevamente.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        modalAndViewController.getParametros().put("mensaje", "Se creo exitosamente la nueva entidad "+nombreFicticioEmpresa+".");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmacionDeNuevaEntidad.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionNuevaEntidadEmpresa(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionNuevaEntidadEmpresa(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmarNuevaEntidadOrgSoc() {
+        modalAndViewController.getParametros().put("mensaje", "¿Desea dar de alta esta nueva organización de sector social?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarNuevaEntidadOrgSoc.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarNuevaEntidadOrgSoc(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMostrarModalConfirmarNuevaEntidadOrgSoc);
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionNuevaEntidadOrgSoc(Request request) {
+        String entidadJuridicaSeleccionadaOrgSoc = request.queryParams("entidadJuridicaSeleccionadaOrgSoc");
+        String nombreFicticioOrgSoc = request.queryParams("nombreFicticioOrgSoc");
+        String razonSocialOrgSoc = request.queryParams("razonSocialOrgSoc");
+        if (operadorController.soyCadenaVaciaONula(entidadJuridicaSeleccionadaOrgSoc)){
+            modalAndViewController.getParametros().put("mensaje", "Seleccione una entidad jurídica.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(razonSocialOrgSoc)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese una razón social.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(nombreFicticioOrgSoc)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un nombre para la empresa.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        List<Entidad> entidades = repoEntidad.buscarTodos();
+        if (yaExisteRazonsocial(razonSocialOrgSoc, entidades)){
+            modalAndViewController.getParametros().put("mensaje", "La razón social ingresada ya se encuentra registrada.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        int idEntidadJuridica = Integer.parseInt(entidadJuridicaSeleccionadaOrgSoc);
+        EntidadJuridica entidadJuridicaSeleccionada = repoEntidadJuridica.buscar(idEntidadJuridica);
+
+        Entidad nuevaEntidadOrgSoc = new Entidad(nombreFicticioOrgSoc, razonSocialOrgSoc);
+        nuevaEntidadOrgSoc.agregarEntidadJuridicaAsociada(entidadJuridicaSeleccionada);
+        OrganizacionSectorSocial nuevaOrgSoc = new OrganizacionSectorSocial();
+        nuevaEntidadOrgSoc.agregarTipoOrganizacionSectorSocial(nuevaOrgSoc);
+
+        if (operadorController.persistenciaNoValida(repoEntidad, nuevaEntidadOrgSoc)){
+            modalAndViewController.getParametros().put("mensaje", "No se pudo crear la nueva entidad, inténtelo nuevamente.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        modalAndViewController.getParametros().put("mensaje", "Se creo exitosamente la nueva entidad "+razonSocialOrgSoc+".");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmacionDeNuevaEntidad.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionNuevaEntidadOrgSoc(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionNuevaEntidadOrgSoc(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmarNuevaEntidadBase() {
+        modalAndViewController.getParametros().put("mensaje", "¿Desea dar de alta esta nueva entidad base?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarNuevaEntidadBase.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarNuevaEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMostrarModalConfirmarNuevaEntidadBase);
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionNuevaEntidadBase(Request request) {
+        String entidadJuridicaSeleccionadaBase = request.queryParams("entidadJuridicaSeleccionadaBase");
+        String nombreFicticioBase = request.queryParams("nombreFicticioBase");
+        if (operadorController.soyCadenaVaciaONula(nombreFicticioBase)){
+            modalAndViewController.getParametros().put("mensaje", "Ingrese un nombre para la empresa.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        if (operadorController.soyCadenaVaciaONula(entidadJuridicaSeleccionadaBase)){
+            modalAndViewController.getParametros().put("mensaje", "Seleccione una entidad jurídica.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+
+        EntidadBase nuevaEntidadBase = new EntidadBase(nombreFicticioBase);
+        int idEntidadJuridica = Integer.parseInt(entidadJuridicaSeleccionadaBase);
+        EntidadJuridica entidadJuridicaSeleccionada = repoEntidadJuridica.buscar(idEntidadJuridica);
+        nuevaEntidadBase.asociarEntidadJuridica(entidadJuridicaSeleccionada);
+
+        if (operadorController.persistenciaNoValida(repoEntidadBase, nuevaEntidadBase)){
+            modalAndViewController.getParametros().put("mensaje", "No se pudo crear la nueva entidad, inténtelo nuevamente.");
+            return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+        }
+        modalAndViewController.getParametros().put("mensaje", "Se creo exitosamente la nueva entidad "+nombreFicticioBase+".");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmacionDeNuevaEntidad.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionNuevaEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionNuevaEntidadBase(request));
+    }
+
+    ////////////
     private ModelAndView modalAndViewMostrarListaEntidadesJuridicasInhabilitadas() {
         List<EntidadJuridica> listaEntidadesJuridicas = repoEntidadJuridica.buscarTodos();
         List<EntidadJuridica> listaEntidadesJuridicasInhabilitadas = listaEntidadesJuridicas.stream().filter(entidadJuridica -> !entidadJuridica.estoyHabilitado()).collect(Collectors.toList());
@@ -101,6 +335,31 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMostrarListaEntidadesJuridicasInhabilitadas);
     }
 
+    private ModelAndView modalAndViewMostrarModalConfirmarHabilitarEntidadJuridica(Request request) {
+        String idEntidadJuridica = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","¿Estas seguro de habilitar a esta entidad jurídica?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarHabilitarEntidadJuridica.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarHabilitarEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmarHabilitarEntidadJuridica(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionHabilitarEntidadJuridica(Request request) {
+        int idEntidadJuridica = Integer.parseInt(request.params("id"));
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        entidadJuridica.cambiarAHabilitado();
+        repoEntidadJuridica.modificar(entidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","Se habilitó correctamente a la entidad jurídica "+entidadJuridica.getNombreEntidadJuridica());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionHabilitarEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionHabilitarEntidadJuridica(request));
+    }
+
+    ///////////////
     private ModelAndView modalAndViewMostrarListaEntidadesJuridicasAEditar() {
         List<EntidadJuridica> listaEntidadesJuridicas = repoEntidadJuridica.buscarTodos();
         List<EntidadJuridica> listaEntidadesJuridicasHabilitadas = listaEntidadesJuridicas.stream().filter(EntidadJuridica::estoyHabilitado).collect(Collectors.toList());
@@ -111,5 +370,281 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMostrarListaEntidadesJuridicasAEditar);
     }
 
+    private ModelAndView modalAndViewMostrarModalParaConfirmarListarEmpresas(Request request) {
+        String idEntidadJuridica = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres mostrar su lista de empresas?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarListarEmpresas.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarListarEmpresas(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalParaConfirmarListarEmpresas(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalListadoEmpresas(Request request) {
+        int idEntidadJuridica = Integer.parseInt(request.params("id"));
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        List<Entidad> listaEntidades = repoEntidad.buscarTodos();
+        List<Entidad> listaEntidadesDeEntidadJuridica = listaEntidades.stream().filter(unaEntidad -> (unaEntidad.getEntidadJuridicaAsociada().equals(entidadJuridica) && unaEntidad.getTipoEmpresa() != null)).collect(Collectors.toList());
+        modalAndViewController.getParametros().put("listaEntidadesDeEntidadJuridica", listaEntidadesDeEntidadJuridica);
+        return new ModelAndView(modalAndViewController.getParametros(), "modalListaEntidadesEmpresa.hbs");
+    }
+
+    public ModelAndView mostrarModalListadoEmpresas(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalListadoEmpresas(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmarBajaEmpresa(Request request) {
+        String idEmpresa = request.params("id");
+        modalAndViewController.getParametros().put("idEmpresa", idEmpresa);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres dar de baja esta empresa?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarBajaEmpresa.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarBajaEntidadEmpresa(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmarBajaEmpresa(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionBajaEmpresa(Request request) {
+        int idEmpresa = Integer.parseInt(request.params("id"));
+        Entidad entidadADarDeBaja = repoEntidad.buscar(idEmpresa);
+        entidadADarDeBaja.cambiarAInhabilitado();
+        repoEntidad.modificar(entidadADarDeBaja);
+        modalAndViewController.getParametros().put("mensaje","Se dio de baja correctamente a esta empresa.");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionBajaEmpresa(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionBajaEmpresa(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalParaConfirmarHabilitarEmpresa(Request request) {
+        String idEmpresa = request.params("id");
+        modalAndViewController.getParametros().put("idEmpresa", idEmpresa);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres Habilitar esta empresa?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarHabilitarEmpresa.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarHabilitarEmpresa(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalParaConfirmarHabilitarEmpresa(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionHabilitarEmpresa(Request request) {
+        int idEmpresa = Integer.parseInt(request.params("id"));
+        Entidad entidadEmpresaAHabilitar = repoEntidad.buscar(idEmpresa);
+        entidadEmpresaAHabilitar.cambiarAHabilitado();
+        repoEntidad.modificar(entidadEmpresaAHabilitar);
+        modalAndViewController.getParametros().put("mensaje","Se habilitó correctamente a la empresa "+entidadEmpresaAHabilitar.getRazonSocialEntidad());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+
+    }
+
+    public ModelAndView mostrarModalConfirmacionHabilitarEmpresa(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionHabilitarEmpresa(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalParaConfirmarListarOrgSoc(Request request) {
+        String idEntidadJuridica = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres mostrar su lista de organizaciones de sector social?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarListarOrgSoc.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarListarOrgSoc(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalParaConfirmarListarOrgSoc(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalListadoOrgSoc(Request request) {
+        int idEntidadJuridica = Integer.parseInt(request.params("id"));
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        List<Entidad> listaEntidades = repoEntidad.buscarTodos();
+        List<Entidad> listaEntidadesOrgSocDeEntidadJuridica = listaEntidades.stream().filter(unaEntidad -> (unaEntidad.getEntidadJuridicaAsociada().equals(entidadJuridica) && unaEntidad.getTipoOrganizacionSectorSocial() != null)).collect(Collectors.toList());
+        modalAndViewController.getParametros().put("listaEntidadesOrgSocDeEntidadJuridica", listaEntidadesOrgSocDeEntidadJuridica);
+        return new ModelAndView(modalAndViewController.getParametros(), "modalListaEntidadesOrgSoc.hbs");
+    }
+    public ModelAndView mostrarModalListadoOrgSoc(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalListadoOrgSoc(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmarBajaOrgSoc(Request request) {
+        String idOrgSoc = request.params("id");
+        modalAndViewController.getParametros().put("idOrgSoc", idOrgSoc);
+        modalAndViewController.getParametros().put("mensaje","¿Estás seguro de dar de baja a esta organización de sector social?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarBajaOrgSoc.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarBajaEntidadOrgSoc(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmarBajaOrgSoc(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionBajaOrgSoc(Request request) {
+        int idOrgsoc = Integer.parseInt(request.params("id"));
+        Entidad entidadADarDeBaja = repoEntidad.buscar(idOrgsoc);
+        entidadADarDeBaja.cambiarAInhabilitado();
+        repoEntidad.modificar(entidadADarDeBaja);
+        modalAndViewController.getParametros().put("mensaje","Se dio de baja correctamente a la organización de sector social "+entidadADarDeBaja.getRazonSocialEntidad());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarBajaOrgSoc.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionBajaOrgSoc(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionBajaOrgSoc(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmarHabilitarOrgSoc(Request request) {
+        String idOrgSoc = request.params("id");
+        modalAndViewController.getParametros().put("idOrgSoc", idOrgSoc);
+        modalAndViewController.getParametros().put("mensaje","¿Estás seguro de habilitar a esta organización de sector social?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarHabilitarOrgSoc.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarHabilitarOrgSoc(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmarHabilitarOrgSoc(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionHabilitarOrgSoc(Request request) {
+        int idOrgsoc = Integer.parseInt(request.params("id"));
+        Entidad entidadAHabilitar = repoEntidad.buscar(idOrgsoc);
+        entidadAHabilitar.cambiarAHabilitado();
+        repoEntidad.modificar(entidadAHabilitar);
+        modalAndViewController.getParametros().put("mensaje","Se habilitó correctamente la organización de sector social.");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionHabilitarOrgSoc(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionHabilitarOrgSoc(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalParaConfirmarListarEntidadesBase(Request request) {
+        String idEntidadJuridica = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres mostrar su lista de entidades base?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarListarEntidadesBase.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarListarEntidadesBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalParaConfirmarListarEntidadesBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalListadoEntidadesBase(Request request) {
+        int idEntidadJuridica = Integer.parseInt(request.params("id"));
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        List<EntidadBase> listaEntidadesBase = repoEntidadBase.buscarTodos();
+        List<EntidadBase> listaEntidadesBaseDeEntidadJuridica = listaEntidadesBase.stream().filter(unaEntidad -> unaEntidad.getEntidadJuridicaAsociada().equals(entidadJuridica) ).collect(Collectors.toList());
+        modalAndViewController.getParametros().put("listaEntidadesBaseDeEntidadJuridica", listaEntidadesBaseDeEntidadJuridica);
+        return new ModelAndView(modalAndViewController.getParametros(), "modalListaEntidadesBase.hbs");
+    }
+
+    public ModelAndView mostrarModalListadoEntidadesBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalListadoEntidadesBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarConfirmarBajaEntidadesBase(Request request) {
+        String idEntidadBase = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadBase", idEntidadBase);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres dar de baja esta entidad base?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarBajaEntidadBase.hbs");
+    }
+
+    public ModelAndView mostrarModalparaConfirmarBajaEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarConfirmarBajaEntidadesBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionBajaEntidadesBase(Request request) {
+        int idEntidadBase = Integer.parseInt(request.params("id"));
+        EntidadBase entidadBaseADarDeBaja = repoEntidadBase.buscar(idEntidadBase);
+        entidadBaseADarDeBaja.cambiarAInhabilitado();
+        repoEntidadBase.modificar(entidadBaseADarDeBaja);
+        modalAndViewController.getParametros().put("mensaje","Se dio de baja correctamente la entidad base.");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionBajaEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionBajaEntidadesBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmarHabilitarEntidadBase(Request request) {
+        String idEntidadBase = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadBase", idEntidadBase);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres habilitar esta entidad base?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarHabilitarEntidadBase.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarHabilitarEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmarHabilitarEntidadBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionHabilitarEntidadBase(Request request) {
+        int idEntidadBase = Integer.parseInt(request.params("id"));
+        EntidadBase entidadBaseAHabilitar = repoEntidadBase.buscar(idEntidadBase);
+        entidadBaseAHabilitar.cambiarAHabilitado();
+        repoEntidadBase.modificar(entidadBaseAHabilitar);
+        modalAndViewController.getParametros().put("mensaje","Se habilitó correctamente la entidad base "+entidadBaseAHabilitar.getNombreFicticio());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionHabilitarEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionHabilitarEntidadBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalParaConfirmarBajaEntidadJuridica(Request request) {
+        String idEntidadJuridica = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres dar de baja esta entidad jurídica?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarBajaEntidadJuridica.hbs");
+    }
+    public ModelAndView mostrarModalParaConfirmarBajaEntidaduridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalParaConfirmarBajaEntidadJuridica(request));
+    }
+
+    private ModelAndView modalAndViewMostrarconfirmacionBajaEntidadJuridica(Request request) {
+        int idEntidadJuridica = Integer.parseInt(request.params("id"));
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        entidadJuridica.cambiarAInhabilitado();
+        repoEntidadJuridica.modificar(entidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","Se dio de baja correctamente la entidad jurídica");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionBajaEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarconfirmacionBajaEntidadJuridica(request));
+    }
+
+    private ModelAndView modalAndViewMostrarConfirmarEdicionEntidadJuridica(Request request) {
+        String idEntidadJuridica = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres editar esta entidad jurídica?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarEditarEntidadJuridica.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarEditarEntidadjuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarConfirmarEdicionEntidadJuridica(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalEntidadJuridica(Request request) {
+        int idEntidadJuridica = Integer.parseInt(request.params("id"));
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        modalAndViewController.getParametros().put("id",entidadJuridica.getId());
+        modalAndViewController.getParametros().put("nombreFicticio", entidadJuridica.getNombreEntidadJuridica());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalEditarUnaEntidadJuridica.hbs");
+    }
+
+    public ModelAndView mostrarModalParaEditarEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalEntidadJuridica(request));
+    }
+
+    public ModelAndView mostrarModalConfirmacionEdicionEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewConfirmacionCambiosEnDatosDeLaEntidadJuridica(request));
+    }
+
+    private ModelAndView modalAndViewConfirmacionCambiosEnDatosDeLaEntidadJuridica(Request request) {
+        String nombreActualizado = request.queryParams("nombre");
+
+        int idEntidad = Integer.parseInt(request.params("id"));
+       EntidadJuridica entidadAEditar = this.repoEntidadJuridica.buscar(idEntidad);
+        entidadAEditar.actualizarCambiosEnMisAtributos(nombreActualizado);
+        repoEntidadJuridica.modificar(entidadAEditar);
+        modalAndViewController.getParametros().put("mensaje","Se actualizó correctamente los datos de la entidad juridica ");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
 
 }

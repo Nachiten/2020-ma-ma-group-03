@@ -299,10 +299,8 @@ DROP TABLE IF EXISTS `entidadbase`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `entidadbase` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(255) DEFAULT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
+  `estoyHabilitado` bit(1) DEFAULT NULL,
   `nombreFicticio` varchar(255) DEFAULT NULL,
-  `razonSocial` varchar(255) DEFAULT NULL,
   `entidadJuridicaAsociada_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_2j0lqc683wt6busqtxauqjrvv` (`entidadJuridicaAsociada_id`),
@@ -316,8 +314,102 @@ CREATE TABLE `entidadbase` (
 
 LOCK TABLES `entidadbase` WRITE;
 /*!40000 ALTER TABLE `entidadbase` DISABLE KEYS */;
-INSERT INTO `entidadbase` VALUES (1,NULL,'Colectivo de Derechos de Infancia y Adolescencia - CDIA','Andhes',NULL,2);
+INSERT INTO `entidadbase` VALUES (1,_binary '','Andhes',2);
 /*!40000 ALTER TABLE `entidadbase` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `entidades`
+--
+
+DROP TABLE IF EXISTS `entidades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `entidades` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codigoInscripcionDefinitiva` varchar(255) DEFAULT NULL,
+  `cuitEntidadJuridica` varchar(255) DEFAULT NULL,
+  `estoyHabilitado` bit(1) DEFAULT NULL,
+  `nombreFicticio` varchar(255) DEFAULT NULL,
+  `razonSocial` varchar(255) DEFAULT NULL,
+  `direccionPostal_id` int(11) DEFAULT NULL,
+  `entidadJuridicaAsociada_id` int(11) DEFAULT NULL,
+  `tipoEmpresa_id` int(11) DEFAULT NULL,
+  `tipoOrganizacionSectorSocial_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_4c3x8kg1ewr4byxdglex2gfpc` (`direccionPostal_id`),
+  KEY `FK_koawx98b4pov1nayukoofc30g` (`entidadJuridicaAsociada_id`),
+  KEY `FK_9om3utts3g8ubt31dnq3kppi7` (`tipoEmpresa_id`),
+  KEY `FK_g7rv0dtv3a3uqny6y8rks0yu` (`tipoOrganizacionSectorSocial_id`),
+  CONSTRAINT `FK_4c3x8kg1ewr4byxdglex2gfpc` FOREIGN KEY (`direccionPostal_id`) REFERENCES `direccionpostal` (`id`),
+  CONSTRAINT `FK_9om3utts3g8ubt31dnq3kppi7` FOREIGN KEY (`tipoEmpresa_id`) REFERENCES `tipoentidadjuridicaempresa` (`id`),
+  CONSTRAINT `FK_g7rv0dtv3a3uqny6y8rks0yu` FOREIGN KEY (`tipoOrganizacionSectorSocial_id`) REFERENCES `tipoentidadjuridicaorganizacionsectorsocial` (`id`),
+  CONSTRAINT `FK_koawx98b4pov1nayukoofc30g` FOREIGN KEY (`entidadJuridicaAsociada_id`) REFERENCES `entidadjuridica` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entidades`
+--
+
+LOCK TABLES `entidades` WRITE;
+/*!40000 ALTER TABLE `entidades` DISABLE KEYS */;
+INSERT INTO `entidades` VALUES (1,'ABCD-LO','30-15269857-2',_binary '','Oficina Central Buenos Aires','EAAF BA',1,1,1,NULL),(2,'ABK-LO','30-25888897-8',_binary '','Surcos ','Surcos CS',2,2,2,NULL),(3,'DDN-TP','30-77896583-9',_binary '','Oficina Central Mexico','EAAF M',3,1,3,NULL),(4,'AKPQ-LO','30-15789655-7',_binary '','Oficina Central Nueva York','EAAF NY',4,1,4,NULL);
+/*!40000 ALTER TABLE `entidades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `entidades_operaciondeegreso`
+--
+
+DROP TABLE IF EXISTS `entidades_operaciondeegreso`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `entidades_operaciondeegreso` (
+  `entidades_id` int(11) NOT NULL,
+  `operacionesDeEgreso_idOperacion` int(11) NOT NULL,
+  UNIQUE KEY `UK_ra48lpnovu2u6471q8nknvbwm` (`operacionesDeEgreso_idOperacion`),
+  KEY `FK_1dg1n69x1gtu8f3p16viwb5ei` (`entidades_id`),
+  CONSTRAINT `FK_1dg1n69x1gtu8f3p16viwb5ei` FOREIGN KEY (`entidades_id`) REFERENCES `entidades` (`id`),
+  CONSTRAINT `FK_ra48lpnovu2u6471q8nknvbwm` FOREIGN KEY (`operacionesDeEgreso_idOperacion`) REFERENCES `operaciondeegreso` (`idOperacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entidades_operaciondeegreso`
+--
+
+LOCK TABLES `entidades_operaciondeegreso` WRITE;
+/*!40000 ALTER TABLE `entidades_operaciondeegreso` DISABLE KEYS */;
+INSERT INTO `entidades_operaciondeegreso` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(2,8),(2,9),(2,10);
+/*!40000 ALTER TABLE `entidades_operaciondeegreso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `entidades_operaciondeingreso`
+--
+
+DROP TABLE IF EXISTS `entidades_operaciondeingreso`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `entidades_operaciondeingreso` (
+  `entidades_id` int(11) NOT NULL,
+  `operacionesDeIngreso_id` int(11) NOT NULL,
+  UNIQUE KEY `UK_114nk9vyhrb98u0x7p3xtw5ah` (`operacionesDeIngreso_id`),
+  KEY `FK_em18e7c230ck9o0tqd0uasdy5` (`entidades_id`),
+  CONSTRAINT `FK_114nk9vyhrb98u0x7p3xtw5ah` FOREIGN KEY (`operacionesDeIngreso_id`) REFERENCES `operaciondeingreso` (`id`),
+  CONSTRAINT `FK_em18e7c230ck9o0tqd0uasdy5` FOREIGN KEY (`entidades_id`) REFERENCES `entidades` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entidades_operaciondeingreso`
+--
+
+LOCK TABLES `entidades_operaciondeingreso` WRITE;
+/*!40000 ALTER TABLE `entidades_operaciondeingreso` DISABLE KEYS */;
+INSERT INTO `entidades_operaciondeingreso` VALUES (1,1),(1,2),(1,3),(2,4);
+/*!40000 ALTER TABLE `entidades_operaciondeingreso` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -329,18 +421,11 @@ DROP TABLE IF EXISTS `entidadjuridica`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `entidadjuridica` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigoInscripcionDefinitiva` varchar(255) DEFAULT NULL,
-  `cuitEntidadJuridica` varchar(255) DEFAULT NULL,
   `estoyHabilitado` bit(1) DEFAULT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `nombreFicticio` varchar(255) DEFAULT NULL,
-  `razonSocial` varchar(255) DEFAULT NULL,
-  `direccionPostal_id` int(11) DEFAULT NULL,
-  `tipoEntidadJuridica_id` int(11) DEFAULT NULL,
+  `nombreEntidadJuridica` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_b1j65j5l9m0blfd6tfem8kjf5` (`direccionPostal_id`),
-  CONSTRAINT `FK_b1j65j5l9m0blfd6tfem8kjf5` FOREIGN KEY (`direccionPostal_id`) REFERENCES `direccionpostal` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `UK_1xl587aki5jvtsdjpdd18113y` (`nombreEntidadJuridica`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -349,62 +434,8 @@ CREATE TABLE `entidadjuridica` (
 
 LOCK TABLES `entidadjuridica` WRITE;
 /*!40000 ALTER TABLE `entidadjuridica` DISABLE KEYS */;
-INSERT INTO `entidadjuridica` VALUES (1,'ABCD-LO','30-15269857-2',_binary '','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Buenos Aires','EAAF BA',1,1),(2,'ABK-LO','30-25888897-8',_binary '','Colectivo de Derechos de Infancia y Adolescencia - CDIA','Surcos ','Surcos CS',2,2),(3,'DDN-TP','30-77896583-9',_binary '','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Mexico','EAAF M',3,3),(4,'AKPQ-LO','30-15789655-7',_binary '','Equipo Argentino de Antropología Forense - EAAF','Oficina Central Nueva York','EAAF NY',4,4);
+INSERT INTO `entidadjuridica` VALUES (1,_binary '','Equipo Argentino de Antropología Forense - EAAF'),(2,_binary '','Colectivo de Derechos de Infancia y Adolescencia - CDIA');
 /*!40000 ALTER TABLE `entidadjuridica` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `entidadjuridica_operaciondeegreso`
---
-
-DROP TABLE IF EXISTS `entidadjuridica_operaciondeegreso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `entidadjuridica_operaciondeegreso` (
-  `entidadJuridica_id` int(11) NOT NULL,
-  `operacionesDeEgreso_idOperacion` int(11) NOT NULL,
-  UNIQUE KEY `UK_79fqyob0cg1o575nc6pdxbbm0` (`operacionesDeEgreso_idOperacion`),
-  KEY `FK_fnoa9e6wuh4u9y2a6umu3aprj` (`entidadJuridica_id`),
-  CONSTRAINT `FK_79fqyob0cg1o575nc6pdxbbm0` FOREIGN KEY (`operacionesDeEgreso_idOperacion`) REFERENCES `operaciondeegreso` (`idOperacion`),
-  CONSTRAINT `FK_fnoa9e6wuh4u9y2a6umu3aprj` FOREIGN KEY (`entidadJuridica_id`) REFERENCES `entidadjuridica` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `entidadjuridica_operaciondeegreso`
---
-
-LOCK TABLES `entidadjuridica_operaciondeegreso` WRITE;
-/*!40000 ALTER TABLE `entidadjuridica_operaciondeegreso` DISABLE KEYS */;
-INSERT INTO `entidadjuridica_operaciondeegreso` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(2,8),(2,9),(2,10);
-/*!40000 ALTER TABLE `entidadjuridica_operaciondeegreso` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `entidadjuridica_operaciondeingreso`
---
-
-DROP TABLE IF EXISTS `entidadjuridica_operaciondeingreso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `entidadjuridica_operaciondeingreso` (
-  `entidadJuridica_id` int(11) NOT NULL,
-  `operacionesDeIngreso_id` int(11) NOT NULL,
-  UNIQUE KEY `UK_k0wahswwunbajlrbnchtxpnwq` (`operacionesDeIngreso_id`),
-  KEY `FK_5vp0de1vl43alta9dqh3wnb2t` (`entidadJuridica_id`),
-  CONSTRAINT `FK_5vp0de1vl43alta9dqh3wnb2t` FOREIGN KEY (`entidadJuridica_id`) REFERENCES `entidadjuridica` (`id`),
-  CONSTRAINT `FK_k0wahswwunbajlrbnchtxpnwq` FOREIGN KEY (`operacionesDeIngreso_id`) REFERENCES `operaciondeingreso` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `entidadjuridica_operaciondeingreso`
---
-
-LOCK TABLES `entidadjuridica_operaciondeingreso` WRITE;
-/*!40000 ALTER TABLE `entidadjuridica_operaciondeingreso` DISABLE KEYS */;
-INSERT INTO `entidadjuridica_operaciondeingreso` VALUES (1,1),(1,2),(1,3),(2,4);
-/*!40000 ALTER TABLE `entidadjuridica_operaciondeingreso` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -502,7 +533,7 @@ CREATE TABLE `mensaje` (
   PRIMARY KEY (`id`),
   KEY `FK_1f1fqqn868fysovk9g10ge8kt` (`usuarioAsociado_id`),
   CONSTRAINT `FK_1f1fqqn868fysovk9g10ge8kt` FOREIGN KEY (`usuarioAsociado_id`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -511,6 +542,7 @@ CREATE TABLE `mensaje` (
 
 LOCK TABLES `mensaje` WRITE;
 /*!40000 ALTER TABLE `mensaje` DISABLE KEYS */;
+INSERT INTO `mensaje` VALUES (1,'El egreso con fecha: 2020-10-01 y ID: 2 no pudo ser validado correctamente.','2020-12-21 22:11:30','2020-12-21 22:11:33',_binary '',1),(2,'El egreso con fecha: 2020-09-27 y ID: 4 no pudo ser validado correctamente.','2020-12-21 22:11:30','2020-12-21 22:11:38',_binary '',1),(3,'El egreso con fecha: 2020-03-10 y ID: 5 pudo ser validado correctamente.','2020-12-21 22:11:30','2020-12-21 22:11:46',_binary '',1),(4,'El egreso con fecha: 2020-10-01 y ID: 2 no pudo ser validado correctamente.','2020-12-21 22:11:30',NULL,_binary '\0',1),(5,'El egreso con fecha: 2020-09-27 y ID: 4 no pudo ser validado correctamente.','2020-12-21 22:11:30',NULL,_binary '\0',1),(6,'El egreso con fecha: 2020-03-10 y ID: 5 pudo ser validado correctamente.','2020-12-21 22:11:30',NULL,_binary '\0',1);
 /*!40000 ALTER TABLE `mensaje` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -573,7 +605,7 @@ CREATE TABLE `operaciondeegreso` (
   CONSTRAINT `FK_9f9wr4v0gowu67u80jnfa0jep` FOREIGN KEY (`medioDePago_id`) REFERENCES `mediodepago` (`id`),
   CONSTRAINT `FK_a9ww9iprl2lgl3jauc8rofn16` FOREIGN KEY (`operacionDeIngreso_id`) REFERENCES `operaciondeingreso` (`id`),
   CONSTRAINT `FK_bscxh0d93nc9mm8e4355pysdy` FOREIGN KEY (`documentoComercial_id`) REFERENCES `documentocomercial` (`id`),
-  CONSTRAINT `FK_h4fe685v7j11p4wy7nr7teeia` FOREIGN KEY (`entidadJuridicaAsociada_id`) REFERENCES `entidadjuridica` (`id`),
+  CONSTRAINT `FK_h4fe685v7j11p4wy7nr7teeia` FOREIGN KEY (`entidadJuridicaAsociada_id`) REFERENCES `entidades` (`id`),
   CONSTRAINT `FK_lo0kf7viuycogcbwad8qlayse` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -584,7 +616,7 @@ CREATE TABLE `operaciondeegreso` (
 
 LOCK TABLES `operaciondeegreso` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso` VALUES (1,6,'2020-09-27',_binary '\0',17000,1,NULL,1,2,NULL,6,1),(2,3,'2020-03-10',_binary '\0',19952.7,1,NULL,1,1,NULL,1,1),(3,0,'2020-07-09',_binary '\0',3500,1,NULL,1,1,NULL,4,1),(4,0,'2020-07-08',_binary '\0',2100,1,NULL,1,2,NULL,3,1),(5,0,'2020-08-03',_binary '\0',26100,1,NULL,1,3,NULL,5,1),(6,4,'2020-10-01',_binary '\0',207708,1,NULL,1,2,NULL,9,1),(7,0,'2020-10-05',_binary '\0',200000,1,NULL,1,2,NULL,9,1),(8,0,'2020-10-07',_binary '\0',800,1,NULL,2,2,NULL,4,3),(9,0,'2020-10-07',_binary '\0',1100,1,NULL,2,2,NULL,3,3),(10,0,'2020-09-25',_binary '\0',21000,1,NULL,2,2,NULL,11,3);
+INSERT INTO `operaciondeegreso` VALUES (1,0,'2020-07-09',_binary '\0',3500,1,NULL,1,1,NULL,4,1),(2,4,'2020-10-01',_binary '\0',207708,1,NULL,1,2,NULL,9,1),(3,0,'2020-07-08',_binary '\0',2100,1,NULL,1,2,NULL,3,1),(4,6,'2020-09-27',_binary '\0',17000,1,NULL,1,2,NULL,6,1),(5,3,'2020-03-10',_binary '\0',19952.7,1,NULL,1,1,NULL,1,1),(6,0,'2020-08-03',_binary '\0',26100,1,NULL,1,3,NULL,5,1),(7,0,'2020-10-05',_binary '\0',200000,1,NULL,1,2,NULL,9,1),(8,0,'2020-10-07',_binary '\0',800,1,NULL,2,2,NULL,4,3),(9,0,'2020-10-07',_binary '\0',1100,1,NULL,2,2,NULL,3,3),(10,0,'2020-09-25',_binary '\0',21000,1,NULL,2,2,NULL,11,3);
 /*!40000 ALTER TABLE `operaciondeegreso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -611,7 +643,7 @@ CREATE TABLE `operaciondeegreso_categoriacriterio` (
 
 LOCK TABLES `operaciondeegreso_categoriacriterio` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso_categoriacriterio` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso_categoriacriterio` VALUES (2,1),(2,3),(2,4),(4,5),(3,5),(5,6),(5,8),(1,6),(1,8),(6,1),(6,2),(6,9),(7,1),(9,10),(8,11),(10,12);
+INSERT INTO `operaciondeegreso_categoriacriterio` VALUES (5,1),(5,3),(5,4),(3,5),(1,5),(6,6),(6,8),(4,6),(4,8),(2,1),(2,2),(2,9),(7,1),(9,10),(8,11),(10,12);
 /*!40000 ALTER TABLE `operaciondeegreso_categoriacriterio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -638,7 +670,7 @@ CREATE TABLE `operaciondeegreso_item` (
 
 LOCK TABLES `operaciondeegreso_item` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso_item` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso_item` VALUES (2,1),(2,2),(2,3),(4,10),(3,11),(5,12),(5,13),(1,14),(6,18),(6,19),(6,20),(6,21),(7,30),(9,31),(8,32),(10,33);
+INSERT INTO `operaciondeegreso_item` VALUES (5,1),(5,2),(5,3),(3,10),(1,11),(6,12),(6,13),(4,14),(2,18),(2,19),(2,20),(2,21),(7,30),(9,31),(8,32),(10,33);
 /*!40000 ALTER TABLE `operaciondeegreso_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -665,7 +697,7 @@ CREATE TABLE `operaciondeegreso_presupuesto` (
 
 LOCK TABLES `operaciondeegreso_presupuesto` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso_presupuesto` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso_presupuesto` VALUES (1,4),(1,5),(1,6),(2,1),(2,2),(2,3),(6,7),(6,8);
+INSERT INTO `operaciondeegreso_presupuesto` VALUES (2,7),(2,8),(4,4),(4,5),(4,6),(5,1),(5,2),(5,3);
 /*!40000 ALTER TABLE `operaciondeegreso_presupuesto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -692,7 +724,7 @@ CREATE TABLE `operaciondeegreso_usuario` (
 
 LOCK TABLES `operaciondeegreso_usuario` WRITE;
 /*!40000 ALTER TABLE `operaciondeegreso_usuario` DISABLE KEYS */;
-INSERT INTO `operaciondeegreso_usuario` VALUES (2,1),(4,1),(3,1),(5,1),(1,1),(6,1),(7,1),(9,3),(8,3),(10,3);
+INSERT INTO `operaciondeegreso_usuario` VALUES (5,1),(3,1),(1,1),(6,1),(4,1),(2,1),(7,1),(9,3),(8,3),(10,3);
 /*!40000 ALTER TABLE `operaciondeegreso_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -710,13 +742,13 @@ CREATE TABLE `operaciondeingreso` (
   `montoSinVincular` float DEFAULT NULL,
   `montoTotal` float DEFAULT NULL,
   `periodoAceptacion` date DEFAULT NULL,
-  `entidadJuridicaAsociada_id` int(11) NOT NULL,
+  `entidadAsociada_id` int(11) NOT NULL,
   `moneda_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_eui5vml6v0pb8om32ns8q4fnj` (`entidadJuridicaAsociada_id`),
+  KEY `FK_2qnqbthfjvakmfksiwmc72jwx` (`entidadAsociada_id`),
   KEY `FK_7v05jrcawvyfuvmkehhjbvk0i` (`moneda_id`),
-  CONSTRAINT `FK_7v05jrcawvyfuvmkehhjbvk0i` FOREIGN KEY (`moneda_id`) REFERENCES `monedas` (`id`),
-  CONSTRAINT `FK_eui5vml6v0pb8om32ns8q4fnj` FOREIGN KEY (`entidadJuridicaAsociada_id`) REFERENCES `entidadjuridica` (`id`)
+  CONSTRAINT `FK_2qnqbthfjvakmfksiwmc72jwx` FOREIGN KEY (`entidadAsociada_id`) REFERENCES `entidades` (`id`),
+  CONSTRAINT `FK_7v05jrcawvyfuvmkehhjbvk0i` FOREIGN KEY (`moneda_id`) REFERENCES `monedas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -794,18 +826,18 @@ CREATE TABLE `presupuesto` (
   `fecha` date DEFAULT NULL,
   `montoTotal` float DEFAULT NULL,
   `documentoComercial_id` int(11) DEFAULT NULL,
-  `entidadJuridica_id` int(11) DEFAULT NULL,
+  `entidad_id` int(11) DEFAULT NULL,
   `operacionAsociada_idOperacion` int(11) DEFAULT NULL,
   `proveedorAsociado_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_clyqbp9a6igsv7eu0ev5tjcqf` (`documentoComercial_id`),
-  KEY `FK_cnjda469hol3puy7kb61jwh58` (`entidadJuridica_id`),
+  KEY `FK_jofoc51wdqjxyyae5808bu556` (`entidad_id`),
   KEY `FK_iix0wfj7mcxcpfpgngb4w6aja` (`operacionAsociada_idOperacion`),
   KEY `FK_3ycoqhgbhbq3ukt6hsktmhcxp` (`proveedorAsociado_id`),
   CONSTRAINT `FK_3ycoqhgbhbq3ukt6hsktmhcxp` FOREIGN KEY (`proveedorAsociado_id`) REFERENCES `proveedor` (`id`),
   CONSTRAINT `FK_clyqbp9a6igsv7eu0ev5tjcqf` FOREIGN KEY (`documentoComercial_id`) REFERENCES `documentocomercial` (`id`),
-  CONSTRAINT `FK_cnjda469hol3puy7kb61jwh58` FOREIGN KEY (`entidadJuridica_id`) REFERENCES `entidadjuridica` (`id`),
-  CONSTRAINT `FK_iix0wfj7mcxcpfpgngb4w6aja` FOREIGN KEY (`operacionAsociada_idOperacion`) REFERENCES `operaciondeegreso` (`idOperacion`)
+  CONSTRAINT `FK_iix0wfj7mcxcpfpgngb4w6aja` FOREIGN KEY (`operacionAsociada_idOperacion`) REFERENCES `operaciondeegreso` (`idOperacion`),
+  CONSTRAINT `FK_jofoc51wdqjxyyae5808bu556` FOREIGN KEY (`entidad_id`) REFERENCES `entidades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -815,7 +847,7 @@ CREATE TABLE `presupuesto` (
 
 LOCK TABLES `presupuesto` WRITE;
 /*!40000 ALTER TABLE `presupuesto` DISABLE KEYS */;
-INSERT INTO `presupuesto` VALUES (1,'2020-02-25',21451.6,NULL,1,2,2),(2,'2020-02-25',20300.8,NULL,1,2,2),(3,'2020-02-27',19952.7,NULL,1,2,1),(4,'2020-09-10',17900,NULL,1,1,7),(5,'2020-09-11',17660,NULL,1,1,8),(6,'2020-09-12',17000,NULL,1,1,6),(7,'2020-09-15',207708,NULL,1,6,9),(8,'2020-09-15',214420,NULL,1,6,10);
+INSERT INTO `presupuesto` VALUES (1,'2020-02-25',21451.6,NULL,1,5,2),(2,'2020-02-25',20300.8,NULL,1,5,2),(3,'2020-02-27',19952.7,NULL,1,5,1),(4,'2020-09-10',17900,NULL,1,4,7),(5,'2020-09-11',17660,NULL,1,4,8),(6,'2020-09-12',17000,NULL,1,4,6),(7,'2020-09-15',207708,NULL,1,2,9),(8,'2020-09-15',214420,NULL,1,2,10);
 /*!40000 ALTER TABLE `presupuesto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1019,6 +1051,7 @@ DROP TABLE IF EXISTS `tipoentidadjuridicaorganizacionsectorsocial`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tipoentidadjuridicaorganizacionsectorsocial` (
   `id` int(11) NOT NULL,
+  `fechaDeCracion` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1072,11 +1105,11 @@ CREATE TABLE `usuario` (
   `nombreUsuario` varchar(255) DEFAULT NULL,
   `tiempoUltimaContrasenia` date DEFAULT NULL,
   `tipoUsuario` varchar(255) DEFAULT NULL,
-  `entidadJuridica_id` int(11) DEFAULT NULL,
+  `entidad_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_7mqtl03sff379x3519wvppefi` (`nombreUsuario`),
-  KEY `FK_m8dmlf22sbukgplwlmmfjamsg` (`entidadJuridica_id`),
-  CONSTRAINT `FK_m8dmlf22sbukgplwlmmfjamsg` FOREIGN KEY (`entidadJuridica_id`) REFERENCES `entidadjuridica` (`id`)
+  KEY `FK_o47uebncmc892ahkqtj4cjtvc` (`entidad_id`),
+  CONSTRAINT `FK_o47uebncmc892ahkqtj4cjtvc` FOREIGN KEY (`entidad_id`) REFERENCES `entidades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1086,7 +1119,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Roco','f17b7633272696c47b844b4659a3c262',_binary '','Alejandro','aroco','2020-12-19','ESTANDAR',1),(2,'Rojas','5efee46cf55702f7fb66e4a93591991d',_binary '','Rocio','rrojas','2020-12-19','ESTANDAR',1),(3,'Azul','0eb349575b983394cc57b3a7b0752be1',_binary '','Julieta','jazul','2020-12-19','ESTANDAR',2),(4,'Root','21232f297a57a5a743894a0e4a801fc3',_binary '','Admin','Admin','2020-12-19','ADMIN',NULL);
+INSERT INTO `usuario` VALUES (1,'Roco','f17b7633272696c47b844b4659a3c262',_binary '','Alejandro','aroco','2020-12-21','ESTANDAR',1),(2,'Rojas','5efee46cf55702f7fb66e4a93591991d',_binary '','Rocio','rrojas','2020-12-21','ESTANDAR',1),(3,'Azul','0eb349575b983394cc57b3a7b0752be1',_binary '','Julieta','jazul','2020-12-21','ESTANDAR',2),(4,'Root','21232f297a57a5a743894a0e4a801fc3',_binary '','Admin','Admin','2020-12-21','ADMIN',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1125,4 +1158,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-19 12:41:28
+-- Dump completed on 2020-12-21 22:15:16

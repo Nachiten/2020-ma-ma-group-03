@@ -9,34 +9,36 @@
         </div>
         <div class="articulo">
             <article>
+                <center>
                 <br>
                 <br>
                 <h6>OPERACIONES SOBRE USUARIOS</h6>
                 <br>
                 <br>
-                <h7>Creación de un nuevo usuario:
-                    <br>
+
                     <div class="botonAcciones">
-                    <button type="submit" onclick="mostrarModalNuevoUsuario()" title="Haga click para crear un nuevo usuario" >Crear usuario</button>
-                </div>
-                </h7>
+                        <h7>Creación de un nuevo usuario:</h7>
+                        <br>
+                        <button type="submit" onclick="mostrarModalNuevoUsuario()" title="Haga click para crear un nuevo usuario" >Crear usuario</button>
+                    </div>
+                <br>
+                <br>
+
+                    <div class="botonAcciones">
+                        <h7>Habilitar usuarios deshabilitados:</h7>
+                        <br>
+                        <button type="submit" onclick="mostrarModalHabilitarUsuarios()" title="Haga click para habilitar un usuario">Habilitar usuario</button>
+                    </div>
+                <br>
+                <br>
+
+                    <div class="botonAcciones">
+                        <h7>Editar o dar de baja a usuarios:</h7>
+                        <br>
+                        <button type="submit" data-dismiss="modal" onclick="mostrarModalEditarUsuarios()" title="Haga click para editar usuarios">Editar usuario</button>
+                    </div>
+                </center>
             </article>
-            <br>
-            <br>
-            <h7>Habilitar usuarios deshabilitados:
-                <br>
-                <div class="botonAcciones">
-                    <button type="submit" onclick="mostrarModalHabilitarUsuarios()" title="Haga click para habilitar un usuario">Habilitar usuario</button>
-                </div>
-            </h7>
-            <br>
-            <br>
-            <h7>Editar o dar de baja a usuarios:
-                <br>
-                <div class="botonAcciones">
-                    <button type="submit" data-dismiss="modal" onclick="mostrarModalEditarUsuarios()" title="Haga click para editar usuarios">Editar usuario</button>
-                </div>
-            </h7>
         </div>
     </div>
     <link rel="stylesheet" href="/css/estiloAccionesUsuario.css"/>

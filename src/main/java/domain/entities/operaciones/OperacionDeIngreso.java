@@ -1,7 +1,7 @@
 package domain.entities.operaciones;
 
 import domain.entities.apiMercadoLibre.Moneda;
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -32,7 +32,7 @@ public class OperacionDeIngreso  {
     private LocalDate periodoAceptacion;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    private EntidadJuridica entidadJuridicaAsociada;
+    private Entidad entidadAsociada;
 
     @OneToMany (cascade = CascadeType.ALL)
     private List<OperacionDeEgreso> operacionesDeEgresoVinculadas;
@@ -79,12 +79,12 @@ public class OperacionDeIngreso  {
         inicializar();
     }
 
-    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha, LocalDate periodoAceptable,EntidadJuridica entidadJuridica,Moneda moneda) {
+    public OperacionDeIngreso(String descripcion, float montoTotal, LocalDate fecha, LocalDate periodoAceptable, Entidad entidad, Moneda moneda) {
         this.descripcion = descripcion;
         this.montoTotal = montoTotal;
         this.fecha = fecha;
         this.periodoAceptacion = periodoAceptable;
-        this.entidadJuridicaAsociada = entidadJuridica;
+        this.entidadAsociada = entidad;
         this.moneda = moneda;
         inicializar();
     }
@@ -99,8 +99,8 @@ public class OperacionDeIngreso  {
                             //SETTERS
     //-------------------------------------------------------------------------
 
-    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) {
-        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
+    public void setEntidadAsociada(Entidad entidadAsociada) {
+        this.entidadAsociada = entidadAsociada;
     }
 
     public void setPeriodoAceptacion(LocalDate periodoAceptacion) {
@@ -131,8 +131,8 @@ public class OperacionDeIngreso  {
         return id;
     }
 
-    public EntidadJuridica getEntidadJuridicaAsociada() {
-        return entidadJuridicaAsociada;
+    public Entidad getEntidadAsociada() {
+        return entidadAsociada;
     }
 
     public String getDescripcion() {

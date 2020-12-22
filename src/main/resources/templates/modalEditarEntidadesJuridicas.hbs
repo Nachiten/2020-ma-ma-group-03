@@ -14,9 +14,9 @@
                             <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Nombre ficticio</th>
-                                <th>Razón social</th>
-                                <th>CUIT/CUIL</th>
+                                <th>Empresas</th>
+                                <th>Organizaciones de sector social</th>
+                                <th>Entidades base</th>
                                 <th>Editar</th>
                                 <th>Dar de baja</th>
                             </tr>
@@ -25,12 +25,12 @@
                             {{#each listaEntidadesJuridicasHabilitadas}}
                                 <tr>
                                     <td>{{nombreEntidadJuridica}}</td>
-                                    <td>{{nombreFicticioEntidadJuridica}}</td>
-                                    <td>{{razonSocialEntidadJuridica}}</td>
-                                    <td>{{cuitEntidadJuridica}}</td>
+                                    <td><i class="fas fa-stream" onclick="mostrarModalParaConfirmarListarEmpresas({{id}})" style="cursor: pointer"></i></td>
+                                    <td><i class="fas fa-bars" onclick="mostrarModalParaConfirmarListarOrgSoc({{id}})" style="cursor: pointer"></i></td>
+                                    <td><i class="fas fa-list" onclick="mostrarModalParaConfirmarListarEntidadesBase({{id}})" style="cursor: pointer"></i></td>
                                     <td>
                                         <div>
-                                            <a class="fas fa-edit" onclick="mostrarModalParaEditarUnaEntidadJuridica('{{id}}')" style="cursor: pointer"></a>
+                                            <a class="fas fa-edit" onclick="mostrarModalParaConfirmarEditarUnaEntidadJuridica('{{id}}')" style="cursor: pointer"></a>
                                         </div>
                                     </td>
                                     <td>

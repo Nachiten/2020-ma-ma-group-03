@@ -157,8 +157,51 @@ public class Router {
         Spark.get("/nuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalNuevaEntidadJuridica, Router.engine);
         Spark.post("/confirmarNuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadJuridica, Router.engine);
         Spark.post("/GuardarNuevaEntidadJuridica", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadJuridica,Router.engine);
+
+        Spark.post("/confirmarNuevaEntidadEmpresa", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadEmpresa, Router.engine);
+        Spark.post("/GuardarNuevaEntidadEmpresa", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadEmpresa, Router.engine);
+
+        Spark.post("/confirmarNuevaEntidadOrgSoc", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadOrgSoc, Router.engine);
+        Spark.post("/GuardarNuevaEntidadOrgSoc", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadOrgSoc, Router.engine);
+
+        Spark.post("/confirmarNuevaEntidadBase", accionesEntidadJuridicaController::mostrarModalParaConfirmarNuevaEntidadBase, Router.engine);
+        Spark.post("/GuardarNuevaEntidadBase", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadBase, Router.engine);
+
         Spark.get("/habilitarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalHabilitarEntidadesjuridicas, Router.engine);
+        Spark.post("/confirmarHabilitarEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarHabilitarEntidadJuridica, Router.engine);
+        Spark.post("/confirmacionHabilitacionEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionHabilitarEntidadJuridica, Router.engine);
+
         Spark.get("/editarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalEditarEntidadesJuridicas, Router.engine);
+
+        Spark.post("/confirmarListarEmpresas/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarListarEmpresas, Router.engine);
+        Spark.post("/listadoEmpresas/:id", accionesEntidadJuridicaController::mostrarModalListadoEmpresas, Router.engine);
+        Spark.post("/confirmarBajaEmpresa/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarBajaEntidadEmpresa, Router.engine);
+        Spark.delete("/confirmacionBajaEmpresa/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionBajaEmpresa, Router.engine);
+        Spark.post("/confirmarHabilitarEmpresa/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarHabilitarEmpresa, Router.engine);
+        Spark.post("/confirmacionHabilitarEmpresa/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionHabilitarEmpresa, Router.engine);
+
+        Spark.post("/confirmarListarOrgSoc/:id",accionesEntidadJuridicaController::mostrarModalParaConfirmarListarOrgSoc, Router.engine);
+        Spark.post("/listadoOrgSoc/:id", accionesEntidadJuridicaController::mostrarModalListadoOrgSoc, Router.engine);
+        Spark.post("/confirmarBajaOrgSoc/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarBajaEntidadOrgSoc, Router.engine);
+        Spark.delete("/confirmacionBajaOrgSoc/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionBajaOrgSoc, Router.engine);
+        Spark.post("/confirmarHabilitarOrgSoc/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarHabilitarOrgSoc, Router.engine);
+        Spark.post("/confirmacionHabilitarOrgSoc/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionHabilitarOrgSoc, Router.engine);
+
+        Spark.post("/confirmarListarEntidadesBase/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarListarEntidadesBase, Router.engine);
+        Spark.post("/listadoEntidadesBase/:id", accionesEntidadJuridicaController::mostrarModalListadoEntidadesBase, Router.engine);
+        Spark.post("/confirmarDarDeBajaEntidadesBase/:id", accionesEntidadJuridicaController::mostrarModalparaConfirmarBajaEntidadBase, Router.engine);
+        Spark.delete("/confirmacionDarDeBajaEntidadBase/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionBajaEntidadBase, Router.engine);
+        Spark.post("/confirmarHabilitarEntidadBase/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarHabilitarEntidadBase, Router.engine);
+        Spark.post("/confirmacionHabilitarEntidadBase/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionHabilitarEntidadBase, Router.engine);
+
+        Spark.post("/confirmarBajaEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarBajaEntidaduridica, Router.engine);
+        Spark.delete("/confirmacionBajaEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionBajaEntidadJuridica, Router.engine);
+
+        Spark.post("/confirmarEditarEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarEditarEntidadjuridica, Router.engine);
+        Spark.get("/editarEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaEditarEntidadJuridica, Router.engine);
+
+        Spark.post("/confirmarCambiosDatosEnEntidadJuridica/:id",accionesEntidadJuridicaController::mostrarModalConfirmacionEdicionEntidadJuridica,Router.engine);
+
 
         //Acciones criterios
         Spark.post("/accionesCriterios", criteriosController::guardarCriterio, Router.engine);

@@ -8,32 +8,61 @@ import javax.persistence.*;
 @Table(name = "entidadBase")
 public class EntidadBase extends EntidadPersistente {
 
-    @Column(name = "nombre")
-    private String nombre;
 
     @Column(name = "nombreFicticio")
     private String nombreFicticio;
-
-    @Column(name = "razonSocial")
-    private String razonSocial;
-
-    @Column(name = "descripcion")
-    private String descripcion;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "entidadJuridicaAsociada_id")
     private EntidadJuridica entidadJuridicaAsociada;
 
+    @Column(name = "estoyHabilitado")
+    private boolean estoyHabilitado;
+
     public EntidadBase() {
+        inicializar();
     }
 
-    public EntidadBase(String nombre,String nombreFicticio){
-        this.nombre = nombre;
+    public EntidadBase(String nombreFicticio){
         this.nombreFicticio = nombreFicticio;
-
+        inicializar();
     }
 
-    public void asociarEntidadJuridica(EntidadJuridica entidadJuridica){
-        this.entidadJuridicaAsociada = entidadJuridica;
+    private void inicializar(){
+        this.estoyHabilitado = true;
+    }
+    public void asociarEntidadJuridica(EntidadJuridica entidad){
+        this.entidadJuridicaAsociada = entidad;
+    }
+
+    public void cambiarAHabilitado(){
+        this.estoyHabilitado = true;
+    }
+
+    public void cambiarAInhabilitado(){
+        this.estoyHabilitado = false;
+    }
+
+    public String getNombreFicticio() {
+        return nombreFicticio;
+    }
+
+    public boolean getEstoyHabilitado() {
+        return estoyHabilitado;
+    }
+    public EntidadJuridica getEntidadJuridicaAsociada() {
+        return entidadJuridicaAsociada;
+    }
+
+    public void setEntidadJuridicaAsociada(EntidadJuridica entidadJuridicaAsociada) {
+        this.entidadJuridicaAsociada = entidadJuridicaAsociada;
+    }
+
+    public void setNombreFicticio(String nombreFicticio) {
+        this.nombreFicticio = nombreFicticio;
+    }
+
+    public void setEstoyHabilitado(boolean estoyHabilitado) {
+        this.estoyHabilitado = estoyHabilitado;
     }
 }

@@ -12,10 +12,7 @@
                     <table id="usuariosNoHabilitados">
                         <thead>
                         <tr>
-                            <th>Nombre</th>
                             <th>Nombre ficticio</th>
-                            <th>Razón social</th>
-                            <th>CUIT/CUIL</th>
                             <th>Habilitar</th>
                         </tr>
                         </thead>
@@ -23,9 +20,6 @@
                         {{#each listaEntidadesJuridicasInhabilitadas}}
                             <tr>
                                 <td>{{nombreEntidadJuridica}}</td>
-                                <td>{{nombreFicticioEntidadJuridica}}</td>
-                                <td>{{razonSocialEntidadJuridica}}</td>
-                                <td>{{cuitEntidadJuridica}}</td>
                                 <td>
                                     <div>
                                         <a class="fas fa-edit" onclick="habilitarEntidadJuridica('{{id}}')" style="cursor: pointer"></a>

@@ -19,7 +19,7 @@ function recuperarDatosFormularioNuevoUsuario(){
         nombreDeUsuario  : valorDe("altaUsuario-nombreDeUsuario"),
         contrasenia      : valorDe("altaUsuario-contrasenia"),
         tipoUsuario      : $("#altaUsuario-tipoUsuario option:selected").val(),
-        entidadJuridica  : $("#altaUsuario-entidadJuridica option:selected").val()
+        entidad          : $("#altaUsuario-entidad option:selected").val()
     };
 }
 
@@ -196,8 +196,8 @@ function recuperarDatosFormularioUsuarioEditado(){
         apellido          : valorDe("altaUsuario-apellido"),
         nombreDeUsuario   : valorDe("altaUsuario-nombreDeUsuario"),
         contrasenia       : valorDe("altaUsuario-contrasenia"),
-        miEntidadJuridica : valorDe("altaUsuario-miEntidadJuridica"),
-        entidadJuridica   : $("#altaUsuario-entidadJuridica option:selected").val()
+        miEntidad         : valorDe("altaUsuario-miEntidad"),
+        entidad           : $("#altaUsuario-entidad option:selected").val()
     };
     return datos;
 }
@@ -218,25 +218,7 @@ function mostrarDetalleEntidadJuridica() {
     });
 }
 
-//habilitar input para cambiar contraseña
-var cambioContrasenia = document.getElementById('altaUsuarioPerfil-cambioContrasenia');
-var no_cambioContrasenia = document.getElementById('altaUsuarioPerfil-noCambioContrasenia');
-var contrasenia = document.getElementById('altaUsuarioPerfil-contrasenia');
-
-function cambiarHabilitacionInputContrasenia() {
-    contrasenia.disabled = !cambioContrasenia.checked;
-
-    var objetoBotonCambiarContra = document.getElementById("botonCambiarContrasenia");
-
-    if (cambioContrasenia.checked){
-        objetoBotonCambiarContra.removeAttribute('disabled');
-    }else {
-        objetoBotonCambiarContra.setAttribute("disabled", "");
-    }
-}
-cambioContrasenia.addEventListener('change', cambiarHabilitacionInputContrasenia);
-no_cambioContrasenia.addEventListener('change', cambiarHabilitacionInputContrasenia);
-
+/*
 //Habilitar select para elegir una entidad jurídica
 var cambioEntidadJuridica = document.getElementById('altaUsuario-cambioEntidadJuridica');
 var no_cambioEntidadJuridica = document.getElementById('altaUsuario-noCambioEntidadJuridica');
@@ -247,3 +229,6 @@ function cambiarHabilitacionInputEntidadJuridica() {
 }
 cambioEntidadJuridica.addEventListener('change', cambiarHabilitacionInputEntidadJuridica);
 no_cambioEntidadJuridica.addEventListener('change', cambiarHabilitacionInputEntidadJuridica);
+*/
+
+

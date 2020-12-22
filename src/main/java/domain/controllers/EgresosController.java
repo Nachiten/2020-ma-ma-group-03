@@ -2,7 +2,7 @@ package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 import domain.entities.operaciones.*;
 import domain.entities.usuarios.Usuario;
 import domain.entities.vendedor.Proveedor;
@@ -33,7 +33,7 @@ public class EgresosController {
     private Repositorio<Usuario> repoUsuario;
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
-    private Repositorio<EntidadJuridica> repoEntidadJuridica;
+    private Repositorio<Entidad> repoEntidadJuridica;
     private Repositorio<CategoriaCriterio> repoCategorias;
     File carpetaSubidaDocumentos;
     String pathArchivoADescargar;
@@ -44,7 +44,7 @@ public class EgresosController {
         this.repoOperacionEgreso = FactoryRepositorio.get(OperacionDeEgreso.class);
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.repoCriterio = FactoryRepositorio.get(Criterio.class);
-        this.repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
+        this.repoEntidadJuridica = FactoryRepositorio.get(Entidad.class);
         this.repoCategorias = FactoryRepositorio.get(CategoriaCriterio.class);
         this.repoUsuario = FactoryRepositorio.get(Usuario.class);
         this.modalAndViewController = modalAndViewController;
@@ -358,11 +358,11 @@ public class EgresosController {
 
         //Usuario miUsuario = contextoDeUsuarioLogueado.getUsuarioLogueado();
         Usuario miUsuario = modalAndViewController.getUsuario();
-        EntidadJuridica entidadJuridicaDeUsuario = miUsuario.getEntidadJuridica();
-        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(entidadJuridicaDeUsuario.getId());
+        Entidad entidadDeUsuario = miUsuario.getEntidad();
+        Entidad entidad = repoEntidadJuridica.buscar(entidadDeUsuario.getId());
 
         // Setters necesarios
-        operacionAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
+        operacionAGuardar.setEntidadAsociada(entidad);
         operacionAGuardar.setUsuario(miUsuario);
         operacionAGuardar.setMedioDePago(medioDePago);
         operacionAGuardar.setDocumentoComercial(documentoComercial);
@@ -378,8 +378,8 @@ public class EgresosController {
         repoUsuario.modificar(miUsuario);
         repoOperacionEgreso.agregar(operacionAGuardar);
 
-        entidadJuridica.agregarOperacionDeEgresoAsociada(operacionAGuardar);
-        repoEntidadJuridica.modificar(entidadJuridica);
+        entidad.agregarOperacionDeEgresoAsociada(operacionAGuardar);
+        repoEntidadJuridica.modificar(entidad);
 
         try (InputStream input = request.raw().getPart("documentoSubido").getInputStream()) { // getPart needs to use same "name" as input field in form
 

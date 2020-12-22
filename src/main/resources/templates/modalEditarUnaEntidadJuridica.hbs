@@ -1,0 +1,34 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 id="tituloModal" class="modal-title">
+                <a class="fas fa-edit"></a>
+                ¡Editar una entidad juridica!
+            </h1>
+        </div>
+        <div class="modal-body">
+            <div class = "altaEntidad">
+                <form action= "javascript:void(0)" method="post">
+                    <center>
+                        <table class= "formulario" border = 0 >
+                            <tr>
+                                <td>Nombre:</td>
+                                <td><input type="text" name="nombre" id = "altaEntidad-nombre" value="{{nombreFicticio}}"></td>
+
+                        </table>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal" >
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn" data-dismiss="modal" onclick="mostrarModalParaConfirmarCambiosRealizadosEnEntidadJuridica({{id}})">
+                                Guardar
+                            </button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="/css/modalVarios.css" />

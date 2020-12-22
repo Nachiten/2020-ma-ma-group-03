@@ -118,6 +118,8 @@ body{
     background-color: #ffffff;
     border: 1px solid #00afff;
     cursor: pointer;
+    border-radius: 10px 10px;
+    margin:.5em;
 }
 
 .modal-body button:hover{
@@ -410,4 +412,16 @@ input[type=radio]{
     max-width: max-content;
     margin: 1.75rem auto;
     pointer-events: none;
+}
+
+.altaEntidadJuridica input{
+    font-size: 18px;
+    border-radius: 10px 10px;
+    border: 0;
+}
+
+.altaEntidadJuridica select{
+    font-size: 18px;
+    border-radius: 10px 10px;
+    border: 0;
 }

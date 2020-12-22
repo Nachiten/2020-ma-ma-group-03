@@ -1,9 +1,8 @@
 package domain.controllers;
 
 import domain.entities.apiMercadoLibre.Moneda;
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 import domain.entities.operaciones.OperacionDeIngreso;
-import domain.entities.usuarios.Usuario;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
@@ -20,7 +19,7 @@ public class IngresosController {
 
     private Repositorio<OperacionDeIngreso> repoOperacionIngreso;
     private Repositorio<Moneda> repoMonedas;
-    private Repositorio<EntidadJuridica> repoEntidadJuridica;
+    private Repositorio<Entidad> repoEntidadJuridica;
     private ModalAndViewController modalAndViewController;
     private OperadorController operadorController;
 
@@ -28,7 +27,7 @@ public class IngresosController {
 
         this.repoOperacionIngreso = FactoryRepositorio.get(OperacionDeIngreso.class);
         this.repoMonedas = FactoryRepositorio.get(Moneda.class);
-        this.repoEntidadJuridica = FactoryRepositorio.get(EntidadJuridica.class);
+        this.repoEntidadJuridica = FactoryRepositorio.get(Entidad.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
     }
@@ -76,15 +75,15 @@ public class IngresosController {
 
         //se instancia una operacion de ingreso a persistir
         OperacionDeIngreso operacionDeIngresoAGuardar = new OperacionDeIngreso(descripcion, monto, fecha, monedaElegida);
-        int entidadJuridica_id = modalAndViewController.getUsuario().getEntidadJuridica().getId();
-        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(entidadJuridica_id);
+        int entidadJuridica_id = modalAndViewController.getUsuario().getEntidad().getId();
+        Entidad entidad = repoEntidadJuridica.buscar(entidadJuridica_id);
         operacionDeIngresoAGuardar.setPeriodoAceptacion(fechaPeriodoAceptacion);
-        operacionDeIngresoAGuardar.setEntidadJuridicaAsociada(entidadJuridica);
+        operacionDeIngresoAGuardar.setEntidadAsociada(entidad);
 
         repoOperacionIngreso.agregar(operacionDeIngresoAGuardar);
 
-        entidadJuridica.agregarOperacionDeIngresoAsociada(operacionDeIngresoAGuardar);
-        repoEntidadJuridica.modificar(entidadJuridica);
+        entidad.agregarOperacionDeIngresoAsociada(operacionDeIngresoAGuardar);
+        repoEntidadJuridica.modificar(entidad);
 
         if (operadorController.persistenciaNoValida(repoOperacionIngreso, operacionDeIngresoAGuardar)){
             model.put("mensaje", "No se guardaron los datos, intentelo nuevamente.");

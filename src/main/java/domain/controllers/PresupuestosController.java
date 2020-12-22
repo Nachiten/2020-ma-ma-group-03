@@ -2,7 +2,7 @@ package domain.controllers;
 
 import criterioOperacion.CategoriaCriterio;
 import criterioOperacion.Criterio;
-import domain.entities.entidades.EntidadJuridica;
+import domain.entities.entidades.Entidad;
 import domain.entities.operaciones.*;
 import domain.entities.vendedor.Proveedor;
 import domain.repositories.Repositorio;
@@ -126,7 +126,7 @@ public class PresupuestosController {
 
         Presupuesto presupuestoAGuardar = new Presupuesto();
 
-        EntidadJuridica entidadJuridicaAsociada = modalAndViewController.getUsuario().getEntidadJuridica();
+        Entidad entidadAsociada = modalAndViewController.getUsuario().getEntidad();
 
         Proveedor proveedor = buscarProveedor(proveedorString);
 
@@ -136,8 +136,8 @@ public class PresupuestosController {
         presupuestoAGuardar.setListaCategoriaCriterio(categoriasCriterio);
         presupuestoAGuardar.setItems(listaItems);
         operacionEgresoAsociada.agregarPresupuesto(presupuestoAGuardar);
-        //presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
-        presupuestoAGuardar.setEntidadJuridica(entidadJuridicaAsociada);
+        presupuestoAGuardar.setOperacionAsociada(operacionEgresoAsociada);
+        presupuestoAGuardar.setEntidad(entidadAsociada);
         presupuestoAGuardar.setProveedorAsociado(proveedor);
 
         if (operadorController.persistenciaNoValida(repoPresupuesto, presupuestoAGuardar)){

@@ -1,7 +1,7 @@
 -- Tablas Intermedias
 DROP TABLE criterio_categoriacriterio;
-DROP TABLE entidadjuridica_operaciondeegreso;
-DROP TABLE entidadjuridica_operaciondeingreso;
+DROP TABLE entidades_operaciondeegreso;
+DROP TABLE entidades_operaciondeingreso;
 DROP TABLE operaciondeegreso_categoriacriterio;
 DROP TABLE operaciondeegreso_item;
 DROP TABLE operaciondeegreso_presupuesto;
@@ -37,11 +37,12 @@ DROP TABLE mediodepago;
 DROP TABLE tipomediodepago;
 
 -- Tipo entidad juridica
+DROP TABLE usuario;
+DROP TABLE entidades;
 DROP TABLE tipoentidadjuridicaempresa;
 DROP TABLE tipoentidadjuridicaorganizacionsectorsocial;
 DROP TABLE categoriaempresa;
 DROP TABLE sector;
-DROP TABLE usuario;
 DROP TABLE entidadjuridica;
 
 -- Direccion postal
