@@ -375,8 +375,9 @@ public class EgresosController {
             operacionAGuardar.agregarRevisor(miUsuario);
             miUsuario.agregarOperacionDeEgreso(operacionAGuardar);
         }
-        repoUsuario.modificar(miUsuario);
+
         repoOperacionEgreso.agregar(operacionAGuardar);
+        repoUsuario.modificar(miUsuario);
 
         entidad.agregarOperacionDeEgresoAsociada(operacionAGuardar);
         repoEntidadJuridica.modificar(entidad);
