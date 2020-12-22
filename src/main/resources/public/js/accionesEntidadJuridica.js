@@ -412,6 +412,33 @@ function mostrarModalParaEditarEntidadJuridica(id){
     });
 }
 
+function recuperarDatosNuevoNombreEntidadJuridica() {
+    return {
+       nombre   : valorDe("altaEntidad-nombre")
+    };
+
+
+}
+
+function mostrarModalParaConfirmarCambiosRealizadosEnEntidadJuridica(id){
+    var datos = recuperarDatosNuevoNombreEntidadJuridica();
+    var ruta = "/confirmarCambiosDatosEnEntidadJuridica/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        data : datos,
+        success  : function (result) {
+            showInModal("modal4", result);
+            mostrarModalEditarEntidadesJuridicas();
+        }
+    });
+
+}
+
+
+////////////////////////
 
 /*------------------------*/
 $('#altaEmpresa-pais').change(function(){
