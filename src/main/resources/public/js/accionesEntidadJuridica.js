@@ -332,6 +332,60 @@ function mostrarModalListaOrgSoc(id) {
     });
 }
 
+function mostrarModalParaConfirmarDarDeBajaEntidadOrgSoc(id) {
+    var ruta   = "/confirmarBajaOrgSoc/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal4", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionBajaOrgSoc(id) {
+    var ruta   = "/confirmacionBajaOrgSoc/"+id;
+    var metodo = "DELETE";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal5", result);
+            mostrarModalListaOrgSoc(id);
+        }
+    });
+}
+
+function mostrarModalConfirmarHabilitarOrgSoc(id) {
+    var ruta   = "/confirmarHabilitarOrgSoc/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal4", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionHabilitarOrgSoc(id) {
+    var ruta   = "/confirmacionHabilitarOrgSoc/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal5", result);
+            mostrarModalListaOrgSoc(id);
+        }
+    });
+}
+
 //Entidades base
 function mostrarModalParaConfirmarListarEntidadesBase(id) {
     var ruta   = "/confirmarListarEntidadesBase/"+id;
