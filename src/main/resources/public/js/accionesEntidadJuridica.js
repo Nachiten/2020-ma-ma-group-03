@@ -413,6 +413,61 @@ function mostrarModalListaEntidadesBase(id) {
     });
 }
 
+function mostrarModalParaConfirmarDarDeBajaEntidadBase(id) {
+    var ruta   = "/confirmarDarDeBajaEntidadesBase/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal4", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionBajaEntidadBase(id) {
+    var ruta   = "/confirmacionDarDeBajaEntidadBase/"+id;
+    var metodo = "DELETE";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal5", result);
+            mostrarModalListaEntidadesBase(id)
+        }
+    });
+}
+
+function mostrarModalParaConfirmarHabilitarBase(id) {
+    var ruta   = "/confirmarHabilitarEntidadBase/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal4", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionHabilitacionEntidadBase(id) {
+    var ruta   = "/confirmacionHabilitarEntidadBase/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal5", result);
+            mostrarModalListaEntidadesBase(id)
+        }
+    });
+}
+
+//
 function darDeBajaEntidadJuridica(id){
     var ruta   = "/confirmarBajaEntidadJuridica/"+id;
     var metodo = "POST";

@@ -189,6 +189,10 @@ public class Router {
 
         Spark.post("/confirmarListarEntidadesBase/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarListarEntidadesBase, Router.engine);
         Spark.post("/listadoEntidadesBase/:id", accionesEntidadJuridicaController::mostrarModalListadoEntidadesBase, Router.engine);
+        Spark.post("/confirmarDarDeBajaEntidadesBase/:id", accionesEntidadJuridicaController::mostrarModalparaConfirmarBajaEntidadBase, Router.engine);
+        Spark.delete("/confirmacionDarDeBajaEntidadBase/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionBajaEntidadBase, Router.engine);
+        Spark.post("/confirmarHabilitarEntidadBase/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarHabilitarEntidadBase, Router.engine);
+        Spark.post("/confirmacionHabilitarEntidadBase/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionHabilitarEntidadBase, Router.engine);
 
         Spark.post("/confirmarBajaEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarBajaEntidaduridica, Router.engine);
         Spark.delete("/confirmacionBajaEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionBajaEntidadJuridica, Router.engine);

@@ -13,6 +13,7 @@ import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import validadoresContrasenia.MatchearPattern;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -537,6 +538,54 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalListadoEntidadesBase(request));
     }
 
+    private ModelAndView modalAndViewMostrarConfirmarBajaEntidadesBase(Request request) {
+        String idEntidadBase = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadBase", idEntidadBase);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres dar de baja esta entidad base?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarBajaEntidadBase.hbs");
+    }
+
+    public ModelAndView mostrarModalparaConfirmarBajaEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarConfirmarBajaEntidadesBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionBajaEntidadesBase(Request request) {
+        int idEntidadBase = Integer.parseInt(request.params("id"));
+        EntidadBase entidadBaseADarDeBaja = repoEntidadBase.buscar(idEntidadBase);
+        entidadBaseADarDeBaja.cambiarAInhabilitado();
+        repoEntidadBase.modificar(entidadBaseADarDeBaja);
+        modalAndViewController.getParametros().put("mensaje","Se dio de baja correctamente la entidad base.");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionBajaEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionBajaEntidadesBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmarHabilitarEntidadBase(Request request) {
+        String idEntidadBase = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadBase", idEntidadBase);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres habilitar esta entidad base?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarHabilitarEntidadBase.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarHabilitarEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmarHabilitarEntidadBase(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionHabilitarEntidadBase(Request request) {
+        int idEntidadBase = Integer.parseInt(request.params("id"));
+        EntidadBase entidadBaseAHabilitar = repoEntidadBase.buscar(idEntidadBase);
+        entidadBaseAHabilitar.cambiarAHabilitado();
+        repoEntidadBase.modificar(entidadBaseAHabilitar);
+        modalAndViewController.getParametros().put("mensaje","Se habilitó correctamente la entidad base "+entidadBaseAHabilitar.getNombreFicticio());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionHabilitarEntidadBase(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionHabilitarEntidadBase(request));
+    }
+
     private ModelAndView modalAndViewMostrarModalParaConfirmarBajaEntidadJuridica(Request request) {
         String idEntidadJuridica = request.params("id");
         modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
@@ -583,8 +632,6 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalEntidadJuridica(request));
     }
 
-
-
     public ModelAndView mostrarModalConfirmacionEdicionEntidadJuridica(Request request, Response response) {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewConfirmacionCambiosEnDatosDeLaEntidadJuridica(request));
     }
@@ -599,9 +646,5 @@ public class AccionesEntidadJuridicaController {
         modalAndViewController.getParametros().put("mensaje","Se actualizó correctamente los datos de la entidad juridica ");
         return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
     }
-
-
-
-
 
 }
