@@ -27,14 +27,11 @@
                                         {{#if estoyHabilitado}}
                                             <div>
                                                 <a class="fas fa-edit" onclick="mostrarModalParaConfirmarEditarUnaEntidadEmpresa('{{id}}')" style="cursor: pointer; margin-right: 10px;">Editar</a>
-
                                                 <a class="fas fa-trash" onclick="mostrarModalParaConfirmarDarDeBajaEntidadEmpresa('{{id}}')" style="cursor: pointer">Dar de baja</a>
-
                                             </div>
                                         {{else}}
                                             <div>
-                                                <a class="fas fa-edit" onclick="mostrarModalConfirmarHabilitarEmpresa('{{id}}')" style="cursor: pointer"></a>
-                                                Habilitar
+                                                <a class="fas fa-edit" onclick="mostrarModalConfirmarHabilitarEmpresa('{{id}}')" style="cursor: pointer">Habilitar</a>
                                             </div>
                                         {{/if}}
                                     </td>

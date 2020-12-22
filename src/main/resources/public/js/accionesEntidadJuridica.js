@@ -224,6 +224,7 @@ function mostrarModalEditarEntidadesJuridicas() {
     });
 }
 
+//Empresas
 function mostrarModalParaConfirmarListarEmpresas(id) {
     var ruta   = "/confirmarListarEmpresas/"+id;
     var metodo = "POST";
@@ -250,6 +251,61 @@ function mostrarModalListaEmpresas(id) {
     });
 }
 
+function mostrarModalParaConfirmarDarDeBajaEntidadEmpresa(id){
+    var ruta   = "/confirmarBajaEmpresa/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal4", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionBajaEmpresa(id) {
+    var ruta   = "/confirmacionBajaEmpresa/"+id;
+    var metodo = "DELETE";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal5", result);
+            mostrarModalListaEmpresas(id);
+        }
+    });
+}
+
+function mostrarModalConfirmarHabilitarEmpresa(id) {
+    var ruta   = "/confirmarHabilitarEmpresa/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal4", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionHabilitacionEmpresa(id) {
+    var ruta   = "/confirmacionHabilitarEmpresa/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal5", result);
+            mostrarModalListaEmpresas(id);
+        }
+    });
+}
+
+//Organizaciones de sector social
 function mostrarModalParaConfirmarListarOrgSoc(id) {
     var ruta   = "/confirmarListarOrgSoc/"+id;
     var metodo = "POST";
@@ -276,6 +332,7 @@ function mostrarModalListaOrgSoc(id) {
     });
 }
 
+//Entidades base
 function mostrarModalParaConfirmarListarEntidadesBase(id) {
     var ruta   = "/confirmarListarEntidadesBase/"+id;
     var metodo = "POST";
@@ -355,7 +412,8 @@ function mostrarModalParaEditarEntidadJuridica(id){
     });
 }
 
-////////////////////////
+
+/*------------------------*/
 $('#altaEmpresa-pais').change(function(){
     $('#altaEmpresa-provincia').removeAttr('disabled');
     filterSelectOptions($("#altaEmpresa-provincia"), "data-attribute", $(this).val());
