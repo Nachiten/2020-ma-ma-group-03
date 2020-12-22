@@ -165,7 +165,9 @@ function mostrarModalConfirmacionAltaNuevaEntidadBase() {
     });
 }
 
+//////////////////////////////
 /*Habilitar entidad jurídica*/
+//////////////////////////////
 function mostrarModalHabilitarEntidadesJuridicas() {
     var ruta   = "/habilitarEntidadesJuridicas";
     var metodo = "GET";
@@ -206,7 +208,9 @@ function mostrarModalConfirmacionHabilitacionEntidadJuridica(id) {
     });
 }
 
+///////////////////////////
 /*Editar entidad jurídica*/
+///////////////////////////
 function mostrarModalEditarEntidadesJuridicas() {
     var ruta   = "/editarEntidadesJuridicas";
     var metodo = "GET";
@@ -321,6 +325,32 @@ function mostrarModalConfirmacionBajaEntidadJuridica(id){
         success  : function (result) {
             showInModal("modal3", result);
             mostrarModalEditarEntidadesJuridicas();
+        }
+    });
+}
+
+function mostrarModalParaConfirmarEditarUnaEntidadJuridica(id){
+    var ruta   = "/confirmarEditarEntidadJuridica/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
+function mostrarModalParaEditarEntidadJuridica(id){
+    var ruta   = "/editarEntidadJuridica/"+id;
+    var metodo = "GET";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal3", result);
         }
     });
 }

@@ -182,6 +182,8 @@ public class Router {
         Spark.post("/confirmarBajaEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarBajaEntidaduridica, Router.engine);
         Spark.delete("/confirmacionBajaEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionBajaEntidadJuridica, Router.engine);
 
+        Spark.post("/confirmarEditarEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarEditarEntidadjuridica, Router.engine);
+        Spark.get("/editarEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaEditarEntidadJuridica, Router.engine);
 
         //Acciones criterios
         Spark.post("/accionesCriterios", criteriosController::guardarCriterio, Router.engine);

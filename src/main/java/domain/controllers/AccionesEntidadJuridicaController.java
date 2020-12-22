@@ -462,4 +462,26 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarconfirmacionBajaEntidadJuridica(request));
     }
 
+    private ModelAndView modalAndViewMostrarConfirmarEdicionEntidadJuridica(Request request) {
+        String idEntidadJuridica = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","¿Quieres editar esta entidad jurídica?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarEditarEntidadJuridica.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarEditarEntidadjuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarConfirmarEdicionEntidadJuridica(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalEntidadJuridica(Request request) {
+        int idEntidadJuridica = Integer.parseInt(request.params("id"));
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        modalAndViewController.getParametros().put("nombreFicticio", entidadJuridica.getNombreEntidadJuridica());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalEditarUnaEntidadJuridica.hbs");
+    }
+
+    public ModelAndView mostrarModalParaEditarEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalEntidadJuridica(request));
+    }
+
 }
