@@ -18,6 +18,25 @@
     margin: 10px .3em .3em 320px;
 }
 
+.altaUsuario button{
+    transition:.25s;
+    background:#00bcc1;
+    border:0px solid;
+    font:inherit;
+    line-height:1;
+    margin:.5em;
+    padding:1em 2em;
+    font-size: larger;
+    cursor:pointer;
+    border-radius: 10px 10px;
+    margin-block-end: 3%;
+    color:white;
+}
+
+.altaUsuario button:focus,button:hover{
+    color:#fff;
+}
+
 h6{
     color:white;
     margin-left: 180px;
@@ -28,4 +47,16 @@ h7{
     color:white;
     margin-left: 240px;
     font-size: 25px;
+}
+
+.formulario input{
+    font-size: 18px;
+    border-radius: 10px 10px;
+    border: 0;
+}
+
+.formulario select{
+    font-size: 18px;
+    border-radius: 10px 10px;
+    border: 0;
 }
