@@ -168,6 +168,8 @@ public class Router {
         Spark.post("/GuardarNuevaEntidadBase", accionesEntidadJuridicaController::mostrarModalConfirmacionNuevaEntidadBase, Router.engine);
 
         Spark.get("/habilitarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalHabilitarEntidadesjuridicas, Router.engine);
+        Spark.post("/confirmarHabilitarEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarHabilitarEntidadJuridica, Router.engine);
+        Spark.post("/confirmacionHabilitacionEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionHabilitarEntidadJuridica, Router.engine);
 
         Spark.get("/editarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalEditarEntidadesJuridicas, Router.engine);
         Spark.post("/confirmarListarEmpresas/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarListarEmpresas, Router.engine);

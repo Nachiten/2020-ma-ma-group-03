@@ -179,6 +179,33 @@ function mostrarModalHabilitarEntidadesJuridicas() {
     });
 }
 
+function habilitarEntidadJuridica(id) {
+    var ruta   = "/confirmarHabilitarEntidadJuridica/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionHabilitacionEntidadJuridica(id) {
+    var ruta   = "/confirmacionHabilitacionEntidadJuridica/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal3", result);
+            mostrarModalHabilitarEntidadesJuridicas();
+        }
+    });
+}
+
 /*Editar entidad jurídica*/
 function mostrarModalEditarEntidadesJuridicas() {
     var ruta   = "/editarEntidadesJuridicas";

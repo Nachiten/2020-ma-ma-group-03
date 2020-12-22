@@ -333,6 +333,30 @@ public class AccionesEntidadJuridicaController {
         return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, this::modalAndViewMostrarListaEntidadesJuridicasInhabilitadas);
     }
 
+    private ModelAndView modalAndViewMostrarModalConfirmarHabilitarEntidadJuridica(Request request) {
+        String idEntidadJuridica = request.params("id");
+        modalAndViewController.getParametros().put("idEntidadJuridica", idEntidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","¿Estas seguro de habilitar a esta entidad jurídica?");
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativoConfirmarHabilitarEntidadJuridica.hbs");
+    }
+
+    public ModelAndView mostrarModalParaConfirmarHabilitarEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmarHabilitarEntidadJuridica(request));
+    }
+
+    private ModelAndView modalAndViewMostrarModalConfirmacionHabilitarEntidadJuridica(Request request) {
+        int idEntidadJuridica = Integer.parseInt(request.params("id"));
+        EntidadJuridica entidadJuridica = repoEntidadJuridica.buscar(idEntidadJuridica);
+        entidadJuridica.cambiarAHabilitado();
+        repoEntidadJuridica.modificar(entidadJuridica);
+        modalAndViewController.getParametros().put("mensaje","Se habilitó correctamente a la entidad jurídica "+entidadJuridica.getNombreEntidadJuridica());
+        return new ModelAndView(modalAndViewController.getParametros(), "modalInformativo2.hbs");
+    }
+
+    public ModelAndView mostrarModalConfirmacionHabilitarEntidadJuridica(Request request, Response response) {
+        return modalAndViewController.siElUsuarioEstaLogueadoRealiza(request, () -> modalAndViewMostrarModalConfirmacionHabilitarEntidadJuridica(request));
+    }
+
     ///////////////
     private ModelAndView modalAndViewMostrarListaEntidadesJuridicasAEditar() {
         List<EntidadJuridica> listaEntidadesJuridicas = repoEntidadJuridica.buscarTodos();
