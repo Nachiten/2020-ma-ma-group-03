@@ -170,6 +170,16 @@ public class Router {
         Spark.get("/habilitarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalHabilitarEntidadesjuridicas, Router.engine);
 
         Spark.get("/editarEntidadesJuridicas", accionesEntidadJuridicaController::mostrarModalEditarEntidadesJuridicas, Router.engine);
+        Spark.post("/confirmarListarEmpresas/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarListarEmpresas, Router.engine);
+        Spark.post("/listadoEmpresas/:id", accionesEntidadJuridicaController::mostrarModalListadoEmpresas, Router.engine);
+        Spark.post("/confirmarListarOrgSoc/:id",accionesEntidadJuridicaController::mostrarModalParaConfirmarListarOrgSoc, Router.engine);
+        Spark.post("/listadoOrgSoc/:id", accionesEntidadJuridicaController::mostrarModalListadoOrgSoc, Router.engine);
+        Spark.post("/confirmarListarEntidadesBase/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarListarEntidadesBase, Router.engine);
+        Spark.post("/listadoEntidadesBase/:id", accionesEntidadJuridicaController::mostrarModalListadoEntidadesBase, Router.engine);
+
+        Spark.post("/confirmarBajaEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalParaConfirmarBajaEntidaduridica, Router.engine);
+        Spark.delete("/confirmacionBajaEntidadJuridica/:id", accionesEntidadJuridicaController::mostrarModalConfirmacionBajaEntidadJuridica, Router.engine);
+
 
         //Acciones criterios
         Spark.post("/accionesCriterios", criteriosController::guardarCriterio, Router.engine);

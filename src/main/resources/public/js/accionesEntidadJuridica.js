@@ -193,35 +193,112 @@ function mostrarModalEditarEntidadesJuridicas() {
     });
 }
 
-function mostrarModalGuardadoAltaEntidadJuridica() {
-    var datos  = recuperarDatosFormularioAltaNuevaEntidadJuridica();
-    var ruta   = "/altaEntidadJuridica";
+function mostrarModalParaConfirmarListarEmpresas(id) {
+    var ruta   = "/confirmarListarEmpresas/"+id;
     var metodo = "POST";
     $.ajax({
         type     : metodo,
         url      : ruta,
         datatype : "html",
-        data     : datos,
         success  : function (result) {
-            showInModal("modal", result);
+            showInModal("modal2", result);
         }
     });
 }
 
-function recuperarDatosFormularioAltaNuevaEntidadJuridica3(){
-    return {
-        nombre                      : valorDe("altaEntidadJuridica-nombre"),
-        nombreFicticio              : valorDe("altaEntidadJuridica-nombreFicticio"),
-        codigoInscripcionDefinitiva : valorDe("altaEntidadJuridica-codigo"),
-        cuit                        : valorDe("altaEntidadJuridica-cuit"),
-        razonSocial                 : valorDe("altaEntidadJuridica-razonSocial"),
-        calle                       : valorDe("alta-calle"),
-        altura                      : valorDe("alta-altura"),
-        piso                        : valorDe("alta-piso")
-        // TODO | Falta pais ciudad provincia
-    };
+function mostrarModalListaEmpresas(id) {
+    var ruta   = "/listadoEmpresas/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal3", result);
+        }
+    });
 }
 
+function mostrarModalParaConfirmarListarOrgSoc(id) {
+    var ruta   = "/confirmarListarOrgSoc/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
+function mostrarModalListaOrgSoc(id) {
+    var ruta   = "/listadoOrgSoc/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal3", result);
+        }
+    });
+}
+
+function mostrarModalParaConfirmarListarEntidadesBase(id) {
+    var ruta   = "/confirmarListarEntidadesBase/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
+function mostrarModalListaEntidadesBase(id) {
+    var ruta   = "/listadoEntidadesBase/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal3", result);
+        }
+    });
+}
+
+function darDeBajaEntidadJuridica(id){
+    var ruta   = "/confirmarBajaEntidadJuridica/"+id;
+    var metodo = "POST";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal2", result);
+        }
+    });
+}
+
+function mostrarModalConfirmacionBajaEntidadJuridica(id){
+    var ruta   = "/confirmacionBajaEntidadJuridica/"+id;
+    var metodo = "DELETE";
+    $.ajax({
+        type     : metodo,
+        url      : ruta,
+        datatype : "html",
+        success  : function (result) {
+            showInModal("modal3", result);
+            mostrarModalEditarEntidadesJuridicas();
+        }
+    });
+}
+
+////////////////////////
 $('#altaEmpresa-pais').change(function(){
     $('#altaEmpresa-provincia').removeAttr('disabled');
     filterSelectOptions($("#altaEmpresa-provincia"), "data-attribute", $(this).val());

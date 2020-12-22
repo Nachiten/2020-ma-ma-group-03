@@ -151,7 +151,7 @@ public class Entidad extends EntidadPersistente {
         return razonSocialEntidad;
     }
 
-    public boolean estoyHabilitado() {
+    public boolean getEstoyHabilitado() {
         return estoyHabilitado;
     }
 
