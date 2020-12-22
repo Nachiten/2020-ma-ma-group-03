@@ -63,7 +63,7 @@ public class PerfilUsuarioEstandarController {
         Entidad entidad = usuarioLogueado.getEntidad();
 
         //todo arreglar entidad juridica
-        //modalAndViewController.getParametros().put("nombre", entidad.getNombreEntidadJuridica());
+        modalAndViewController.getParametros().put("nombreEntidadJuridica", entidad.getEntidadJuridicaAsociada().getNombreEntidadJuridica());
         modalAndViewController.getParametros().put("nombreFicticio", entidad.getNombreFicticioEntidad());
         modalAndViewController.getParametros().put("razonSocial", entidad.getRazonSocialEntidad());
         modalAndViewController.getParametros().put("cuit", entidad.getCuitEntidad());

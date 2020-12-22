@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "entidadJuridica")
 public class EntidadJuridica extends EntidadPersistente {
 
-    @Column(unique = true, name = "nombre")
+    @Column(unique = true, name = "nombreEntidadJuridica")
     private String nombreEntidadJuridica;
 
     @OneToMany(mappedBy = "entidadJuridicaAsociada", cascade = {CascadeType.ALL})

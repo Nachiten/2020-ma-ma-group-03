@@ -11,8 +11,6 @@ function cambiarHabilitacionInputContrasenia() {
 
     var objetoBotonCambiarContra = document.getElementById("botonCambiarContrasenia");
 
-    // a
-
     if (cambioContrasenia.checked){
         objetoBotonCambiarContra.removeAttribute('disabled');
     }else {

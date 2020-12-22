@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name = "entidades")
 public class Entidad extends EntidadPersistente {
 
-
     @Column(name = "nombreFicticio")
     private String nombreFicticioEntidad;
 
