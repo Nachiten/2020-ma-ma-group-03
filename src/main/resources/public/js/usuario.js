@@ -1,6 +1,6 @@
 function cerrarSesion() {
-    var ruta = "/";
-    var metodo = "POST";
+    const ruta = "/";
+    const metodo = "POST";
     $.ajax({
         type	: metodo,
         url 	: ruta,
@@ -12,8 +12,8 @@ function cerrarSesion() {
 }
 
 function verificarSesion() {
-    var ruta = '/';
-    var metodo = 'POST';
+    const ruta = '/';
+    const metodo = 'POST';
     $.ajax({
         type : metodo,
         url : ruta,

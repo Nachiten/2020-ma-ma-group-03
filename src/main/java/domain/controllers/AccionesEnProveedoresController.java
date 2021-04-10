@@ -2,29 +2,26 @@ package domain.controllers;
 
 import domain.entities.apiMercadoLibre.*;
 import domain.entities.vendedor.Proveedor;
-import domain.repositories.RepoProveedores;
 import domain.repositories.Repositorio;
 import domain.repositories.factories.FactoryRepositorio;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AccionesEnProveedoresController {
-    private Repositorio<Proveedor> repoProveedor;
-    private Repositorio<Pais> respoPaises;
-    private Repositorio<Estado> repoProvincias;
-    private Repositorio<Ciudad> repoCiudades;
-    private ModalAndViewController modalAndViewController;
-    private OperadorController operadorController;
+    private final Repositorio<Proveedor> repoProveedor;
+    private final Repositorio<Pais> respoPaises;
+    private final Repositorio<Estado> repoProvincias;
+    private final Repositorio<Ciudad> repoCiudades;
+    private final ModalAndViewController modalAndViewController;
+    private final OperadorController operadorController;
 
 
     public AccionesEnProveedoresController(ModalAndViewController modalAndViewController, OperadorController operadorController) {
-
         this.repoProveedor = FactoryRepositorio.get(Proveedor.class);
         this.modalAndViewController = modalAndViewController;
         this.operadorController = operadorController;
